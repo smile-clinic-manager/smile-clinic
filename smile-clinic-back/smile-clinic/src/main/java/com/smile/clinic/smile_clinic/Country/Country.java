@@ -18,4 +18,7 @@ public class Country {
 
     @NotNull
     String name;
+
+    @NotNull
+    boolean isAfricanCountry;
 }
