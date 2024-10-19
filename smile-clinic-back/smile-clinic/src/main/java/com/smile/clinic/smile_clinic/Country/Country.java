@@ -12,13 +12,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Country {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    int id;
+//
+//    @NotNull
+//    String name;
 
-    @NotNull
-    String name;
-
-    @NotNull
-    boolean isAfricanCountry;
 }
