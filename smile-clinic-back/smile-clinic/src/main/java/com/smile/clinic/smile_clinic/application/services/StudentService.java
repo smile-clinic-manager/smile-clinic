@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentService implements StudentServicePort {
 
-    StudentPersistancePort studentPersistancePort;
+    private final StudentPersistancePort studentPersistancePort;
 
     @Override
     public Student findById(Long id) throws StudentNotFoundException {
