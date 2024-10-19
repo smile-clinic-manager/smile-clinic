@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 @Table(name = "students")
 public class StudentEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
+    @SequenceGenerator(name = "student_seq", sequenceName = "students_seq", allocationSize = 1)
     private Long id;
 
     @NotBlank

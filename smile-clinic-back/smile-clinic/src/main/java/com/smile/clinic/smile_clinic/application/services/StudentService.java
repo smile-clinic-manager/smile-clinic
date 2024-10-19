@@ -39,10 +39,6 @@ public class StudentService implements StudentServicePort {
 
     @Override
     public Student save(Student student) throws ExistingStudentException {
-        boolean alreadyExists = this.studentPersistancePort.findById(student.getId()).isPresent();
-        if(alreadyExists){
-            throw new ExistingStudentException();
-        }
         return this.studentPersistancePort.save(student);
     }
 
