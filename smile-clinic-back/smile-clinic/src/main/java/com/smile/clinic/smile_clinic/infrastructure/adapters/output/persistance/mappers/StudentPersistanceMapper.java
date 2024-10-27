@@ -1,10 +1,8 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers;
 
 import com.smile.clinic.smile_clinic.domain.models.Student;
-import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.StudentPersistanceAdapter;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.StudentEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 
