@@ -19,8 +19,13 @@ spring:
     defer-datasource-initialization: true
 logging:
   level:
-    org.hibernate.SQL: debug
+    org:
+      hibernate.SQL: debug
+      springframework:
+        security: DEBUG
 security:
   jwt:
     expiration-minutes: 30
     secret-key: N3VZbDMwa0V3Z2RIQ1lpM0xoWlR0dEF3SmV6dDZvYkM=
+
+

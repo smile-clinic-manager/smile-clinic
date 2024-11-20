@@ -1,4 +1,4 @@
-package com.smile.clinic.smile_clinic.infrastructure.adapters.config.security;
+package com.smile.clinic.smile_clinic.utils;
 
 import com.smile.clinic.smile_clinic.application.ports.output.TokenProviderPort;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
@@ -30,14 +30,14 @@ public class JwtAdapter implements TokenProviderPort {
 
         SecretKey secretKey = generateKey();
 
-        return Jwts.builder()
+        String token = Jwts.builder()
             .subject(user.getUsername())
             .issuedAt(issuedAt)
             .expiration(expiration)
             .claims(generateExtraClaims(user))
             .signWith(secretKey)
             .compact();
-
+        return token;
     }
 
     private Map<String,Object> generateExtraClaims(User user) {

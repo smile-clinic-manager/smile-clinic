@@ -29,6 +29,7 @@ public class HttpSecurityConfig {
             .authenticationProvider(authenticationProvider)
             .authorizeHttpRequests(authRequestConfig -> {
                 authRequestConfig.requestMatchers(HttpMethod.POST, "/users/register").permitAll();
+                authRequestConfig.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
                 authRequestConfig.requestMatchers("/h2-console/**").permitAll();
 
                 // Other routes not defined above require the user to be authenticated

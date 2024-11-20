@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +27,10 @@ public class UserController {
     private final UserRestMapper userRestMapper;
 
     @PostMapping("/register")
-    public ResponseEntity<RegisteredUserDTO> registerUser(@RequestBody @Valid SaveUserDTO saveUserDTO) {
+    public ResponseEntity<RegisteredUserDTO> registerUser(@RequestBody @Valid SaveUserDTO saveUserDTO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            String msg = bindingResult.getFieldError().getDefaultMessage();
+        }
 
         // User has no password, so we pass it along as separate variable
         Map<User, String> map = this.userServicePort.register(this.userRestMapper.toUser(saveUserDTO), saveUserDTO.getPassword());
