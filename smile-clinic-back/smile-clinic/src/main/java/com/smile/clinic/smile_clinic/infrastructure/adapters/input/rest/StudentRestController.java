@@ -20,7 +20,7 @@ public class StudentRestController {
     private final StudentServicePort studentServicePort;
     private final StudentRestMapper studentRestMapper;
 
-    @GetMapping("findAll")
+    @GetMapping("/findAll")
     public ResponseEntity<List<StudentDTO>> findAll(){
         List<StudentDTO> studentsDTO = studentRestMapper.toStudentDTOList(studentServicePort.findAll());
 
