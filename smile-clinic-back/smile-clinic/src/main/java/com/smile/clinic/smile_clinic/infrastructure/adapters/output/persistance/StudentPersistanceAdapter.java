@@ -3,7 +3,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 import com.smile.clinic.smile_clinic.application.ports.output.StudentPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.Student;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.StudentPersistanceMapper;
-import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.StudentRepository;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.StudentEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class StudentPersistanceAdapter implements StudentPersistancePort {
 
-    private final StudentRepository studentRepository;
+    private final StudentEntityRepository studentRepository;
     private final StudentPersistanceMapper mapper;
 
     @Override
