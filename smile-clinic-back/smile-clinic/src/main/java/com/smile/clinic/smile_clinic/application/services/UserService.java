@@ -10,9 +10,7 @@ import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -29,7 +27,11 @@ public class UserService implements UserServicePort {
 
     @Override
     public User findByUsername(String username) {
-        return null;
+        Optional<User> user = userPersistancePort.findUserByUsername(username);
+        if (user.isEmpty()) {
+            throw new NoSuchElementException("No user found with username " + username);
+        }
+        return user.get();
     }
 
     @Override
@@ -55,7 +57,7 @@ public class UserService implements UserServicePort {
                 .lastName2(user.getLastName2())
                 .dni(user.getDni())
                 .email(user.getEmail())
-                .role(Role.ROLE_CLINIC_ADMIN) // Temporary until we implement the roles logic
+                .role(Role.CLINIC_ADMIN) // Temporary until we implement the roles logic
                 .build();
 
         User savedUser = userPersistancePort.save(userToRegister, encodedPassword);

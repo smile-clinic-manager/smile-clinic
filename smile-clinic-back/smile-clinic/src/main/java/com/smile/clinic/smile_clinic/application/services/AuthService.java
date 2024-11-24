@@ -8,6 +8,7 @@ import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePor
 import com.smile.clinic.smile_clinic.domain.models.auth.AuthenticationRequest;
 import com.smile.clinic.smile_clinic.domain.models.auth.AuthenticationResponse;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -38,7 +39,7 @@ public class AuthService implements AuthServicePort {
 
     public Boolean validateToken(String token){
         try{
-            this.tokenProviderPort.getAllTokenClaims(token); //If we can extract the data it is a valid token
+            Claims claims = this.tokenProviderPort.getAllTokenClaims(token); //If we can extract the data it is a valid token
             return true;
         } catch (Exception e){
             log.info(e.getMessage());

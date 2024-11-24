@@ -11,12 +11,11 @@ import org.mapstruct.control.MappingControl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/users")
@@ -29,7 +28,7 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<RegisteredUserDTO> registerUser(@RequestBody @Valid SaveUserDTO saveUserDTO, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
-            String msg = bindingResult.getFieldError().getDefaultMessage();
+            String msg = Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage();
         }
 
         // User has no password, so we pass it along as separate variable
@@ -44,5 +43,10 @@ public class UserController {
         registeredUserDTO.setJwtToken(jwtToken);
 
         return new ResponseEntity<>(registeredUserDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<Principal> getProfile(Principal principal){
+        return new ResponseEntity<>(principal, HttpStatus.OK);
     }
 }

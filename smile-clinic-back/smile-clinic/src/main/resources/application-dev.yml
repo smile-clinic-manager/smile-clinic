@@ -23,6 +23,14 @@ logging:
       hibernate.SQL: debug
       springframework:
         security: DEBUG
+    com:
+      smile:
+        clinic:
+          smile_clinic:
+            infrastructure:
+              adapters:
+                config:
+                  security: DEBUG  # Enables debug logs for your security configuration and filter
 security:
   jwt:
     expiration-minutes: 30
