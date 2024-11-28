@@ -9,14 +9,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "countries")
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class Country {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    int id;
-//
-//    @NotNull
-//    String name;
+   @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    int id;
+
+    @NotNull
+    String name;
 
 }
