@@ -35,7 +35,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
         // 1. Obtener encabezado llamado Authorization
-        String jwt = request.getHeader("Authorization");
+        String jwt = request.getHeader("Authorization"); //Incluir esta cabecera en todas las peticiones HTTP
 
         if (!StringUtils.hasText(jwt)) {
             filterChain.doFilter(request, response);

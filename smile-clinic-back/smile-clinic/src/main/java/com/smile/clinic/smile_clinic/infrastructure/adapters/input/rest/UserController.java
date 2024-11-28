@@ -7,7 +7,9 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.u
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SaveUserDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.control.MappingControl;
+import org.slf4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -17,6 +19,7 @@ import java.security.Principal;
 import java.util.Map;
 import java.util.Objects;
 
+@Slf4j
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -46,7 +49,9 @@ public class UserController {
     }
 
     @GetMapping("/profile")
-    public ResponseEntity<Principal> getProfile(Principal principal){
-        return new ResponseEntity<>(principal, HttpStatus.OK);
+    public ResponseEntity<RegisteredUserDTO> getProfile(Principal principal){
+        log.info("Principal " + principal.toString());
+        RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(this.userServicePort.findByUsername(principal.getName()));
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 }

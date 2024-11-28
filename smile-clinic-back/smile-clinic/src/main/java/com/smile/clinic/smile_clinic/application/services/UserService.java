@@ -8,10 +8,14 @@ import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsExce
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserServicePort {
