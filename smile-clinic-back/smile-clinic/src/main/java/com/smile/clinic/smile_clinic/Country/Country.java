@@ -14,6 +14,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
+   //Prueba commit -sonarqube
     @NotNull
     String name;
 
