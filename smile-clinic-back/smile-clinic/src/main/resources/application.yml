@@ -12,8 +12,15 @@ spring:
     password: password
     driver-class-name: org.h2.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: create
       database-platform: org.hibernate.dialect.H2Dialect
-    show-sql: true
     defer-datasource-initialization: true
+logging:
+  level:
+    org.hibernate.SQL: debug
+security:
+  jwt:
+    expiration-minutes: 30
+    secret-key: N3VZbDMwa0V3Z2RIQ1lpM0xoWlR0dEF3SmV6dDZvYkM=
