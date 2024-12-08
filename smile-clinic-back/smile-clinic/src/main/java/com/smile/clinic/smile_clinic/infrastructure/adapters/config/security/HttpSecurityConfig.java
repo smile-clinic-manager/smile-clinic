@@ -19,6 +19,11 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -39,15 +44,30 @@ public class HttpSecurityConfig {
             .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authRequestConfig -> {
-                authRequestConfig.requestMatchers(HttpMethod.POST, "/users/register").permitAll();
-                authRequestConfig.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
-                authRequestConfig.requestMatchers("/h2-console/**").permitAll();
-                authRequestConfig.requestMatchers(HttpMethod.GET,"/users/profile").hasAnyRole(Role.CLINIC_ADMIN.name()); //Autorización por roles
-
-                // Other routes not defined above require the user to be authenticated
-                authRequestConfig.anyRequest().authenticated();
+                    authRequestConfig.requestMatchers(HttpMethod.POST, "/users/register").permitAll();
+                    authRequestConfig.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
+                    authRequestConfig.requestMatchers("/h2-console/**").permitAll();
+                    authRequestConfig.requestMatchers(HttpMethod.GET,"/users/profile").hasAnyRole(Role.CLINIC_ADMIN.name()); //Autorización por roles
+                    // Other routes not defined above require the user to be authenticated
+                    authRequestConfig.anyRequest().authenticated();
             })
             .build();
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+        // Customize your CORS policy
+        config.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+        config.setExposedHeaders(Arrays.asList("Authorization"));
+        config.setAllowCredentials(true); // Allow cookies or authorization headers
+
+        source.registerCorsConfiguration("/**", config); // Apply policy to all endpoints
+        return new CorsFilter(source);
     }
 
 }

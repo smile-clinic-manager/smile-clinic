@@ -5,8 +5,6 @@ import com.smile.clinic.smile_clinic.domain.models.users.User;
 import java.util.List;
 import java.util.Map;
 
-//this is a comment :D
-
 public interface UserServicePort {
 
     User findById(Long id);
