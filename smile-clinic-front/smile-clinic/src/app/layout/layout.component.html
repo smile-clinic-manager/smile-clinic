@@ -1,0 +1,10 @@
+<section>
+    <button (click)="toggleLogin()"> {{isLoggedIn ? 'Logout' : 'Login'}} </button>
+
+    @if(isLoggedIn){
+        <p> Estás loggeado! </p>
+        <img alt="profile pic" src="https://github.com/juanlo017.png">
+    } @else {
+        <p> Logeáte pelotudo!</p>
+    }
+</section>
