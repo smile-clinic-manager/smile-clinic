@@ -8,7 +8,6 @@ export class ApiEndpointHelperService {
   private static API_ENDPOINT_URL: string = 'http://localhost:8080';
 
   public createUrl(action: string): string {
-    console.log(`${ApiEndpointHelperService.API_ENDPOINT_URL}/${action}`);
     return `${ApiEndpointHelperService.API_ENDPOINT_URL}/${action}`;
   }
 
@@ -21,8 +20,7 @@ export class ApiEndpointHelperService {
     // Unimos los parametros tal que: 'id=1&nombre=Pablo&ciudad=Sevilla'
     const stringParams: string = paramArr.join("&");
 
-    console.log(`${ApiEndpointHelperService.API_ENDPOINT_URL}/${action}?${stringParams}`);
-    return `${ApiEndpointHelperService.API_ENDPOINT_URL}/${action}?${stringParams}`;
+    return `${ApiEndpointHelperService.API_ENDPOINT_URL}${action}?${stringParams}`;
   }
   
 }

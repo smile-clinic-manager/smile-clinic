@@ -50,7 +50,7 @@ public class HttpSecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authRequestConfig -> {
                     authRequestConfig.requestMatchers(HttpMethod.POST, "/users/register").permitAll();
-                    authRequestConfig.requestMatchers(HttpMethod.POST, "/auth/**").permitAll();
+                    authRequestConfig.requestMatchers("/auth/**").permitAll();
                     authRequestConfig.requestMatchers("/h2-console/**").permitAll();
                     authRequestConfig.requestMatchers(HttpMethod.GET,"/users/profile").hasAnyRole(Role.CLINIC_ADMIN.name()); //Autorización por roles
                     // Other routes not defined above require the user to be authenticated

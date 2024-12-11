@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    private Long id;
     private String firstName;
     private String lastName1;
     private String lastName2;
