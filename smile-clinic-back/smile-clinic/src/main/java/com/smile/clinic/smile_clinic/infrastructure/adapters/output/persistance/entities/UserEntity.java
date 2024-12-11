@@ -39,17 +39,17 @@ public class UserEntity implements UserDetails {
 
     @NotBlank
     @Column(unique = true)
-    @Length(min = 5, max = 25)
-    private String username;
-
-    @NotBlank
-    @Column(unique = true)
     @Pattern(regexp = "^\\d{8}[A-Z]$")
     private String dni;
 
     @Email
     @Column(unique = true)
     private String email;
+
+    @NotBlank
+    @Column(unique = true)
+    @Length(min = 5, max = 25)
+    private String username;
 
     @NotBlank
     private String password;

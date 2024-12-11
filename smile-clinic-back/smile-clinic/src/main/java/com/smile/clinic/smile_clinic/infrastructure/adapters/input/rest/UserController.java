@@ -23,6 +23,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private final UserServicePort userServicePort;
