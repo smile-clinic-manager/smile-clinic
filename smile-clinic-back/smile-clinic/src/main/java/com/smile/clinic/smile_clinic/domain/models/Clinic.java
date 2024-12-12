@@ -1,6 +1,9 @@
 package com.smile.clinic.smile_clinic.domain.models;
 
+import com.smile.clinic.smile_clinic.domain.models.users.User;
 import lombok.*;
+
+import java.util.List;
 
 @Builder
 @Getter
@@ -17,4 +20,9 @@ public class Clinic {
     private String website;
     private String description;
     private String image;
+
+    // Relations
+    private User owner; //User owner of the clinic
+    private List<User> employees; // Employees of the clinic (including the owner)
+
 }

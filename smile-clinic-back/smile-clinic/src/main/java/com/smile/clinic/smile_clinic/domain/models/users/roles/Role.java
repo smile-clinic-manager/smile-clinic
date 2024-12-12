@@ -16,6 +16,13 @@ public enum Role {
     CLINIC_DENTIST(Arrays.asList(
             Permission.CREATE_PATIENT, Permission.CREATE_APPOINTMENT, Permission.UPDATE_PATIENT, Permission.DELETE_APPOINTMENT,
             Permission.GET_PATIENTS
+    )),
+    CLINIC_RECEPTIONIST(Arrays.asList(
+            Permission.CREATE_APPOINTMENT, Permission.DELETE_APPOINTMENT, Permission.GET_PATIENTS
+    )),
+    CLINIC_OWNER(Arrays.asList(
+            Permission.CREATE_PATIENT, Permission.CREATE_APPOINTMENT, Permission.UPDATE_PATIENT, Permission.DELETE_APPOINTMENT,
+            Permission.GET_PATIENTS
     ));
 
     private List<Permission> permissions;
