@@ -20,7 +20,7 @@ public class AuthenticationController {
     private final AuthService authService;
     private final AuthRestMapper authRestMapper;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponseDTO> login(@Valid @RequestBody AuthenticationRequestDTO authenticationRequestDTO,
                                                            BindingResult bindingResult) throws Exception {
         if(bindingResult.hasErrors()){

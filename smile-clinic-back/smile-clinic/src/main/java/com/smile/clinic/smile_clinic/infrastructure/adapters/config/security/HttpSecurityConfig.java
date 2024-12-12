@@ -19,6 +19,15 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -33,21 +42,36 @@ public class HttpSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 
         return httpSecurity
+                .cors(Customizer.withDefaults())
             .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)) //Allow h2-console to be rendered
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement( sessionManagerConfig -> sessionManagerConfig.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authRequestConfig -> {
-                authRequestConfig.requestMatchers(HttpMethod.POST, "/users/register").permitAll();
-                authRequestConfig.requestMatchers(HttpMethod.GET, "/auth/**").permitAll();
-                authRequestConfig.requestMatchers("/h2-console/**").permitAll();
-                authRequestConfig.requestMatchers(HttpMethod.GET,"/users/profile").hasAnyRole(Role.CLINIC_ADMIN.name()); //Autorización por roles
-
-                // Other routes not defined above require the user to be authenticated
-                authRequestConfig.anyRequest().authenticated();
+                    authRequestConfig.requestMatchers(HttpMethod.POST, "/users/register").permitAll();
+                    authRequestConfig.requestMatchers("/auth/**").permitAll();
+                    authRequestConfig.requestMatchers("/h2-console/**").permitAll();
+                    authRequestConfig.requestMatchers(HttpMethod.GET,"/users/profile").hasAnyRole(Role.CLINIC_ADMIN.name()); //Autorización por roles
+                    // Other routes not defined above require the user to be authenticated
+                    authRequestConfig.anyRequest().authenticated();
             })
             .build();
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(CorsRegistry registry) {
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:4200")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                        .allowedHeaders("*")
+                        .allowCredentials(true);
+                System.out.println("CORS configuration applied");
+            }
+        };
     }
 
 }
