@@ -11,5 +11,5 @@ public interface ClinicEntityRepository extends JpaRepository<ClinicEntity, Long
 
     List<Clinic> findByOwnerId(int ownerId);
 
-    <T> Optional<T> findByAddress(String address);
+    Optional<Clinic> findByAddress(String address);
 }
