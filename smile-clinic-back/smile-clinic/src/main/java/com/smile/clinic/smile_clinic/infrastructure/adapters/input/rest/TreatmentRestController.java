@@ -28,34 +28,15 @@ public class TreatmentRestController {
         return new ResponseEntity<>(treatmentsDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findTreatmentByIdentifier")
-    public ResponseEntity<TreatmentDTO> findTreatmentByIdentifier(@RequestParam("identifier") String identifier){
-        TreatmentDTO treatmentDTO = treatmentRestMapper.toTreatmentDTO(treatmentServicePort.findByIdentifier(identifier));
+    @GetMapping("/findTreatment")
+    public ResponseEntity<TreatmentDTO> findTreatmentByIdentifier(@RequestParam("identifier") Long id){
+        TreatmentDTO treatmentDTO = treatmentRestMapper.toTreatmentDTO(treatmentServicePort.findById(id));
         return new ResponseEntity<>(treatmentDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findTreatmentByName")
-    public ResponseEntity<List<TreatmentDTO>> findTreatmentByName(@RequestParam("name") String name){
-        List<TreatmentDTO> treatmentsDTO = treatmentRestMapper.toTreatmentDTOList(treatmentServicePort.findIfNameContains(name));
-        return new ResponseEntity<>(treatmentsDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/findTreatmentByPriceBetween")
-    public ResponseEntity<List<TreatmentDTO>> findTreatmentByPriceBetween(@RequestParam("minPrice") Double minPrice,
-                                                                         @RequestParam("maxPrice") Double maxPrice){
-        List<TreatmentDTO> treatmentsDTO = treatmentRestMapper.toTreatmentDTOList(treatmentServicePort.findByPriceBetween(minPrice, maxPrice));
-        return new ResponseEntity<>(treatmentsDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/findTreatmentIfDescriptionContains")
-    public ResponseEntity<List<TreatmentDTO>> findTreatmentIfDescriptionContains(@RequestParam("substring") String substring){
-        List<TreatmentDTO> treatmentsDTO = treatmentRestMapper.toTreatmentDTOList(treatmentServicePort.findIfDescriptionContains(substring));
-        return new ResponseEntity<>(treatmentsDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/deleteTreatmentByIdentifier")
-    public ResponseEntity<Void> deleteTreatmentByIdentifier(@RequestParam("identifier") String identifier){
-        final Treatment treatment = treatmentServicePort.findByIdentifier(identifier);
+    @GetMapping("/deleteTreatment")
+    public ResponseEntity<Void> deleteTreatmentByIdentifier(@RequestParam("identifier") Long id){
+        Treatment treatment = treatmentServicePort.findById(id);
         treatmentServicePort.delete(treatment);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

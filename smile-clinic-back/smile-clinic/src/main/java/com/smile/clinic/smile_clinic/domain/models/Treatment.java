@@ -10,9 +10,7 @@ import java.time.Duration;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Treatment {
-    private String identifier;
+    private Long id;
     private String name;
-    private Double price;
-    private Duration duration;
-    private String notes;
+    //private Double price; **COMMENTED UNTIL WE KNOW HOW BILLING SHOULD BE HANDLED IF ANY
 }

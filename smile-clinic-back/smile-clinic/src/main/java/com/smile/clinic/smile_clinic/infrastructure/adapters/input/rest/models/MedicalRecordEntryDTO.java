@@ -10,16 +10,10 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecordDTO {
-
-    @NotBlank(message = "Field patientId cannot be empty, blank or null")
-    private int patientId;
+public class MedicalRecordEntryDTO {
 
     @NotBlank(message = "Field userId cannot be empty, blank or null")
     private int userId;
-
-    @NotNull(message = "Field treatmentIdentifier cannot be null")
-    private String treatmentIdentifier;
 
     @NotBlank(message = "Field dateTime cannot be empty, blank or null")
     @Pattern(regexp = "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$", message = "Field dateTime must have the format yyyy-MM-dd HH:mm")

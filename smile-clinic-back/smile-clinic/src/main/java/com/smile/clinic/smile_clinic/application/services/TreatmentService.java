@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,29 +17,17 @@ public class TreatmentService implements TreatmentServicePort {
     private final TreatmentPersistancePort treatmentPersistancePort;
 
     @Override
+    public Treatment findById(Long id) {
+        Optional<Treatment> treatment = treatmentPersistancePort.findById(id);
+        if(treatment.isEmpty()){
+            throw new NoSuchElementException("No treatment found with id " + id);
+        }
+        return treatment.get();
+    }
+
+    @Override
     public List<Treatment> findAll() {
         return treatmentPersistancePort.findAll();
-    }
-
-    @Override
-    public Treatment findByIdentifier(String identifier) {
-        return treatmentPersistancePort.findByIdentifier(identifier)
-                .orElseThrow(()-> new RuntimeException("Treatment with identifier "+identifier+" not found"));
-    }
-
-    @Override
-    public List<Treatment> findIfNameContains(String substring) {
-        return treatmentPersistancePort.findIfNameContains(substring);
-    }
-
-    @Override
-    public List<Treatment> findByPriceBetween(Double minPrice, Double maxPrice) {
-        return treatmentPersistancePort.findByPriceBetween(minPrice, maxPrice);
-    }
-
-    @Override
-    public List<Treatment> findIfDescriptionContains(String substring) {
-        return treatmentPersistancePort.findIfDescriptionContains(substring);
     }
 
     @Override
@@ -46,8 +36,8 @@ public class TreatmentService implements TreatmentServicePort {
     }
 
     @Override
-    public Treatment update(String identifier, Treatment treatment) {
-        return treatmentPersistancePort.update(identifier, treatment);
+    public Treatment update(Long id, Treatment treatment) {
+        return treatmentPersistancePort.update(id, treatment);
     }
 
     @Override

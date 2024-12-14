@@ -60,11 +60,11 @@ public class UserEntity implements UserDetails {
 
     // Relación con clínicas (dueño)
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Clinic> ownedClinics;
+    private List<ClinicEntity> ownedClinics;
 
     // Relación con clínicas (empleado)
     @ManyToMany(mappedBy = "employees")
-    private List<Clinic> clinics;
+    private List<ClinicEntity> clinics;
 
 
     // UserDetails methods (security & authentication methods)

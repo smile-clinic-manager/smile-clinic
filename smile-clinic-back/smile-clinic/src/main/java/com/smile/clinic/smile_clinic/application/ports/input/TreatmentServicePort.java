@@ -6,16 +6,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TreatmentServicePort {
-
+    Treatment findById(Long id);
     List<Treatment> findAll();
-
-    Treatment findByIdentifier(String identifier);
-    List<Treatment> findIfNameContains(String substring);
-    List<Treatment> findByPriceBetween(Double minPrice, Double maxPrice);
-    List<Treatment> findIfDescriptionContains(String substring);
-
     Treatment save(Treatment treatment);
-    Treatment update(String identifier, Treatment treatment);
-
+    Treatment update(Long id, Treatment treatment);
     void delete(Treatment treatment);
 }

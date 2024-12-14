@@ -49,7 +49,7 @@ public class UserService implements UserServicePort {
         if (userPersistancePort.findUserByUsername(user.getUsername()).isPresent()) {
             throw new UsernameAlreadyExistsException("Username is already taken.");
         }
-        // TODO: this.validatePassword(password);
+        // TODO: Validate password if necessary
 
         // Encode the password and create the User domain model
         String encodedPassword = passwordEncoderPort.encode(password);

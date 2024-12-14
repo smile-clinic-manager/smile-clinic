@@ -1,8 +1,8 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest;
 
-import com.smile.clinic.smile_clinic.application.ports.input.RecordServicePort;
-import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.RecordRestMapper;
-import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.RecordDTO;
+import com.smile.clinic.smile_clinic.application.ports.input.MedicalRecordEntryServicePort;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.MedicalRecordEntryRestMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalRecordEntryDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,43 +18,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecordRestController {
 
-    private final RecordServicePort recordServicePort;
-    private final RecordRestMapper recordRestMapper;
+    private final MedicalRecordEntryServicePort medicalRecordEntryServicePort;
+    private final MedicalRecordEntryRestMapper medicalRecordEntryRestMapper;
 
     @GetMapping("/findAll")
-    public ResponseEntity<List<RecordDTO>> findAll(){
-        List<RecordDTO> recordsDTO = recordRestMapper.toRecordDTOList(recordServicePort.findAll());
+    public ResponseEntity<List<MedicalRecordEntryDTO>> findAll(){
+        List<MedicalRecordEntryDTO> recordsDTO = medicalRecordEntryRestMapper.toMedicalRecordEntryDTOList(medicalRecordEntryServicePort.findAll());
         return new ResponseEntity<>(recordsDTO, HttpStatus.OK);
     }
 
     @GetMapping("/findRecordById")
-    public ResponseEntity<RecordDTO> findRecordById(@RequestParam("id") int id){
-        RecordDTO recordDTO = recordRestMapper.toRecordDTO(recordServicePort.findById((long) id));
-        return new ResponseEntity<>(recordDTO, HttpStatus.OK);
+    public ResponseEntity<MedicalRecordEntryDTO> findRecordById(@RequestParam("id") Long id){
+        MedicalRecordEntryDTO medicalRecordEntryDTO = medicalRecordEntryRestMapper.toMedicalRecordEntryDTO(medicalRecordEntryServicePort.findById((id)));
+        return new ResponseEntity<>(medicalRecordEntryDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findRecordByPatientId")
-    public ResponseEntity<List<RecordDTO>> findRecordByPatientId(@RequestParam("patientId") int patientId){
-        List<RecordDTO> recordsDTO = recordRestMapper.toRecordDTOList(recordServicePort.findByPatientId(patientId));
-        return new ResponseEntity<>(recordsDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/findRecordByUserId")
-    public ResponseEntity<List<RecordDTO>> findRecordByUserId(@RequestParam("userId") int userId){
-        List<RecordDTO> recordsDTO = recordRestMapper.toRecordDTOList(recordServicePort.findByUserId(userId));
-        return new ResponseEntity<>(recordsDTO, HttpStatus.OK);
-    }
-
-    @GetMapping("/findRecordByTreatmentIdentifier")
-    public ResponseEntity<List<RecordDTO>> findRecordByTreatmentIdentifier(@RequestParam("treatmentIdentifier") String treatmentIdentifier){
-        List<RecordDTO> recordsDTO = recordRestMapper.toRecordDTOList(recordServicePort.findByTreatmentIdentifier(treatmentIdentifier));
-        return new ResponseEntity<>(recordsDTO, HttpStatus.OK);
-    }
 
     @GetMapping("/deleteRecordById")
-    public ResponseEntity<Void> deleteRecordById(@RequestParam("id") int id){
-        final RecordDTO recordDTO = recordRestMapper.toRecordDTO(recordServicePort.findById((long) id));
-        recordServicePort.delete(recordRestMapper.toRecord(recordDTO));
+    public ResponseEntity<Void> deleteRecordById(@RequestParam("id") Long id){
+        final MedicalRecordEntryDTO medicalRecordEntryDTO = medicalRecordEntryRestMapper.toMedicalRecordEntryDTO(medicalRecordEntryServicePort.findById((id)));
+        medicalRecordEntryServicePort.delete(medicalRecordEntryRestMapper.toMedicalRecordEntry(medicalRecordEntryDTO));
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

@@ -9,9 +9,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TreatmentEntityRepository extends JpaRepository<TreatmentEntity, Long> {
 
-    Optional<Treatment> findByIdentifier(String identifier);
-
-    List<TreatmentEntity> findByNameContaining(String substring);
-    List<TreatmentEntity> findByPriceBetween(double minPrice, double maxPrice);
-    List<TreatmentEntity> findIfDescriptionContains(String substring);
 }

@@ -17,26 +17,27 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "records")
-public class RecordEntity {
+@Table(name = "medical_records")
+public class MedicalRecordEntryEntity {
 
         @Id
-        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record_seq")
-        @SequenceGenerator(name = "record_seq", sequenceName = "record_seq", allocationSize = 1)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medical_record_seq")
+        @SequenceGenerator(name = "medical_record_seq", sequenceName = "medical_record_seq", allocationSize = 1)
         private int id;
-
-        @NotBlank
-        private int patientId; //Patient patient ?
-
-        @NotBlank
-        private int userId;
-
-        @NotNull
-        private String treatmentIdentifier; //blank si no se hace nada
 
         @NotNull
         private LocalDateTime dateTime;
 
         @NotBlank
-        private String notes;
+        private String visitPurpose;
+
+        @NotBlank
+        private String observations;
+
+        @OneToOne
+        private UserEntity dentist;
+
+        @ManyToOne
+        private TreatmentEntity treatment;
+
 }
