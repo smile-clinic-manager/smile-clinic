@@ -1,12 +1,16 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,8 +25,6 @@ public class ClinicEntity {
     @SequenceGenerator(name = "clinic_seq", sequenceName = "clinic_seq", allocationSize = 1)
     private Long id;
 
-    private int ownerId;
-
     @NotBlank
     private String name;
 
@@ -32,6 +34,7 @@ public class ClinicEntity {
     @NotBlank
     private String phone;
 
+    @Email
     @NotBlank
     private String email;
 
@@ -40,4 +43,19 @@ public class ClinicEntity {
     private String description;
 
     private String image;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private UserEntity owner;
+
+    // Relación con empleados
+    @ManyToMany
+    @JoinTable(
+            name = "clinic_employees",
+            joinColumns = @JoinColumn(name = "clinic_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<UserEntity> employees;
+
+
 }

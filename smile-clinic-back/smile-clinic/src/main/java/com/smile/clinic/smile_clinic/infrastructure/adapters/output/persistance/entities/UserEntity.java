@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
+import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -56,6 +57,14 @@ public class UserEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    // Relación con clínicas (dueño)
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Clinic> ownedClinics;
+
+    // Relación con clínicas (empleado)
+    @ManyToMany(mappedBy = "employees")
+    private List<Clinic> clinics;
 
 
     // UserDetails methods (security & authentication methods)
