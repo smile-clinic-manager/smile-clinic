@@ -5,10 +5,12 @@ import com.smile.clinic.smile_clinic.application.ports.output.ClinicPersistanceP
 import com.smile.clinic.smile_clinic.domain.exceptions.ClinicNotFoundException;
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ClinicService implements ClinicServicePort {
