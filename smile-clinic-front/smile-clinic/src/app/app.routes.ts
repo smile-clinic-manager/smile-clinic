@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
-import { WelcomeComponent } from './welcome/welcome.component';
-import { LayoutComponent } from './layout/layout.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { WelcomeComponent } from './modules/welcome/welcome.component';
+import { PageNotFoundComponent } from './modules/page-not-found/page-not-found.component';
+import { LayoutComponent } from './modules/layout/layout.component';
+import { LoginComponent } from './modules/login/login.component';
+import { SignUpComponent } from './modules/sign-up/sign-up.component';
 
 export const routes: Routes = [
     {path: 'welcome', component: WelcomeComponent},
-    {path: 'home', component: LayoutComponent},
+    {path: 'layout', component: LayoutComponent},
+    {path: 'login', component: LoginComponent},
+    {path: 'signUp', component: SignUpComponent},
     {path: '', component: PageNotFoundComponent}, //wildcard, when none route is matched, this one triggers (404 err)
 ];
