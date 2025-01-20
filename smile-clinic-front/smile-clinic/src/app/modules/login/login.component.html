@@ -1,0 +1,25 @@
+<div class="div-login">
+    <mat-card class="login-card" [formGroup]="loginForm">
+        <mat-card-header> 
+            <mat-card-title>Bienvenido a Smile Clinic</mat-card-title>
+        </mat-card-header>
+        <mat-form-field appearance="fill" class="login-form-field">
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput formControlName="username"/>
+        </mat-form-field>
+    
+        <mat-form-field appearance="fill" class="login-form-field" >
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text' " />
+            <button 
+                mat-icon-button matSuffix (click)="toggleHidePassword()">
+                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        <mat-card-footer class="center-footer">
+            <button mat-flat-button (click)="login()">Iniciar Sesión</button>
+            <p>¿No tienes cuenta? <a (click)="goToSignUpComponent()">Regístrate</a></p>
+        </mat-card-footer>
+    </mat-card>
+</div>
+

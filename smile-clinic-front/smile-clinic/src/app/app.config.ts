@@ -15,6 +15,6 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS, 
       useClass: HttpRequestInterceptorService, //Interceptor to append the Authorization header with jwt
       multi: true
-    }
+    }, provideAnimationsAsync()
   ]
 };
