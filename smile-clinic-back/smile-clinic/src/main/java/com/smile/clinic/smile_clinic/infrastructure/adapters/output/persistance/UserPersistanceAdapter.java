@@ -38,10 +38,9 @@ public class UserPersistanceAdapter implements UserPersistancePort {
     }
 
     @Override
-    public User save(User user, String encodedPassword) {
+    public User save(User user) {
         UserEntity userToSave = this.mapper.toUserEntity(user);
-        userToSave.setPassword(encodedPassword);
-
+        userToSave.setPassword(user.getPassword());
         return this.mapper.toUser(this.userRepository.save(userToSave));
     }
 

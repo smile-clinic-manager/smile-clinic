@@ -20,6 +20,7 @@ public class User {
     private String dni;
     private String email;
     private Role role;
+    private String password;
 
     //Relations
     private List<Clinic> ownedClinics; //Clinics where User is owner
