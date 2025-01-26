@@ -16,11 +16,15 @@ export class LocalStorageService {
   }
 
   public getTokenInLocalStorage(): string {
-    const encryptedToken:string = localStorage.getItem('token') ?? 'noToken';
+    const encryptedToken: string = localStorage.getItem('token') ?? 'noToken';
     const decryptedToken: string = CryptoJS.AES.decrypt(encryptedToken, this.secretKey).toString(CryptoJS.enc.Utf8);
 
-    const decodedToken: string = this.decodeToken(decryptedToken);
-    return decodedToken;
+    return decryptedToken;
+  }
+
+  public getDecodedToken(): string {
+    const token = this.getTokenInLocalStorage();
+    return this.decodeToken(token);
   }
 
   private decodeToken(decryptedToken: string): string {

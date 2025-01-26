@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { ApiHttpService } from './api-http.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { AuthenticationRequestDTO } from '../app/models/AuthenticationRequestDTO';
-import { AuthenticationResponseDTO } from '../app/models/AuthenticationRequestDTO copy';
+import { ErrorResponseDTO } from '../app/models/ErrorResponseDTO';
 import { LocalStorageService } from './local-storage.service';
+import { AuthenticationResponseDTO } from '../app/models/AuthenticationResponseDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -25,9 +26,8 @@ export class LoginService {
               resolve(true);
           },
           error: (error) => {
-              alert("Error al iniciar sesión");
-              console.error('Error login into application:', error);
-              reject(false);
+            console.error('Error login into application: ', error.error.error);
+            reject(error.error.error);
           },
       });
   });
