@@ -16,7 +16,6 @@ import { SnackbarServiceService } from '../../../services/snackbar-service.servi
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-
   constructor(private readonly loginService: LoginService, private readonly router: Router,
     private readonly snackBarService: SnackbarServiceService){ }
 

@@ -9,6 +9,11 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-sign-up',
   imports: [MatButtonModule, MatCardModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatIconModule],
+
+@Component({
+  selector: 'app-sign-up',
+  imports: [],
+
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
