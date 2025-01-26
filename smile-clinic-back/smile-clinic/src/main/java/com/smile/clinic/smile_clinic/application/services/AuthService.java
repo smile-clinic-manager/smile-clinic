@@ -29,7 +29,7 @@ public class AuthService implements AuthServicePort {
     public AuthenticationResponse login(AuthenticationRequest authRequest) throws Exception {
         //Check if exists
         Optional<User> user = this.userPersistancePort.findUserByUsername(authRequest.getUsername());
-        if(user.isEmpty()) throw new Exception("No user found with username " + authRequest.getUsername());
+        if(user.isEmpty()) throw new Exception("El usuario o la contraseña son incorrectos.");
 
         //Authenticate user
         this.authenticationProviderPort.authenticate(authRequest);

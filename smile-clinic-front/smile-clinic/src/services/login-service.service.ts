@@ -26,8 +26,9 @@ export class LoginService {
               resolve(true);
           },
           error: (error) => {
-            console.error('Error login into application: ', error.error.error);
-            reject(error.error.error);
+            console.log(error.error)
+            console.error('Error login into application: ', error.error.errorMessage);
+            reject(error.error.errorMessage);
           },
       });
   });

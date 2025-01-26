@@ -54,6 +54,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   ));
 }
 
+:root .snack-bar-error{
+  @include mat.snack-bar-overrides((
+    //container-color: --mat-sys-inverse-surface,
+    supporting-text-color: red,
+  ));
+}
+
+:root .snack-bar-success{
+  @include mat.snack-bar-overrides((
+    //container-color: --mat-sys-inverse-surface,
+    supporting-text-color: green,
+  ));
+}
+
 
 
 
