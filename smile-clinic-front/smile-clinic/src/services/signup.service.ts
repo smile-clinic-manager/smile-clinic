@@ -3,14 +3,16 @@ import { ApiHttpService } from './api-http.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { SignupRequestDTO } from '../app/models/SignupRequestDTO';
 import { SignupResponseDTO } from '../app/models/SignupResponseDTO';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SignupService {
+export class SignUpService {
   constructor(
     private api: ApiHttpService,
-    private apiEndpointHelper: ApiEndpointHelperService
+    private apiEndpointHelper: ApiEndpointHelperService,
+    private localStorageService: LocalStorageService
   ) {}
 
   signup(
@@ -39,12 +41,13 @@ export class SignupService {
         .post(this.apiEndpointHelper.createUrl('auth/signup'), signupRequest)
         .subscribe({
           next: (response: SignupResponseDTO) => {
+            this.localStorageService.setTokenInLocalStorage(response.token);
             resolve(true);
           },
           error: (error) => {
             alert('Error al registrarse');
-            console.error('Error signing up:', error);
-            reject(false);
+            console.error('Error signing up:', error.error.errorMessage);
+            reject(error.error.errorMessage);
           },
         });
     });
