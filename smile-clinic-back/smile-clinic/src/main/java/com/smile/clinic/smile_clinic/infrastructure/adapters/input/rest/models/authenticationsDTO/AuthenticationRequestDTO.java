@@ -18,10 +18,10 @@ public class AuthenticationRequestDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @NotBlank(message = "Field 'username' required")
-    @Length(min = 5, max = 25, message = "Username must be 5-25 characters long")
+    @NotBlank(message = "Campo 'nombre de usuario' es obligatorio")
+    @Length(min = 5, max = 25, message = "El nombre de usuario debe contener entre 5-25 caracteres")
     private String username;
 
-    @NotBlank(message = "Field 'password' required")
+    @NotBlank(message = "Campo 'contraseña' es obligatorio")
     private String password;
 }
