@@ -3,6 +3,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest;
 import com.smile.clinic.smile_clinic.application.services.AuthService;
 import com.smile.clinic.smile_clinic.domain.models.auth.AuthenticationResponse;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.AuthRestMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.authenticationsDTO.AuthenticationRequestDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.authenticationsDTO.AuthenticationResponseDTO;
 import jakarta.validation.Valid;
@@ -12,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @Slf4j
 @RestController
@@ -23,11 +26,11 @@ public class AuthenticationController {
     private final AuthRestMapper authRestMapper;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponseDTO> login(@Valid @RequestBody AuthenticationRequestDTO authenticationRequestDTO,
+    public ResponseEntity<Object> login(@Valid @RequestBody AuthenticationRequestDTO authenticationRequestDTO,
                                                            BindingResult bindingResult) throws Exception {
-        if(bindingResult.hasErrors()){
-            AuthenticationResponseDTO response = new AuthenticationResponseDTO(bindingResult.getFieldError().getDefaultMessage());
-            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        if(bindingResult.hasErrors()) {
+            ErrorResponseDTO response = new ErrorResponseDTO(Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage());
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
 
         try{
@@ -36,7 +39,7 @@ public class AuthenticationController {
             return new ResponseEntity<>(response, HttpStatus.OK);
 
         } catch (Exception e){
-            AuthenticationResponseDTO response = new AuthenticationResponseDTO(e.getMessage());
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
     }
