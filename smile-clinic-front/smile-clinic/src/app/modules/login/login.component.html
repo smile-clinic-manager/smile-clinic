@@ -5,19 +5,26 @@
         </mat-card-header>
         <mat-form-field appearance="fill" class="login-form-field">
             <mat-label>Nombre de usuario</mat-label>
-            <input matInput formControlName="username"/>
+            <input matInput formControlName="username" id="username" (blur)="usernameErrorMessage()"/>
+            @if(loginForm.get('username')?.invalid && (loginForm.get('username')?.touched || loginForm.get('username')?.dirty)){
+                <mat-error> {{usernameFieldErrorMessage()}} </mat-error>
+            }
         </mat-form-field>
-    
+        
+
         <mat-form-field appearance="fill" class="login-form-field" >
             <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text' " />
+            <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text' " (blur)="passwordErrorMessage()"/>
             <button 
                 mat-icon-button matSuffix (click)="toggleHidePassword()">
                 <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
+            @if(loginForm.get('username')?.invalid && (loginForm.get('username')?.touched || loginForm.get('username')?.dirty)){
+                <mat-error> {{passwordFieldErrorMessage()}} </mat-error>
+            }
         </mat-form-field>
         <mat-card-footer class="center-footer">
-            <button mat-flat-button (click)="login()">Iniciar Sesión</button>
+            <button mat-flat-button (click)="login()" [disabled]="!loginForm.valid">Iniciar Sesión</button>
             <p>¿No tienes cuenta? <a (click)="goToSignUpComponent()">Regístrate</a></p>
         </mat-card-footer>
     </mat-card>

@@ -9,6 +9,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService} from '../../../services/login-service.service';
+import { LocalStorageService } from '../../../services/local-storage.service';
+
 
 @Component({
   selector: 'app-layout',
@@ -24,7 +26,8 @@ export class LayoutComponent {
 
   dateFormControl = new FormControl(null, Validators.required);
 
-  constructor(private loginService: LoginService){ }
+  constructor(private loginService: LoginService, private localStorageService: LocalStorageService){ }
+
 
   login() {
     this.loginService.login('miguel_rod11', 'Mypass2022#');
@@ -33,6 +36,11 @@ export class LayoutComponent {
   toggleLogin(){
     this.isLoggedIn = !this.isLoggedIn;
     this.login();
+  }
+  
+  readToken(){
+    const token = this.localStorageService.getTokenInLocalStorage();
+    alert("Token: " + token);
   }
 
 /*   checkInterceptor(){
@@ -47,6 +55,7 @@ export class LayoutComponent {
       }
     })
   } */
+
 
   
 
