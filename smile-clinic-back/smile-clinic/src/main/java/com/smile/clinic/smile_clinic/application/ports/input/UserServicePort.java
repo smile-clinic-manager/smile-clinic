@@ -10,7 +10,7 @@ public interface UserServicePort {
     User findById(Long id);
     User findByUsername(String username);
     List<User> findAll();
-    Map<User, String> register(User user, String token);
+    Map<User, String> register(User user, String token) throws Exception;
     User update(User user);
     void deleteById(Long id);
 

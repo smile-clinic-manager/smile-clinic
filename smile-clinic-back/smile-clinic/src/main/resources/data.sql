@@ -9,6 +9,6 @@ VALUES
     (5, 'Eve', 'White', NULL, 'eveWhite', '56789012E', 'eve.white@example.com', 'password987', 'CLINIC_ADMIN'),
     (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', 'password654', 'CLINIC_DENTIST');
 
-ALTER SEQUENCE user_seq RESTART WITH 7;  -- Esto es para que la secuencia empiece en 7 y asi las nuevas
+ALTER SEQUENCE user_seq RESTART WITH 10;  -- Esto es para que la secuencia empiece en 7 y asi las nuevas
                                              -- entidades se crean sin pisar los ids de las de la carga inicial.
 
