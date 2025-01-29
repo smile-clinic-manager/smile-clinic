@@ -15,41 +15,21 @@ export class SignUpService {
     private localStorageService: LocalStorageService
   ) {}
 
-  signup(
-    firstName: string,
-    surname: string,
-    username: string,
-    dni: string,
-    email: string,
-    confirmEmail: string,
-    password: string,
-    confirmPassword: string
-  ): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      const signupRequest: SignupRequestDTO = new SignupRequestDTO(
-        firstName,
-        surname,
-        username,
-        dni,
-        email,
-        confirmEmail,
-        password,
-        confirmPassword
-      );
-
-      this.api
-        .post(this.apiEndpointHelper.createUrl('auth/signup'), signupRequest)
-        .subscribe({
-          next: (response: SignupResponseDTO) => {
-            this.localStorageService.setTokenInLocalStorage(response.token);
-            resolve(true);
-          },
-          error: (error) => {
-            alert('Error al registrarse');
-            console.error('Error signing up:', error.error.errorMessage);
-            reject(error.error.errorMessage);
-          },
-        });
+  signup(signupRequestDTO: SignupRequestDTO): Promise<boolean> {
+      return new Promise((resolve, reject) => {
+        this.api
+          .post(this.apiEndpointHelper.createUrl('auth/signup'), signupRequestDTO)
+          .subscribe({
+            next: (response: SignupResponseDTO) => {
+              this.localStorageService.setTokenInLocalStorage(response.token);
+              resolve(true);
+            },
+            error: (error) => {
+              alert('Error al registrarse');
+              console.error('Error signing up:', error.error.errorMessage);
+              reject(error.error.errorMessage);
+            },
+          });
     });
   }
 }
