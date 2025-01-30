@@ -1,87 +1,61 @@
 <div class="div-signup">
-  <mat-card class="signup-card" [formGroup]="signupForm">
+  <mat-card class="signup-card" [formGroup]="signUpForm">
     <mat-card-header>
       <mat-card-title>Bienvenido a Smile Clinic</mat-card-title>
     </mat-card-header>
+
     <mat-form-field appearance="fill" class="signup-form-field">
       <mat-label>Nombre de usuario</mat-label>
-      <label for="username">Username</label>
-      <input matInput formControlName="username" id="username" (blur)="usernameErrorMessage()" />
-      @if(signUpForm.get('username')?.invalid && (signupForm.get('username')?.touched ||
-      signUpForm.get('username')?.dirty)){
-      <mat-error> {{usernameFieldErrorMessage()}} </mat-error>
-      }
+      <input matInput formControlName="username" id="username" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="signup-form-field">
       <mat-label>Nombre</mat-label>
-      <label for="name">Nombre</label>
-      <input matInput formControlName="name" id="name" (blur)="nameErrorMessage()" />
-      @if(signupForm.get('name')?.invalid && (signupForm.get('name')?.touched ||
-      signupForm.get('name')?.dirty)){
-      <mat-error> {{nameFieldErrorMessage()}} </mat-error>
-      }
+      <input matInput formControlName="firstName" id="firstName" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="signup-form-field">
-      <mat-label>Apellido</mat-label>
-      <label for="lastname">Apellido</label>
-      <input matInput formControlName="lastname" id="lastname" (blur)="lastnameErrorMessage()" />
-      @if(signupForm.get('lastname')?.invalid && (signupForm.get('lastname')?.touched ||
-      signupForm.get('lastname')?.dirty)){
-      <mat-error> {{lastnameFieldErrorMessage()}} </mat-error>
-      }
+      <mat-label>Primer apellido</mat-label>
+      <input matInput formControlName="lastName1" id="lastName1" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Segundo apellido</mat-label>
+      <input matInput formControlName="lastName2" id="lastName2" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" id="dni" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="signup-form-field">
       <mat-label>Correo electrónico</mat-label>
-      <label for="email">Correo electrónico</label>
-      <input matInput formControlName="email" id="email" (blur)="emailErrorMessage()" />
-      @if(signupForm.get('email')?.invalid && (signupForm.get('email')?.touched ||
-      signupForm.get('email')?.dirty)){
-      <mat-error> {{emailFieldErrorMessage()}} </mat-error>
-      }
+      <input matInput formControlName="email" id="email" />
     </mat-form-field>
 
-    <mat-form-field appearence="fill" class="signup-form-field">
+    <mat-form-field appearance="fill" class="signup-form-field">
       <mat-label>Confirmar correo electrónico</mat-label>
-      <label for="confirmEmail">Confirmar correo electrónico</label>
-      <input matInput formControlName="confirmEmail" id="confirmEmail" (blur)="confirmEmailErrorMessage()" />
-      @if(signupForm.get('confirmEmail')?.invalid && (signupForm.get('confirmEmail')?.touched ||
-      signupForm.get('confirmEmail')?.dirty)){
-      <mat-error> {{confirmEmailFieldErrorMessage()}} </mat-error>
-      }
+      <input matInput formControlName="confirmEmail" id="confirmEmail" />
     </mat-form-field>
 
     <mat-form-field appearance="fill" class="signup-form-field">
       <mat-label>Contraseña</mat-label>
-      <label for="password">Contraseña</label>
       <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text' "
-        (blur)="passwordErrorMessage()" id="password" />
+        (blur)="passwordFieldErrorMessage()" />
       <button mat-icon-button matSuffix (click)="toggleHidePassword()">
         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
-      @if(signupForm.get('username')?.invalid && (signupForm.get('username')?.touched ||
-      signupForm.get('username')?.dirty)){
-      <mat-error> {{passwordFieldErrorMessage()}} </mat-error>
-      }
     </mat-form-field>
 
-    <mat-form-field appearence="fill" class="signup-form-field">
+    <mat-form-field appearance="fill" class="signup-form-field">
       <mat-label>Confirmar contraseña</mat-label>
-      <label for="confirmPassword">Confirmar contraseña</label>
       <input matInput formControlName="confirmPassword" [type]="hidePassword ? 'password' : 'text' "
-        (blur)="confirmPasswordErrorMessage()" id="confirmPassword" />
-      @if(signupForm.get('confirmPassword')?.invalid && (signupForm.get('confirmPassword')?.touched ||
-      signupForm.get('confirmPassword')?.dirty)){
-      <mat-error> {{confirmPasswordFieldErrorMessage()}} </mat-error>
-      }
+        (blur)="passwordFieldErrorMessage()" />
+      <button mat-icon-button matSuffix (click)="toggleHidePassword()">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
 
-      <mat-card-footer class="center-footer">
-        <button mat-flat-button (click)="signup()" [disabled]="!loginForm.valid">Registrarse</button>
-        <p>¿Ya tienes cuenta? <a (click)="goToLoginComponent()">Inicia sesión</a></p>
-      </mat-card-footer>
   </mat-card>
 </div>
-
-

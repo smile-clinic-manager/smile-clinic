@@ -28,7 +28,7 @@ import { SignupRequestDTO } from '../../models/SignupRequestDTO';
     MatInputModule,
     MatIconModule,
   ],
-  templateUrl: './sign-up.component.html',
+  templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
 export class SignUpComponent {
