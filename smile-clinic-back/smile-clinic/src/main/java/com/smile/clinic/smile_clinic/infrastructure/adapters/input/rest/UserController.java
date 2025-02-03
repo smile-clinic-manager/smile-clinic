@@ -8,7 +8,7 @@ import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.UserRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
-import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SaveUserDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SignupRequestDTO;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,19 +34,23 @@ public class UserController {
     private final UserService userService;
     private final UserRestMapper userRestMapper;
 
-    @PostMapping("/register")
-    public ResponseEntity<Object> registerUser(@RequestBody @Valid SaveUserDTO saveUserDTO, BindingResult bindingResult) {
-        if(bindingResult.hasErrors() || !saveUserDTO.getPassword().equals(saveUserDTO.getRepeatPassword())){
+    @PostMapping("/signup")
+    public ResponseEntity<Object> signup(@RequestBody @Valid SignupRequestDTO signupRequestDTO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors() || !signupRequestDTO.getPassword().equals(signupRequestDTO.getConfirmPassword())){
             String msg = bindingResult.hasErrors() ?
                     Objects.requireNonNull(bindingResult.getFieldError()).getDefaultMessage() :
                     "Las contraseñas no coinciden";
             ErrorResponseDTO response = new ErrorResponseDTO(msg);
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
+        if(!signupRequestDTO.getEmail().equals(signupRequestDTO.getConfirmEmail())){
+            ErrorResponseDTO response = new ErrorResponseDTO("Los correos electrónicos no coinciden");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
         try {
-            User user = userRestMapper.toUser(saveUserDTO);
+            User user = userRestMapper.toUser(signupRequestDTO);
             //
-            Map<User, String> map = this.userService.register(user, saveUserDTO.getPassword());
+            Map<User, String> map = this.userService.register(user, signupRequestDTO.getPassword());
             Map.Entry<User, String> entry = map.entrySet().stream()
                     .findFirst()
                     .orElseThrow(()-> new RuntimeException("Ha ocurrido un error al registrar el usuario"));
