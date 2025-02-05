@@ -1,26 +1,25 @@
-
 export class AuthenticationRequestDTO {
-    private username!: string;
-    private password!: string;
+  private username!: string;
+  private password!: string;
 
-    constructor(username: string, password: string){
-        this.username = username;
-        this.password = password;
-    }
+  constructor(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+  }
 
-    getUsername(): string{
-        return this.username;
-    }
+  getUsername(): string {
+    return this.username;
+  }
 
-    setUsername(username: string): void{
-        this.username = username;
-    }
+  setUsername(username: string): void {
+    this.username = username;
+  }
 
-    getPassword(): string{
-        return this.password;
-    }
+  getPassword(): string {
+    return this.password;
+  }
 
-    setPassword(password: string): void{
-        this.password = password;
-    }
+  setPassword(password: string): void {
+    this.password = password;
+  }
 }
