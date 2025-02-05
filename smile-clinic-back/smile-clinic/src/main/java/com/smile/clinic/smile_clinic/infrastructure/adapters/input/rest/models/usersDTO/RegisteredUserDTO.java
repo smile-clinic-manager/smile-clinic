@@ -13,6 +13,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegisteredUserDTO implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -25,6 +26,8 @@ public class RegisteredUserDTO implements Serializable {
     private String lastName1;
 
     private String lastName2;
+
+    private String dni;
 
     private String role;
 

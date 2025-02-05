@@ -1,0 +1,61 @@
+<div class="div-signup">
+  <mat-card class="signup-card" [formGroup]="signUpForm">
+    <mat-card-header>
+      <mat-card-title>Bienvenido a Smile Clinic</mat-card-title>
+    </mat-card-header>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Nombre de usuario</mat-label>
+      <input matInput formControlName="username" id="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="firstName" id="firstName" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Primer apellido</mat-label>
+      <input matInput formControlName="lastName1" id="lastName1" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Segundo apellido</mat-label>
+      <input matInput formControlName="lastName2" id="lastName2" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>DNI</mat-label>
+      <input matInput formControlName="dni" id="dni" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Correo electrónico</mat-label>
+      <input matInput formControlName="email" id="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Confirmar correo electrónico</mat-label>
+      <input matInput formControlName="confirmEmail" id="confirmEmail" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text' "
+        (blur)="passwordFieldErrorMessage()" />
+      <button mat-icon-button matSuffix (click)="toggleHidePassword()">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="signup-form-field">
+      <mat-label>Confirmar contraseña</mat-label>
+      <input matInput formControlName="confirmPassword" [type]="hidePassword ? 'password' : 'text' "
+        (blur)="passwordFieldErrorMessage()" />
+      <button mat-icon-button matSuffix (click)="toggleHidePassword()">
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+
+  </mat-card>
+</div>

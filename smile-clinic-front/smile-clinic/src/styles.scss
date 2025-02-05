@@ -17,3 +17,53 @@ html {
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Adding space to the sides of the whole app */
+:root{  
+  padding-left: 1%;
+  padding-right: 1%;
+}
+
+/* Secondary color (gray) */
+:root {
+  --secondary-color: rgba(0, 0, 0, 0.2);  //gray
+}
+
+/* Adding styles to group of buttons when placed together */
+:root .button-row {
+  display: table-cell;
+  max-width: 600px;
+}
+
+:root .button-row .mat-mdc-button-base {
+  margin: 8px 8px 8px 0;
+}
+
+:root {
+  @include mat.button-overrides((
+    text-label-text-weight: 2px,
+  ));
+}
+
+/* Secondary button styles */
+:root .button-secondary{
+  @include mat.button-overrides((
+    filled-label-text-color: black, //text black
+    filled-container-color: rgba(0,0,0,0.2), //gray background
+  ));
+}
+
+:root .snack-bar-error{
+  @include mat.snack-bar-overrides((
+    supporting-text-color: red,
+  ));
+}
+
+:root .snack-bar-success{
+  @include mat.snack-bar-overrides((
+    supporting-text-color: green,
+  ));
+}
+
+
+

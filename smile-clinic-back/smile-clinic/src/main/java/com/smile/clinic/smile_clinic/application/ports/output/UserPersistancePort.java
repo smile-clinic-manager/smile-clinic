@@ -10,7 +10,7 @@ public interface UserPersistancePort {
     Optional<User> findById(Long id);
     Optional<User> findByDNI(String dni);
     List<User> findAll();
-    User save(User user, String encodedPassword);
+    User save(User user);
     void deleteById(Long id);
 
 }

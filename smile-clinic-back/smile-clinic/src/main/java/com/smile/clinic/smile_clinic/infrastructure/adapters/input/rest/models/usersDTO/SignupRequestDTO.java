@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SaveUserDTO implements Serializable {
+public class SignupRequestDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -41,10 +41,14 @@ public class SaveUserDTO implements Serializable {
     @NotBlank(message = "Required parameter 'email'")
     private String email;
 
+    @Email
+    @NotBlank(message = "Required parameter 'repeatEmail'")
+    private String confirmEmail;
+
     @NotBlank(message = "Required parameter 'password'")
     private String password;
 
-    @NotBlank(message = "Required parameter 'repeatPassword'")
-    private String repeatPassword;
+    @NotBlank(message = "Required parameter 'confirmPassword'")
+    private String confirmPassword;
 
 }

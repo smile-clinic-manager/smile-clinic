@@ -1,0 +1,33 @@
+<div>
+    <section>
+        <button mat-button (click)="toggleLogin()"> {{isLoggedIn ? 'Logout' : 'Login'}} </button>
+    
+        @if(isLoggedIn){
+            <p> Estás loggeado! </p>
+            <img alt="profile pic" src="https://github.com/juanlo017.png">
+        } @else {
+            <p> Logeáte pelotudo!</p>
+        }
+    
+        <button mat-button> Check the console! </button>
+    </section>
+    <section>
+        <mat-card>
+            <mat-slide-toggle>Toggle me!</mat-slide-toggle>
+        </mat-card>
+        <mat-card>
+            <mat-form-field>
+                <mat-label>Elige una fecha</mat-label>
+                <input matInput [matDatepicker]="picker" [formControl]="dateFormControl" />
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <p>{{'Chosen date is: ' + dateFormControl.value}}</p>
+        </mat-card>
+    </section>
+    <section>
+        <button mat-flat-button (click)="readToken()">Read Token</button>
+    </section>
+</div>
+

@@ -2,7 +2,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers
 
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
-import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SaveUserDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SignupRequestDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
@@ -11,9 +11,9 @@ public interface UserRestMapper {
 
     RegisteredUserDTO toRegisteredUserDTO(User user);
 
-    SaveUserDTO toSaveUserDTO(User user);
+    SignupRequestDTO toSignupRequestDTO(User user);
 
-    User toUser(SaveUserDTO saveUserDTO);
+    User toUser(SignupRequestDTO saveUserDTO);
 
     User toUser(RegisteredUserDTO registeredUserDTO);
 
