@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormsModule,
@@ -14,7 +15,6 @@ import { MatInputModule } from '@angular/material/input';
 import { SignUpService } from '../../../services/signup.service';
 import { Router } from '@angular/router';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
-import { sign } from 'crypto';
 import { SignupRequestDTO } from '../../models/SignupRequestDTO';
 
 @Component({
@@ -37,10 +37,11 @@ export class SignUpComponent {
     private readonly snackBarService: SnackbarServiceService) {
   }
 
+  private readonly PASSWORD_PATTERN_ERROR_MESSAGE = 'La contraseña debe contener un dígito, una mayúscula, una minúscula, un caracter especial y una longitud de 12 caracteres';
+  private readonly DNI_PATTERN_ERROR_MESSAGE = 'El dni debe estar compuesto de 8 digitos seguido de una letra 11111111A';
   hidePassword = true;
-  usernameFieldErrorMessage = signal('');
-  passwordFieldErrorMessage = signal('');
-
+  formFieldErrorMessage = signal('');
+  formErrors = signal<{ [key: string]: string }>({});
 
   signUpForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
@@ -54,7 +55,7 @@ export class SignUpComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     confirmEmail: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.pattern(/^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[\W_]).{12,}$/)]),
-    confirmPassword: new FormControl('', [Validators.required]),
+    confirmPassword: new FormControl('', [Validators.required],),
   });
 
   emailMatchValidator(control: FormControl) {
@@ -62,13 +63,45 @@ export class SignUpComponent {
     return email && control.value !== email.value ? { emailMismatch: true } : null;
   }
 
-  passwordMatchValidator(control: FormControl) {
-    const password = control.root.get('password');
-    return password && control.value !== password.value ? { passwordMismatch: true } : null;
+  passwordMatchValidator(): void {
+    const password = this.signUpForm.get('password');
+    const repeatPassword = this.signUpForm.get('repeatPassword');
+    if (repeatPassword!.value !== password!.value) this.signUpForm.get('repeatPassword')!.setErrors({ passwordMismatch: 'Las contraseñas no coinciden' })
   }
 
   toggleHidePassword(): void {
     this.hidePassword = !this.hidePassword;
+  }
+
+  getErrorMessage(nameField: string): void {
+    let errorMessage: string = '';
+
+    const form: AbstractControl = this.signUpForm.get(nameField)!;
+    if (form?.hasError('required')) errorMessage = 'Campo obligatorio';
+    else if (form?.hasError('minlength')) errorMessage = `El nombre de usuario debe tener al menos 5 caracteres`;
+    else if (form?.hasError('email')) errorMessage = 'La dirección de correo no es válida';
+    else if (form?.hasError('pattern') && nameField.includes('dni')) errorMessage = this.DNI_PATTERN_ERROR_MESSAGE;
+    else if (form?.hasError('pattern') && nameField.includes('assword')) errorMessage = this.PASSWORD_PATTERN_ERROR_MESSAGE;
+    else this.clearFormError(nameField);
+// Comprobar que las contraseñas coincidan
+    if(nameField==='repeatPassword') {
+      console.log('repeat');
+      console.log(this.signUpForm);
+      this.passwordMatchValidator();
+    }
+    if(form?.hasError('passwordMismatch')) errorMessage = 'Las contraseñas no coinciden';
+
+    this.formErrors.update(errors=> ({ ...errors, [nameField]: errorMessage })); 
+    
+    console.log(this.signUpForm);
+  }
+
+  clearFormError(formName: string) {
+    this.formErrors.update(errors => {
+      const updatedErrors = { ...errors };
+      delete updatedErrors[formName]; // Eliminar error asociada a esa clave
+      return updatedErrors;
+    });
   }
 
   signUp(): void {
@@ -90,12 +123,14 @@ export class SignUpComponent {
       .signup(signupRequestDTO)
       .then(() => {
         this.snackBarService.showSuccessSnackBar('Registro realizado con éxito');
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       })
       .catch(() => {
-        this.snackBarService.showErrorSnackBar('Error al registrarse') //openSnackBar('Error creating user');
+        this.snackBarService.showErrorSnackBar('Error al registrarse');
       });
     }
+    //Por si por alguna razón alguien logra saltarse el check del botón inválido (en teoría nunca debería ejecutarse)
+    else this.snackBarService.showErrorSnackBar('El formulario debe ser válido para poder registrarse')
   }
 
 }
