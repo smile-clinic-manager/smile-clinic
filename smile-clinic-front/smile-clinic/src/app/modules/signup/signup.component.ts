@@ -58,15 +58,26 @@ export class SignUpComponent {
     confirmPassword: new FormControl('', [Validators.required],),
   });
 
-  emailMatchValidator(control: FormControl) {
-    const email = control.root.get('email');
-    return email && control.value !== email.value ? { emailMismatch: true } : null;
+  passwordMatchValidator(): string {
+    let mismatchPasswordErrorMessage = '';
+    const password = this.signUpForm.get('password');
+    const confirmPassword = this.signUpForm.get('confirmPassword');
+    if (confirmPassword!.value !== password!.value) {
+      this.signUpForm.get('confirmPassword')!.setErrors({ passwordMismatch: 'Las contraseñas no coinciden' })
+      mismatchPasswordErrorMessage = 'Las contraseñas no coinciden';
+    }
+    return mismatchPasswordErrorMessage;
   }
 
-  passwordMatchValidator(): void {
-    const password = this.signUpForm.get('password');
-    const repeatPassword = this.signUpForm.get('repeatPassword');
-    if (repeatPassword!.value !== password!.value) this.signUpForm.get('repeatPassword')!.setErrors({ passwordMismatch: 'Las contraseñas no coinciden' })
+  emailMatchValidator(): string {
+    let mismatchPasswordErrorMessage = '';
+    const password = this.signUpForm.get('email');
+    const confirmPassword = this.signUpForm.get('confirmEmail');
+    if (confirmPassword!.value !== password!.value) {
+      this.signUpForm.get('confirmEmail')!.setErrors({ emailMismatch: 'Los emails no coinciden' })
+      mismatchPasswordErrorMessage = 'Las emails no coinciden';
+    }
+    return mismatchPasswordErrorMessage;
   }
 
   toggleHidePassword(): void {
@@ -83,17 +94,21 @@ export class SignUpComponent {
     else if (form?.hasError('pattern') && nameField.includes('dni')) errorMessage = this.DNI_PATTERN_ERROR_MESSAGE;
     else if (form?.hasError('pattern') && nameField.includes('assword')) errorMessage = this.PASSWORD_PATTERN_ERROR_MESSAGE;
     else this.clearFormError(nameField);
-// Comprobar que las contraseñas coincidan
-    if(nameField==='repeatPassword') {
-      console.log('repeat');
-      console.log(this.signUpForm);
-      this.passwordMatchValidator();
+// Comprobar que las contraseñas y emails coincidan
+    if (nameField === 'confirmPassword' || nameField ==='confirmEmail') {
+      errorMessage = this.checkValueMismatch(nameField, form, errorMessage);
     }
-    if(form?.hasError('passwordMismatch')) errorMessage = 'Las contraseñas no coinciden';
 
     this.formErrors.update(errors=> ({ ...errors, [nameField]: errorMessage })); 
-    
-    console.log(this.signUpForm);
+  }
+
+  private checkValueMismatch(nameField: string, form: AbstractControl<any, any>, errorMessage: string) {
+    if (nameField === 'confirmPassword' && !form.errors) {
+      errorMessage = this.passwordMatchValidator(); // devuelve str vacío o el msj de error si lo hay
+    } else if(nameField === 'confirmEmail' && !form.errors){
+      errorMessage = this.emailMatchValidator();
+    }
+    return errorMessage;
   }
 
   clearFormError(formName: string) {
