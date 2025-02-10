@@ -1,0 +1,9 @@
+<h2>{{ title }}</h2>
+<div class="table-container">
+  <table mat-table [items]="items" class="mat-elevation-z8">
+    <ng-container *ngFor="let column of columns" [matColumnDef]="column">
+      <th mat-header-cell *matHeaderCellDef> {{ column }} </th>
+      <td mat-cell *matCellDef="let element"> {{ element[column] }} </td>
+    </ng-container>
+  </table>
+</div>
