@@ -29,11 +29,6 @@ public class ClinicService implements ClinicServicePort {
     }
 
     @Override
-    public List<Clinic> findByOwnerId(int ownerId) {
-        return this.clinicPersistancePort.findByOwnerId(ownerId);
-    }
-
-    @Override
     public Clinic findByAddress(String address) {
         return this.clinicPersistancePort.findByAddress(address)
                 .orElseThrow(()-> new ClinicNotFoundException("Clinic with address "+address+" not found"));
@@ -49,7 +44,6 @@ public class ClinicService implements ClinicServicePort {
         return clinicPersistancePort.findById(id)
                 .map((savedClinic)-> {
                     savedClinic.setAddress(clinic.getAddress());
-                    savedClinic.setOwnerId(clinic.getOwnerId());
                     return clinicPersistancePort.save(savedClinic);
                 })
                 .orElseThrow(()->new ClinicNotFoundException("Clinic with id "+id+" not found"));
