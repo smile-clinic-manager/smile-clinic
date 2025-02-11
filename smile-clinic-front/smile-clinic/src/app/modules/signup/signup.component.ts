@@ -135,14 +135,14 @@ export class SignUpComponent {
       const signupRequestDTO: SignupRequestDTO = new SignupRequestDTO(firstName,lastName1, lastName2, username, dni, email, confirmEmail, password, confirmPassword);
       
       this.signUpService
-      .signup(signupRequestDTO)
-      .then(() => {
-        this.snackBarService.showSuccessSnackBar('Registro realizado con éxito');
-        this.router.navigate(['/home']);
-      })
-      .catch(() => {
-        this.snackBarService.showErrorSnackBar('Error al registrarse');
-      });
+        .signup(signupRequestDTO)
+        .then(() => {
+          this.snackBarService.showSuccessSnackBar('Registro realizado con éxito');
+          this.router.navigate(['/home']);
+        })
+        .catch((errorMessage: string) => {
+          this.snackBarService.showErrorSnackBar(errorMessage);
+        });
     }
     //Por si por alguna razón alguien logra saltarse el check del botón inválido (en teoría nunca debería ejecutarse)
     else this.snackBarService.showErrorSnackBar('El formulario debe ser válido para poder registrarse')
