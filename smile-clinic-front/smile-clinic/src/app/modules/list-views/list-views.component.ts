@@ -6,8 +6,8 @@ import { Component } from "@angular/core";
   styleUrls: ["./list-views.component.scss"],
 })
 export class ListViewsComponent {
-  items: any;
   constructor(
+    public items: any,
     public title: string,
     ) {}
 }
