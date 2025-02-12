@@ -1,7 +1,6 @@
 package com.smile.clinic.smile_clinic.domain.models;
 
-import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
-import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.domain.models.invitations.Invitation;
 import lombok.*;
 
 import java.util.List;
@@ -23,5 +22,6 @@ public class Clinic {
 
     // Relationships
     private List<Treatment> treatments;
+    private List<Invitation> invitations;
 
 }
