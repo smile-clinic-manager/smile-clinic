@@ -8,7 +8,7 @@ import { LayoutComponent } from "./modules/layout/layout.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, MatCardModule, LayoutComponent],
+  imports: [CommonModule, MatCardModule, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

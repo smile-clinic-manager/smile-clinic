@@ -17,7 +17,7 @@ import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, SideVarComponent, HeaderComponent, FooterComponent],
+  imports: [SideVarComponent, HeaderComponent, FooterComponent],
   providers: [provideNativeDateAdapter()],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
