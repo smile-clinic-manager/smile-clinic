@@ -1,34 +1,28 @@
 import { Component } from "@angular/core";
-import { DetailViewsComponent } from "../detail-views/detail-views.component";
-import { ListViewsComponent } from "../list-views/list-views.component";
+import { MatTableModule } from "@angular/material/table";
+import { ClinicDTO } from "../../models/ClinicDTO";
 
 @Component(
   {
     selector: "app-clinic-list",
-    imports: [DetailViewsComponent, ListViewsComponent],
+    imports: [MatTableModule],
     templateUrl: "./clinic-list.component.html",
     styleUrls: ["./clinic-list.component.scss"],
   }
 ) export class ClinicListComponent {
-  constructor(
-    public title: string,
-    public items: any,
-    ) {
-      this.title = "Clinic List";
-      this.items = [
-        {
-          name: "Smile Clinic",
-          location: "1234 Main St",
-          phone: "555-555-5555",
-          email: "b@a.es"
-        },
-        {
-          name: "Smile Clinic 2",
-          location: "3434 Main St",
-          phone: "111-555-5555",
-          email: "a@b.es"
-        }
-      ];
-      new ListViewsComponent(title, items);
+  constructor() {
+  }
+  displayedColumns: string[] = ["name", "postalCode", "address", "phoneNumber", "email"];
+  dataSource: ClinicDTO[] = [
+    {
+      name: "Smile Clinic",
+      postalCode: "12345",
+      address: "1234 Smile St",
+      phoneNumber: "123-456-7890",
+      email: "a@b.es",
+      img: "smile.jpg",
+      invitations: ["12345", "67890"],
+      treatments: ["cleaning", "whitening"]
     }
+  ];
 };
