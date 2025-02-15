@@ -24,12 +24,6 @@ html, body {
 
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-/* Adding space to the sides of the whole app */
-:root{  
-  padding-left: 1%;
-  padding-right: 1%;
-}
-
 /* Secondary color (gray) */
 :root {
   --secondary-color: rgba(0, 0, 0, 0.2);  //gray
@@ -68,5 +62,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 :root .snack-bar-success{
   @include mat.snack-bar-overrides((
     supporting-text-color: var(--mat-sys-tertiary),
+  ));
+}
+
+:root {
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-surface-tint),
+    container-text-color: var(--mat-sys-on-primary),
   ));
 }

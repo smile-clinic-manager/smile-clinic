@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   selector: 'app-header',

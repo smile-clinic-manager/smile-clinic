@@ -1,4 +1,16 @@
 .sidenav-container {
     height: 100%;
-  }
-  
+}
+
+mat-sidenav {
+  height: 100%;
+  border-right: 1px solid #ccc;
+  max-width: 20%;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+mat-sidenav a.mat-mdc-list-item{
+  border-radius: 0px !important;
+  border-bottom: 1px solid rgba(0, 106, 106, 0.5);
+  max-width: 90%;
+}
