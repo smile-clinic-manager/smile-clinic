@@ -9,6 +9,10 @@ VALUES
     (5, 'Eve', 'White', NULL, 'eveWhite', '56789012E', 'eve.white@example.com', 'password987', 'CLINIC_ADMIN'),
     (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', 'password654', 'CLINIC_DENTIST');
 
-ALTER SEQUENCE user_seq RESTART WITH 10;  -- Esto es para que la secuencia empiece en 7 y asi las nuevas
-                                             -- entidades se crean sin pisar los ids de las de la carga inicial.
-
+INSERT INTO clinics (id, name, address, phone, email, website, description, image, owner_id)
+VALUES
+    (8, 'Clínica Dental Sonrisa', 'Calle Mayor 10, Sevilla', '954000111', 'contacto@sonrisa.com', 'https://sonrisa.com', 'Especialistas en ortodoncia', 'sonrisa.jpg', 1),
+    (9, 'Centro Médico Salud Total', 'Avenida Andalucía 23, Sevilla', '954111222', 'info@saludtotal.com', 'https://saludtotal.com', 'Atención médica integral', 'saludtotal.jpg', 2),
+    (10, 'Clínica Bella Vida', 'Calle Sierpes 45, Sevilla', '954222333', 'info@bellavida.com', 'https://bellavida.com', 'Tratamientos avanzados.', 'bellavida.jpg', 3),
+    (11, 'Odontologia Avanzada', 'Calle Feria 5, Sevilla', '954333444', 'contacto@avanzada.com', 'https://avanzada.com', 'Higiene bucal.', 'avanzada.jpg', 4),
+    (12, 'Centro Boca Sana', 'Plaza Nueva 12, Sevilla', '954444555', 'info@bocasana.com', 'https://bocasana.com', 'Odontología', 'bocasana.jpg', 5);
