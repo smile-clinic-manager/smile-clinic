@@ -62,6 +62,9 @@ public class UserEntity implements UserDetails {
 
     // Relación con clínicas (empleado)
 
+    @OneToMany(mappedBy = "user")
+    private List<AppointmentEntity> appointments;
+
 
     // UserDetails methods (security & authentication methods)
     @Override

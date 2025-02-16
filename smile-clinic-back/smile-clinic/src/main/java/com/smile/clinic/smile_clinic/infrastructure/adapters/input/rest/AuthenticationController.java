@@ -1,6 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest;
 
-import com.smile.clinic.smile_clinic.application.services.AuthService;
+import com.smile.clinic.smile_clinic.application.ports.input.AuthServicePort;
 import com.smile.clinic.smile_clinic.domain.models.auth.AuthenticationResponse;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.AuthRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
@@ -22,7 +22,7 @@ import java.util.Objects;
 @AllArgsConstructor
 public class AuthenticationController {
 
-    private final AuthService authService;
+    private final AuthServicePort authService;
     private final AuthRestMapper authRestMapper;
 
     @PostMapping("/login")
