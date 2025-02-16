@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { jwtDecode } from 'jwt-decode';
 
@@ -7,6 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 })
 export class LocalStorageService {
   private readonly secretKey: string = 'key-de-prueba';
+  private platformId = inject(PLATFORM_ID); // Inject PLATFORM_ID
 
   constructor() { }
 
@@ -20,6 +22,13 @@ export class LocalStorageService {
     const decryptedToken: string = CryptoJS.AES.decrypt(encryptedToken, this.secretKey).toString(CryptoJS.enc.Utf8);
 
     return decryptedToken;
+  }
+
+  public existsToken(): boolean {
+    if (!isPlatformBrowser(this.platformId)) {
+      return false; // Prevents `localStorage` errors in SSR
+    }
+    return localStorage.getItem('token') ? true : false;
   }
 
   public getDecodedToken(): string {

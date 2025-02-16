@@ -11,24 +11,20 @@ import lombok.*;
 @NoArgsConstructor
 public class ClinicDTO {
 
-    //owner key
-    private int ownerId;
-
     @NotBlank(message = "Field name cannot be empty, blank or null")
     private String name;
 
     @NotBlank(message = "Field address cannot be empty, blank or null")
     private String address;
 
+    @NotBlank(message = "Field postalCode cannot be empty, blank or null")
+    private String postalCode;
+
     @NotBlank(message = "Field phone cannot be empty, blank or null")
-    private String phone;
+    private String phoneNumber;
 
     @NotBlank(message = "Field email cannot be empty, blank or null")
     private String email;
-
-    private String website;
-
-    private String description;
 
     private String image;
 }
