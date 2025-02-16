@@ -59,12 +59,8 @@ public class UserEntity implements UserDetails {
     private Role role;
 
     // Relación con clínicas (dueño)
-    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ClinicEntity> ownedClinics;
 
     // Relación con clínicas (empleado)
-    @ManyToMany(mappedBy = "employees")
-    private List<ClinicEntity> clinics;
 
 
     // UserDetails methods (security & authentication methods)
