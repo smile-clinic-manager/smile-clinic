@@ -41,7 +41,7 @@ export class LoginComponent {
     if(username && password){
       this.loginService.login(username, password).then(() => {
         this.snackBarService.showSuccessSnackBar('Inicio de sesión correcto!');
-        this.router.navigate(['layout']);
+        this.router.navigate(['/home']);
       }).catch(error => {
         this.snackBarService.showErrorSnackBar(error);
       });

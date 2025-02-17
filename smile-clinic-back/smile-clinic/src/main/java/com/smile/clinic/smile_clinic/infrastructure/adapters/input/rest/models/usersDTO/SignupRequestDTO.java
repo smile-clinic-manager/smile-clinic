@@ -46,6 +46,7 @@ public class SignupRequestDTO implements Serializable {
     private String confirmEmail;
 
     @NotBlank(message = "Required parameter 'password'")
+    @Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).{12,}$")
     private String password;
 
     @NotBlank(message = "Required parameter 'confirmPassword'")

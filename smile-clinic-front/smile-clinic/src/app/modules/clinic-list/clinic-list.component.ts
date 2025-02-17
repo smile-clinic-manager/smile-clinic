@@ -26,3 +26,4 @@ export class ClinicListComponent implements OnInit {
     });
   }
 }
+

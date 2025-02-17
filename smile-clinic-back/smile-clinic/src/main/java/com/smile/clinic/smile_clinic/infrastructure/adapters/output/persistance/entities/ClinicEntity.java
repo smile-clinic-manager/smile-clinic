@@ -32,30 +32,25 @@ public class ClinicEntity {
     private String address;
 
     @NotBlank
-    private String phone;
+    private String postalCode;
+
+    @NotBlank
+    private String phoneNumber;
 
     @Email
     @NotBlank
     private String email;
 
-    private String website;
-
-    private String description;
-
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", nullable = false)
-    private UserEntity owner;
-
-    // Relación con empleados
-    @ManyToMany
+    // Relationships
+    @OneToMany
     @JoinTable(
-            name = "clinic_employees",
+            name = "clinic_treatments",
             joinColumns = @JoinColumn(name = "clinic_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
+            inverseJoinColumns = @JoinColumn(name = "treatment_id")
     )
-    private List<UserEntity> employees;
+    private List<TreatmentEntity> treatments;
 
 
 }
