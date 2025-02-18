@@ -21,7 +21,7 @@ export class ClinicListComponent implements OnInit {
   }
 
   findAll(): void {
-    this.api.get("clinics/findAll").subscribe((clinics: ClinicDTO[]) => {
+    this.api.get("http://localhost:8080/clinics/findAll").subscribe((clinics: ClinicDTO[]) => {
       this.dataSource = clinics;
     });
   }
