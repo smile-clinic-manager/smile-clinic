@@ -7,6 +7,7 @@ import { SignUpComponent } from './modules/signup/signup.component';
 import { HomeComponent } from './modules/home/home.component';
 import { authGuard } from './auth.guard';
 import { ClinicListComponent } from './modules/clinic-list/clinic-list.component';
+import { ClinicDetailComponent } from './modules/clinic-detail/clinic-detail.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -16,6 +17,7 @@ export const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent, canActivate: [authGuard] },
       { path: 'clinic-list', component : ClinicListComponent, canActivate: [authGuard] },
+      { path: 'clinic-detail', component : ClinicDetailComponent, canActivate: [authGuard] },
     ]
   },
   { path: '**', component: PageNotFoundComponent } // Wildcard route (404 page)
