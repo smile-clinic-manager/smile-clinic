@@ -1,28 +1,29 @@
-import { Component } from "@angular/core";
+import { ClinicDTO } from './../../models/ClinicDTO';
+import { ApiHttpService } from './../../../services/api-http.service';
+import { Component, OnInit } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
-import { ClinicDTO } from "../../models/ClinicDTO";
 
-@Component(
-  {
-    selector: "app-clinic-list",
-    imports: [MatTableModule],
-    templateUrl: "./clinic-list.component.html",
-    styleUrls: ["./clinic-list.component.scss"],
+@Component({
+  selector: 'app-clinic-list',
+  imports: [MatTableModule],
+  templateUrl: './clinic-list.component.html',
+  styleUrl: './clinic-list.component.scss'
+})
+export class ClinicListComponent implements OnInit {
+
+    displayedColumns: string[] = ["name", "postalCode", "address", "phoneNumber", "email"];
+    dataSource: ClinicDTO[] = [];
+
+  constructor(private api: ApiHttpService) {}
+
+  ngOnInit(): void {
+    this.findAll();
   }
-) export class ClinicListComponent {
-  constructor() {
+
+  findAll(): void {
+    this.api.get("clinics/findAll").subscribe((clinics: ClinicDTO[]) => {
+      this.dataSource = clinics;
+    });
   }
-  displayedColumns: string[] = ["name", "postalCode", "address", "phoneNumber", "email"];
-  dataSource: ClinicDTO[] = [
-    {
-      name: "Smile Clinic",
-      postalCode: "12345",
-      address: "1234 Smile St",
-      phoneNumber: "123-456-7890",
-      email: "a@b.es",
-      img: "smile.jpg",
-      invitations: ["12345", "67890"],
-      treatments: ["cleaning", "whitening"]
-    }
-  ];
-};
+}
+

@@ -8,7 +8,6 @@ import { HomeComponent } from './modules/home/home.component';
 import { authGuard } from './auth.guard';
 import { ClinicListComponent } from './modules/clinic-list/clinic-list.component';
 
-
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },

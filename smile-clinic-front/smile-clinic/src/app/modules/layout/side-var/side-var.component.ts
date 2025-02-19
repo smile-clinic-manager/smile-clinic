@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
@@ -14,12 +14,13 @@ import { MatIconModule } from '@angular/material/icon';
 export class SideVarComponent {
   isOpen = true;
 
+  constructor( private readonly router: Router ){ }
+
   toggleSideNav() {
     this.isOpen = !this.isOpen;
   }
   
-  probarHola(){
-    alert('hola!')
+  redirectToClinics(){
+    this.router.navigate(['clinic-list']);
   }
-
 }
