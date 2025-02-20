@@ -1,4 +1,4 @@
-package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest;
+package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.controllers;
 
 import com.smile.clinic.smile_clinic.application.services.InvitationService;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.InvitationRestMapper;

@@ -1,6 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
-import com.smile.clinic.smile_clinic.domain.models.Clinic;
+import com.smile.clinic.smile_clinic.domain.models.users.roles.Permission;
 import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -66,6 +67,9 @@ public class UserEntity implements UserDetails {
     private List<AppointmentEntity> appointments;
 
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserClinicRoleEntity> userClinicRoles;
+
     // UserDetails methods (security & authentication methods)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -73,10 +77,20 @@ public class UserEntity implements UserDetails {
         if(role==null || role.getPermissions()==null) return null;
 
         List<SimpleGrantedAuthority> authorities = role.getPermissions().stream()
-                .map(Enum::name)
+                .map(Permission::name)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
+        /* TODO:
+        Set<SimpleGrantedAuthority> authorities = userClinicRoles.stream()
+                .map(UserClinicRoleEntity::getRole)
+                .filter(Objects::nonNull)  //Prevent null roles
+                .flatMap(role -> role.getPermissions().stream())
+                    flatMap(Collection::stream) //Prevent null error permissions
+                .map(PermissionEntity::getName)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toSet());
+        */
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
 
         return authorities;

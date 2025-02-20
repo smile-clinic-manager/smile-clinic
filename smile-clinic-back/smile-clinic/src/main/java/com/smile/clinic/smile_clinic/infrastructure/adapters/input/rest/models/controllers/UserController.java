@@ -1,4 +1,4 @@
-package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest;
+package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.controllers;
 
 import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
 import com.smile.clinic.smile_clinic.application.services.UserService;

@@ -1,4 +1,4 @@
-package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance;
+package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.adapters;
 
 import com.smile.clinic.smile_clinic.application.ports.output.ClinicPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
