@@ -21,4 +21,7 @@ public class TreatmentEntity {
 
     @NotBlank
     private String name;
+
+    @NotBlank
+    private String notes;
 }

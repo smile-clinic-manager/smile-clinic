@@ -29,13 +29,13 @@ public class TreatmentRestController {
     }
 
     @GetMapping("/findTreatment")
-    public ResponseEntity<TreatmentDTO> findTreatmentByIdentifier(@RequestParam("identifier") Long id){
+    public ResponseEntity<TreatmentDTO> findTreatmentById(@RequestParam("id") Long id){
         TreatmentDTO treatmentDTO = treatmentRestMapper.toTreatmentDTO(treatmentServicePort.findById(id));
         return new ResponseEntity<>(treatmentDTO, HttpStatus.OK);
     }
 
     @GetMapping("/deleteTreatment")
-    public ResponseEntity<Void> deleteTreatmentByIdentifier(@RequestParam("identifier") Long id){
+    public ResponseEntity<Void> deleteTreatmentById(@RequestParam("id") Long id){
         Treatment treatment = treatmentServicePort.findById(id);
         treatmentServicePort.delete(treatment);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

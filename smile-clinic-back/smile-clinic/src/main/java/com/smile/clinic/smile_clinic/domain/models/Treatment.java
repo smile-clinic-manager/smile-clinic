@@ -12,5 +12,5 @@ import java.time.Duration;
 public class Treatment {
     private Long id;
     private String name;
-    //private Double price; **COMMENTED UNTIL WE KNOW HOW BILLING SHOULD BE HANDLED IF ANY
+    private Double price;
 }
