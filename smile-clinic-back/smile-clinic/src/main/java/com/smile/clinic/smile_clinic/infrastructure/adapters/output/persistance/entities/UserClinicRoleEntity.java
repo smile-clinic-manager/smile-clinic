@@ -1,8 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
-import com.smile.clinic.smile_clinic.domain.models.Clinic;
-import com.smile.clinic.smile_clinic.domain.models.users.User;
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

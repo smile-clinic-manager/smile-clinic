@@ -1,4 +1,4 @@
-package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.controllers;
+package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.controllers;
 
 import com.smile.clinic.smile_clinic.application.ports.input.MedicalRecordEntryServicePort;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.MedicalRecordEntryRestMapper;

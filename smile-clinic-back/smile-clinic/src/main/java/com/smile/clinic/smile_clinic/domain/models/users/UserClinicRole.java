@@ -1,7 +1,6 @@
 package com.smile.clinic.smile_clinic.domain.models.users;
 
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
 import lombok.*;
 
 @Getter
