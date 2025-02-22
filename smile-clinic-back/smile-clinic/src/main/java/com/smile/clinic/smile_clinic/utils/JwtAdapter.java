@@ -46,7 +46,7 @@ public class JwtAdapter implements TokenProviderPort {
         claims.put("firstName", user.getFirstName());
         claims.put("lastName1", user.getLastName1());
         claims.put("lastName2", user.getLastName2());
-        claims.put("role", user.getRole());
+        claims.put("roles", user.getUserClinicRole());
 
         return claims;
     }

@@ -14,6 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -59,14 +60,11 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    // Relación con clínicas (dueño)
-
-    // Relación con clínicas (empleado)
-
+    //Citas
     @OneToMany(mappedBy = "user")
     private List<AppointmentEntity> appointments;
 
-
+    //Relaciones con clínicas y su rol asociado
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserClinicRoleEntity> userClinicRoles;
 
@@ -76,21 +74,20 @@ public class UserEntity implements UserDetails {
 
         if(role==null || role.getPermissions()==null) return null;
 
-        List<SimpleGrantedAuthority> authorities = role.getPermissions().stream()
+        /*List<SimpleGrantedAuthority> authorities = role.getPermissions().stream()
                 .map(Permission::name)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+        */
 
-        /* TODO:
         Set<SimpleGrantedAuthority> authorities = userClinicRoles.stream()
                 .map(UserClinicRoleEntity::getRole)
                 .filter(Objects::nonNull)  //Prevent null roles
                 .flatMap(role -> role.getPermissions().stream())
-                    flatMap(Collection::stream) //Prevent null error permissions
                 .map(PermissionEntity::getName)
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toSet());
-        */
+
         authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
 
         return authorities;
