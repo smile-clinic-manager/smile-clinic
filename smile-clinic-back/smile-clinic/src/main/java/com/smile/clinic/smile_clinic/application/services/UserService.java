@@ -7,7 +7,6 @@ import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePor
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -69,7 +68,6 @@ public class UserService implements UserServicePort {
                     .lastName2(user.getLastName2())
                     .dni(user.getDni())
                     .email(user.getEmail())
-                    .role(Role.CLINIC_ADMIN) // Temporary until we implement the roles logic
                     .password(encodedPassword)
                     .build();
 

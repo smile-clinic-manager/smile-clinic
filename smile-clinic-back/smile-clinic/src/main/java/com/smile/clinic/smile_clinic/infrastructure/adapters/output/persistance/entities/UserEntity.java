@@ -1,21 +1,23 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
-import com.smile.clinic.smile_clinic.domain.models.Clinic;
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Getter
 @Setter
 @Builder
@@ -55,30 +57,29 @@ public class UserEntity implements UserDetails {
     @NotBlank
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
-    // Relación con clínicas (dueño)
-
-    // Relación con clínicas (empleado)
-
+    //Citas
     @OneToMany(mappedBy = "user")
     private List<AppointmentEntity> appointments;
 
+    //Relaciones con clínicas y su rol asociado
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserClinicRoleEntity> userClinicRoles;
 
     // UserDetails methods (security & authentication methods)
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
-        if(role==null || role.getPermissions()==null) return null;
+        if(userClinicRoles == null || userClinicRoles.isEmpty()) return null;
 
-        List<SimpleGrantedAuthority> authorities = role.getPermissions().stream()
-                .map(Enum::name)
+        Set<SimpleGrantedAuthority> authorities = userClinicRoles.stream()
+                .map(UserClinicRoleEntity::getRole)
+                .filter(Objects::nonNull)  //Prevent null roles
+                .flatMap(role -> role.getPermissions().stream())
+                .map(PermissionEntity::getName)
                 .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
 
-        authorities.add(new SimpleGrantedAuthority("ROLE_" + this.role.name()));
-
+        log.info(authorities.toString()); // AAAAAAAAAAAAAAAAAAAAAAA
         return authorities;
     }
 

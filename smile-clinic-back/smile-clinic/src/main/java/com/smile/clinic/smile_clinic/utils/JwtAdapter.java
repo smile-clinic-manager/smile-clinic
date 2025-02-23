@@ -2,19 +2,20 @@ package com.smile.clinic.smile_clinic.utils;
 
 import com.smile.clinic.smile_clinic.application.ports.output.TokenProviderPort;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ClinicRoleDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
+@Slf4j
 @Component
 public class JwtAdapter implements TokenProviderPort {
 
@@ -46,9 +47,24 @@ public class JwtAdapter implements TokenProviderPort {
         claims.put("firstName", user.getFirstName());
         claims.put("lastName1", user.getLastName1());
         claims.put("lastName2", user.getLastName2());
-        claims.put("role", user.getRole());
+        claims.put("roles", mapClinicRoles(user));
+
+        log.info(claims.get("roles").toString());
 
         return claims;
+    }
+
+    private List<ClinicRoleDTO> mapClinicRoles(User user){
+        List<ClinicRoleDTO> clinicRoles = new ArrayList<>();
+        List<UserClinicRoleEntity> userClinicRoles = user.getUserClinicRoles();
+        for(UserClinicRoleEntity clinicRoleEntity : userClinicRoles){
+            ClinicRoleDTO clinicRole = ClinicRoleDTO.builder()
+                    .clinic(clinicRoleEntity.getClinic().getName())
+                    .role(clinicRoleEntity.getRole().getName())
+                    .build();
+            clinicRoles.add(clinicRole);
+        }
+        return clinicRoles;
     }
 
     @Override

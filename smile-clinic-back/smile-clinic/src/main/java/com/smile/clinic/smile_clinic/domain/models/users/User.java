@@ -1,7 +1,7 @@
 package com.smile.clinic.smile_clinic.domain.models.users;
 
-import com.smile.clinic.smile_clinic.domain.models.Clinic;
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
+import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import lombok.*;
 
 import java.util.List;
@@ -19,10 +19,8 @@ public class User {
     private String username;
     private String dni;
     private String email;
-    private Role role;
     private String password;
-
-    //Relations
-    private List<Clinic> ownedClinics; //Clinics where User is owner
-    private List<Clinic> clinics; // Clinics in which the owner works
+    // Relationships
+    private List<Appointment> appointments;
+    private List<UserClinicRoleEntity> userClinicRoles;
 }
