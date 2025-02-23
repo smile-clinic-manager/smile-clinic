@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { ApiHttpService } from './api-http.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { AuthenticationRequestDTO } from '../app/models/AuthenticationRequestDTO';
-import { ErrorResponseDTO } from '../app/models/ErrorResponseDTO';
 import { LocalStorageService } from './local-storage.service';
 import { AuthenticationResponseDTO } from '../app/models/AuthenticationResponseDTO';
+import { SignupRequestDTO } from '../app/models/SignupRequestDTO';
+import { SignupResponseDTO } from '../app/models/RegisteredUserDTO';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
+export class AuthService {
 
-  constructor(private api: ApiHttpService, private apiEndpointHelper: ApiEndpointHelperService,
-    private localStorageService: LocalStorageService) {
-
-  }
+  constructor(private api: ApiHttpService, 
+      private apiEndpointHelper: ApiEndpointHelperService,
+      private localStorageService: LocalStorageService) { }
 
   login(username: string, password: string): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -31,8 +31,28 @@ export class LoginService {
             reject(error.error.errorMessage);
           },
       });
-  });
-
+    });
   }
+
+  logout(): void {
+    this.localStorageService.deleteTokens();
+  }
+
+  signup(signupRequestDTO: SignupRequestDTO): Promise<boolean> {
+        return new Promise((resolve, reject) => {
+          this.api
+            .post(this.apiEndpointHelper.createUrl('users/signup'), signupRequestDTO)
+            .subscribe({
+              next: (response: SignupResponseDTO) => {
+                this.localStorageService.setTokenInLocalStorage(response.jwtToken);
+                resolve(true);
+              },
+              error: (error) => {
+                console.error('Error signing up:', error.error.errorMessage);
+                reject(error.error.errorMessage);
+              },
+            });
+      });
+    }
 
 }

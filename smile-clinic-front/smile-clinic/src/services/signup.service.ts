@@ -15,7 +15,7 @@ export class SignUpService {
     private localStorageService: LocalStorageService
   ) {}
 
-  signup(signupRequestDTO: SignupRequestDTO): Promise<boolean> {
+  /* signup(signupRequestDTO: SignupRequestDTO): Promise<boolean> {
       return new Promise((resolve, reject) => {
         this.api
           .post(this.apiEndpointHelper.createUrl('users/signup'), signupRequestDTO)
@@ -30,5 +30,5 @@ export class SignUpService {
             },
           });
     });
-  }
+  } */
 }

@@ -5,7 +5,7 @@ import { MatCardModule } from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field'; 
 import { MatInputModule } from '@angular/material/input';
 import {MatIconModule} from '@angular/material/icon';
-import { LoginService } from '../../../services/login-service.service';
+import { AuthService } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
 
@@ -16,7 +16,7 @@ import { SnackbarServiceService } from '../../../services/snackbar-service.servi
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
-  constructor(private readonly loginService: LoginService, private readonly router: Router,
+  constructor(private readonly authService: AuthService, private readonly router: Router,
     private readonly snackBarService: SnackbarServiceService){ }
 
   hidePassword: boolean = true;
@@ -39,7 +39,7 @@ export class LoginComponent {
     const password = this.loginForm.get('password')?.value
 
     if(username && password){
-      this.loginService.login(username, password).then(() => {
+      this.authService.login(username, password).then(() => {
         this.snackBarService.showSuccessSnackBar('Inicio de sesión correcto!');
         this.router.navigate(['/home']);
       }).catch(error => {

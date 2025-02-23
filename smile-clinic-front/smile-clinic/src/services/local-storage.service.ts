@@ -47,5 +47,9 @@ export class LocalStorageService {
     return '';
   }
 
+  public deleteTokens(): void{
+    localStorage.removeItem('token');
+  }
+
 
 }
