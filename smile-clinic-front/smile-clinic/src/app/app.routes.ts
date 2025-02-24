@@ -20,10 +20,10 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent, canActivate: [authGuard] },
       { path: 'clinic-list', component : ClinicListComponent, canActivate: [authGuard] },
       { path: 'clinic-detail', component : ClinicDetailComponent, canActivate: [authGuard] },
+      { path: 'treatments-list', component: TreatmentListComponent },
+      { path: 'treatment-detail', component: TreatmentDetailComponent },
     ]
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route (404 page)
-  { path: 'treatments-list', component: TreatmentListComponent },
-  { path: 'treatment-detail', component: TreatmentDetailComponent },
   { path: '', component: PageNotFoundComponent }, //wildcard, when none route is matched, this one triggers (404 err)
 ];
