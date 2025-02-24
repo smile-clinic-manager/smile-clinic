@@ -8,6 +8,8 @@ import { HomeComponent } from './modules/home/home.component';
 import { authGuard } from './auth.guard';
 import { ClinicListComponent } from './modules/clinic-list/clinic-list.component';
 import { ClinicDetailComponent } from './modules/clinic-detail/clinic-detail.component';
+import { TreatmentListComponent } from './modules/treatment-list/treatment-list.component';
+import { TreatmentDetailComponent } from './modules/treatment-detail/treatment-detail.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -20,5 +22,8 @@ export const routes: Routes = [
       { path: 'clinic-detail', component : ClinicDetailComponent, canActivate: [authGuard] },
     ]
   },
-  { path: '**', component: PageNotFoundComponent } // Wildcard route (404 page)
+  { path: '**', component: PageNotFoundComponent }, // Wildcard route (404 page)
+  { path: 'treatments-list', component: TreatmentListComponent },
+  { path: 'treatment-detail', component: TreatmentDetailComponent },
+  { path: '', component: PageNotFoundComponent }, //wildcard, when none route is matched, this one triggers (404 err)
 ];
