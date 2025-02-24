@@ -5,6 +5,7 @@ import { LayoutComponent } from './modules/layout/layout.component';
 import { LoginComponent } from './modules/login/login.component';
 import { SignUpComponent } from './modules/signup/signup.component';
 import { TreatmentListComponent } from './modules/treatment-list/treatment-list.component';
+import { TreatmentDetailComponent } from './modules/treatment-detail/treatment-detail.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -12,5 +13,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signUp', component: SignUpComponent },
   { path: 'treatments-list', component: TreatmentListComponent },
+  { path: 'treatment-detail', component: TreatmentDetailComponent },
   { path: '', component: PageNotFoundComponent }, //wildcard, when none route is matched, this one triggers (404 err)
 ];
