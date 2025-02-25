@@ -18,14 +18,13 @@ export class SignUpService {
   signup(signupRequestDTO: SignupRequestDTO): Promise<boolean> {
       return new Promise((resolve, reject) => {
         this.api
-          .post(this.apiEndpointHelper.createUrl('auth/signup'), signupRequestDTO)
+          .post(this.apiEndpointHelper.createUrl('users/signup'), signupRequestDTO)
           .subscribe({
             next: (response: SignupResponseDTO) => {
               this.localStorageService.setTokenInLocalStorage(response.jwtToken);
               resolve(true);
             },
             error: (error) => {
-              alert('Error al registrarse');
               console.error('Error signing up:', error.error.errorMessage);
               reject(error.error.errorMessage);
             },

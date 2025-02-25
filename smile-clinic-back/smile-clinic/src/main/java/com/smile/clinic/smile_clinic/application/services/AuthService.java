@@ -37,6 +37,7 @@ public class AuthService implements AuthServicePort {
         return authenticationResponse;
     }
 
+    @Override
     public Boolean validateToken(String token){
         try{
             Claims claims = this.tokenProviderPort.getAllTokenClaims(token); //If we can extract the data it is a valid token

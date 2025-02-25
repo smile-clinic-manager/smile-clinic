@@ -11,7 +11,5 @@ import java.util.Optional;
 @Repository
 public interface ClinicEntityRepository extends JpaRepository<ClinicEntity, Long> {
 
-    List<Clinic> findByOwnerId(int ownerId);
-
     Optional<Clinic> findByAddress(String address);
 }

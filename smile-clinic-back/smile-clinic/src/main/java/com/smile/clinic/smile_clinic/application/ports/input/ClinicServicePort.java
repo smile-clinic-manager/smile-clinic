@@ -11,7 +11,6 @@ public interface ClinicServicePort {
     List<Clinic> findAll();
 
     Clinic findById(Long id);
-    List<Clinic> findByOwnerId(int ownerId);
     Clinic findByAddress(String address);
 
     Clinic save(Clinic clinic);
