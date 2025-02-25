@@ -22,6 +22,9 @@ public class TreatmentEntity {
     @NotBlank
     private String name;
 
+    @Min(value = 1)
+    private Double price;
+
     @NotBlank
     private String notes;
 }

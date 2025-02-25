@@ -28,3 +28,24 @@ VALUES
     (10, 'Clínica Bella Vida', 'Calle Sierpes 45, Sevilla', '954222333', 'info@bellavida.com', 'bellavida.jpg', 41001),
     (11, 'Odontologia Avanzada', 'Calle Feria 5, Sevilla', '954333444', 'contacto@avanzada.com', 'avanzada.jpg', 41015),
     (12, 'Centro Boca Sana', 'Plaza Nueva 12, Sevilla', '954444555', 'info@bocasana.com', 'bocasana.jpg', 41004);
+
+INSERT INTO treatments(id, name, price, notes)
+VALUES
+    (13, 'Limpieza Dental', 50.0, 'Limpieza dental profesional'),
+    (14, 'Blanqueamiento Dental', 150.0, 'Blanqueamiento dental con luz LED'),
+    (15, 'Ortodoncia', 2000.0, 'Ortodoncia invisible'),
+    (16, 'Endodoncia', 500.0, 'Endodoncia de un conducto'),
+    (17, 'Implante Dental', 1000.0, 'Implante dental de titanio'),
+    (18, 'Carillas Dentales', 300.0, 'Carillas dentales de porcelana'),
+    (19, 'Prótesis Dental', 500.0, 'Prótesis dental removible'),
+    (20, 'Corona Dental', 300.0, 'Corona dental de porcelana'),
+    (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio'),
+    (22, 'Empaste Dental', 50.0, 'Empaste dental de composite');
+
+INSERT INTO clinic_treatments(clinic_id, treatment_id)
+VALUES
+    (8, 13), (8, 14), (8, 15), (8, 16),
+    (9, 17), (9, 18), (9, 19), (9, 20), (9, 21), (9, 22),
+    (10, 13), (10, 14),
+    (11, 21), (11, 22),
+    (12, 13), (12, 14), (12, 15), (12, 16), (12, 17), (12, 18), (12, 19), (12, 20), (12, 21), (12, 22);

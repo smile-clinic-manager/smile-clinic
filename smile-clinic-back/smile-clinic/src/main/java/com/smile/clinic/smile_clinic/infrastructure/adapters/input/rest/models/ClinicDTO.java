@@ -2,7 +2,10 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models;
 
 import jakarta.persistence.ForeignKey;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
+
+import java.util.List;
 
 @Builder
 @Getter
@@ -27,4 +30,8 @@ public class ClinicDTO {
     private String email;
 
     private String image;
+
+    // Relationships
+    @NotEmpty(message = "Field treatments cannot be empty")
+    private List<TreatmentDTO> treatments;
 }

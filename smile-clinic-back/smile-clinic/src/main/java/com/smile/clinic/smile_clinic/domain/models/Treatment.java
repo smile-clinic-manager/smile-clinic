@@ -13,4 +13,5 @@ public class Treatment {
     private Long id;
     private String name;
     private Double price;
+    private String notes;
 }
