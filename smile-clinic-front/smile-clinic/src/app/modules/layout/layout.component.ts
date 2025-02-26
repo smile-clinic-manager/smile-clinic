@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { SideVarComponent } from './side-var/side-var.component';
 import { HeaderComponent } from './header/header.component';
@@ -12,7 +12,7 @@ import { FooterComponent } from './footer/footer.component';
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
-
+  @ViewChild(SideVarComponent) sideVarComponent!: SideVarComponent;
 /*   checkInterceptor(){
     const params: Map<string, any> = new Map();
     params.set('token', localStorage.getItem('token')?? '');
@@ -25,6 +25,10 @@ export class LayoutComponent {
       }
     })
   } */
+
+  toggleSideVar(){
+    this.sideVarComponent.toggleSideNav();
+  }
 
 
   

@@ -1,4 +1,11 @@
 .spacer {
     flex: 1 1 auto;
-  }
-  
+}
+
+button mat-icon.menu{
+  color: var(--mat-sys-background);
+}
+
+i.ri-menu-line {
+  color: var(--mat-sys-background);
+}
