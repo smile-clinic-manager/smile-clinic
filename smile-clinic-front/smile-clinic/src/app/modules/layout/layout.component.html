@@ -1,5 +1,5 @@
-<app-header (toggleSideVarEvent)="toggleSideVar()"></app-header>
+<app-header (toggleSideVarEvent)="toggleSideVar()" [isMenuOpen]="isMenuOpen"></app-header>
 
-<app-side-var></app-side-var>
+<app-side-var [isMenuOpen]="isMenuOpen"></app-side-var>
 
 <app-footer></app-footer>

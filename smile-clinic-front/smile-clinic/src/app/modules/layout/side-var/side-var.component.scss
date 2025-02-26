@@ -22,4 +22,20 @@ mat-expansion-panel{
 
 mat-sidenav{
   min-width: 25%;
+  
+}
+
+@media screen and (max-width: 500px){
+  mat-sidenav{
+    min-width:50% !important;  
+  }
+}
+
+mat-panel-title{
+  display: inline-flex;
+
+}
+
+mat-panel-title mat-icon{
+  padding-right: 1%;
 }

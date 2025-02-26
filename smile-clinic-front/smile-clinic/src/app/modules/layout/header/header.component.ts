@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, signal, Signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router } from '@angular/router';
@@ -16,9 +16,9 @@ import { MatDivider } from '@angular/material/divider';
 })
 export class HeaderComponent {
   @Output() toggleSideVarEvent: EventEmitter<void> = new EventEmitter(); 
-
-
-  constructor(private readonly authService: AuthService, private readonly router: Router){  }
+  @Input({required: true}) isMenuOpen!: Signal<boolean>;
+  
+  constructor(private readonly authService: AuthService, private readonly router: Router){  }  
 
   logout(): void {
     this.authService.logout();

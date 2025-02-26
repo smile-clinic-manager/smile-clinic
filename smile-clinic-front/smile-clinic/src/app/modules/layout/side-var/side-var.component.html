@@ -1,13 +1,12 @@
 <mat-sidenav-container class="sidenav-container" >
-    <mat-sidenav #sidenav mode="side" opened="true">
+    <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen()">
       <mat-nav-list>
         
-        <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+        <mat-expansion-panel >
           <mat-expansion-panel-header>
-            <mat-panel-title>Clínicas</mat-panel-title>
-            <mat-panel-description>
-              <mat-icon> health_metrics </mat-icon>
-            </mat-panel-description>
+            <mat-panel-title matTooltip="Clínicas">
+              <mat-icon> health_and_safety </mat-icon> Clínicas
+            </mat-panel-title>
           </mat-expansion-panel-header>
 
           <a mat-list-item (click)="redirectToClinics()">Listado de clínicas</a>
@@ -16,9 +15,30 @@
 
         </mat-expansion-panel> 
 
-        <a mat-list-item href="#patients">Patients</a>
-        <a mat-list-item href="#billing">Billing</a>
-        <a mat-list-item href="#settings">Settings</a>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon> calendar_today </mat-icon> Citas y Calendario
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <a mat-list-item (click)="redirectToClinics()">Calendario</a>
+          <a mat-list-item (click)="redirectToClinics()">Citas</a>
+
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon> groups </mat-icon>Pacientes
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <a mat-list-item (click)="redirectToClinics()">Listado de pacientes</a>
+
+
+        </mat-expansion-panel>
+      
       </mat-nav-list>
     </mat-sidenav>
     

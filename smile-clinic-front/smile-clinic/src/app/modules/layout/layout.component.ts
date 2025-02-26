@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import { SideVarComponent } from './side-var/side-var.component';
 import { HeaderComponent } from './header/header.component';
@@ -13,21 +13,10 @@ import { FooterComponent } from './footer/footer.component';
 })
 export class LayoutComponent {
   @ViewChild(SideVarComponent) sideVarComponent!: SideVarComponent;
-/*   checkInterceptor(){
-    const params: Map<string, any> = new Map();
-    params.set('token', localStorage.getItem('token')?? '');
-    this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/auth/validate-token', params)).subscribe({
-      next: (response)=>{
-        alert("Validated token: " + response);
-      },
-      error: (error)=>{
-        alert("Error validating the token" + error.message);
-      }
-    })
-  } */
+  public isMenuOpen = signal<boolean>(true); //if its not initialized set to true
 
   toggleSideVar(){
-    this.sideVarComponent.toggleSideNav();
+    this.isMenuOpen.set(!this.isMenuOpen());
   }
 
 
