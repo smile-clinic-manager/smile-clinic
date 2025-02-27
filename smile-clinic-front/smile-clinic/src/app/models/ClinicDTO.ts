@@ -5,6 +5,5 @@ export interface ClinicDTO {
   phoneNumber: string;
   email: string;
   img: string;
-  invitations: string[];
   treatments: string[];
 }
