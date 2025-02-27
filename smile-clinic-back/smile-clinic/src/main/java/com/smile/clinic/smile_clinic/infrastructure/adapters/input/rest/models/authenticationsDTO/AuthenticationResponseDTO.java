@@ -17,4 +17,7 @@ public class AuthenticationResponseDTO implements Serializable {
 
     @NotBlank
     private String token;
+
+    @NotBlank
+    private String refreshToken;
 }

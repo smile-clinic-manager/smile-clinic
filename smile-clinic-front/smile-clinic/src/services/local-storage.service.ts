@@ -12,9 +12,11 @@ export class LocalStorageService {
 
   constructor() { }
 
-  public setTokenInLocalStorage(jwtToken: string): void {
+  public setTokenInLocalStorage(jwtToken: string, refreshToken: string): void {
     const encryptedToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
+    const encryptedRefreshToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
     localStorage.setItem('token', encryptedToken);
+    localStorage.setItem('refreshToken', encryptedRefreshToken);
   }
 
   public getTokenInLocalStorage(): string {
@@ -57,6 +59,7 @@ export class LocalStorageService {
 
   public deleteTokens(): void{
     localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
   }
 
 
