@@ -21,7 +21,7 @@ export const routes: Routes = [
       { path: 'clinic-list', component : ClinicListComponent, canActivate: [authGuard] },
       { path: 'clinic-detail/:id', component : ClinicDetailComponent, canActivate: [authGuard] },
       { path: 'treatment-list', component: TreatmentListComponent },
-      { path: 'treatment-detail', component: TreatmentDetailComponent },
+      { path: 'treatment-detail/:id', component: TreatmentDetailComponent },
     ]
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route (404 page)
