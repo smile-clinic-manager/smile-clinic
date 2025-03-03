@@ -28,7 +28,7 @@ public class TreatmentRestController {
         return new ResponseEntity<>(treatmentsDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findTreatment")
+    @GetMapping("/findTreatmentById")
     public ResponseEntity<TreatmentDTO> findTreatmentById(@RequestParam("id") Long id){
         TreatmentDTO treatmentDTO = treatmentRestMapper.toTreatmentDTO(treatmentServicePort.findById(id));
         return new ResponseEntity<>(treatmentDTO, HttpStatus.OK);

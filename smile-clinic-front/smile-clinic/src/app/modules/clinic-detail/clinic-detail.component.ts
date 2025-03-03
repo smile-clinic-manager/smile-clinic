@@ -39,11 +39,9 @@ export class ClinicDetailComponent implements OnInit {
   findClinic(): void {
     const params: Map<string, any> = new Map<string, any>();
     params.set("id", this.id);
-    console.log('hi 1');
     this.api.get(this.endpointHelper.createUrlWithQueryParameters("/clinics/findClinicById",
     params)).subscribe((clinic: ClinicDTO) => {
       this.dataSource = clinic;
-      console.log('bye 1');
     });
   }
 
