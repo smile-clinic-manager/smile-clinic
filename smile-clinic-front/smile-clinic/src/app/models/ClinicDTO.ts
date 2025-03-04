@@ -1,3 +1,5 @@
+import { TreatmentDTO } from "./TreatmentDTO";
+
 export interface ClinicDTO {
   name: string;
   postalCode: string;
@@ -5,5 +7,5 @@ export interface ClinicDTO {
   phoneNumber: string;
   email: string;
   img: string;
-  treatments: string[];
+  treatments: TreatmentDTO[];
 }
