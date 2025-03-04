@@ -41,4 +41,9 @@ public class TreatmentPersistanceAdapter implements TreatmentPersistancePort {
     public void delete(Treatment treatment) {
         this.treatmentEntityRepository.delete(treatmentPersistanceMapper.toTreatmentEntity(treatment));
     }
+
+    @Override
+    public List<Treatment> findByClinicId(Long clinicId) {
+        return treatmentPersistanceMapper.toTreatmentList(this.treatmentEntityRepository.findByClinicId(clinicId));
+    }
 }

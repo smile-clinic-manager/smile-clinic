@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface TreatmentServicePort {
     Treatment findById(Long id);
     List<Treatment> findAll();
+    List<Treatment> findByClinicId(Long id);
     Treatment save(Treatment treatment);
     Treatment update(Long id, Treatment treatment);
     void delete(Treatment treatment);

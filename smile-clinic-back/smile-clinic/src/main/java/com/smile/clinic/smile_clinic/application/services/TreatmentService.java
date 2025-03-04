@@ -31,6 +31,11 @@ public class TreatmentService implements TreatmentServicePort {
     }
 
     @Override
+    public List<Treatment> findByClinicId(Long id) {
+        return treatmentPersistancePort.findByClinicId(id);
+    }
+
+    @Override
     public Treatment save(Treatment treatment) {
         return treatmentPersistancePort.save(treatment);
     }

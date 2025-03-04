@@ -33,12 +33,6 @@ public class ClinicRestController {
         return new ResponseEntity<>(clinicDTO, HttpStatus.OK);
     }
 
-    @GetMapping("/findClinicByOwnerId")
-    public ResponseEntity<List<ClinicDTO>> findClinicByOwnerId(@RequestParam("ownerId") int ownerId){
-        List<ClinicDTO> clinicsDTO = clinicRestMapper.toClinicDTOList(clinicServicePort.findByOwnerId(ownerId));
-        return new ResponseEntity<>(clinicsDTO, HttpStatus.OK);
-    }
-
     @GetMapping("/findClinicByAddress")
     public ResponseEntity<ClinicDTO> findClinicByAddress(@RequestParam("address") String address){
         ClinicDTO clinicDTO = clinicRestMapper.toClinicDTO(clinicServicePort.findByAddress(address));

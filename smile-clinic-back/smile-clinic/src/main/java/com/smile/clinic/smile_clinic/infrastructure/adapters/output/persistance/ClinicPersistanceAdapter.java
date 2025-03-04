@@ -23,11 +23,6 @@ public class ClinicPersistanceAdapter implements ClinicPersistancePort {
     }
 
     @Override
-    public List<Clinic> findByOwnerId(int ownerId) {
-        return this.clinicRepository.findByOwnerId(ownerId);
-    }
-
-    @Override
     public Optional<Clinic> findById(Long id) {
         return this.clinicRepository.findById(id)
                 .map(clinicPersistanceMapper::toClinic);

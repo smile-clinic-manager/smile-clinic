@@ -10,7 +10,8 @@ import { OnInit } from "@angular/core";
   templateUrl: './treatment-list.component.html',
   styleUrls: ['./treatment-list.component.scss']
 })
-export class TreatmentListComponent /*implements OnInit*/ {
+export class TreatmentListComponent {
+
 
   displayedColumns: string[] = ["name", "notes", "price"];
 
@@ -21,13 +22,5 @@ export class TreatmentListComponent /*implements OnInit*/ {
 
   constructor(private api: ApiHttpService) {}
 
-  /*ngOnInit(): void {
-    this.findAll();
   }
-
-  findAll(): void {
-    this.api.get('http://localhost:8080/treatments/findAll').subscribe((treatments: TreatmentDTO[]) => {
-      this.dataSource = treatments;
-    });
-  }*/
 }

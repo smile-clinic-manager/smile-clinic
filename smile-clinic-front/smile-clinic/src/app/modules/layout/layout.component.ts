@@ -10,38 +10,19 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import { FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LoginService} from '../../../services/login-service.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
-
+import { SideVarComponent } from './side-var/side-var.component';
+import { HeaderComponent } from './header/header.component';
+import { RouterOutlet } from '@angular/router';
+import { FooterComponent } from './footer/footer.component';
 
 @Component({
   selector: 'app-layout',
-  imports: [MatButton, MatSlideToggleModule, MatCard, MatDatepickerModule, MatInputModule, MatFormFieldModule, FormsModule,
-    ReactiveFormsModule],
+  imports: [SideVarComponent, HeaderComponent, FooterComponent],
   providers: [provideNativeDateAdapter()],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
-  isLoggedIn = false;
-  token: string = '';
-
-  dateFormControl = new FormControl(null, Validators.required);
-
-  constructor(private loginService: LoginService, private localStorageService: LocalStorageService){ }
-
-
-  login() {
-    this.loginService.login('miguel_rod11', 'Mypass2022#');
-  } 
-
-  toggleLogin(){
-    this.isLoggedIn = !this.isLoggedIn;
-    this.login();
-  }
-  
-  readToken(){
-    const token = this.localStorageService.getTokenInLocalStorage();
-    alert("Token: " + token);
-  }
 
 /*   checkInterceptor(){
     const params: Map<string, any> = new Map();

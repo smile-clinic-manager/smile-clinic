@@ -5,4 +5,6 @@ import com.smile.clinic.smile_clinic.domain.models.auth.AuthenticationResponse;
 
 public interface AuthServicePort {
     AuthenticationResponse login(AuthenticationRequest authenticationRequest) throws Exception;
+
+    Boolean validateToken(String token);
 }
