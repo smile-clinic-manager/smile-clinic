@@ -25,6 +25,4 @@ export const routes: Routes = [
     ]
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route (404 page)
-  { path: '', component: PageNotFoundComponent }, //wildcard, when none route is matched, this one triggers (404 err)
-  { path: '**', component: PageNotFoundComponent } // Wildcard route (404 page)
 ];

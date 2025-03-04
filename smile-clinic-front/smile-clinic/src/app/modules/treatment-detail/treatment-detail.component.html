@@ -1,14 +1,14 @@
 <form class="treatment-form">
   <mat-form-field class="treatment-full-width">
     <mat-label>Name</mat-label>
-    <input matInput disabled placeholder="Name" [(ngModel)]="dataSource.name" name="name" required>
+    <input matInput disabled placeholder="Name" [(ngModel)]="treatment.name" name="name" required>
   </mat-form-field>
   <mat-form-field class="treatment-full-width">
     <mat-label>Price</mat-label>
-    <input matInput disabled placeholder="Price" [(ngModel)]="dataSource.price" name="price" required>
+    <input matInput disabled placeholder="Price" [(ngModel)]="treatment.price" name="price" required>
   </mat-form-field>
   <mat-form-field class="treatment-full-width">
     <mat-label>Notes</mat-label>
-    <textarea matInput disabled placeholder="Notes" [(ngModel)]="dataSource.notes" name="notes" required></textarea>
+    <textarea matInput disabled placeholder="Notes" [(ngModel)]="treatment.notes" name="notes" required></textarea>
   </mat-form-field>
 </form>

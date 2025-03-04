@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from "@angular/core";
 import { TreatmentDTO } from "../../models/TreatmentDTO";
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
@@ -21,7 +22,7 @@ export class TreatmentDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
     private endpointHelper: ApiEndpointHelperService) {}
 
-      ngOnInit(): void {
+   ngOnInit(): void {
     this.extractId();
     this.findTreatment();
   }
