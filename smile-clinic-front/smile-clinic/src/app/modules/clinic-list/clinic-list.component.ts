@@ -2,6 +2,9 @@ import { ClinicDTO } from './../../models/ClinicDTO';
 import { ApiHttpService } from './../../../services/api-http.service';
 import { Component, OnInit } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
+import { MatIconModule } from '@angular/material/icon';
+import { Router } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 import { Router } from '@angular/router';
 import { ClinicService } from '../../../services/clinic.service';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
@@ -9,15 +12,14 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-clinic-list',
-  imports: [MatTableModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './clinic-list.component.html',
   styleUrl: './clinic-list.component.scss'
 })
 export class ClinicListComponent implements OnInit {
 
-  displayedColumns: string[] = ["name", "postalCode", "address", "phoneNumber", "email"];
-  dataSource: ClinicDTO[] = [];
-  user: any = null; //TEMPORARY
+    displayedColumns: string[] = ["name", "postalCode", "address", "phoneNumber", "email"];
+    dataSource: ClinicDTO[] = [];
 
   constructor(private api: ApiHttpService, private router: Router, 
     private clinicService: ClinicService, private snackBarService: SnackbarServiceService,
