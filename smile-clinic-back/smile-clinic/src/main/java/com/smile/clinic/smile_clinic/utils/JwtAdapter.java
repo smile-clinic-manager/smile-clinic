@@ -21,8 +21,24 @@ public class JwtAdapter implements TokenProviderPort {
 
     @Value("${security.jwt.expiration-minutes}")
     private Long EXPIRATION_MINUTES;
+    @Value("${security.refresh-jwt.expiration-minutes}")
+    private Long REFRESH_TOKEN_EXPIRATION;
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
+
+    @Override
+    public String generateRefreshToken(User user) {
+        Date issuedAt = new Date(System.currentTimeMillis());
+        Date expiration = new Date(issuedAt.getTime() + EXPIRATION_MINUTES * 60 * 1000);
+        SecretKey secretKey = generateKey();
+
+        return Jwts.builder()
+                .subject(user.getUsername())
+                .issuedAt(issuedAt)
+                .expiration(expiration)
+                .signWith(secretKey)
+                .compact();
+    }
 
     @Override
     public String generateToken(User user) {
@@ -31,14 +47,13 @@ public class JwtAdapter implements TokenProviderPort {
 
         SecretKey secretKey = generateKey();
 
-        String token = Jwts.builder()
+        return Jwts.builder()
             .subject(user.getUsername())
             .issuedAt(issuedAt)
             .expiration(expiration)
             .claims(generateExtraClaims(user))
             .signWith(secretKey)
             .compact();
-        return token;
     }
 
     private Map<String,Object> generateExtraClaims(User user) {

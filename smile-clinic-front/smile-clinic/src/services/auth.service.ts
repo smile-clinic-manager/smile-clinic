@@ -22,7 +22,7 @@ export class AuthService {
 
       this.api.post(this.apiEndpointHelper.createUrl('auth/login'), authRequest).subscribe({
           next: (authResponse: AuthenticationResponseDTO) => {
-              this.localStorageService.setTokenInLocalStorage(authResponse.token);
+              this.localStorageService.setTokenInLocalStorage(authResponse.token, authResponse.refreshToken);
               resolve(true);
           },
           error: (error) => {
@@ -44,7 +44,7 @@ export class AuthService {
             .post(this.apiEndpointHelper.createUrl('users/signup'), signupRequestDTO)
             .subscribe({
               next: (response: SignupResponseDTO) => {
-                this.localStorageService.setTokenInLocalStorage(response.jwtToken);
+                this.localStorageService.setTokenInLocalStorage(response.jwtToken, response.refreshToken);
                 resolve(true);
               },
               error: (error) => {

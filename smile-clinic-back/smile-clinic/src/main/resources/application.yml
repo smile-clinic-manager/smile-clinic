@@ -21,6 +21,8 @@ logging:
   level:
     org.hibernate.SQL: debug
 security:
+  refresh-jwt:
+    expiration-minutes: 10080
   jwt:
     expiration-minutes: 30
     secret-key: N3VZbDMwa0V3Z2RIQ1lpM0xoWlR0dEF3SmV6dDZvYkM=

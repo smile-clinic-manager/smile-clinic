@@ -33,8 +33,10 @@ public class AuthService implements AuthServicePort {
 
         //Authenticate user
         this.authenticationProviderPort.authenticate(authRequest);
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse(this.tokenProviderPort.generateToken(user.get()));
-        return authenticationResponse;
+        String token = this.tokenProviderPort.generateToken(user.get());
+        String refreshToken = this.tokenProviderPort.generateRefreshToken(user.get());
+
+        return new AuthenticationResponse(token, refreshToken);
     }
 
     @Override

@@ -8,4 +8,5 @@ export interface SignupResponseDTO {
   dni: string;
   role: string | null;
   jwtToken: string;
+  refreshToken: string;
 }

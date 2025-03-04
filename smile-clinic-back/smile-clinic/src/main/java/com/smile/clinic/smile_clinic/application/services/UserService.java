@@ -75,6 +75,7 @@ public class UserService implements UserServicePort {
 
             User savedUser = userPersistancePort.save(userToRegister);
             String token = tokenProviderPort.generateToken(savedUser);
+            String refreshToken = tokenProviderPort.generateRefreshToken(savedUser);
 
             return Map.of(savedUser, token);
 
