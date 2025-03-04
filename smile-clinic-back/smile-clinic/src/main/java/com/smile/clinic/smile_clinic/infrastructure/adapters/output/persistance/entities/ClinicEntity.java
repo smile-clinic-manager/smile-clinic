@@ -37,6 +37,10 @@ public class ClinicEntity {
 
     @NotBlank
     private String phoneNumber;
+    private String postalCode;
+
+    @NotBlank
+    private String phoneNumber;
 
     @Email
     @NotBlank
@@ -46,7 +50,10 @@ public class ClinicEntity {
 
     // Relationships
     @OneToMany
+    // Relationships
+    @ManyToMany
     @JoinTable(
+            name = "clinic_treatments",
             name = "clinic_treatments",
             joinColumns = @JoinColumn(name = "clinic_id"),
             inverseJoinColumns = @JoinColumn(name = "treatment_id")

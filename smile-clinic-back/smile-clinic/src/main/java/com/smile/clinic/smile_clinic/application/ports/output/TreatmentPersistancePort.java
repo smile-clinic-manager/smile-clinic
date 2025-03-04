@@ -13,4 +13,6 @@ public interface TreatmentPersistancePort {
     Treatment update(Long id, Treatment treatment);
 
     void delete(Treatment treatment);
+
+    List<Treatment> findByClinicId(Long clinicId);
 }

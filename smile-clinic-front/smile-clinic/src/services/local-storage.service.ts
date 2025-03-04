@@ -27,6 +27,13 @@ export class LocalStorageService {
     return decryptedToken;
   }
 
+  public existsToken(): boolean {
+    if (!isPlatformBrowser(this.platformId)) {
+      return false; // Prevents `localStorage` errors in SSR
+    }
+    return localStorage.getItem('token') ? true : false;
+  }
+
   async checkAuthStatus(): Promise<boolean> {
     return new Promise((resolve) => {
       setTimeout(() => { 
