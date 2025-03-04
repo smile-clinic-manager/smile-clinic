@@ -8,7 +8,7 @@ import { OnInit } from "@angular/core";
   selector: 'app-treatment-list',
   imports : [MatTableModule],
   templateUrl: './treatment-list.component.html',
-  styleUrls: ['./treatment-list.component.scss']
+  styleUrl: './treatment-list.component.scss',
 })
 export class TreatmentListComponent {
 
@@ -21,6 +21,4 @@ export class TreatmentListComponent {
   ];
 
   constructor(private api: ApiHttpService) {}
-
-  }
 }

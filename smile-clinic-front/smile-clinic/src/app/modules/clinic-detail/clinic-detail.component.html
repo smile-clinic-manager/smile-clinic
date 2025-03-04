@@ -1,18 +1,18 @@
 <form class="clinic-form">
   <mat-form-field class="clinic-full-width">
     <mat-label>Name</mat-label>
-    <input matInput disabled value="{{dataSource.name}}">
+    <input matInput disabled value="{{clinic!.name}}">
   </mat-form-field>
 
   <table class="clinic-full-width" cellspacing="0">
     <tr>
       <td><mat-form-field class="clinic-full-width">
           <mat-label>Address</mat-label>
-          <input matInput disabled value="{{dataSource.address}}">
+          <input matInput disabled value="{{clinic!.address}}">
         </mat-form-field></td>
       <td><mat-form-field class="clinic-full-width">
           <mat-label>Postal code</mat-label>
-          <input matInput disabled value="{{dataSource.postalCode}}">
+          <input matInput disabled value="{{clinic!.postalCode}}">
         </mat-form-field></td>
     </tr>
   </table>
@@ -21,11 +21,11 @@
     <tr>
       <td><mat-form-field class="clinic-full-width">
           <mat-label>Phone number</mat-label>
-          <input matInput disabled value="{{dataSource.phoneNumber}}">
+          <input matInput disabled value="{{clinic!.phoneNumber}}">
         </mat-form-field></td>
       <td><mat-form-field class="clinic-full-width">
           <mat-label>Email</mat-label>
-          <input matInput disabled value="{{dataSource.email}}">
+          <input matInput disabled value="{{clinic!.email}}">
         </mat-form-field></td>
     </tr>
   </table>
@@ -34,7 +34,7 @@
     <tr>
       <td>
         <mat-list>
-          @for (treatment of dataSource.treatments; track treatment){
+          @for (treatment of clinic!.treatments; track treatment){
           <mat-list-item>
             <h4 mat-line>{{treatment.name}}</h4>
           </mat-list-item>

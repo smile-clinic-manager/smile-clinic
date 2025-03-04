@@ -13,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ClinicDTO {
+    @NotBlank(message = "Field id cannot be empty, blank or null")
+    private Long id;
 
     @NotBlank(message = "Field name cannot be empty, blank or null")
     private String name;

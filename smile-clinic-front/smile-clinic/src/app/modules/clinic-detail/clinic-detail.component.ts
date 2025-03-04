@@ -17,16 +17,8 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class ClinicDetailComponent implements OnInit {
 
-  dataSource: ClinicDTO = {
-    name: "",
-    postalCode: "",
-    address: "",
-    phoneNumber: "",
-    email: "",
-    img: "",
-    treatments: []
-  };
-  id: Number = 0;
+  clinic: ClinicDTO | undefined = undefined;
+  idParam: Number | undefined = undefined;
 
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
     private endpointHelper: ApiEndpointHelperService) {}
@@ -38,16 +30,16 @@ export class ClinicDetailComponent implements OnInit {
 
   findClinic(): void {
     const params: Map<string, any> = new Map<string, any>();
-    params.set("id", this.id);
+    params.set("id", this.idParam);
     this.api.get(this.endpointHelper.createUrlWithQueryParameters("/clinics/findClinicById",
     params)).subscribe((clinic: ClinicDTO) => {
-      this.dataSource = clinic;
+      this.clinic = clinic;
     });
   }
 
   extractId(): number {
     return Number(this.route.params.subscribe(params => {
-      this.id = params['id'];
+      this.idParam = params['id'];
     }));
   }
 }

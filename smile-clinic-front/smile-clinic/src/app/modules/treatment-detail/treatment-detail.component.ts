@@ -11,12 +11,12 @@ import { ApiHttpService } from "../../../services/api-http.service";
 @Component({
   selector: 'app-treatment-detail',
   templateUrl: './treatment-detail.component.html',
-  styleUrls: ['./treatment-detail.component.scss'],
+  styleUrl: './treatment-detail.component.scss',
   imports: [FormsModule, MatFormFieldModule, MatFormFieldModule, MatInputModule]
 })
 export class TreatmentDetailComponent implements OnInit {
 
-  dataSource: TreatmentDTO = {name: "", notes: "", price: 0};
+  treatment: TreatmentDTO | null = null;
   id: Number = 0;
 
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
@@ -32,7 +32,7 @@ export class TreatmentDetailComponent implements OnInit {
     params.set("id", this.id);
     this.api.get(this.endpointHelper.createUrlWithQueryParameters("/treatments/findTreatmentById",
     params)).subscribe((treatment: TreatmentDTO) => {
-      this.dataSource = treatment;
+      this.treatment = treatment;
     });
   }
 
