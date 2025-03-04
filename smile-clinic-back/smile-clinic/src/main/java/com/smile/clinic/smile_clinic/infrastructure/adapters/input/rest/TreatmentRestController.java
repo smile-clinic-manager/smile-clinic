@@ -34,6 +34,12 @@ public class TreatmentRestController {
         return new ResponseEntity<>(treatmentDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/findTreatmentsByClinicId")
+    public ResponseEntity<List<TreatmentDTO>> findTreatmentByClinicId(@RequestParam("id") Long id){
+        List<TreatmentDTO> treatmentDTOs = treatmentRestMapper.toTreatmentDTOList(treatmentServicePort.findByClinicId(id));
+        return new ResponseEntity<>(treatmentDTOs, HttpStatus.OK);
+    }
+
     @GetMapping("/deleteTreatment")
     public ResponseEntity<Void> deleteTreatmentById(@RequestParam("id") Long id){
         Treatment treatment = treatmentServicePort.findById(id);
