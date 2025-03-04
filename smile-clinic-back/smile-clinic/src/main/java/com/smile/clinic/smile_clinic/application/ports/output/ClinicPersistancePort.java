@@ -8,7 +8,6 @@ import java.util.Optional;
 public interface ClinicPersistancePort {
 
     List<Clinic> findAll();
-    List<Clinic> findByOwnerId(int ownerId);
 
     Optional<Clinic> findById(Long id);
     Optional<Clinic> findByAddress(String address);

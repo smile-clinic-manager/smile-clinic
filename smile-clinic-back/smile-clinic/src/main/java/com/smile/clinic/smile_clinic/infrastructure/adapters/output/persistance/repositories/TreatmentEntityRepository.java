@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 public interface TreatmentEntityRepository extends JpaRepository<TreatmentEntity, Long> {
 
+    @Query("SELECT c.treatments FROM ClinicEntity c WHERE c.id = :clinicId")
+    List<TreatmentEntity> findByClinicId(Long clinicId);
 }
