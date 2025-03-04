@@ -9,6 +9,8 @@ public interface ClinicPersistancePort {
 
     List<Clinic> findAll();
 
+    List<Clinic> findAllByUserId(Long id);
+
     Optional<Clinic> findById(Long id);
     Optional<Clinic> findByAddress(String address);
 

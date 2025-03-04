@@ -21,9 +21,9 @@ public class ClinicRestController {
     private final ClinicServicePort clinicServicePort;
     private final ClinicRestMapper clinicRestMapper;
 
-    @GetMapping("/findAll")
-    public ResponseEntity<List<ClinicDTO>> findAll(){
-        List<ClinicDTO> clinicsDTO = clinicRestMapper.toClinicDTOList(clinicServicePort.findAll());
+    @GetMapping("/findAllByUserId")
+    public ResponseEntity<List<ClinicDTO>> findAll(@RequestParam("id") Long id){
+        List<ClinicDTO> clinicsDTO = clinicRestMapper.toClinicDTOList(clinicServicePort.findAllByUserId(id));
         return new ResponseEntity<>(clinicsDTO, HttpStatus.OK);
     }
 

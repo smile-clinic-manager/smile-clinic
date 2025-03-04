@@ -9,10 +9,9 @@ import java.util.Set;
 public interface ClinicServicePort {
 
     List<Clinic> findAll();
-
+    List<Clinic> findAllByUserId(Long id);
     Clinic findById(Long id);
     Clinic findByAddress(String address);
-
     Clinic save(Clinic clinic);
     Clinic update(Long id, Clinic clinic);
     void deleteClinicById(Long id);

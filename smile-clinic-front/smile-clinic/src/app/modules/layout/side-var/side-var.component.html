@@ -4,6 +4,15 @@
         
         <mat-expansion-panel >
           <mat-expansion-panel-header>
+            <mat-panel-title matTooltip="Inicio">
+              <mat-icon> home </mat-icon> Inicio
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <a mat-list-item (click)="redirectToHome()">Inicio</a>
+        </mat-expansion-panel> 
+
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
             <mat-panel-title matTooltip="Clínicas">
               <mat-icon> health_and_safety </mat-icon> Clínicas
             </mat-panel-title>

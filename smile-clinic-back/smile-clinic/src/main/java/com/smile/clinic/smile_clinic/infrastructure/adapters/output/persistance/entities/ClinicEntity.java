@@ -53,7 +53,4 @@ public class ClinicEntity {
     )
     private List<TreatmentEntity> treatments;
 
-    @OneToMany(mappedBy = "clinic")
-    private List<UserClinicRoleEntity> userClinicRoles;
-
 }

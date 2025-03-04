@@ -7,6 +7,7 @@ import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePor
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService implements UserServicePort {
 

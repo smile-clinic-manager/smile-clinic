@@ -19,7 +19,12 @@ public class ClinicPersistanceAdapter implements ClinicPersistancePort {
 
     @Override
     public List<Clinic> findAll() {
-        return clinicPersistanceMapper.toClinicList(this.clinicRepository.findAll());
+        return clinicPersistanceMapper.toClinicListFromEntities(this.clinicRepository.findAll());
+    }
+
+    @Override
+    public List<Clinic> findAllByUserId(Long id) {
+        return clinicPersistanceMapper.toClinicListFromProjections(this.clinicRepository.findAllByUserId(id));
     }
 
     @Override

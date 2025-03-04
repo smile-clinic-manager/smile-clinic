@@ -39,10 +39,9 @@ public class HttpSecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authRequestConfig -> {
                     authRequestConfig.requestMatchers(HttpMethod.POST, "/users/signup").permitAll();
-                    authRequestConfig.requestMatchers(HttpMethod.POST, "/users/signup").permitAll();
                     authRequestConfig.requestMatchers("/auth/**").permitAll();
                     authRequestConfig.requestMatchers("/h2-console/**").permitAll();
-                    authRequestConfig.requestMatchers("/error/**").permitAll();
+                    authRequestConfig.requestMatchers("/error", "/error/**").permitAll();
                     authRequestConfig.requestMatchers(HttpMethod.GET,"/users/profile").hasAuthority("MANAGE_USERS"); //Autorización por roles
                     // Other routes not defined above require the user to be authenticated
                     authRequestConfig.anyRequest().authenticated();

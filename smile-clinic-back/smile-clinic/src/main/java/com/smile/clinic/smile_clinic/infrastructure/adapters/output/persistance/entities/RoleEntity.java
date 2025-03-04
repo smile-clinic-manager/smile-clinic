@@ -23,7 +23,7 @@ public class RoleEntity {
     @Column(name = "name", nullable = false, unique = true, length = 50)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER) //Always fetch permissions when accessing roles
     @JoinTable(name="roles_permissions",
         joinColumns = @JoinColumn(name = "role_id"),
         inverseJoinColumns = @JoinColumn(name = "permission_id"))

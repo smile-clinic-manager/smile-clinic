@@ -2,6 +2,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -62,11 +63,12 @@ public class UserEntity implements UserDetails {
     private List<AppointmentEntity> appointments;
 
     //Relaciones con clínicas y su rol asociado
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<UserClinicRoleEntity> userClinicRoles;
 
     // UserDetails methods (security & authentication methods)
     @Override
+    @Transactional
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         if(userClinicRoles == null || userClinicRoles.isEmpty()) return null;
