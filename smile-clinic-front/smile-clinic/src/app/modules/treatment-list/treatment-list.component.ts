@@ -16,8 +16,8 @@ export class TreatmentListComponent {
   displayedColumns: string[] = ["name", "notes", "price"];
 
   dataSource: TreatmentDTO[] = [
-    {name: "treatment1", notes: "notes1", price: 100},
-    {name: "treatment2", notes: "notes2", price: 200}
+    {id: '1', name: "treatment1", notes: "notes1", price: 100},
+    {id: '2', name: "treatment2", notes: "notes2", price: 200}
   ];
 
   constructor(private api: ApiHttpService) {}

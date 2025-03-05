@@ -42,13 +42,6 @@ export class LocalStorageService {
     });
   }
 
-  public existsToken(): boolean {
-    if (!isPlatformBrowser(this.platformId)) {
-      return false; // Prevents `localStorage` errors in SSR
-    }
-    return localStorage.getItem('token') ? true : false;
-  }
-
   public getDecodedToken(): string {
     const token = this.getTokenInLocalStorage();
     return this.decodeToken(token);

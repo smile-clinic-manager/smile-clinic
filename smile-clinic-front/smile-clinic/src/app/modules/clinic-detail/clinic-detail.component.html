@@ -34,7 +34,7 @@
     <tr>
       <td>
         <mat-list>
-          @for (treatment of clinic!.treatments; track treatment){
+          @for (treatment of clinic!.treatments; track treatment.id){
           <mat-list-item>
             <h4 mat-line>{{treatment.name}}</h4>
           </mat-list-item>

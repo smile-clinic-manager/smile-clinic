@@ -51,15 +51,6 @@ VALUES
     (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu');
 
 -- Create testing clinics
-INSERT INTO clinics (clinic_id, name, address, phone_number, email, image, postal_code)
-VALUES
-    (1, 'Alice', 'Smith', 'Johnson', 'alice123', '12345678A', 'alice.smith@example.com', '$2a$10$zLbgL7uYep14e0HY31IdJOVy1Wzs8.01MuVC1Tb1aTvENPYhnHcam', 'CLINIC_ADMIN'),
-    (2, 'Bob', 'Johnson', NULL, 'bobbyJ', '23456789B', 'bob.johnson@example.com', '$2a$10$zX1hwM8A5iS6LV4zsnHTyudAL/F4zIMzOapiZ59tVfesF.tSx9ZZC', 'CLINIC_DENTIST'),
-    (3, 'Charlie', 'Brown', 'Taylor', 'charlieB', '34567890C', 'charlie.brown@example.com', '$2a$10$EoFHRl80Pfo8O5JJKt9Y0ufqQbeAbruD27aTYlgO2fzaybulFDWUi', 'CLINIC_ADMIN'),
-    (4, 'Diana', 'Green', 'Miller', 'dianaGM', '45678901D', 'diana.green@example.com', '$2a$10$k2qeyegq4pwUvii9mZj5/.s3JOMknzqOiBvjmO20.Bj4oMv1eSVkK', 'CLINIC_DENTIST'),
-    (5, 'Eve', 'White', NULL, 'eveWhite', '56789012E', 'eve.white@example.com', '$2a$10$Jt91UM/Ef/qq2ejFPuA4huNBc.fCXoVyjCKR1E9zNywn/n57FD6oG', 'CLINIC_ADMIN'),
-    (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu', 'CLINIC_DENTIST');
-
 INSERT INTO clinics (id, name, address, phone_number, email, image, postal_code)
 VALUES
     (8, 'Clínica Dental Sonrisa', 'Calle Mayor 10, Sevilla', '954000111', 'info@dentalsonrisa.com', 'sonrisa.jpg', 41003),
@@ -81,10 +72,3 @@ VALUES
     (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio'),
     (22, 'Empaste Dental', 50.0, 'Empaste dental de composite');
 
-INSERT INTO clinic_treatments(clinic_id, treatment_id)
-VALUES
-    (8, 13), (8, 14), (8, 15), (8, 16),
-    (9, 17), (9, 18), (9, 19), (9, 20), (9, 21), (9, 22),
-    (10, 13), (10, 14),
-    (11, 21), (11, 22),
-    (12, 13), (12, 14), (12, 15), (12, 16), (12, 17), (12, 18), (12, 19), (12, 20), (12, 21), (12, 22);

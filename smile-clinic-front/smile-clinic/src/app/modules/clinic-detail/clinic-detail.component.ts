@@ -7,6 +7,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatList, MatListItem } from "@angular/material/list";
 import { ActivatedRoute } from "@angular/router";
+import { TreatmentDTO } from '../../models/TreatmentDTO';
 
 @Component({
   selector: 'app-clinic-detail',
@@ -19,7 +20,7 @@ export class ClinicDetailComponent implements OnInit {
 
   clinic: ClinicDTO | undefined = undefined;
   idParam: Number | undefined = undefined;
-
+  treatment: TreatmentDTO | undefined = undefined;
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
     private endpointHelper: ApiEndpointHelperService) {}
 
