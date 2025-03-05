@@ -29,18 +29,6 @@ INSERT INTO roles_permissions (role_id, permission_id) VALUES (3, 1);  -- READ_P
 INSERT INTO roles_permissions (role_id, permission_id) VALUES (3, 5);  -- SCHEDULE_APPOINTMENTS
 
 -- Create testing users
-/*
- CONTRASEÑAS DE LOS USUARIOS:
-
-    Alice - alice123 - StrongPass1!@
-    Bob - bobbyJ - SecureKey99$%
-    Charlie - charlieB - A1b2C3d4@#%^
-    Diana - dianaGM - TestPass_98*
-    Eve - eveWhite - SuperSafe12&(
-    Frank - frankScott - MyPass#45!Safe
-
-*/
-
 INSERT INTO users (id, first_name, last_name1, last_name2, username, dni, email, password)
 VALUES
     (1, 'Alice', 'Smith', 'Johnson', 'alice123', '12345678A', 'alice.smith@example.com', '$2a$10$zLbgL7uYep14e0HY31IdJOVy1Wzs8.01MuVC1Tb1aTvENPYhnHcam'),
@@ -51,13 +39,58 @@ VALUES
     (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu');
 
 -- Create testing clinics
-INSERT INTO clinics (id, name, address, phone_number, email, image, postal_code)
+INSERT INTO clinics (clinic_id, name, address, phone_number, email, image, postal_code)
 VALUES
     (8, 'Clínica Dental Sonrisa', 'Calle Mayor 10, Sevilla', '954000111', 'info@dentalsonrisa.com', 'sonrisa.jpg', 41003),
     (9, 'Centro Médico Salud Total', 'Avenida Andalucía 23, Sevilla', '954111222', 'info@saludtotal.com', 'saludtotal.jpg', 41003),
     (10, 'Clínica Bella Vida', 'Calle Sierpes 45, Sevilla', '954222333', 'info@bellavida.com', 'bellavida.jpg', 41001),
     (11, 'Odontologia Avanzada', 'Calle Feria 5, Sevilla', '954333444', 'contacto@avanzada.com', 'avanzada.jpg', 41015),
     (12, 'Centro Boca Sana', 'Plaza Nueva 12, Sevilla', '954444555', 'info@bocasana.com', 'bocasana.jpg', 41004);
+
+-- Assigning relation between Clinics & Users with their respective roles
+
+-------------------- **ALICE** -------------------
+-- (CLINIC_ADMIN) - Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 1, 8, 1);  -- Alice, CLINIC_ADMIN, Clínica Dental Sonrisa
+
+-- (CLINIC_DENTIST) - Centro Médico Salud Total
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 1, 9, 2);  -- Alice, CLINIC_DENTIST, Centro Médico Salud Total
+
+-------------------- **BOB** -------------------
+-- (CLINIC_ADMIN) - Centro Médico Salud Total
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 2, 9, 1);  -- Bob, CLINIC_ADMIN, Centro Médico Salud Total
+
+-- (CLINIC_ADMIN) - Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 2, 8, 1);  -- Bob, CLINIC_ADMIN, Clínica Dental Sonrisa
+
+-------------------- **CHARLIE** -------------------
+-- (CLINIC_RECEPTIONIST) - Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 3, 8, 3);  -- Charlie, CLINIC_RECEPTIONIST, Clínica Dental Sonrisa
+
+-- (CLINIC_ADMIN) - Centro Médico Salud Total
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 3, 9, 1);  -- Charlie, CLINIC_ADMIN, Centro Médico Salud Total
+
+-------------------- **DIANA** -------------------
+-- (CLINIC_DENTIST) - Centro Médico Salud Total
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 4, 9, 2);  -- Diana, CLINIC_DENTIST, Centro Médico Salud Total
+
+-- (CLINIC_RECEPTIONIST) - Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 4, 8, 3);  -- Diana, CLINIC_RECEPTIONIST, Clínica Dental Sonrisa
+
+-------------------- **EVE** -------------------
+-- (CLINIC_RECEPTIONIST) - Centro Médico Salud Total
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 5, 9, 3);  -- Eve, CLINIC_RECEPTIONIST, Centro Médico Salud Total
+
+-- (CLINIC_ADMIN) - Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 5, 8, 1);  -- Eve, CLINIC_ADMIN, Clínica Dental Sonrisa
+
+-------------------- **FRANK** -------------------
+-- (CLINIC_DENTIST) - Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 6, 8, 2);  -- Frank, CLINIC_DENTIST, Clínica Dental Sonrisa
+
+-- (CLINIC_RECEPTIONIST) - Centro Médico Salud Total
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 6, 9, 3);  -- Frank, CLINIC_RECEPTIONIST, Centro Médico Salud Total
+
 
 INSERT INTO treatments(id, name, price, notes)
 VALUES
@@ -71,4 +104,3 @@ VALUES
     (20, 'Corona Dental', 300.0, 'Corona dental de porcelana'),
     (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio'),
     (22, 'Empaste Dental', 50.0, 'Empaste dental de composite');
-

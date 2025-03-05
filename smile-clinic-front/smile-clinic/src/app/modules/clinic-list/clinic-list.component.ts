@@ -5,7 +5,6 @@ import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { Router } from '@angular/router';
 import { ClinicService } from '../../../services/clinic.service';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
 import { LocalStorageService } from '../../../services/local-storage.service';
@@ -18,8 +17,9 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 })
 export class ClinicListComponent implements OnInit {
 
-    displayedColumns: string[] = ["name", "postalCode", "address", "phoneNumber", "email"];
-    dataSource: ClinicDTO[] = [];
+  displayedColumns: string[] = ["NOMBRE", "C. POSTAL", "DIRECCIÓN", "Nº CONTACTO", "EMAIL", "ACCIONES"];
+  dataSource: ClinicDTO[] = [];
+  user: any; //TEMPORALMENTE
 
   constructor(private api: ApiHttpService, private router: Router, 
     private clinicService: ClinicService, private snackBarService: SnackbarServiceService,
@@ -39,6 +39,9 @@ export class ClinicListComponent implements OnInit {
     })
   };
 
+  viewClinic(id : string){
+    if(id!==null || id === undefined) this.router.navigate(['clinic-details', id]);
+  }
 
 }
 
