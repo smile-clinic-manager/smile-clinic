@@ -40,7 +40,7 @@ export class ClinicListComponent implements OnInit {
   };
 
   viewClinic(id : string){
-    if(id!==null || id === undefined) this.router.navigate(['clinic-details', id]);
+    if(id!==null || id === undefined) this.router.navigate(['clinic-detail', id]);
   }
 
 }

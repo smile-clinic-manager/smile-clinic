@@ -8,13 +8,20 @@ import { MatInputModule } from "@angular/material/input";
 import { MatList, MatListItem } from "@angular/material/list";
 import { ActivatedRoute } from "@angular/router";
 import { TreatmentDTO } from '../../models/TreatmentDTO';
+import {MatTabsModule} from '@angular/material/tabs';
+import { TreatmentListComponent } from "../treatment-list/treatment-list.component";
+import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-clinic-detail',
   templateUrl: './clinic-detail.component.html',
   styleUrl: './clinic-detail.component.scss',
-  imports : [FormsModule, MatFormFieldModule, MatInputModule,
-    MatList, MatListItem]
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatTabsModule, TreatmentListComponent, MatIconModule, MatCardModule,
+    MatMenuModule, MatDividerModule
+  ]
 })
 export class ClinicDetailComponent implements OnInit {
 

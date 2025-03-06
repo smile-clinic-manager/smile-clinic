@@ -1,45 +1,53 @@
-<form class="clinic-form">
-  <mat-form-field class="clinic-full-width">
-    <mat-label>Name</mat-label>
-    <input matInput disabled value="{{clinic!.name}}">
-  </mat-form-field>
 
-  <table class="clinic-full-width" cellspacing="0">
-    <tr>
-      <td><mat-form-field class="clinic-full-width">
-          <mat-label>Address</mat-label>
-          <input matInput disabled value="{{clinic!.address}}">
-        </mat-form-field></td>
-      <td><mat-form-field class="clinic-full-width">
-          <mat-label>Postal code</mat-label>
-          <input matInput disabled value="{{clinic!.postalCode}}">
-        </mat-form-field></td>
-    </tr>
-  </table>
+<h1> Detalle Clínica </h1>
+<mat-card>
+  <mat-card-header class="clinic-avatar-image">
+    <button mat-icon-button [matMenuTriggerFor]="clinicMenu" class="top-left-button" aria-label="clinic menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
 
-  <table class="clinic-full-width" cellspacing="0">
-    <tr>
-      <td><mat-form-field class="clinic-full-width">
-          <mat-label>Phone number</mat-label>
-          <input matInput disabled value="{{clinic!.phoneNumber}}">
-        </mat-form-field></td>
-      <td><mat-form-field class="clinic-full-width">
-          <mat-label>Email</mat-label>
-          <input matInput disabled value="{{clinic!.email}}">
-        </mat-form-field></td>
-    </tr>
-  </table>
+    <mat-menu #clinicMenu="matMenu">
+        <button mat-menu-item aria-label="edit">
+            <mat-icon>edit</mat-icon>
+            Editar Clínica
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item aria-label="delete">
+            <mat-icon>delete</mat-icon>
+            Eliminar Clínica
+        </button>
+    </mat-menu>
+  </mat-card-header>
 
-  <table>
-    <tr>
-      <td>
-        <mat-list>
-          @for (treatment of clinic!.treatments; track treatment.id){
-          <mat-list-item>
-            <h4 mat-line>{{treatment.name}}</h4>
-          </mat-list-item>
-          }
-        </mat-list>
-    </tr>
-  </table>
-</form>
+  <mat-card-content>
+    <h2 style="text-align: center; margin-bottom: 20px;">{{clinic?.name}}</h2>
+    <div class="info-container">
+      <div class="info-item">
+          <p style="margin-right: 50px;"><strong>Dirección: </strong> {{clinic?.address}} </p>
+          <p><strong>Código postal: </strong>{{clinic?.postalCode}}</p>
+      </div>
+      <div class="info-item">
+          <p style="margin-right: 50px;"><strong>Número de contacto: </strong> {{clinic?.phoneNumber}}</p>
+          <p><strong>Correo electrónico: </strong> {{clinic?.email}}</p>
+      </div>
+    </div>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>groups</mat-icon> Personal
+    </ng-template> 
+    Listado de personal aqui
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>emergency</mat-icon> Tratamientos
+    </ng-template>
+    <app-treatment-list [clinicId]="clinic?.id"></app-treatment-list>
+  </mat-tab>
+</mat-tab-group>
+
+

@@ -21,5 +21,5 @@ public interface ClinicEntityRepository extends JpaRepository<ClinicEntity, Long
     @Query(value = "SELECT DISTINCT c.* FROM clinics c " +
             "INNER JOIN user_clinic_role ucr ON ucr.clinic_id = c.clinic_id " +
             "WHERE ucr.user_id = :userId", nativeQuery = true)
-    List<ClinicProjection> findAllByUserId(@Param("userId") Long userId);
+    List<ClinicEntity> findAllByUserId(@Param("userId") Long userId);
 }

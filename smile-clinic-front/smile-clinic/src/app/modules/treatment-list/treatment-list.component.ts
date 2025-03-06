@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
 import { TreatmentDTO } from "../../models/TreatmentDTO";
 import { ApiHttpService } from "../../../services/api-http.service";
@@ -11,7 +11,7 @@ import { OnInit } from "@angular/core";
   styleUrl: './treatment-list.component.scss',
 })
 export class TreatmentListComponent {
-
+  @Input() clinicId: string | undefined = ''; 
 
   displayedColumns: string[] = ["name", "notes", "price"];
 
