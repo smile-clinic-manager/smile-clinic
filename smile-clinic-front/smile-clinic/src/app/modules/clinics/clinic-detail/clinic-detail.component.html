@@ -40,7 +40,7 @@
     <ng-template mat-tab-label>
       <mat-icon>groups</mat-icon> Personal
     </ng-template> 
-    Listado de personal aqui
+    <app-clinic-personal [clinicId]="clinic?.id"></app-clinic-personal>
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>

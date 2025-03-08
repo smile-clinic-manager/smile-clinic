@@ -1,4 +1,4 @@
-export interface SignupResponseDTO {
+export interface RegisteredUserDTO {
   id: number;
   username: string;
   email: string;

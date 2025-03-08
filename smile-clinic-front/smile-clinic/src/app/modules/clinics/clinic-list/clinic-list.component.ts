@@ -1,13 +1,13 @@
-import { ClinicDTO } from './../../models/ClinicDTO';
-import { ApiHttpService } from './../../../services/api-http.service';
+import { ClinicDTO } from '../../../models/ClinicDTO';
+import { ApiHttpService } from '../../../../services/api-http.service';
 import { Component, OnInit } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import { ClinicService } from '../../../services/clinic.service';
-import { SnackbarServiceService } from '../../../services/snackbar-service.service';
-import { LocalStorageService } from '../../../services/local-storage.service';
+import { ClinicService } from '../../../../services/clinic.service';
+import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
+import { LocalStorageService } from '../../../../services/local-storage.service';
 
 @Component({
   selector: 'app-clinic-list',

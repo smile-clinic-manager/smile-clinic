@@ -5,7 +5,7 @@ import { AuthenticationRequestDTO } from '../app/models/AuthenticationRequestDTO
 import { LocalStorageService } from './local-storage.service';
 import { AuthenticationResponseDTO } from '../app/models/AuthenticationResponseDTO';
 import { SignupRequestDTO } from '../app/models/SignupRequestDTO';
-import { SignupResponseDTO } from '../app/models/RegisteredUserDTO';
+import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +43,7 @@ export class AuthService {
           this.api
             .post(this.apiEndpointHelper.createUrl('users/signup'), signupRequestDTO)
             .subscribe({
-              next: (response: SignupResponseDTO) => {
+              next: (response: RegisteredUserDTO) => {
                 this.localStorageService.setTokenInLocalStorage(response.jwtToken, response.refreshToken);
                 resolve(true);
               },

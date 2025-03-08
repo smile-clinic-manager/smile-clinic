@@ -1,0 +1,51 @@
+<mat-form-field>
+    <mat-label>Usuario</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #userInput>
+</mat-form-field>
+
+<mat-form-field>
+    <mat-label>Nombre</mat-label>
+    <input matInput (keyup)="applyFilter($event)"#nameInput>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+        <ng-container matColumnDef="USUARIO">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> USUARIO </th>
+            <td mat-cell *matCellDef="let element"> {{element.username}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="NOMBRE">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> NOMBRE </th>
+            <td mat-cell *matCellDef="let element"> {{ getCompleteName(element) }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ROLES">
+            <th mat-header-cell> ROLES </th>
+            <td mat-cell *matCellDef="let element">
+                @if(element.role){
+                    <mat-chip>{{element.role}}</mat-chip> 
+                }@else{
+                    -
+                }
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="ACCIONES">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> ACCIONES </th>
+            <td mat-cell *matCellDef="let element"> 
+                <div>
+                    <button mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>

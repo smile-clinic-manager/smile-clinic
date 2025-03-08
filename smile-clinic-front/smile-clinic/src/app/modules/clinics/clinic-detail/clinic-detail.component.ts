@@ -1,27 +1,28 @@
-import { ApiEndpointHelperService } from './../../../services/api-endpoint-helper.service';
+import { ApiEndpointHelperService } from '../../../../services/api-endpoint-helper.service';
 import { Component, OnInit } from "@angular/core";
-import { ClinicDTO } from './../../models/ClinicDTO';
-import { ApiHttpService } from "../../../services/api-http.service";
+import { ClinicDTO } from '../../../models/ClinicDTO';
+import { ApiHttpService } from "../../../../services/api-http.service";
 import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatList, MatListItem } from "@angular/material/list";
 import { ActivatedRoute } from "@angular/router";
-import { TreatmentDTO } from '../../models/TreatmentDTO';
+import { TreatmentDTO } from '../../../models/TreatmentDTO';
 import {MatTabsModule} from '@angular/material/tabs';
-import { TreatmentListComponent } from "../treatment-list/treatment-list.component";
+import { TreatmentListComponent } from "../../treatment-list/treatment-list.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { ClinicPersonalComponent } from "../clinic-personal/clinic-personal.component";
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-clinic-detail',
   templateUrl: './clinic-detail.component.html',
   styleUrl: './clinic-detail.component.scss',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatTabsModule, TreatmentListComponent, MatIconModule, MatCardModule,
-    MatMenuModule, MatDividerModule
-  ]
+    MatMenuModule, MatDividerModule, ClinicPersonalComponent, MatButtonModule]
 })
 export class ClinicDetailComponent implements OnInit {
 

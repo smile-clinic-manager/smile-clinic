@@ -71,3 +71,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     container-text-color: var(--mat-sys-on-primary),
   ));
 }
+
+:root thead, th{
+    background: var(--mat-toolbar-container-background-color, var(--mat-sys-surface)) !important;
+    color: var(--mat-sys-background) !important; 
+}
+
