@@ -21,6 +21,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -78,4 +79,11 @@ public class UserController {
         RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(this.userService.findByUsername(principal.getName()));
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
+
+    @GetMapping("usersByClinicId/")
+    public ResponseEntity<RegisteredUserDTO> getUsersByClinicId(@RequestParam("id") Long id){
+        List<RegisteredUserDTO> users = this.userService.findUsersByClinicId(id);
+        return null;
+    }
+
 }

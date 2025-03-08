@@ -2,6 +2,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 
 import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.UserPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.UserEntityRepository;
@@ -47,5 +48,10 @@ public class UserPersistanceAdapter implements UserPersistancePort {
     @Override
     public void deleteById(Long id) {
         this.userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<RegisteredUserDTO> findUsersByClinicId(Long id){
+        return this.userRepository.findUsersByClinicId(id);
     }
 }

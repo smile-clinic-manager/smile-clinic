@@ -7,6 +7,7 @@ import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePor
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -97,7 +98,9 @@ public class UserService implements UserServicePort {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long id) {  }
 
+    public List<RegisteredUserDTO> findUsersByClinicId(Long id) {
+        return this.userPersistancePort.findUsersByClinicId(id);
     }
 }
