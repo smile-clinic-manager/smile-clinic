@@ -22,8 +22,10 @@
         <ng-container matColumnDef="ROLES">
             <th mat-header-cell *matHeaderCellDef>ROLES</th>
             <td mat-cell *matCellDef="let element">
-            @if(element.role){
-                <mat-chip>{{element.role}}</mat-chip>
+            @if(element.roles){
+                @for(role of element.roles; track role.id){
+                    <mat-chip>{{role.name}}</mat-chip>
+                }
             } @else {
                 <mat-chip>noRole</mat-chip>
             }

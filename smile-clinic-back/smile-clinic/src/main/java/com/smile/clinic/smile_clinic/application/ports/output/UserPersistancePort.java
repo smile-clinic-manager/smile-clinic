@@ -13,5 +13,5 @@ public interface UserPersistancePort {
     List<User> findAll();
     User save(User user);
     void deleteById(Long id);
-    List<RegisteredUserDTO> findUsersByClinicId(Long id);
+    List<User> findUsersByClinicId(Long id);
 }

@@ -30,7 +30,7 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
       lastName1: "Doe",
       lastName2: "Smith",
       dni: "12345678A",
-      role: "ADMIN",
+      roles: [ {'id': '1', 'name':'ADMIN', 'permissions': null }, {'id': '2', 'name':'USER', 'permissions': null } ],
       jwtToken: "eyJhbGciOiJIUzI1NiIsInR...",
       refreshToken: "dGhpc2lzaW9ubHlhcmVmcmV..."
     },
@@ -42,7 +42,7 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
       lastName1: "Garcia",
       lastName2: "Lopez",
       dni: "87654321B",
-      role: "USER",
+      roles: [ {'id': '2', 'name':'USER', 'permissions': null } ],
       jwtToken: "eyJhbGciOiJIUzI1NiIsInQ...",
       refreshToken: "dGhpc2lzaW9ubHlhcmVmcm..."
     },
@@ -54,7 +54,7 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
       lastName1: "Rodriguez",
       lastName2: "Fernandez",
       dni: "11223344C",
-      role: null,
+      roles: null,
       jwtToken: "eyJhbGciOiJIUzI1NiIsInR5c...",
       refreshToken: "dGhpc2lzaW9ubHlhcmVm..."
     }

@@ -14,6 +14,6 @@ public interface UserServicePort {
     Map<User, String> register(User user, String token) throws Exception;
     User update(User user);
     void deleteById(Long id);
-    List<RegisteredUserDTO> findUsersByClinicId(Long id);
+    List<User> findUsersByClinicId(Long id);
 
 }

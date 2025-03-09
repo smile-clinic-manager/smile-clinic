@@ -2,10 +2,12 @@ package com.smile.clinic.smile_clinic.application.services;
 
 import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.PasswordEncoderPort;
+import com.smile.clinic.smile_clinic.application.ports.output.RolePersistancePort;
 import com.smile.clinic.smile_clinic.application.ports.output.TokenProviderPort;
 import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePort;
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
+import com.smile.clinic.smile_clinic.domain.models.users.Role;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import jakarta.transaction.Transactional;
@@ -24,6 +26,7 @@ import java.util.regex.Pattern;
 public class UserService implements UserServicePort {
 
     private final UserPersistancePort userPersistancePort;
+    private final RolePersistancePort rolePersistancePort;
     private final PasswordEncoderPort passwordEncoderPort;
     private final TokenProviderPort tokenProviderPort;
 
@@ -100,7 +103,16 @@ public class UserService implements UserServicePort {
     @Override
     public void deleteById(Long id) {  }
 
-    public List<RegisteredUserDTO> findUsersByClinicId(Long id) {
-        return this.userPersistancePort.findUsersByClinicId(id);
+    public List<User> findUsersByClinicId(Long clinicId) {
+        List<User> users = this.userPersistancePort.findUsersByClinicId(clinicId);
+        //Set the roles of each user
+        users.forEach(user -> {
+            user.setRoles(this.getUserRoles(user.getId(), clinicId));
+        });
+        return users;
+    }
+
+    private List<Role> getUserRoles(Long userId, Long clinicId) {
+        return this.rolePersistancePort.findRolesUserClinic(userId, clinicId);
     }
 }

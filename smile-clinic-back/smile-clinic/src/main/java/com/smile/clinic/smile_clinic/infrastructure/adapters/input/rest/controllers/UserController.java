@@ -31,7 +31,7 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    private final UserServicePort userServicePort;
     private final UserRestMapper userRestMapper;
 
     @PostMapping("/signup")
@@ -50,7 +50,7 @@ public class UserController {
         try {
             User user = userRestMapper.toUser(signupRequestDTO);
             //
-            Map<User, String> map = this.userService.register(user, signupRequestDTO.getPassword());
+            Map<User, String> map = this.userServicePort.register(user, signupRequestDTO.getPassword());
             Map.Entry<User, String> entry = map.entrySet().stream()
                     .findFirst()
                     .orElseThrow(()-> new RuntimeException("Ha ocurrido un error al registrar el usuario"));
@@ -76,14 +76,15 @@ public class UserController {
     @GetMapping("/profile")
     public ResponseEntity<RegisteredUserDTO> getProfile(Principal principal){
         log.info("Principal " + principal.toString());
-        RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(this.userService.findByUsername(principal.getName()));
+        RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(this.userServicePort.findByUsername(principal.getName()));
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
-    @GetMapping("usersByClinicId/")
-    public ResponseEntity<RegisteredUserDTO> getUsersByClinicId(@RequestParam("id") Long id){
-        List<RegisteredUserDTO> users = this.userService.findUsersByClinicId(id);
-        return null;
+    @GetMapping("/usersByClinicId")
+    public ResponseEntity<List<RegisteredUserDTO>> getUsersByClinicId(@RequestParam("id") Long id){
+        List<User> users = this.userServicePort.findUsersByClinicId(id);
+        List<RegisteredUserDTO> usersDTO = this.userRestMapper.toRegisteredUserListDTO(users);
+        return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
 }

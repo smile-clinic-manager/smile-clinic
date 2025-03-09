@@ -6,10 +6,14 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.u
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface UserRestMapper {
 
     RegisteredUserDTO toRegisteredUserDTO(User user);
+
+    List<RegisteredUserDTO> toRegisteredUserListDTO(List<User> users);
 
     SignupRequestDTO toSignupRequestDTO(User user);
 

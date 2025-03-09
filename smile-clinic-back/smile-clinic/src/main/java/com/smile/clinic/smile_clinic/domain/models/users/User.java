@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.domain.models.users;
 
+import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import lombok.*;
@@ -22,5 +23,9 @@ public class User {
     private String password;
     // Relationships
     private List<Appointment> appointments;
+    private List<Clinic> clinics;
+    private List<Role> roles;
+
     private List<UserClinicRoleEntity> userClinicRoles;
+
 }

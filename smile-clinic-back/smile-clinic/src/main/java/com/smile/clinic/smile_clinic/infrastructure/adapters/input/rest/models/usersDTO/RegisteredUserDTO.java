@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO;
 
+import com.smile.clinic.smile_clinic.domain.models.users.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,7 +31,7 @@ public class RegisteredUserDTO implements Serializable {
 
     private String dni;
 
-    private String role;
+    private List<Role> roles;
 
     private String jwtToken;
 
