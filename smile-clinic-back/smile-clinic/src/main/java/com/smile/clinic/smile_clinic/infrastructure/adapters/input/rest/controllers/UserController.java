@@ -81,7 +81,7 @@ public class UserController {
     }
 
     @GetMapping("/usersByClinicId")
-    public ResponseEntity<List<RegisteredUserDTO>> getUsersByClinicId(@RequestParam("id") Long id){
+    public ResponseEntity<List<RegisteredUserDTO>> getUsersByClinicId(@RequestParam("clinicId") Long id){
         List<User> users = this.userServicePort.findUsersByClinicId(id);
         List<RegisteredUserDTO> usersDTO = this.userRestMapper.toRegisteredUserListDTO(users);
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);

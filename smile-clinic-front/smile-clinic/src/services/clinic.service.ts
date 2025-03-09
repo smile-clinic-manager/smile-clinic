@@ -3,7 +3,7 @@ import { LocalStorageService } from './local-storage.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { ApiHttpService } from './api-http.service';
 import { ClinicDTO } from '../app/models/ClinicDTO';
-import { catchError, Observable, throwError } from 'rxjs';
+import { catchError, firstValueFrom, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -14,14 +14,12 @@ export class ClinicService {
 
   }
 
-  getAllClinics(id: string): Observable<ClinicDTO[]>{
+  getAllClinics(id: string): Promise<ClinicDTO[]>{
     const params: Map<string, any>  = new Map();
     params.set('id', id)
-    return this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/findAllByUserId', params))
-      .pipe(
-        catchError((error)=> throwError(()=> new Error(error.error.errorMessage)))
-      );
-
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/findAllByUserId', params))
+    )
   }
 
 }

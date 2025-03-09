@@ -8,6 +8,9 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import {MatChipsModule} from '@angular/material/chips';
+import { UserService } from '../../../../services/user.service';
+import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 
@@ -15,7 +18,7 @@ import {MatChipsModule} from '@angular/material/chips';
 @Component({
   selector: 'app-clinic-personal',
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatIcon, MatPaginatorModule, MatSortModule, MatButtonModule,
-    MatChipsModule],
+    MatChipsModule, MatTooltipModule],
   templateUrl: './clinic-personal.component.html',
   styleUrl: './clinic-personal.component.scss'
 })
@@ -60,6 +63,9 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
     }
   ];
 
+  constructor(private userService: UserService, private snackBarService: SnackbarServiceService) {
+  }
+
   @Input() clinicId: string | undefined = '';
   displayedColumns: string[] = ['USUARIO', 'NOMBRE', 'ROLES', 'ACCIONES'];
   dataSource: MatTableDataSource<RegisteredUserDTO> = new MatTableDataSource(this.USERS_PRUEBA);
@@ -70,13 +76,20 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
   
   
   ngOnInit(): void {
-
+    console.log(this.clinicId);
+    this.getUsersByClinicId();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(this.dataSource.sort);
+    console.log(this.clinicId);
+  }
+
+  getUsersByClinicId(){ //TEMPORALMENTE '8'
+    this.userService.getClinicUserList('8').then(users=>{
+      this.dataSource.data = users;
+    }).catch((error)=> this.snackBarService.showErrorSnackBar(error.message))
   }
 
   getCompleteName(element: RegisteredUserDTO): string {

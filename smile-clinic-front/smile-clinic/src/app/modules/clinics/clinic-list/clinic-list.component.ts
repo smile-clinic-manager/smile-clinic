@@ -31,12 +31,11 @@ export class ClinicListComponent implements OnInit {
   }
 
   findAll(): void {
-    this.clinicService.getAllClinics(this.user.id).subscribe({
-      next: (clinics: ClinicDTO[]) => {
-          this.dataSource = clinics;
-      },
-      error: (error) => this.snackBarService.showErrorSnackBar(error)
-    })
+    this.clinicService.getAllClinics(this.user.id)
+      .then(clinics=>{
+        this.dataSource = clinics;
+      })
+      .catch((error) => this.snackBarService.showErrorSnackBar(error))
   };
 
   viewClinic(id : string){
