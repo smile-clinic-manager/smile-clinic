@@ -8,6 +8,7 @@ import { MatInputModule } from "@angular/material/input";
 import { MatList, MatListItem } from "@angular/material/list";
 import { ActivatedRoute } from "@angular/router";
 import { TreatmentDTO } from '../../models/TreatmentDTO';
+import { ApiIdFinderService } from '../../../services/api-id-finder.service';
 
 @Component({
   selector: 'app-clinic-detail',
@@ -22,14 +23,15 @@ export class ClinicDetailComponent implements OnInit {
   idParam: Number | undefined = undefined;
   treatment: TreatmentDTO | undefined = undefined;
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
-    private endpointHelper: ApiEndpointHelperService) {}
+    private endpointHelper: ApiEndpointHelperService,
+    private finder: ApiIdFinderService) {}
 
   ngOnInit(): void {
-    this.extractId();
-    this.findClinic();
+    this.clinic = this.finder.getClinic() as ClinicDTO;
+    //console.log(this.clinic);
   }
 
-  findClinic(): void {
+  /*findClinic(): void {
     const params: Map<string, any> = new Map<string, any>();
     params.set("id", this.idParam);
     this.api.get(this.endpointHelper.createUrlWithQueryParameters("/clinics/findClinicById",
@@ -42,5 +44,5 @@ export class ClinicDetailComponent implements OnInit {
     return Number(this.route.params.subscribe(params => {
       this.idParam = params['id'];
     }));
-  }
+  }*/
 }
