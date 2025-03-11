@@ -1,12 +1,22 @@
 <div class="container-dialog">
-    <h2> Buscar usuarios </h2>
     
-    <div>
+    <h2> Buscar usuarios </h2>
+    <div [formGroup]="userSearchForm">
         <mat-form-field>
             <mat-label>Nº Usuario</mat-label>
-            <input matInput formControlName="searchUserForm" />
+            <input matInput formControlName="idUser" />
         </mat-form-field>
         <button mat-flat-button (click)="findUser()">Buscar</button>
     </div>
 
+    @if(foundUser){
+        <div>
+            <span>{{foundUser.firstName}}</span>
+        </div>
+    } @else if (foundUser === null) {
+        <div> Ningún usuario encontrado con el id proporcionado </div>
+    } @else {
+        <span> Información sobre la búsqueda de los usuarios aqui... </span>
+    }
+    
 </div>
