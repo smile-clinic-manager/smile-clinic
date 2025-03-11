@@ -1,14 +1,14 @@
-<div class="treatment-container">
-  <div class="treatment-full-width">
-    <span class="label">Name:</span>
-    <span class="value">{{ treatment?.name }}</span>
-  </div>
-  <div class="treatment-full-width">
-    <span class="label">Price:</span>
-    <span class="value">{{ treatment?.price }}</span>
-  </div>
-  <div class="treatment-full-width">
-    <span class="label">Notes:</span>
-    <span class="value">{{ treatment?.notes }}</span>
-  </div>
-</div>
+<form class="treatment-form">
+  <mat-form-field class="treatment-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput disabled placeholder="Name" [(ngModel)]="dataSource.name" name="name" required>
+  </mat-form-field>
+  <mat-form-field class="treatment-full-width">
+    <mat-label>Price</mat-label>
+    <input matInput disabled placeholder="Price" [(ngModel)]="dataSource.price" name="price" required>
+  </mat-form-field>
+  <mat-form-field class="treatment-full-width">
+    <mat-label>Notes</mat-label>
+    <textarea matInput disabled placeholder="Notes" [(ngModel)]="dataSource.notes" name="notes" required></textarea>
+  </mat-form-field>
+</form>

@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from "@angular/core";
 import { TreatmentDTO } from "../../models/TreatmentDTO";
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
@@ -11,18 +10,18 @@ import { ApiHttpService } from "../../../services/api-http.service";
 @Component({
   selector: 'app-treatment-detail',
   templateUrl: './treatment-detail.component.html',
-  styleUrl: './treatment-detail.component.scss',
+  styleUrls: ['./treatment-detail.component.scss'],
   imports: [FormsModule, MatFormFieldModule, MatFormFieldModule, MatInputModule]
 })
 export class TreatmentDetailComponent implements OnInit {
 
-  treatment: TreatmentDTO | null = null;
+  dataSource: TreatmentDTO = {name: "", notes: "", price: 0};
   id: Number = 0;
 
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
     private endpointHelper: ApiEndpointHelperService) {}
 
-   ngOnInit(): void {
+      ngOnInit(): void {
     this.extractId();
     this.findTreatment();
   }
@@ -32,7 +31,7 @@ export class TreatmentDetailComponent implements OnInit {
     params.set("id", this.id);
     this.api.get(this.endpointHelper.createUrlWithQueryParameters("/treatments/findTreatmentById",
     params)).subscribe((treatment: TreatmentDTO) => {
-      this.treatment = treatment;
+      this.dataSource = treatment;
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 import { MatTableModule } from "@angular/material/table";
 import { TreatmentDTO } from "../../models/TreatmentDTO";
 import { ApiHttpService } from "../../../services/api-http.service";
@@ -8,17 +8,26 @@ import { OnInit } from "@angular/core";
   selector: 'app-treatment-list',
   imports : [MatTableModule],
   templateUrl: './treatment-list.component.html',
-  styleUrl: './treatment-list.component.scss',
+  styleUrls: ['./treatment-list.component.scss']
 })
-export class TreatmentListComponent {
-  @Input() clinicId: string | undefined = ''; 
+export class TreatmentListComponent implements OnInit {
 
   displayedColumns: string[] = ["name", "notes", "price"];
 
   dataSource: TreatmentDTO[] = [
-    {id: '1', name: "treatment1", notes: "notes1", price: 100},
-    {id: '2', name: "treatment2", notes: "notes2", price: 200}
+    {name: "treatment1", notes: "notes1", price: 100},
+    {name: "treatment2", notes: "notes2", price: 200}
   ];
 
   constructor(private api: ApiHttpService) {}
+
+  ngOnInit(): void {
+    this.findAll();
+  }
+
+  findAll(): void {
+    this.api.get('http://localhost:8080/treatments/findAll').subscribe((treatments: TreatmentDTO[]) => {
+      this.dataSource = treatments;
+    });
+  }
 }
