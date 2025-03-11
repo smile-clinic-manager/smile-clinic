@@ -1,11 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { TreatmentDTO } from "../../models/TreatmentDTO";
+import { TreatmentDTO } from "../../../models/TreatmentDTO";
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { ApiEndpointHelperService } from "../../../services/api-endpoint-helper.service";
-import { ApiHttpService } from "../../../services/api-http.service";
+import { ApiEndpointHelperService } from "../../../../services/api-endpoint-helper.service";
+import { ApiHttpService } from "../../../../services/api-http.service";
 
 @Component({
   selector: 'app-treatment-detail',
@@ -15,7 +15,7 @@ import { ApiHttpService } from "../../../services/api-http.service";
 })
 export class TreatmentDetailComponent implements OnInit {
 
-  dataSource: TreatmentDTO = {name: "", notes: "", price: 0};
+  dataSource: TreatmentDTO = {id: "0", name: "", notes: "", price: 0};
   id: Number = 0;
 
   constructor(private route: ActivatedRoute, private api: ApiHttpService,

@@ -8,8 +8,8 @@ import { HomeComponent } from './modules/home/home.component';
 import { authGuard } from './auth.guard';
 import { ClinicListComponent } from './modules/clinics/clinic-list/clinic-list.component';
 import { ClinicDetailComponent } from './modules/clinics/clinic-detail/clinic-detail.component';
-import { TreatmentListComponent } from './modules/treatment-list/treatment-list.component';
-import { TreatmentDetailComponent } from './modules/treatment-detail/treatment-detail.component';
+import { TreatmentListComponent } from './modules/treatments/treatment-list/treatment-list.component';
+import { TreatmentDetailComponent } from './modules/treatments/treatment-detail/treatment-detail.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },

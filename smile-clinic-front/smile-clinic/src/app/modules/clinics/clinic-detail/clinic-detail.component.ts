@@ -9,7 +9,7 @@ import { MatList, MatListItem } from "@angular/material/list";
 import { ActivatedRoute } from "@angular/router";
 import { TreatmentDTO } from '../../../models/TreatmentDTO';
 import {MatTabsModule} from '@angular/material/tabs';
-import { TreatmentListComponent } from "../../treatment-list/treatment-list.component";
+import { TreatmentListComponent } from "../../treatments/treatment-list/treatment-list.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';

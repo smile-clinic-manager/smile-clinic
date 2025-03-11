@@ -1,4 +1,3 @@
-
 <h1> Detalle Clínica </h1>
 <mat-card>
   <mat-card-header class="clinic-avatar-image">
@@ -7,15 +6,15 @@
     </button>
 
     <mat-menu #clinicMenu="matMenu">
-        <button mat-menu-item aria-label="edit">
-            <mat-icon>edit</mat-icon>
-            Editar Clínica
-        </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item aria-label="delete">
-            <mat-icon>delete</mat-icon>
-            Eliminar Clínica
-        </button>
+      <button mat-menu-item aria-label="edit">
+        <mat-icon>edit</mat-icon>
+        Editar Clínica
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item aria-label="delete">
+        <mat-icon>delete</mat-icon>
+        Eliminar Clínica
+      </button>
     </mat-menu>
   </mat-card-header>
 
@@ -23,12 +22,12 @@
     <h2 style="text-align: center; margin-bottom: 20px;">{{clinic?.name}}</h2>
     <div class="info-container">
       <div class="info-item">
-          <p style="margin-right: 50px;"><strong>Dirección: </strong> {{clinic?.address}} </p>
-          <p><strong>Código postal: </strong>{{clinic?.postalCode}}</p>
+        <p style="margin-right: 50px;"><strong>Dirección: </strong> {{clinic?.address}} </p>
+        <p><strong>Código postal: </strong>{{clinic?.postalCode}}</p>
       </div>
       <div class="info-item">
-          <p style="margin-right: 50px;"><strong>Número de contacto: </strong> {{clinic?.phoneNumber}}</p>
-          <p><strong>Correo electrónico: </strong> {{clinic?.email}}</p>
+        <p style="margin-right: 50px;"><strong>Número de contacto: </strong> {{clinic?.phoneNumber}}</p>
+        <p><strong>Correo electrónico: </strong> {{clinic?.email}}</p>
       </div>
     </div>
   </mat-card-content>
@@ -39,15 +38,13 @@
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon>groups</mat-icon> Personal
-    </ng-template> 
-    <app-clinic-personal [clinicId]="clinic?.id"></app-clinic-personal>
+    </ng-template>
+    <app-clinic-personal [id]="clinic?.id"></app-clinic-personal>
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon>emergency</mat-icon> Tratamientos
     </ng-template>
-    <app-treatment-list [clinicId]="clinic?.id"></app-treatment-list>
+    <app-treatment-list [id]="clinic?.id"></app-treatment-list>
   </mat-tab>
 </mat-tab-group>
-
-
