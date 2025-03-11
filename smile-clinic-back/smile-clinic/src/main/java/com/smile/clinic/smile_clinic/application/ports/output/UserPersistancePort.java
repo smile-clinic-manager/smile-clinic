@@ -14,4 +14,6 @@ public interface UserPersistancePort {
     User save(User user);
     void deleteById(Long id);
     List<User> findUsersByClinicId(Long id);
+
+    User findUserByUserId(Long userId);
 }

@@ -4,7 +4,7 @@
         <input matInput (keyup)="applyFilter($event)" placeholder="Buscar usuario... " #input>
     </mat-form-field>
 
-    <button mat-icon-button class="add-user" matTooltip="Añadir usuario">
+    <button mat-icon-button class="add-user" matTooltip="Añadir usuario" (click)="openDialogAddUser()">
         <mat-icon> person_add </mat-icon>
     </button>
 </div>
@@ -47,8 +47,7 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                    showFirstLastButtons>
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]">
     </mat-paginator>
 </div>
 

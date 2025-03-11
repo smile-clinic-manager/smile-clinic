@@ -87,4 +87,11 @@ public class UserController {
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/userByUserId")
+    public ResponseEntity<RegisteredUserDTO> getUsersByUserId(@RequestParam("userId") Long id){
+        User users = this.userServicePort.findUserByUserId(id);
+        RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(users);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
 }

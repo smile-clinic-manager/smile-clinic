@@ -15,5 +15,5 @@ public interface UserServicePort {
     User update(User user);
     void deleteById(Long id);
     List<User> findUsersByClinicId(Long id);
-
+    User findUserByUserId(Long id);
 }

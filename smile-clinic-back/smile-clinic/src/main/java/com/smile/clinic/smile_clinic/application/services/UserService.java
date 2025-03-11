@@ -112,6 +112,11 @@ public class UserService implements UserServicePort {
         return users;
     }
 
+    @Override
+    public User findUserByUserId(Long userId) {
+        return this.userPersistancePort.findUserByUserId(userId);
+    }
+
     private List<Role> getUserRoles(Long userId, Long clinicId) {
         return this.rolePersistancePort.findRolesUserClinic(userId, clinicId);
     }

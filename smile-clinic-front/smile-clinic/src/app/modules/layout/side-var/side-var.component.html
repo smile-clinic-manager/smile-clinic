@@ -1,17 +1,17 @@
 <mat-sidenav-container class="sidenav-container" >
     <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen()">
       <mat-nav-list>
-        
-        <mat-expansion-panel >
-          <mat-expansion-panel-header>
-            <mat-panel-title matTooltip="Inicio">
-              <mat-icon> home </mat-icon> Inicio
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <a mat-list-item (click)="redirectToHome()">Inicio</a>
-        </mat-expansion-panel> 
 
         <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title matTooltip="Inicio"> 
+              <mat-icon> home </mat-icon> Inicio
+            </mat-panel-title> 
+          </mat-expansion-panel-header> 
+          <a mat-list-item (click)="redirectToHome()">Inicio</a>  
+        </mat-expansion-panel> 
+
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title matTooltip="Clínicas">
               <mat-icon> health_and_safety </mat-icon> Clínicas

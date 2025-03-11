@@ -25,9 +25,9 @@ mat-sidenav{
   
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 500px) {
   mat-sidenav{
-    min-width:50% !important;  
+    width: 80%; 
   }
 }
 
