@@ -16,6 +16,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { ClinicPersonalComponent } from "../clinic-personal/clinic-personal.component";
 import { MatButtonModule } from '@angular/material/button';
+import { ClinicService } from '../../../../services/clinic.service';
 
 @Component({
   selector: 'app-clinic-detail',
@@ -27,10 +28,11 @@ import { MatButtonModule } from '@angular/material/button';
 export class ClinicDetailComponent implements OnInit {
 
   clinic: ClinicDTO | undefined = undefined;
-  idParam: Number | undefined = undefined;
+  idParam: string = "";
   treatment: TreatmentDTO | undefined = undefined;
   constructor(private route: ActivatedRoute, private api: ApiHttpService,
-    private endpointHelper: ApiEndpointHelperService) {}
+    private endpointHelper: ApiEndpointHelperService,
+    private clinicService: ClinicService) {}
 
   ngOnInit(): void {
     this.extractId();
@@ -38,16 +40,13 @@ export class ClinicDetailComponent implements OnInit {
   }
 
   findClinic(): void {
-    const params: Map<string, any> = new Map<string, any>();
-    params.set("id", this.idParam);
-    this.api.get(this.endpointHelper.createUrlWithQueryParameters("/clinics/findClinicById",
-    params)).subscribe((clinic: ClinicDTO) => {
+    this.clinicService.getClinicById(this.idParam).then(clinic => {
       this.clinic = clinic;
     });
   }
 
-  extractId(): number {
-    return Number(this.route.params.subscribe(params => {
+  extractId(): string {
+    return String(this.route.params.subscribe(params => {
       this.idParam = params['id'];
     }));
   }

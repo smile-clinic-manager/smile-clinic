@@ -22,4 +22,12 @@ export class ClinicService {
     )
   }
 
+  getClinicById(id: string): Promise<ClinicDTO>{
+    const params: Map<string, any>  = new Map();
+    params.set('id', id)
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/findClinicById', params))
+    )
+  }
+
 }
