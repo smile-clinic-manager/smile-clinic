@@ -105,3 +105,13 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   max-width: 1000px !important;
   min-width: 800px !important;
 }
+
+:root .sys-info-container {
+  background-color: var(--mat-sys-secondary-fixed-dim); 
+  border-bottom: 3px solid var(--mat-sys-primary); 
+  padding: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+  gap: 8px; /* Add spacing between icon and text */
+}

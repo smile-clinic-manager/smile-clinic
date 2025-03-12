@@ -1,22 +1,44 @@
 <div class="container-dialog">
     
     <h2> Buscar usuarios </h2>
-    <div [formGroup]="userSearchForm">
-        <mat-form-field>
-            <mat-label>Nº Usuario</mat-label>
-            <input matInput formControlName="idUser" />
-        </mat-form-field>
-        <button mat-flat-button (click)="findUser()">Buscar</button>
+
+    <div class="centered-elements">
+        <app-sys-info-container [message]="MENSAJE_INFO" class="user-info-span"></app-sys-info-container>
     </div>
 
-    @if(foundUser){
-        <div>
-            <span>{{foundUser.firstName}}</span>
+    <div [formGroup]="userSearchForm" class="centered-elements">
+        <mat-form-field>
+            <mat-label>ID Usuario</mat-label>
+            <input matInput formControlName="idUser" />
+        </mat-form-field>
+        <button mat-flat-button (click)="findUser()">
+            Buscar
+        </button>
+    </div>
+
+    <!-- [ngStyle]="{'background-image': 'url(' + foundUser?.image + ')', 'background-size': 'cover'}" -->
+    
+    @if(foundUser){ <!-- Mostramos el usuario si existe --> 
+        <div class="centered-elements">
+            <mat-card>
+                <mat-card-header>
+                    <div class="header-container">
+                        <div class="header-content">
+                            <div mat-card-avatar class="header-img"></div>
+                            <div style="margin-bottom: 16px;">
+                                <mat-card-title> 
+                                    {{foundUser.firstName}} {{foundUser.lastName1}} {{foundUser.lastName2}} 
+                                </mat-card-title>
+                                <mat-card-subtitle>ID: {{foundUser.id}}</mat-card-subtitle>
+                            </div>
+                        </div>
+                        <button mat-flat-button style="margin-bottom: 16px;" (click)="addUser()">Añadir</button>
+                    </div>
+                </mat-card-header>                  
+            </mat-card>
         </div>
-    } @else if (foundUser === null) {
-        <div> Ningún usuario encontrado con el id proporcionado </div>
-    } @else {
-        <span> Información sobre la búsqueda de los usuarios aqui... </span>
+    } @else if (foundUser === null) { <!-- Si no hemos encontrado ninguno -->
+        <div class="centered-elements"> Ningún usuario encontrado con el id proporcionado </div>
     }
     
 </div>
