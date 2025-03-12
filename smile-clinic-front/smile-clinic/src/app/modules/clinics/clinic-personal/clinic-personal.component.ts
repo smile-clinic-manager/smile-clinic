@@ -20,7 +20,8 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
-import { AddUserClinicComponent } from '../../../dialogs/add-user-clinic/add-user-clinic.component';
+import { AddUserClinicComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic/add-user-clinic.component';
+import { AddUserClinicStepperComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic-stepper.component';
 
 
 
@@ -76,7 +77,7 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
 
   openDialogAddUser(): void {
     console.log('golaa');
-    const dialogRef = this.dialog.open(AddUserClinicComponent, {
+    const dialogRef = this.dialog.open(AddUserClinicStepperComponent, {
       data: { clinic: this.clinicId },
       panelClass: 'lateral-dialog'
     });

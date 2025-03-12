@@ -4,11 +4,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { UserService } from '../../../services/user.service';
-import { SnackbarServiceService } from '../../../services/snackbar-service.service';
+import { UserService } from '../../../../services/user.service';
+import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { SysInfoContainerComponent } from "../../shared/sys-info-container/sys-info-container.component";
+import { SysInfoContainerComponent } from "../../../shared/sys-info-container/sys-info-container.component";
 
 @Component({
   selector: 'app-add-user-clinic',

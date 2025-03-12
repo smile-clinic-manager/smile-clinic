@@ -1,0 +1,35 @@
+<mat-stepper orientation="vertical" linear="true" animationDuration="500">
+    <mat-step>
+        <ng-template matStepLabel>
+            <div class="step-title">
+                <p> Buscar usuario </p> <mat-icon>search</mat-icon>
+            </div>
+        </ng-template>
+        
+        <app-add-user-clinic></app-add-user-clinic>
+
+        <button mat-flat-button matStepperNext type="button">Siguiente</button>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>
+            <div class="step-title">   
+                <p> Seleccionar rol </p> <mat-icon>manage_accounts</mat-icon>   
+            </div>
+        </ng-template>
+        <!--  -->
+        <button mat-flat-button matStepperPrevious type="button">Anterior</button>
+        <button mat-flat-button matStepperNext type="button">Siguiente</button>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>
+            <div class="step-title">
+                <p> Confirmar selección </p> <mat-icon>check_circle</mat-icon>   
+            </div>
+        </ng-template>
+        <!--  -->
+        <button mat-flat-button matStepperPrevious type="button">Anterior</button>
+        <button mat-flat-button matStepperNext type="button">Siguiente</button>
+    </mat-step>
+</mat-stepper>
