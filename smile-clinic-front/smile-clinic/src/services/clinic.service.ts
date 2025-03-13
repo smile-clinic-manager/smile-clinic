@@ -30,4 +30,24 @@ export class ClinicService {
     )
   }
 
+  //CRUD
+
+  createClinic(clinic: ClinicDTO): Promise<ClinicDTO>{
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('/clinics/createClinic'), clinic)
+    )
+  }
+
+  updateClinic(id: Number, clinic: ClinicDTO): Promise<ClinicDTO>{
+    return firstValueFrom(
+      this.api.put(this.apiEndpointHelper.createUrl('/clinics/updateClinic'), id, clinic)
+    )
+  }
+
+  deleteClinic(id: Number): Promise<ClinicDTO>{
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/deleteClinicById', new Map([['id', id]])))
+    )
+  }
+
 }

@@ -50,4 +50,25 @@ export class ClinicDetailComponent implements OnInit {
       this.idParam = params['id'];
     }));
   }
+
+  createClinic(): void {
+    if(this.clinic === undefined) return;
+    this.clinicService.createClinic(this.clinic).then(clinic => {
+      this.clinic = clinic;
+    });
+  }
+
+  updateClinic(): void {
+    if(this.clinic === undefined) return;
+    this.clinicService.updateClinic(Number(this.clinic.id), this.clinic).then(clinic => {
+      this.clinic = clinic;
+    });
+  }
+
+  deleteClinic(): void {
+    if(this.clinic === undefined) return;
+    this.clinicService.deleteClinic(Number(this.clinic.id)).then(clinic => {
+      this.clinic = clinic;
+    });
+  }
 }
