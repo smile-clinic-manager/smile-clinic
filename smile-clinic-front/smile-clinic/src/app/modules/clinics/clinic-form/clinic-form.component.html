@@ -1,0 +1,23 @@
+<form class="clinic-form">
+  <mat-form-field class="clinic-full-width">
+    <mat-label>Name</mat-label>
+    <input matInput disabled placeholder="Name" [(ngModel)]="clinic.name" name="name" required>
+  </mat-form-field>
+  <mat-form-field class="clinic-full-width">
+    <mat-label>Address</mat-label>
+    <input matInput disabled placeholder="Price" [(ngModel)]="clinic.address" name="address" required>
+  </mat-form-field>
+  <mat-form-field class="clinic-full-width">
+    <mat-label>Postal Code</mat-label>
+    <input matInput disabled placeholder="Price" [(ngModel)]="clinic.postalCode" name="postalCode" required>
+  </mat-form-field>
+  <mat-form-field class="clinic-full-width">
+    <mat-label>Phone number</mat-label>
+    <textarea matInput disabled placeholder="Notes" [(ngModel)]="clinic.phoneNumber" name="phoneNumber"
+      required></textarea>
+  </mat-form-field>
+  <mat-form-field class="clinic-full-width">
+    <mat-label>Email</mat-label>
+    <textarea matInput disabled placeholder="Notes" [(ngModel)]="clinic.email" name="email" required></textarea>
+  </mat-form-field>
+</form>
