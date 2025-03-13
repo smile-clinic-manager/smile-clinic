@@ -29,6 +29,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   --secondary-color: rgba(0, 0, 0, 0.2);  //gray
 }
 
+:root {
+  --warning-color: #FFCC00; 
+}
+
+:root .warning-color{
+  color: var(--warning-color);
+}
+
 /* Adding styles to group of buttons when placed together */
 :root .button-row {
   display: table-cell;
@@ -94,18 +102,42 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex-direction: column;
 }
 
+/*
 
-@media screen and (max-width: 768px) {
-  .lateral-dialog {
-    width: 80%;
+************** DIALOG RESPONSIVE SCREEN SIZES STYLINGS *******************
+
+*/
+
+
+/* Mobile devices (up to 600px) */
+@media (max-width: 600px) {
+  :root .cdk-overlay-pane.mat-mdc-dialog-panel {
+    width: 95% !important;  /* 85% width for small screens */
   }
 }
 
-:root .cdk-overlay-pane.mat-mdc-dialog-panel {
-  max-width: 1000px !important;
-  min-width: 800px !important;
+/* Tablet and smaller desktops (601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  :root .cdk-overlay-pane.mat-mdc-dialog-panel {
+    width: 70% !important;  /* 60% width for medium screens */
+  }
 }
 
+/* Larger desktops (1025px and above) */
+@media (min-width: 1025px) {
+  :root .cdk-overlay-pane.mat-mdc-dialog-panel {
+    width: 50% !important;  /* 40% width for larger screens */
+    min-width: 660px !important;
+  }
+}
+
+/* 
+
+*******************************************************************
+
+*/
+
+/* ESTILO CONTENEDORES DE INFORMACIÓN */
 :root .sys-info-container {
   background-color: var(--mat-sys-secondary-fixed-dim); 
   border-bottom: 3px solid var(--mat-sys-primary); 
@@ -115,3 +147,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-items: center; /* Align icon and text vertically */
   gap: 8px; /* Add spacing between icon and text */
 }
+

@@ -30,7 +30,10 @@
                                 <mat-card-subtitle>ID: {{foundUser.id}}</mat-card-subtitle>
                             </div>
                         </div>
-                        <button mat-flat-button style="margin-bottom: 16px;" (click)="addUser()">Seleccionar</button>
+                        <!-- <button mat-flat-button style="margin-bottom: 16px;" (click)="addUser()">Seleccionar</button> -->
+                        <mat-checkbox [checked]="userForm.get('user')!.value!==null" (change)="selectUser($event.checked)">
+
+                        </mat-checkbox> <!-- checked if there`s a selected one already -->
                     </div>
                 </mat-card-header>                  
             </mat-card>

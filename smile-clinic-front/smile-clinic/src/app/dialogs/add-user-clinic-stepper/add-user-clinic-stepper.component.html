@@ -1,14 +1,24 @@
-<mat-stepper orientation="vertical" linear="true" animationDuration="500">
-    <mat-step>
-        <ng-template matStepLabel>
-            <div class="step-title">
-                <p> Buscar usuario </p> <mat-icon>search</mat-icon>
-            </div>
-        </ng-template>
-        
-        <app-add-user-clinic></app-add-user-clinic>
 
-        <button mat-flat-button matStepperNext type="button">Siguiente</button>
+<mat-stepper orientation="vertical" linear #stepper animationDuration="500">
+    <mat-step errorMessage="Selecciona un usuario" [stepControl]="selectUserFormGroup">
+        <form [formGroup]="selectUserFormGroup">
+            <ng-template matStepLabel>
+                <div class="step-title">
+                    <p> Buscar usuario </p> <mat-icon>search</mat-icon>
+                </div>
+            </ng-template>
+            
+            <app-add-user-clinic [userForm]="selectUserFormGroup"></app-add-user-clinic>
+    
+            <div class="align-items">
+                <button mat-flat-button matStepperNext type="button" [disabled]="!isStepUserValid()">
+                    Siguiente
+                </button>
+                @if(!isStepUserValid()){
+                    <mat-icon class="warning-color warning-separation" matTooltip="Selecciona un usuario para continuar">warning</mat-icon>
+                }
+            </div>
+        </form>
     </mat-step>
 
     <mat-step>

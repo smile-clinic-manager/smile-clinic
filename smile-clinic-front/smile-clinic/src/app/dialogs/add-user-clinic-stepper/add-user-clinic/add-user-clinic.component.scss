@@ -1,6 +1,9 @@
 .container-dialog {
     height: 100%;
     padding: 2%;
+    background-color: var(--mat-sys-surface-dim);
+    margin-bottom: 10px;
+    padding-bottom: 100px;
 }
 
 .header-img {
@@ -43,4 +46,8 @@ mat-card {
 
 .left-margin{
     margin-left: 5%;
+}
+
+mat-step{
+    margin-top: 10px;
 }

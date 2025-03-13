@@ -76,7 +76,6 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
   }
 
   openDialogAddUser(): void {
-    console.log('golaa');
     const dialogRef = this.dialog.open(AddUserClinicStepperComponent, {
       data: { clinic: this.clinicId },
       panelClass: 'lateral-dialog'

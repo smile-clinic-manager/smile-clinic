@@ -39,3 +39,35 @@ mat-panel-title{
 mat-panel-title mat-icon{
   padding-right: 1%;
 }
+
+mat-icon{
+  color: var(--mat-sys-primary);
+  padding-right: 5% !important;
+}
+
+/* 
+  Ocultar los iconos del menu lateral en pantallas pequeñas
+*/
+
+.menu-text{
+  padding-left: 5%;
+}
+
+@media (max-width: 660px) {
+  /* Hide text and show only icons */
+  .menu-text {
+    display: none;
+  }
+}
+
+mat-sidenav{
+  min-width: 120px;
+}
+
+@media (min-width: 661px) {
+  /* Hide text and show only icons */
+  mat-sidenav {
+    min-width: 200px;
+  }
+}
+
