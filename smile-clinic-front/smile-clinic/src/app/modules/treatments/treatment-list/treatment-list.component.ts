@@ -3,6 +3,7 @@ import { MatTableModule } from "@angular/material/table";
 import { TreatmentDTO } from "../../../models/TreatmentDTO";
 import { ApiHttpService } from "../../../../services/api-http.service";
 import { OnInit } from "@angular/core";
+import { TreatmentService } from "../../../../services/treatment.service";
 
 @Component({
   selector: 'app-treatment-list',
@@ -15,15 +16,17 @@ export class TreatmentListComponent implements OnInit {
   displayedColumns: string[] = ["name", "notes", "price"];
 
   dataSource: TreatmentDTO[] = [{id: "0", name: "", notes: "", price: 0}];
-  constructor(private api: ApiHttpService) {}
+  constructor(private treatmentService: TreatmentService) {}
 
   ngOnInit(): void {
     this.findAll();
   }
 
   findAll(): void {
-    this.api.get('http://localhost:8080/treatments/findAll').subscribe((treatments: TreatmentDTO[]) => {
+    this.treatmentService.getAllTreatments()
+    .then(treatments => {
       this.dataSource = treatments;
-    });
+    })
+    .catch((error) => console.log(error));
   }
 }

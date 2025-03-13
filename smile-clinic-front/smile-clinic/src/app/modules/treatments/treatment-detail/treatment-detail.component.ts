@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { ApiEndpointHelperService } from "../../../../services/api-endpoint-helper.service";
 import { ApiHttpService } from "../../../../services/api-http.service";
+import { TreatmentService } from "../../../../services/treatment.service";
 
 @Component({
   selector: 'app-treatment-detail',
@@ -18,19 +19,15 @@ export class TreatmentDetailComponent implements OnInit {
   dataSource: TreatmentDTO = {id: "0", name: "", notes: "", price: 0};
   id: Number = 0;
 
-  constructor(private route: ActivatedRoute, private api: ApiHttpService,
-    private endpointHelper: ApiEndpointHelperService) {}
+  constructor(private route: ActivatedRoute, private treatmentService: TreatmentService) {}
 
-      ngOnInit(): void {
+  ngOnInit(): void {
     this.extractId();
     this.findTreatment();
   }
 
   findTreatment(): void {
-    const params: Map<string, any> = new Map<string, any>();
-    params.set("id", this.id);
-    this.api.get(this.endpointHelper.createUrlWithQueryParameters("/treatments/findTreatmentById",
-    params)).subscribe((treatment: TreatmentDTO) => {
+    this.treatmentService.getTreatmentById(String(this.id)).then(treatment => {
       this.dataSource = treatment;
     });
   }
