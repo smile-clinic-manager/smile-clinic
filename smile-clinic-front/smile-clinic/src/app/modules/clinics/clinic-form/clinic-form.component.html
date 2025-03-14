@@ -1,23 +1,30 @@
-<form class="clinic-form">
-  <mat-form-field class="clinic-full-width">
-    <mat-label>Name</mat-label>
-    <input matInput disabled placeholder="Name" [(ngModel)]="clinic.name" name="name" required>
-  </mat-form-field>
-  <mat-form-field class="clinic-full-width">
-    <mat-label>Address</mat-label>
-    <input matInput disabled placeholder="Price" [(ngModel)]="clinic.address" name="address" required>
-  </mat-form-field>
-  <mat-form-field class="clinic-full-width">
-    <mat-label>Postal Code</mat-label>
-    <input matInput disabled placeholder="Price" [(ngModel)]="clinic.postalCode" name="postalCode" required>
-  </mat-form-field>
-  <mat-form-field class="clinic-full-width">
-    <mat-label>Phone number</mat-label>
-    <textarea matInput disabled placeholder="Notes" [(ngModel)]="clinic.phoneNumber" name="phoneNumber"
-      required></textarea>
-  </mat-form-field>
-  <mat-form-field class="clinic-full-width">
-    <mat-label>Email</mat-label>
-    <textarea matInput disabled placeholder="Notes" [(ngModel)]="clinic.email" name="email" required></textarea>
-  </mat-form-field>
-</form>
+<h2 mat-dialog-title>Formulario de clínica</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="clinic-form">
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput disabled placeholder="Name" [(ngModel)]="clinic.name" name="name" required>
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput disabled placeholder="Price" [(ngModel)]="clinic.address" name="address" required>
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Código postal</mat-label>
+      <input matInput disabled placeholder="Price" [(ngModel)]="clinic.postalCode" name="postalCode" required>
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Teléfono</mat-label>
+      <textarea matInput disabled placeholder="Notes" [(ngModel)]="clinic.phoneNumber" name="phoneNumber"
+        required></textarea>
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Email</mat-label>
+      <textarea matInput disabled placeholder="Notes" [(ngModel)]="clinic.email" name="email" required></textarea>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>
