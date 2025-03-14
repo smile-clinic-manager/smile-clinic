@@ -15,7 +15,7 @@ export class RoleService {
 
   getAllRoles(): Promise<RoleDTO[]>{
       return firstValueFrom(
-        this.api.get(this.apiEndpointHelper.createUrl('/roles/findAllRoles'))
+        this.api.get(this.apiEndpointHelper.createUrl('roles/findAllRoles'))
       )
   }
 }

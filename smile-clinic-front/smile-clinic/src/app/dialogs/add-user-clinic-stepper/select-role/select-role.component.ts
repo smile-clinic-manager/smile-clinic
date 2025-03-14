@@ -38,7 +38,6 @@ export class SelectRoleComponent implements OnInit{
       updatedRoles = this.roleForm.get('roles')?.value.filter((role: RoleDTO)=> role.id !== rol.id);
     }
     this.roleForm.patchValue({roles: updatedRoles});
-    console.log(this.roleForm.value);
   }
 
   async getAllRoles(): Promise<void>{

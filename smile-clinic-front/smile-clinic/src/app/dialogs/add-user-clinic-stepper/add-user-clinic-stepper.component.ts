@@ -42,7 +42,6 @@ export class AddUserClinicStepperComponent implements OnInit{
 
   ngOnInit(){
     this.clinicId = this.data.clinicId;
-    console.log(this.clinicId);
   }
   
   isStepUserValid(): boolean {

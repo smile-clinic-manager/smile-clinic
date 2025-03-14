@@ -36,7 +36,6 @@ export class AddUserClinicComponent {
     const userId: string = this.userSearchForm.get('idUser')!.value!;
     this.userService.getUserById(userId).then((user) => {
       this.foundUser = user;
-      console.log(this.foundUser);
     })
     .catch(() => this.snackBarService.showErrorSnackBar('Usuario no encontrado'))
   }
@@ -49,8 +48,6 @@ export class AddUserClinicComponent {
   selectUser(checked: boolean): void{
     const user = checked ? this.foundUser : null;
     this.userForm.get('user')!.setValue(user); 
-    console.log('INSIDE');
-    console.log(this.userForm.get('user')!.value);
   }
 
 }

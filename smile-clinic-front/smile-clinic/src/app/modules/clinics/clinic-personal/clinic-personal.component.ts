@@ -46,14 +46,12 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
-    console.log(this.clinicId);
     this.getUsersByClinicId();
   }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    console.log(this.clinicId);
   }
 
   getUsersByClinicId(){ //TEMPORALMENTE '8'
