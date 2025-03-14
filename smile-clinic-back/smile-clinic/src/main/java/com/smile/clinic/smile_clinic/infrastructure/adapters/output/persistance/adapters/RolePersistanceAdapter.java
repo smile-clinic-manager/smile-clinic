@@ -20,6 +20,12 @@ public class RolePersistanceAdapter implements RolePersistancePort {
     @Override
     public List<Role> findRolesUserClinic(Long userId, Long clinicId) {
         List<RoleEntity> roles = this.roleRepository.findRoleUserByClinic(userId, clinicId);
-        return this.roleMapper.toRoleList(this.roleRepository.findRoleUserByClinic(userId, clinicId));
+        return this.roleMapper.toRoleList(roles);
+    }
+
+    @Override
+    public List<Role> findAllRoles() {
+        List<RoleEntity> roles = this.roleRepository.findAll();
+        return this.roleMapper.toRoleList(roles);
     }
 }

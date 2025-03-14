@@ -21,15 +21,25 @@
         </form>
     </mat-step>
 
-    <mat-step>
-        <ng-template matStepLabel>
-            <div class="step-title">   
-                <p> Seleccionar rol </p> <mat-icon>manage_accounts</mat-icon>   
+    <mat-step errorMessage="Selecciona un rol" [stepControl]="selectRolesFormGroup">
+        <form [formGroup]="selectUserFormGroup">
+            <ng-template matStepLabel>
+                <div class="step-title">   
+                    <p> Seleccionar rol </p> <mat-icon>manage_accounts</mat-icon>   
+                </div>
+            </ng-template>
+
+            <app-select-role [roleForm]="selectRolesFormGroup"></app-select-role>
+            <!--  -->
+            <div class="button-separation-container align-items">
+                <button mat-stroked-button matStepperPrevious type="button">Anterior</button>
+                <button mat-flat-button matStepperNext type="button" 
+                    [disabled]="!selectRolesFormGroup.valid">Siguiente</button>
+                @if(!isStepRoleValid()){
+                    <mat-icon class="warning-color warning-separation" matTooltip="Selecciona un rol para continuar">warning</mat-icon>
+                }
             </div>
-        </ng-template>
-        <!--  -->
-        <button mat-flat-button matStepperPrevious type="button">Anterior</button>
-        <button mat-flat-button matStepperNext type="button">Siguiente</button>
+        </form>
     </mat-step>
 
     <mat-step>
@@ -38,8 +48,15 @@
                 <p> Confirmar selección </p> <mat-icon>check_circle</mat-icon>   
             </div>
         </ng-template>
-        <!--  -->
-        <button mat-flat-button matStepperPrevious type="button">Anterior</button>
-        <button mat-flat-button matStepperNext type="button">Siguiente</button>
+
+        <div class="container-dialog">
+            <p>holisw</p>
+        </div>
+        
+        <div class="button-separation-container">
+            <button mat-stroked-button matStepperPrevious type="button">Anterior</button>
+            <button mat-flat-button matStepperNext type="button" 
+                [disabled]="!isStepRoleValid() || !isStepUserValid()" (click)="addUserToClinic()">Confirmar</button>
+        </div>
     </mat-step>
 </mat-stepper>

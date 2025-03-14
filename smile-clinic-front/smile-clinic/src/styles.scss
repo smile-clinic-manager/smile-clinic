@@ -148,3 +148,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 8px; /* Add spacing between icon and text */
 }
 
+:root .button-separation-container{
+  display: flex; 
+  gap: 5px;
+}
+

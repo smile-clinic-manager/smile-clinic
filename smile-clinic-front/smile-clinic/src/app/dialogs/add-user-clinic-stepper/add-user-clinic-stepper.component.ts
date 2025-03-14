@@ -10,11 +10,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { SelectRoleComponent } from "./select-role/select-role.component";
+import { nonEmptyArrayValidator } from '../../shared/validators/non-empty-list-validator';
 
 @Component({
   selector: 'app-add-user-clinic-stepper',
   imports: [MatButtonModule, MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, MatIconModule, AddUserClinicComponent, MatCardModule, MatTooltipModule],
+    MatInputModule, MatIconModule, AddUserClinicComponent, MatCardModule, MatTooltipModule, SelectRoleComponent],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS, /* Permite mostrar errores del stepper */
@@ -32,7 +34,7 @@ export class AddUserClinicStepperComponent implements OnInit{
   })
 
   selectRolesFormGroup = this._formBuilder.group({
-    roles: [[], [Validators.required]]
+    roles: [[], [Validators.required, nonEmptyArrayValidator()]]
   })
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {clinicId: string}){  }
@@ -45,5 +47,19 @@ export class AddUserClinicStepperComponent implements OnInit{
   
   isStepUserValid(): boolean {
     return this.selectUserFormGroup.valid;
+  }
+
+  isStepRoleValid(): boolean {
+    return this.selectRolesFormGroup.valid;
+  }
+
+  addUserToClinic(): void{
+    /*
+
+     TODO: 
+     1. LLAMAR ENDPOINT DE CREACION DE RELACION USER_CLINIC_ROLE
+     2. CUANDO TERMINE CERRAR DIALOG Y MOSTRAR ERROR O OK SNACKBAR
+
+    */
   }
 }
