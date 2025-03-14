@@ -1,5 +1,5 @@
 import { ApiEndpointHelperService } from '../../../../services/api-endpoint-helper.service';
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { ClinicDTO } from '../../../models/ClinicDTO';
 import { ApiHttpService } from "../../../../services/api-http.service";
 import { FormsModule } from "@angular/forms";
@@ -17,6 +17,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { ClinicPersonalComponent } from "../clinic-personal/clinic-personal.component";
 import { MatButtonModule } from '@angular/material/button';
 import { ClinicService } from '../../../../services/clinic.service';
+import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-clinic-detail',
@@ -30,8 +32,9 @@ export class ClinicDetailComponent implements OnInit {
   clinic: ClinicDTO | undefined = undefined;
   idParam: string = "";
   treatment: TreatmentDTO | undefined = undefined;
-  constructor(private route: ActivatedRoute, private api: ApiHttpService,
-    private endpointHelper: ApiEndpointHelperService,
+  readonly dialog = inject(MatDialog);
+
+  constructor(private route: ActivatedRoute,
     private clinicService: ClinicService) {}
 
   ngOnInit(): void {
@@ -51,17 +54,11 @@ export class ClinicDetailComponent implements OnInit {
     }));
   }
 
-  createClinic(): void {
-    if(this.clinic === undefined) return;
-    this.clinicService.createClinic(this.clinic).then(clinic => {
-      this.clinic = clinic;
-    });
-  }
-
   updateClinic(): void {
-    if(this.clinic === undefined) return;
-    this.clinicService.updateClinic(Number(this.clinic.id), this.clinic).then(clinic => {
-      this.clinic = clinic;
+    const dialogRef = this.dialog.open(ClinicFormComponent);
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 

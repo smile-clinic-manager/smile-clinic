@@ -24,7 +24,7 @@ export class ClinicListComponent implements OnInit {
   user: any; //TEMPORALMENTE
   readonly dialog = inject(MatDialog);
 
-  constructor(private api: ApiHttpService, private router: Router, 
+  constructor(private router: Router, 
     private clinicService: ClinicService, private snackBarService: SnackbarServiceService,
     private localStorageService: LocalStorageService) {}
 
