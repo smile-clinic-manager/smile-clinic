@@ -1,11 +1,14 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.controllers;
 
+import com.smile.clinic.smile_clinic.application.ports.input.UserClinicRoleServicePort;
 import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
+import com.smile.clinic.smile_clinic.application.services.UserClinicRoleService;
 import com.smile.clinic.smile_clinic.application.services.UserService;
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.UserRestMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AssignUserToClinicRequestDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SignupRequestDTO;
@@ -29,9 +32,11 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
     private final UserServicePort userServicePort;
+    private final UserClinicRoleServicePort userClinicRoleService;
     private final UserRestMapper userRestMapper;
 
     @PostMapping("/signup")
@@ -92,6 +97,17 @@ public class UserController {
         User users = this.userServicePort.findUserByUserId(id);
         RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(users);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/assignUserToClinic")
+    public ResponseEntity<Object> assignUserToClinic(
+            @RequestBody AssignUserToClinicRequestDTO request){
+        try{
+            this.userClinicRoleService.createMultipleUserClinicRole(request.getUserId(), request.getClinicId(), request.getRoleIds());
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch(Exception exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
 }

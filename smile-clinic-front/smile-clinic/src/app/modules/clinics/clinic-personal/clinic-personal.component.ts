@@ -49,13 +49,13 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
     this.getUsersByClinicId();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  getUsersByClinicId(){ //TEMPORALMENTE '8'
-    this.userService.getClinicUserList('8').then(users=>{
+  getUsersByClinicId(): void {
+    this.userService.getClinicUserList(this.clinicId!).then(users=>{
       this.dataSource.data = users;
     }).catch((error)=> this.snackBarService.showErrorSnackBar(error.message))
   }
@@ -75,16 +75,16 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
 
   openDialogAddUser(): void {
     const dialogRef = this.dialog.open(AddUserClinicStepperComponent, {
-      data: { clinic: this.clinicId },
+      data: { 
+        clinicId: this.clinicId
+      },
       panelClass: 'lateral-dialog'
     });
     
-    dialogRef.afterClosed().subscribe(result => {
-      if(result){
-        this.getUsersByClinicId(); // reload user data to show the newly added user
-        this.snackBarService.showSuccessSnackBar('Usuario añadido a la clínica');
-      }
-      else this.snackBarService.showErrorSnackBar('Hubo un error al añadir el usuario a la clínica');
+    dialogRef.afterClosed().subscribe(() => {
+      this.getUsersByClinicId(); // reload user data to show the newly added user
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     })
   }
 

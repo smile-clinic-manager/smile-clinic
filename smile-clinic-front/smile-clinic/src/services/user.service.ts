@@ -27,4 +27,11 @@ export class UserService {
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/userByUserId', params)))
   }
 
+  assignUserToClinic(userId: string, clinicId: string, roleIds: string[]) {
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('users/assignUserToClinic'), 
+        {'userId': userId, 'clinicId': clinicId, 'roleIds': roleIds})
+    )
+  }
+
 }
