@@ -39,12 +39,20 @@
     <ng-template mat-tab-label>
       <mat-icon>groups</mat-icon> Personal
     </ng-template>
-    <app-clinic-personal [id]="clinic?.id"></app-clinic-personal>
+    @defer (when clinic !== undefined) { <!-- Retrasamos carga hasta que tengamos clinic definido -->
+    <app-clinic-personal [clinicId]="clinic?.id"></app-clinic-personal>
+    } @placeholder {
+    <mat-spinner></mat-spinner>
+    }
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon>emergency</mat-icon> Tratamientos
     </ng-template>
-    <app-treatment-list [id]="clinic?.id"></app-treatment-list>
+    @defer (when clinic !== undefined) { <!-- Retrasamos carga hasta que tengamos clinic definido -->
+    <app-treatment-list [clinicId]="clinic?.id"></app-treatment-list>
+    } @placeholder {
+    <mat-spinner></mat-spinner>
+    }
   </mat-tab>
 </mat-tab-group>

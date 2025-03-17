@@ -21,4 +21,7 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
             "INNER JOIN clinics ON ucr.clinic_id = clinics.clinic_id " +
             "WHERE clinics.clinic_id = :clinicId", nativeQuery = true)
     List<UserEntity> findUsersByClinicId(@Param("clinicId") Long clinicId);
+
+    @Query(value = "SELECT * FROM users WHERE users.id = :userId", nativeQuery = true)
+    UserEntity findUserByUserId(@Param("userId") Long userId);
 }

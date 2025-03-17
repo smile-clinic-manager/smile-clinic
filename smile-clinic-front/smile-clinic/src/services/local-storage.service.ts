@@ -15,7 +15,7 @@ export class LocalStorageService {
   public setTokenInLocalStorage(jwtToken: string, refreshToken: string): void {
     const encryptedToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
     const encryptedRefreshToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
-    localStorage.setItem('authToken', jwtToken);
+    localStorage.setItem('accessToken', jwtToken);
     localStorage.setItem('token', encryptedToken);
     localStorage.setItem('refreshToken', encryptedRefreshToken);
   }
@@ -61,6 +61,7 @@ export class LocalStorageService {
   public deleteTokens(): void{
     localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('accessToken');
   }
 
 

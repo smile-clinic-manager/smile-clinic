@@ -1,51 +1,71 @@
 <mat-sidenav-container class="sidenav-container" >
     <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen()">
       <mat-nav-list>
-        
+
         <mat-expansion-panel >
           <mat-expansion-panel-header>
-            <mat-panel-title matTooltip="Inicio">
-              <mat-icon> home </mat-icon> Inicio
-            </mat-panel-title>
-          </mat-expansion-panel-header>
-          <a mat-list-item (click)="redirectToHome()">Inicio</a>
+            <mat-panel-title matTooltip="Inicio"> 
+              <mat-icon> home </mat-icon><span class="menu-text">Inicio</span>
+            </mat-panel-title> 
+          </mat-expansion-panel-header> 
+          <a mat-list-item (click)="redirectToHome()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">Inicio</span>
+          </a>  
         </mat-expansion-panel> 
 
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title matTooltip="Clínicas">
-              <mat-icon> health_and_safety </mat-icon> Clínicas
+              <mat-icon> health_and_safety </mat-icon> 
+              <span class="menu-text">Clínicas</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <a mat-list-item (click)="redirectToClinics()">Listado de clínicas</a>
-          <a mat-list-item (click)="redirectToClinics()">Clinica2</a>
-          <a mat-list-item (click)="redirectToClinics()">Clinica3</a>
-
+          <a mat-list-item (click)="redirectToClinics()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">Listado de clínicas</span>
+          </a>
+          <a mat-list-item (click)="redirectToClinics()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">ejemplo2</span>
+          </a>
+          <a mat-list-item (click)="redirectToClinics()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">ejemplo3</span> 
+          </a>
         </mat-expansion-panel> 
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon> calendar_today </mat-icon> Citas y Calendario
+              <mat-icon> calendar_today </mat-icon> <span class="menu-text">Citas y Calendario</span> 
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <a mat-list-item (click)="redirectToClinics()">Calendario</a>
-          <a mat-list-item (click)="redirectToClinics()">Citas</a>
+          <a mat-list-item (click)="redirectToClinics()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">Calendario</span>
+          </a>
+          <a mat-list-item (click)="redirectToClinics()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">Citas</span>
+          </a>
 
         </mat-expansion-panel>
 
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <mat-icon> groups </mat-icon>Pacientes
+              <mat-icon> groups </mat-icon>
+              <span class="menu-text">Pacientes</span>
             </mat-panel-title>
           </mat-expansion-panel-header>
 
-          <a mat-list-item (click)="redirectToClinics()">Listado de pacientes</a>
-
-
+          <a mat-list-item (click)="redirectToClinics()">
+            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">Listado de pacientes</span>
+          </a>
         </mat-expansion-panel>
       
       </mat-nav-list>

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface RolePersistancePort {
     List<Role> findRolesUserClinic(Long userId, Long clinicId);
+
+    List<Role> findAllRoles();
 }

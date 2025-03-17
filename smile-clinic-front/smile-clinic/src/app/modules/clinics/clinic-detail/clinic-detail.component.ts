@@ -5,7 +5,6 @@ import { ApiHttpService } from "../../../../services/api-http.service";
 import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import { MatList, MatListItem } from "@angular/material/list";
 import { ActivatedRoute } from "@angular/router";
 import { TreatmentDTO } from '../../../models/TreatmentDTO';
 import {MatTabsModule} from '@angular/material/tabs';
@@ -19,13 +18,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { ClinicService } from '../../../../services/clinic.service';
 import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
 import { MatDialog } from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-clinic-detail',
   templateUrl: './clinic-detail.component.html',
   styleUrl: './clinic-detail.component.scss',
   imports: [FormsModule, MatFormFieldModule, MatInputModule, MatTabsModule, TreatmentListComponent, MatIconModule, MatCardModule,
-    MatMenuModule, MatDividerModule, ClinicPersonalComponent, MatButtonModule]
+    MatMenuModule, MatDividerModule, ClinicPersonalComponent, MatButtonModule, MatProgressSpinnerModule]
 })
 export class ClinicDetailComponent implements OnInit {
 
