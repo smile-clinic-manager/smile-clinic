@@ -8,14 +8,14 @@
                 </div>
             </ng-template>
             
-            <app-add-user-clinic [userForm]="selectUserFormGroup"></app-add-user-clinic>
+            <app-add-user-clinic [userForm]="selectUserFormGroup" [clinicUsers]="clinicUsers"></app-add-user-clinic>
     
             <div class="align-items">
                 <button mat-flat-button matStepperNext type="button" [disabled]="!isStepUserValid()">
                     Siguiente
                 </button>
                 @if(!isStepUserValid()){
-                    <mat-icon class="warning-color warning-separation" matTooltip="Selecciona un usuario para continuar">warning</mat-icon>
+                    <mat-icon class="info-color icon-separation icon-overflow-display" matTooltip="Selecciona un usuario para continuar">info</mat-icon>
                 }
             </div>
         </form>
@@ -36,7 +36,7 @@
                 <button mat-flat-button matStepperNext type="button" 
                     [disabled]="!selectRolesFormGroup.valid">Siguiente</button>
                 @if(!isStepRoleValid()){
-                    <mat-icon class="warning-color warning-separation" matTooltip="Selecciona un rol para continuar">warning</mat-icon>
+                    <mat-icon class="info-color icon-separation icon-overflow-display" matTooltip="Selecciona un usuario para continuar">info</mat-icon>
                 }
             </div>
         </form>
@@ -50,13 +50,32 @@
         </ng-template>
 
         <div class="container-dialog">
-            <p>holisw</p>
-        </div>
-        
-        <div class="button-separation-container">
-            <button mat-stroked-button matStepperPrevious type="button">Anterior</button>
-            <button mat-flat-button matStepperNext type="button" 
-                [disabled]="!isStepRoleValid() || !isStepUserValid()" (click)="addUserToClinic()">Confirmar</button>
-        </div>
+            @defer (when isStepUserValid() && isStepRoleValid()) { <!-- Retrasamos la carga hasta que los anteriores pasos sean completados -->
+                <app-sys-info-container [message]="CONFIRM_MESSAGE" class="user-info-span"></app-sys-info-container>
+                <mat-card class="confirm-card">
+                    <mat-card-header class="justify-center">
+                        <div mat-card-avatar class="header-img"></div>
+                        <mat-card-title>{{getSelectedUser()?.firstName}}</mat-card-title>
+                        <mat-card-subtitle>ID: {{getSelectedUser()?.id}}</mat-card-subtitle>
+                      </mat-card-header>
+                    <mat-card-footer class="justify-center">
+                      <mat-chip-set aria-label="roles">
+                        @for(role of getSelectedRoles(); track role.id){
+                            <mat-chip>{{role.name}}</mat-chip>
+                        }
+                      </mat-chip-set>
+                    </mat-card-footer>
+                  </mat-card>
+
+                
+            }@placeholder {
+                <span>Completa los pasos anteriores para continuar</span>
+            }
+            <div class="button-separation-container">
+                <button mat-stroked-button matStepperPrevious type="button">Anterior</button>
+                <button mat-flat-button matStepperNext type="button" 
+                    [disabled]="!isStepRoleValid() || !isStepUserValid()" (click)="addUserToClinic()">Confirmar</button>
+            </div>
+        </div>        
     </mat-step>
 </mat-stepper>

@@ -14,7 +14,7 @@
     display: flex;
 }
 
-.warning-separation{
+.icon-separation{
     margin-left: 10px;
 }
 
@@ -23,4 +23,22 @@
     padding: 2%;
     background-color: var(--mat-sys-surface-dim);
     margin-bottom: 10px;
+}
+
+.header-img {
+    background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg");
+    background-size: cover;
+    height: 60px;
+    width: 60px;
+}
+
+.justify-center{
+    justify-content: center;
+    display: flex;
+}
+
+.confirm-card{
+    //width: 50% !important;
+    padding: 2% 0 2% 0 !important;
+    margin-bottom: 3% !important;
 }

@@ -16,7 +16,7 @@
 
     <!-- [ngStyle]="{'background-image': 'url(' + foundUser?.image + ')', 'background-size': 'cover'}" -->
     
-    @if(foundUser){ <!-- Mostramos el usuario si existe --> 
+    @if(foundUser){ <!-- Mostramos el usuario si lo hemos podido recuperar de la db --> 
         <div class="left-margin">
             <mat-card>
                 <mat-card-header>
@@ -30,10 +30,12 @@
                                 <mat-card-subtitle>ID: {{foundUser.id}}</mat-card-subtitle>
                             </div>
                         </div>
-                        <!-- <button mat-flat-button style="margin-bottom: 16px;" (click)="addUser()">Seleccionar</button> -->
-                        <mat-checkbox [checked]="userForm.get('user')!.value!==null" (change)="selectUser($event.checked)">
-
-                        </mat-checkbox> <!-- checked if there`s a selected one already -->
+                        <mat-checkbox [checked]="userForm.get('user')!.value!==null" 
+                            (change)="selectUser($event.checked)" [disabled]="isUserAlreadyInClinic()">
+                        </mat-checkbox>
+                        @if(isUserAlreadyInClinic()){
+                            <mat-icon class="warning-color warning-separation icon-overflow-display" matTooltip="El usuario ya está asociado a la clínica">warning</mat-icon> 
+                        }
                     </div>
                 </mat-card-header>                  
             </mat-card>

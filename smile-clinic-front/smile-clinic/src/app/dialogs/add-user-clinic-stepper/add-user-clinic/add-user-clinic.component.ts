@@ -10,16 +10,18 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { SysInfoContainerComponent } from "../../../shared/sys-info-container/sys-info-container.component";
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { RegisteredUserDTO } from '../../../models/RegisteredUserDTO';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-add-user-clinic',
   imports: [MatButtonModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatInputModule, MatIconModule,
-    MatCardModule, CommonModule, SysInfoContainerComponent, MatCheckboxModule],
+    MatCardModule, CommonModule, SysInfoContainerComponent, MatCheckboxModule, MatTooltipModule],
   templateUrl: './add-user-clinic.component.html',
   styleUrl: './add-user-clinic.component.scss'
 })
 export class AddUserClinicComponent {
-  MENSAJE_INFO: string = "Para encontrar el usuario que quieras añadir, pídele su id de usuario, introdúcelo en el campo de búsqueda y pulsa en el botón 'Buscar'.";
+  MENSAJE_INFO: string = "Para encontrar el usuario que desee añadir, pídale su id de usuario, introdúzcalo en el campo de búsqueda y pulse en el botón 'Buscar'.";
   
   foundUser: any = undefined; // TODO: Asignar tipos de dato a foundUser
   userSearchForm = new FormGroup({
@@ -27,6 +29,7 @@ export class AddUserClinicComponent {
   })
 
   @Input() userForm!: FormGroup;
+  @Input() clinicUsers!: RegisteredUserDTO[];
 
   constructor(private userService: UserService, private snackBarService: SnackbarServiceService) { 
 
@@ -48,6 +51,10 @@ export class AddUserClinicComponent {
   selectUser(checked: boolean): void{
     const user = checked ? this.foundUser : null;
     this.userForm.get('user')!.setValue(user); 
+  }
+
+  isUserAlreadyInClinic(): boolean{
+    return this.clinicUsers.some((user: RegisteredUserDTO)=> user.id === this.foundUser.id);
   }
 
 }

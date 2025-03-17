@@ -16,11 +16,14 @@ import { RoleDTO } from '../../models/RoleDTO';
 import { RegisteredUserDTO } from '../../models/RegisteredUserDTO';
 import { UserService } from '../../../services/user.service';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
+import { MatChipsModule } from '@angular/material/chips';
+import { SysInfoContainerComponent } from '../../shared/sys-info-container/sys-info-container.component';
 
 @Component({
   selector: 'app-add-user-clinic-stepper',
   imports: [MatButtonModule, MatStepperModule, FormsModule, ReactiveFormsModule, MatFormFieldModule,
-    MatInputModule, MatIconModule, AddUserClinicComponent, MatCardModule, MatTooltipModule, SelectRoleComponent],
+    MatInputModule, MatIconModule, AddUserClinicComponent, MatCardModule, MatTooltipModule, SelectRoleComponent,
+    MatChipsModule, SysInfoContainerComponent],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS, /* Permite mostrar errores del stepper */
@@ -43,28 +46,32 @@ export class AddUserClinicStepperComponent implements OnInit{
   })
 /* ****************************** */
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: {clinicId: string}, 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: {clinicId: string, clinicUsers: RegisteredUserDTO[]}, 
     private dialogRef: MatDialogRef<AddUserClinicStepperComponent>, private userService: UserService,
     private snackBarService:  SnackbarServiceService){  }
   
   clinicId : string = '';
+  clinicUsers: RegisteredUserDTO[] = [];
+  CONFIRM_MESSAGE: string = "Verifique que la selección seleccionada es correcta antes de continuar. Pulse 'Confirmar' para añadir este usuario a la clínica o 'Anterior' si desea cambiar su selección."
 
   ngOnInit(){
     this.clinicId = this.data.clinicId;
+    this.clinicUsers = this.data.clinicUsers;
     console.log(this.clinicId);
+    console.log(this.clinicUsers);
   }
   
   isStepUserValid(): boolean {
-    return this.selectUserFormGroup.valid;
+    return this.selectUserFormGroup?.valid;
   }
 
   isStepRoleValid(): boolean {
-    return this.selectRolesFormGroup.valid;
+    return this.selectRolesFormGroup?.valid;
   }
 
   addUserToClinic(): void{
-    const roleList: RoleDTO[] | null= this.selectRolesFormGroup.get('roles')!.value;
-    const user: RegisteredUserDTO | null = this.selectUserFormGroup.get('user')!.value;
+    const roleList: RoleDTO[] | null= this.getSelectedRoles();
+    const user: RegisteredUserDTO | null = this.getSelectedUser();
 
     const roleIds: string[] = roleList!.map(role => role.id);
     const userId: string = user!.id.toString();
@@ -74,4 +81,13 @@ export class AddUserClinicStepperComponent implements OnInit{
       .catch(() => this.snackBarService.showErrorSnackBar("Error al añadir usuario"))
       .finally(() => this.dialogRef.close());
   }
+
+  getSelectedRoles(): RoleDTO[] | null{
+    return this.selectRolesFormGroup.get('roles')!.value;
+  }
+
+  getSelectedUser(): RegisteredUserDTO | null {
+    return this.selectUserFormGroup.get('user')!.value;
+  }
+
 }

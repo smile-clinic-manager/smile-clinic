@@ -16,11 +16,13 @@ public class UserClinicRoleService implements UserClinicRoleServicePort {
     private final UserClinicRolePersistancePort userClinicRolePersistancePort;
 
     @Override
-    public void createMultipleUserClinicRole(Long userId, Long clinicId, List<Long> roleIds) {
+    public void createMultipleUserClinicRole(Long userId, Long clinicId, List<Long> roleIds) throws Exception {
         for(Long roleId : roleIds){
             boolean recordExists = this.userClinicRolePersistancePort.recordExists(userId, clinicId, roleId);
             if(!recordExists) {
                 this.createUserClinicRole(userId, clinicId, roleId); //SOLO EJECUTAMOS SI NO EXISTE YA EN LA DB
+            } else {
+                throw new Exception("No se puede añadir el mismo usuario en la misma clínica con el mismo rol");
             }
         }
     }
