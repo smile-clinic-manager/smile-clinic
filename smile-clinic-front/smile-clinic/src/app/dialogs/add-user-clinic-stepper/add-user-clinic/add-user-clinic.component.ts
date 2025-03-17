@@ -37,15 +37,13 @@ export class AddUserClinicComponent {
 
   findUser() {
     const userId: string = this.userSearchForm.get('idUser')!.value!;
+
+    this.userForm.get('user')!.setValue(null);
+
     this.userService.getUserById(userId).then((user) => {
       this.foundUser = user;
     })
     .catch(() => this.snackBarService.showErrorSnackBar('Usuario no encontrado'))
-  }
-
-  addUser(){
-    // TODO: llamada al servicio que añade relación entre
-
   }
 
   selectUser(checked: boolean): void{
