@@ -7,12 +7,10 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
+@Mapper(componentModel = "spring")
 public interface RoleRestMapper {
-    @Mapper(componentModel = "spring")
-    public interface RolePersistanceMapper {
         RoleDTO toRoleDTO(Role role);
         List<RoleDTO> toRoleDTOList(List<Role> roles);
         Role toRole(RoleDTO roleDTO);
         List<Role> toRoleList(List<RoleDTO> rolesDTO);
-    }
 }

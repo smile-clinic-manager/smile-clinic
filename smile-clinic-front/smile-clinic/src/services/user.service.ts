@@ -17,6 +17,21 @@ export class UserService {
     return firstValueFrom(
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/usersByClinicId', params))
     )
-
   }
+
+  getUserById(userId: string) {
+    const params: Map<string, any>  = new Map();
+    params.set('userId', userId);
+    
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/userByUserId', params)))
+  }
+
+  assignUserToClinic(userId: string, clinicId: string, roleIds: string[]) {
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('users/assignUserToClinic'), 
+        {'userId': userId, 'clinicId': clinicId, 'roleIds': roleIds})
+    )
+  }
+
 }

@@ -28,6 +28,17 @@ INSERT INTO roles_permissions (role_id, permission_id) VALUES (2, 2);  -- WRITE_
 INSERT INTO roles_permissions (role_id, permission_id) VALUES (3, 1);  -- READ_PATIENT_RECORDS
 INSERT INTO roles_permissions (role_id, permission_id) VALUES (3, 5);  -- SCHEDULE_APPOINTMENTS
 
+    --------------CONTRASEÑAS DE LOS USUARIOS-------------------
+
+    ------------- Alice - alice123 - StrongPass1!@ -------------
+    ------------- Bob - bobbyJ - SecureKey99$% -----------------
+    ------------- Charlie - charlieB - A1b2C3d4@#%^ ------------
+    ------------- Diana - dianaGM - TestPass_98* ---------------
+    ------------- Eve - eveWhite - SuperSafe12&( ---------------
+    ------------- Frank - frankScott - MyPass#45!Safe ----------
+    ------------- PRUEBA - pruebaScott - MyPass#45!Safe ----------
+-- ************************************************************** --
+
 -- Create testing users
 INSERT INTO users (id, first_name, last_name1, last_name2, username, dni, email, password)
 VALUES
@@ -36,7 +47,8 @@ VALUES
     (3, 'Charlie', 'Brown', 'Taylor', 'charlieB', '34567890C', 'charlie.brown@example.com', '$2a$10$EoFHRl80Pfo8O5JJKt9Y0ufqQbeAbruD27aTYlgO2fzaybulFDWUi'),
     (4, 'Diana', 'Green', 'Miller', 'dianaGM', '45678901D', 'diana.green@example.com', '$2a$10$k2qeyegq4pwUvii9mZj5/.s3JOMknzqOiBvjmO20.Bj4oMv1eSVkK'),
     (5, 'Eve', 'White', NULL, 'eveWhite', '56789012E', 'eve.white@example.com', '$2a$10$Jt91UM/Ef/qq2ejFPuA4huNBc.fCXoVyjCKR1E9zNywn/n57FD6oG'),
-    (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu');
+    (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu'),
+    (7, 'PRUEBA', 'Black', 'Scott', 'pruebaScott', '67890123P', 'prueba.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu');
 
 -- Create testing clinics
 INSERT INTO clinics (clinic_id, name, address, phone_number, email, image, postal_code)

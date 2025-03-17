@@ -57,4 +57,9 @@ public class UserPersistanceAdapter implements UserPersistancePort {
         return this.mapper.toUserList(this.userRepository.findUsersByClinicId(id));
     }
 
+    @Override
+    public User findUserByUserId(Long userId) {
+        return this.mapper.toUser(this.userRepository.findUserByUserId(userId));
+    }
+
 }
