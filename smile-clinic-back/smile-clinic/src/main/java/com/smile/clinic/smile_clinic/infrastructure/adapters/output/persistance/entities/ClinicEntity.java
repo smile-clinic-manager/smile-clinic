@@ -45,7 +45,7 @@ public class ClinicEntity {
     private String image;
 
     // Relationships
-    @ManyToMany
+    @OneToMany
     @JoinTable(
             name = "clinic_treatments",
             joinColumns = @JoinColumn(name = "clinic_id"),
