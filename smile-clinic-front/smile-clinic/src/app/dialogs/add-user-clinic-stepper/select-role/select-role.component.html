@@ -1,0 +1,19 @@
+<div class="container-dialog">
+    <table mat-table [dataSource]= "dataSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="ROL">
+            <th mat-header-cell *matHeaderCellDef> ROL </th>
+            <td mat-cell *matCellDef="let element"> 
+            <mat-chip> {{element.name}} </mat-chip>  
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="ACCIONES">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <mat-checkbox (change)="toggleSelectRole($event.checked, element)"></mat-checkbox> <!-- TODO: select role -->
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+</div>

@@ -2,12 +2,15 @@ package com.smile.clinic.smile_clinic.application.services;
 
 import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.PasswordEncoderPort;
+import com.smile.clinic.smile_clinic.application.ports.output.RolePersistancePort;
 import com.smile.clinic.smile_clinic.application.ports.output.TokenProviderPort;
 import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePort;
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
+import com.smile.clinic.smile_clinic.domain.models.users.Role;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,10 +21,12 @@ import java.util.regex.Pattern;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class UserService implements UserServicePort {
 
     private final UserPersistancePort userPersistancePort;
+    private final RolePersistancePort rolePersistancePort;
     private final PasswordEncoderPort passwordEncoderPort;
     private final TokenProviderPort tokenProviderPort;
 
@@ -69,12 +74,12 @@ public class UserService implements UserServicePort {
                     .lastName2(user.getLastName2())
                     .dni(user.getDni())
                     .email(user.getEmail())
-                    .role(Role.CLINIC_ADMIN) // Temporary until we implement the roles logic
                     .password(encodedPassword)
                     .build();
 
             User savedUser = userPersistancePort.save(userToRegister);
             String token = tokenProviderPort.generateToken(savedUser);
+            String refreshToken = tokenProviderPort.generateRefreshToken(savedUser);
 
             return Map.of(savedUser, token);
 
@@ -96,7 +101,23 @@ public class UserService implements UserServicePort {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Long id) {  }
 
+    public List<User> findUsersByClinicId(Long clinicId) {
+        List<User> users = this.userPersistancePort.findUsersByClinicId(clinicId);
+        //Set the roles of each user
+        users.forEach(user -> {
+            user.setRoles(this.getUserRoles(user.getId(), clinicId));
+        });
+        return users;
+    }
+
+    @Override
+    public User findUserByUserId(Long userId) {
+        return this.userPersistancePort.findUserByUserId(userId);
+    }
+
+    private List<Role> getUserRoles(Long userId, Long clinicId) {
+        return this.rolePersistancePort.findRolesUserClinic(userId, clinicId);
     }
 }

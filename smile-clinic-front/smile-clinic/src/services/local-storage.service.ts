@@ -12,9 +12,12 @@ export class LocalStorageService {
 
   constructor() { }
 
-  public setTokenInLocalStorage(jwtToken: string): void {
+  public setTokenInLocalStorage(jwtToken: string, refreshToken: string): void {
     const encryptedToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
+    const encryptedRefreshToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
+    localStorage.setItem('accessToken', jwtToken);
     localStorage.setItem('token', encryptedToken);
+    localStorage.setItem('refreshToken', encryptedRefreshToken);
   }
 
   public getTokenInLocalStorage(): string {
@@ -31,6 +34,14 @@ export class LocalStorageService {
     return localStorage.getItem('token') ? true : false;
   }
 
+  async checkAuthStatus(): Promise<boolean> {
+    return new Promise((resolve) => {
+      setTimeout(() => { 
+        resolve(this.existsToken());
+      }, 100);
+    });
+  }
+
   public getDecodedToken(): string {
     const token = this.getTokenInLocalStorage();
     return this.decodeToken(token);
@@ -45,6 +56,12 @@ export class LocalStorageService {
       console.error('Error decoding JWT:', error);
     }
     return '';
+  }
+
+  public deleteTokens(): void{
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('accessToken');
   }
 
 

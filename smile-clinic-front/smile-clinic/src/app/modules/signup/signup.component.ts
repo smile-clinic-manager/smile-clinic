@@ -12,10 +12,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { SignUpService } from '../../../services/signup.service';
 import { Router } from '@angular/router';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
 import { SignupRequestDTO } from '../../models/SignupRequestDTO';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -32,7 +32,7 @@ import { SignupRequestDTO } from '../../models/SignupRequestDTO';
   styleUrl: './signup.component.scss',
 })
 export class SignUpComponent {
-  constructor( private readonly signUpService: SignUpService, 
+  constructor( private readonly authService: AuthService, 
     private readonly router: Router, 
     private readonly snackBarService: SnackbarServiceService) {
   }
@@ -134,7 +134,7 @@ export class SignUpComponent {
 
       const signupRequestDTO: SignupRequestDTO = new SignupRequestDTO(firstName,lastName1, lastName2, username, dni, email, confirmEmail, password, confirmPassword);
       
-      this.signUpService
+      this.authService
         .signup(signupRequestDTO)
         .then(() => {
           this.snackBarService.showSuccessSnackBar('Registro realizado con éxito');

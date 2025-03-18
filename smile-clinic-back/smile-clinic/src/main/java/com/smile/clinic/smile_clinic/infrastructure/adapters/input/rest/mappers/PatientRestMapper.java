@@ -1,7 +1,7 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers;
 
-import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.patientsDTO.PatientDTO;
+import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 

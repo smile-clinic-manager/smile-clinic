@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { Router } from '@angular/router';
+import { AuthService } from './auth.service';
 
 
 @Injectable({
@@ -10,7 +11,9 @@ import { Router } from '@angular/router';
 })
 export class HttpRequestInterceptorService implements HttpInterceptor {
 
-  constructor(private localStorageService: LocalStorageService, private router: Router) { }
+  constructor(private localStorageService: LocalStorageService, private router: Router,
+    private authService: AuthService
+  ) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const localToken: string = this.localStorageService.getTokenInLocalStorage()?? ''; //token or '' value
@@ -24,6 +27,11 @@ export class HttpRequestInterceptorService implements HttpInterceptor {
     return next.handle(request).pipe(
       catchError((error: any) => {
         if(error.status === 401) {// unathorized request = 401 code
+
+          //TODO: CHECK IF TOKEN EXPIRED, CALL REFRESH TOKEN ENDPOINT 
+
+          alert('Sesión expirada');
+          this.authService.logout();
           this.router.navigate(['welcome']);
         }
         return throwError(() => error);

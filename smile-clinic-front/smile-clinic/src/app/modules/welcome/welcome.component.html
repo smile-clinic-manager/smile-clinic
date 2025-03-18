@@ -1,16 +1,74 @@
 <mat-toolbar>
-    <span> Bienvenidos a Smile Clinic! </span>
-    <span class='spacer'></span> <!-- espacio en medio -->
-    <div class='button-row'>
-      <button mat-flat-button aria-label="login button" (click)="redirectToLoginPage()">Iniciar sesión</button>
-      <button mat-flat-button class="button-secondary" aria-label="sign up button" (click)="redirectToSignUpPage()">Registrarse</button>
-    </div>
+  <h1> Bienvenidos a Smile Clinic </h1>
+  <span class='spacer'></span> <!-- espacio en medio -->
+  <div class='button-row'>
+    <button mat-flat-button aria-label="login button" (click)="redirectToLoginPage()">Iniciar sesión</button>
+    <button mat-flat-button class="button-secondary" aria-label="sign up button"
+      (click)="redirectToSignUpPage()">Registrarse</button>
+  </div>
 </mat-toolbar>
 
-<div styles="height: 100vh">
-    <mat-card fxFlex="60">
-      <mat-card-content>
-        <button mat-button (click)="greet()" matTooltip="Click for a surprise ;D">Click me!</button>
-      </mat-card-content>
-    </mat-card>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>El futuro de la odontología ya está a tu alcance</h2>
+      <p>Smile Clinic es una solución software con la que podrás gestionar tu(s) clínica(s),
+        llevar un control de tus pacientes, citas, tratamientos y mucho más.
+        ¡Regístrate y descubre todo lo que podemos hacer por ti!
+        [insertar mockups]
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="grid">
+  <mat-card appearance="outlined" class="card">
+    <mat-card-content>
+      <h2>Módulo de clínicas</h2>
+      <p>Gestiona cómodamente una o más clínicas desde un único lugar con una interfaz sencilla e intuitiva. [insertar
+        mockups]
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appearance="outlined" class="card">
+    <mat-card-content>
+      <h2>Módulo de citas</h2>
+      <p>Visualiza y modifica en tiempo real todas las citas en cualquiera de tus clínicas desde un mismo calendario.
+        [insertar mockups]
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card appearance="outlined" class="card">
+    <mat-card-content>
+      <h2>Módulo de historial clínico</h2>
+      <p>Obtén y modifica todos los datos médicos de tu paciente, pieza por pieza, con un odontograma interactivo.
+        [insertar mockups]
+      </p>
+    </mat-card-content>
+  </mat-card>
+  <mat-card appearance="outlined" class="card">
+    <mat-card-content>
+      <h2>Módulo de contabilidad</h2>
+      <p>Recoge toda la contabilidad de tu clínica en el mismo lugar en el que trabajas con tus pacientes durante todo
+        el
+        día.
+        [insertar mockups]
+      </p>
+    </mat-card-content>
+  </mat-card>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>La tecnología más puntera del mercado</h2>
+      <p>Nuestra solución está desarrollada con el mejor software y brinda la experiencia más completa de gestión para
+        tu clínica. No lo
+        dudes y sácale una sonrisa a tus pacientes con Smile Clinic.
+        [insertar mockups]
+      </p>
+    </div>
+  </div>
 </div>

@@ -4,6 +4,7 @@ import com.smile.clinic.smile_clinic.application.ports.input.ClinicServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.ClinicPersistancePort;
 import com.smile.clinic.smile_clinic.domain.exceptions.ClinicNotFoundException;
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class ClinicService implements ClinicServicePort {
 
@@ -20,6 +22,12 @@ public class ClinicService implements ClinicServicePort {
     @Override
     public List<Clinic> findAll() {
         return this.clinicPersistancePort.findAll();
+    }
+
+    @Override
+    public List<Clinic> findAllByUserId(Long id) {
+        List<Clinic> clinics = this.clinicPersistancePort.findAllByUserId(id);
+        return clinics;
     }
 
     @Override

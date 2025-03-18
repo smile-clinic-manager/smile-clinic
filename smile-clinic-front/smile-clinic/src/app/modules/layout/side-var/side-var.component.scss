@@ -11,6 +11,63 @@ mat-sidenav {
 
 mat-sidenav a.mat-mdc-list-item{
   border-radius: 0px !important;
-  border-bottom: 1px solid rgba(0, 106, 106, 0.5);
+  //border-bottom: 1px solid rgba(0, 106, 106, 0.5);
   max-width: 90%;
 }
+
+mat-expansion-panel{
+  box-shadow: none !important;
+  min-width: 15%;
+}
+
+mat-sidenav{
+  min-width: 20%;
+  
+}
+
+@media screen and (max-width: 500px) {
+  mat-sidenav{
+    width: 80%; 
+  }
+}
+
+mat-panel-title{
+  display: inline-flex;
+
+}
+
+mat-panel-title mat-icon{
+  padding-right: 1%;
+}
+
+mat-icon{
+  color: var(--mat-sys-primary);
+  padding-right: 5% !important;
+}
+
+/* 
+  Ocultar los iconos del menu lateral en pantallas pequeñas
+*/
+
+.menu-text{
+  padding-left: 5%;
+}
+
+@media (max-width: 660px) {
+  /* Hide text and show only icons */
+  .menu-text {
+    display: none;
+  }
+}
+
+mat-sidenav{
+  min-width: 120px;
+}
+
+@media (min-width: 661px) {
+  /* Hide text and show only icons */
+  mat-sidenav {
+    min-width: 200px;
+  }
+}
+

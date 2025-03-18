@@ -6,8 +6,8 @@ import { LoginComponent } from './modules/login/login.component';
 import { SignUpComponent } from './modules/signup/signup.component';
 import { HomeComponent } from './modules/home/home.component';
 import { authGuard } from './auth.guard';
-import { ClinicListComponent } from './modules/clinic-list/clinic-list.component';
-import { ClinicDetailComponent } from './modules/clinic-detail/clinic-detail.component';
+import { ClinicListComponent } from './modules/clinics/clinic-list/clinic-list.component';
+import { ClinicDetailComponent } from './modules/clinics/clinic-detail/clinic-detail.component';
 import { TreatmentListComponent } from './modules/treatment-list/treatment-list.component';
 import { TreatmentDetailComponent } from './modules/treatment-detail/treatment-detail.component';
 

@@ -23,6 +23,7 @@ public class ClinicEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clinic_seq")
     @SequenceGenerator(name = "clinic_seq", sequenceName = "clinic_seq", allocationSize = 1)
+    @Column(name = "clinic_id")
     private Long id;
 
     @NotBlank

@@ -1,0 +1,53 @@
+.container-dialog {
+    height: 100%;
+    padding: 2%;
+    background-color: var(--mat-sys-surface-dim);
+    margin-bottom: 10px;
+    padding-bottom: 100px;
+}
+
+.header-img {
+    background-image: url("https://material.angular.io/assets/img/examples/shiba2.jpg");
+    background-size: cover;
+    height: 60px;
+    width: 60px;
+}
+
+.centered-elements{
+    display: inline-flex;
+    justify-content: center;
+    width: 100%;
+}
+
+mat-card {
+    width: 60%;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+  
+.header-content {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing between avatar and text */
+}
+
+.user-info-span{
+    width: 90%;
+}
+
+.long-input{
+    width: 60%;
+}
+
+.left-margin{
+    margin-left: 5%;
+}
+
+mat-step{
+    margin-top: 10px;
+}

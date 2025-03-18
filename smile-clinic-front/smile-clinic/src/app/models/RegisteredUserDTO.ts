@@ -1,4 +1,6 @@
-export interface SignupResponseDTO {
+import { RoleDTO } from "./RoleDTO";
+
+export interface RegisteredUserDTO {
   id: number;
   username: string;
   email: string;
@@ -6,6 +8,7 @@ export interface SignupResponseDTO {
   lastName1: string;
   lastName2: string;
   dni: string;
-  role: string | null;
+  roles: RoleDTO[] | null;
   jwtToken: string;
+  refreshToken: string;
 }

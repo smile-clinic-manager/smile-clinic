@@ -1,6 +1,5 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers;
 
-import com.smile.clinic.smile_clinic.application.ports.input.ClinicServicePort;
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.ClinicEntity;
 import org.mapstruct.Mapper;
@@ -13,6 +12,7 @@ public interface ClinicPersistanceMapper {
     ClinicEntity toClinicEntity(Clinic clinic);
     Clinic toClinic(ClinicEntity entity);
 
-    List<Clinic> toClinicList(List<ClinicEntity> entities);
+    List<Clinic> toClinicListFromEntities(List<ClinicEntity> entities);
+
     List<ClinicEntity> toClinicEntityList(List<Clinic> clinics);
 }
