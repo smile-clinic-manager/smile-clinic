@@ -45,7 +45,7 @@ public class ClinicEntity {
     private String image;
 
     // Relationships
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "clinic_treatments",
             joinColumns = @JoinColumn(name = "clinic_id"),

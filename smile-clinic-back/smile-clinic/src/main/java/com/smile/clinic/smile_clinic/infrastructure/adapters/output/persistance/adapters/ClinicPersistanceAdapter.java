@@ -47,4 +47,9 @@ public class ClinicPersistanceAdapter implements ClinicPersistancePort {
     public void deleteById(Long id) {
         this.clinicRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteRolesByClinicId(Long id) {
+        this.clinicRepository.deleteRolesByClinicId(id);
+    }
 }

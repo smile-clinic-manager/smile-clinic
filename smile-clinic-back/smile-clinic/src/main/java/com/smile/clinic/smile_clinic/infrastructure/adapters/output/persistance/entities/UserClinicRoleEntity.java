@@ -28,7 +28,7 @@ public class UserClinicRoleEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "clinic_id", nullable = false)
     private ClinicEntity clinic;
 

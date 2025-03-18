@@ -16,4 +16,6 @@ public interface ClinicPersistancePort {
 
     Clinic save(Clinic clinic);
     void deleteById(Long id);
+
+    void deleteRolesByClinicId(Long id);
 }

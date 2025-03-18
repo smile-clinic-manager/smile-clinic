@@ -62,6 +62,7 @@ public class ClinicService implements ClinicServicePort {
         if(clinicPersistancePort.findById(id).isEmpty()){
             throw new ClinicNotFoundException("Clinic with id "+id+" not found");
         }
+        clinicPersistancePort.deleteRolesByClinicId(id);
         clinicPersistancePort.deleteById(id);
     }
 }

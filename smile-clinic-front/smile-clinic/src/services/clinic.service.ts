@@ -45,8 +45,15 @@ export class ClinicService {
   }
 
   deleteClinic(id: Number): Promise<ClinicDTO>{
+    this.deleteRolesByClinicId(id);
     return firstValueFrom(
       this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/deleteClinicById', new Map([['id', id]])))
+    )
+  }
+
+  deleteRolesByClinicId(id: Number): Promise<ClinicDTO>{
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/deleteRolesByClinicId', new Map([['id', id]])))
     )
   }
 
