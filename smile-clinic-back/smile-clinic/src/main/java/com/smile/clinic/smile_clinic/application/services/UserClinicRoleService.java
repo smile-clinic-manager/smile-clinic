@@ -8,6 +8,7 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -37,9 +38,10 @@ public class UserClinicRoleService implements UserClinicRoleServicePort {
     }
 
     @Override
+    @Transactional
     public void deleteUserClinicRole(Long clinicId, Long userId) {
         try{
-            UserClinicRoleEntity pru = this.userClinicRolePersistancePort.findUserClinicRoleByClinicIdUserId(userId, clinicId);
+            this.userClinicRolePersistancePort.deleteUserClinicRole(userId, clinicId);
             System.out.println("apaapa");
         }catch(Exception exception){
             throw new RuntimeException(exception.getMessage());

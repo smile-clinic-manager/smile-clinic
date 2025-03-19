@@ -21,14 +21,14 @@ public interface UserClinicRoleEntityRepository extends JpaRepository<UserClinic
     long recordExists(@Param("userId") Long userId, @Param("clinicId") Long clinicId, @Param("roleId") Long roleId);
 
     @Modifying
-    @Transactional(propagation = Propagation.REQUIRED)
-    @Query(value = "DELETE FROM user_clinic_role ucr " +
-            "WHERE ucr.user_id = :userId " +
-            "AND ucr.clinic_id = :clinicId ", nativeQuery = true)
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Query(value = "DELETE FROM UserClinicRoleEntity u " +
+            "WHERE u.user.id = :userId " +
+            "AND u.clinic.id = :clinicId")
     void deleteUserClinicRole(@Param("userId") Long userId, @Param("clinicId") Long clinicId);
 
     @Query(value = "SELECT * FROM user_clinic_role ucr " +
             "WHERE ucr.user_id = :userId " +
-            "AND ucr.clinic_id = :clinicId ", nativeQuery = true)
+            "AND ucr.clinic_id = :clinicId", nativeQuery = true)
     UserClinicRoleEntity findUserClinicRoleByClinicIdUserId(@Param("userId") Long userId, @Param("clinicId") Long clinicId);
 }
