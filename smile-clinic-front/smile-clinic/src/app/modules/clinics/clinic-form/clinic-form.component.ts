@@ -38,7 +38,7 @@ export class ClinicFormComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  createClinic(): void {
+  createClinic(): ClinicDTO {
     const name = this.clinicForm.get('name')?.value ?? '';
     const postalCode = this.clinicForm.get('postalCode')?.value ?? '';
     const address = this.clinicForm.get('address')?.value ?? '';
@@ -51,12 +51,10 @@ export class ClinicFormComponent {
       invitations: [],
       treatments: []
     };
-    this.clinicService.createClinic(this.clinic).then(() => {
-      console.log('Clinic created');
-    });
+    return this.clinic;
   }
 
-  updateClinic(oldClinic: ClinicDTO): void {
+  updateClinic(oldClinic: ClinicDTO): ClinicDTO {
     const name = this.clinicForm.get('name')?.value ?? '';
     const postalCode = this.clinicForm.get('postalCode')?.value ?? '';
     const address = this.clinicForm.get('address')?.value ?? '';
@@ -69,8 +67,6 @@ export class ClinicFormComponent {
       invitations: oldClinic.invitations,
       treatments: oldClinic.treatments
     };
-    this.clinicService.updateClinic(Number(oldClinic.id), this.clinic).then(() => {
-      console.log('Clinic updated');
-    });
+    return this.clinic;
   }
 }

@@ -57,8 +57,11 @@ export class ClinicDetailComponent implements OnInit {
   updateClinic(): void {
     const dialogRef = this.dialog.open(ClinicFormComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe(clinic => {
+      if(clinic === undefined) return;
+      this.clinicService.updateClinic(Number(this.clinic?.id), clinic).then(clinic => {
+        this.clinic = clinic;
+      });
     });
   }
 

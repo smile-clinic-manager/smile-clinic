@@ -45,11 +45,16 @@ export class ClinicListComponent implements OnInit {
     if(id!==null || id === undefined) this.router.navigate(['clinic-detail', id]);
   }
 
-  createClinic(){
+  createClinic(): void {
     const dialogRef = this.dialog.open(ClinicFormComponent);
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+    dialogRef.afterClosed().subscribe(clinic => {
+      if(clinic === undefined) return;
+      this.clinicService.createClinic(clinic).then(() => {
+        this.snackBarService.showSuccessSnackBar('Clinic created');
+        this.findAll();
+      })
+      .catch((error) => this.snackBarService.showErrorSnackBar(error))
     });
   }
 

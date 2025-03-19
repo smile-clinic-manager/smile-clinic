@@ -40,7 +40,8 @@ export class ClinicService {
 
   updateClinic(id: Number, clinic: ClinicDTO): Promise<ClinicDTO>{
     return firstValueFrom(
-      this.api.put(this.apiEndpointHelper.createUrl('/clinics/updateClinic'), id, clinic)
+      //this.api.put(this.apiEndpointHelper.createUrl('/clinics/updateClinic'), id, clinic)
+      this.api.put(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/updateClinic', new Map([['id', id]])), clinic)
     )
   }
 
