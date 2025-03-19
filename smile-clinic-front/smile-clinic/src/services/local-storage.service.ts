@@ -2,6 +2,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { jwtDecode } from 'jwt-decode';
+import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +14,47 @@ export class LocalStorageService {
   constructor() { }
 
   public setTokenInLocalStorage(jwtToken: string, refreshToken: string): void {
+    let userData = this.parseJwtToUserDTO(jwtToken);
+
     const encryptedToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
-    const encryptedRefreshToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
-    localStorage.setItem('accessToken', jwtToken);
-    localStorage.setItem('token', encryptedToken);
-    localStorage.setItem('refreshToken', encryptedRefreshToken);
+    localStorage.setItem('accessToken', encryptedToken);
+    localStorage.setItem('refreshToken', refreshToken);
+    localStorage.setItem('userData', JSON.stringify(userData));
+  }
+
+  parseJwtToUserDTO(jwtToken: string): RegisteredUserDTO | null {
+    if (!jwtToken) return null;
+  
+    try {
+      const payloadBase64 = jwtToken.split('.')[1];
+      const payloadJson = atob(payloadBase64);
+      const payload = JSON.parse(payloadJson);
+  
+      return {
+        id: payload.id || 0,
+        username: payload.username || '',
+        email: payload.email || '',
+        firstName: payload.firstName || '',
+        lastName1: payload.lastName1 || '',
+        lastName2: payload.lastName2 || '',
+        dni: payload.dni || '',
+        roles: payload.roles || null,
+        jwtToken: '',
+        refreshToken: ''
+      };
+    } catch (error) {
+      console.error('Error parseando JWT:', error);
+      return null;
+    }
+  }
+
+  public getUserData(): RegisteredUserDTO | null {
+    const userData = localStorage.getItem('userData');
+    return userData ? JSON.parse(userData) : null;
   }
 
   public getTokenInLocalStorage(): string {
-    const encryptedToken: string = localStorage.getItem('token') ?? 'noToken';
+    const encryptedToken: string = localStorage.getItem('accessToken') ?? 'noToken';
     const decryptedToken: string = CryptoJS.AES.decrypt(encryptedToken, this.secretKey).toString(CryptoJS.enc.Utf8);
 
     return decryptedToken;
@@ -31,7 +64,7 @@ export class LocalStorageService {
     if (!isPlatformBrowser(this.platformId)) {
       return false; // Prevents `localStorage` errors in SSR
     }
-    return localStorage.getItem('token') ? true : false;
+    return localStorage.getItem('accessToken') ? true : false;
   }
 
   async checkAuthStatus(): Promise<boolean> {
@@ -50,8 +83,7 @@ export class LocalStorageService {
   private decodeToken(decryptedToken: string): string {
     try {
       const decoded: any = jwtDecode(decryptedToken);
-      console.log(decoded);
-      return decoded; // You can return this data for use in your application
+      return decoded; 
     } catch (error) {
       console.error('Error decoding JWT:', error);
     }
@@ -59,9 +91,9 @@ export class LocalStorageService {
   }
 
   public deleteTokens(): void{
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('userData');
   }
 
 

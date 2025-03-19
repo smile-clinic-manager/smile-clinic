@@ -111,6 +111,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   flex-direction: column;
 }
 
+// Usar en llamadas al openDialog
+.pop-up-dialog{
+  height: 30vh;
+}
+
+// Aplicar en los wrapper divs de los componentes que se renderizen en pop-up-dialogs para centrar elementos
+.pop-up-component-div { 
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 /*
 
 ************** DIALOG RESPONSIVE SCREEN SIZES STYLINGS *******************

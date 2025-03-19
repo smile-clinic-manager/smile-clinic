@@ -1,0 +1,13 @@
+<div class="pop-up-component-div">   
+    <h1> Eliminar usuario </h1>
+    <p> ¿Está seguro que quiere eliminar a 
+        <b>{{data.user.firstName}} {{data.user.lastName1}} {{data.user.lastName2}} </b> 
+        de la clínica? 
+    </p>
+    
+    <div class="button-separation-container">
+        <button mat-stroked-button type="button" (click)="closeDialog(false)">Cancelar</button>
+        <button mat-flat-button type="button" (click)="deleteUserClinic()">Sí, eliminar</button>
+    </div>
+</div>   
+

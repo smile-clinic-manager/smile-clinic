@@ -50,6 +50,7 @@ export class AddUserClinicStepperComponent implements OnInit{
     private dialogRef: MatDialogRef<AddUserClinicStepperComponent>, private userService: UserService,
     private snackBarService:  SnackbarServiceService){  }
   
+  reload: boolean = true;
   clinicId : string = '';
   clinicUsers: RegisteredUserDTO[] = [];
   CONFIRM_MESSAGE: string = "Verifique que la selección seleccionada es correcta antes de continuar. Pulse 'Confirmar' para añadir este usuario a la clínica o 'Anterior' si desea cambiar su selección."
@@ -57,8 +58,6 @@ export class AddUserClinicStepperComponent implements OnInit{
   ngOnInit(){
     this.clinicId = this.data.clinicId;
     this.clinicUsers = this.data.clinicUsers;
-    console.log(this.clinicId);
-    console.log(this.clinicUsers);
   }
   
   isStepUserValid(): boolean {
@@ -77,9 +76,15 @@ export class AddUserClinicStepperComponent implements OnInit{
     const userId: string = user!.id.toString();
 
     this.userService.assignUserToClinic(userId, this.clinicId, roleIds)
-      .then(() => this.snackBarService.showSuccessSnackBar("Usuario correctamente añadido"))
-      .catch(() => this.snackBarService.showErrorSnackBar("Error al añadir usuario"))
-      .finally(() => this.dialogRef.close());
+      .then(() => {
+        this.reload = true;
+        this.snackBarService.showSuccessSnackBar("Usuario correctamente añadido")
+      })
+      .catch(() => {
+        this.reload = false;
+        this.snackBarService.showErrorSnackBar("Error al añadir usuario")
+      })
+      .finally(() => this.closeDialog(this.reload));
   }
 
   getSelectedRoles(): RoleDTO[] | null{
@@ -88,6 +93,10 @@ export class AddUserClinicStepperComponent implements OnInit{
 
   getSelectedUser(): RegisteredUserDTO | null {
     return this.selectUserFormGroup.get('user')!.value;
+  }
+
+  closeDialog(reload: boolean): void{
+    this.dialogRef.close(reload);
   }
 
 }

@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { ClinicService } from '../../../../services/clinic.service';
 import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
 import { LocalStorageService } from '../../../../services/local-storage.service';
+import { RegisteredUserDTO } from '../../../models/RegisteredUserDTO';
 
 @Component({
   selector: 'app-clinic-list',
@@ -19,19 +20,19 @@ export class ClinicListComponent implements OnInit {
 
   displayedColumns: string[] = ["NOMBRE", "C. POSTAL", "DIRECCIÓN", "Nº CONTACTO", "EMAIL", "ACCIONES"];
   dataSource: ClinicDTO[] = [];
-  user: any; //TEMPORALMENTE
+  user: RegisteredUserDTO | null = null;
 
   constructor(private api: ApiHttpService, private router: Router, 
     private clinicService: ClinicService, private snackBarService: SnackbarServiceService,
     private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.user = {'id': 1};
+    this.user = this.localStorageService.getUserData();
     this.findAll();
   }
 
   findAll(): void {
-    this.clinicService.getAllClinics(this.user.id)
+    this.clinicService.getAllClinics(this.user!.id.toString())
       .then(clinics=>{
         this.dataSource = clinics;
       })

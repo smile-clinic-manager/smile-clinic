@@ -63,7 +63,7 @@ public class UserEntity implements UserDetails {
     private List<AppointmentEntity> appointments;
 
     //Relaciones con clínicas y su rol asociado
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<UserClinicRoleEntity> userClinicRoles;
 
     // UserDetails methods (security & authentication methods)
