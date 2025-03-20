@@ -23,6 +23,7 @@ public interface UserClinicRoleEntityRepository extends JpaRepository<UserClinic
     long recordExists(@Param("userId") Long userId, @Param("clinicId") Long clinicId, @Param("roleId") Long roleId);
 
     @Modifying
+    @Transactional
     @Query(value = "DELETE FROM user_clinic_role WHERE user_id = :userId AND clinic_id = :clinicId", nativeQuery = true)
     void deleteUserClinicRole(@Param("userId") Long userId, @Param("clinicId") Long clinicId);
 
