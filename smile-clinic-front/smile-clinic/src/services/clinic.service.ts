@@ -33,14 +33,15 @@ export class ClinicService {
   //CRUD
 
   createClinic(clinic: ClinicDTO): Promise<ClinicDTO>{
+    console.log(clinic);
     return firstValueFrom(
       this.api.post(this.apiEndpointHelper.createUrl('/clinics/createClinic'), clinic)
     )
   }
 
   updateClinic(id: Number, clinic: ClinicDTO): Promise<ClinicDTO>{
+    console.log(clinic);
     return firstValueFrom(
-      //this.api.put(this.apiEndpointHelper.createUrl('/clinics/updateClinic'), id, clinic)
       this.api.put(this.apiEndpointHelper.createUrlWithQueryParameters('/clinics/updateClinic', new Map([['id', id]])), clinic)
     )
   }

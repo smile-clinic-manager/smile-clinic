@@ -46,8 +46,10 @@ export class ClinicListComponent implements OnInit {
   }
 
   createClinic(): void {
-    const dialogRef = this.dialog.open(ClinicFormComponent);
-
+    const dialogRef = this.dialog.open(ClinicFormComponent, {
+      data: {clinic: null}
+    });
+    
     dialogRef.afterClosed().subscribe(clinic => {
       if(clinic === undefined) return;
       this.clinicService.createClinic(clinic).then(() => {

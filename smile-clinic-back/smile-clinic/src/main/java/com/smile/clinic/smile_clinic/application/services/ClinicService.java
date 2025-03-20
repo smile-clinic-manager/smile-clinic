@@ -51,7 +51,11 @@ public class ClinicService implements ClinicServicePort {
     public Clinic update(Long id, Clinic clinic) {
         return clinicPersistancePort.findById(id)
                 .map((savedClinic)-> {
+                    savedClinic.setName(clinic.getName());
                     savedClinic.setAddress(clinic.getAddress());
+                    savedClinic.setPostalCode(clinic.getPostalCode());
+                    savedClinic.setPhoneNumber(clinic.getPhoneNumber());
+                    savedClinic.setEmail(clinic.getEmail());
                     return clinicPersistancePort.save(savedClinic);
                 })
                 .orElseThrow(()->new ClinicNotFoundException("Clinic with id "+id+" not found"));
