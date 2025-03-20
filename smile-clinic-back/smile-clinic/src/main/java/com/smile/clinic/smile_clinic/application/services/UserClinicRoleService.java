@@ -42,7 +42,6 @@ public class UserClinicRoleService implements UserClinicRoleServicePort {
     public void deleteUserClinicRole(Long clinicId, Long userId) {
         try{
             this.userClinicRolePersistancePort.deleteUserClinicRole(userId, clinicId);
-            System.out.println("apaapa");
         }catch(Exception exception){
             throw new RuntimeException(exception.getMessage());
         }

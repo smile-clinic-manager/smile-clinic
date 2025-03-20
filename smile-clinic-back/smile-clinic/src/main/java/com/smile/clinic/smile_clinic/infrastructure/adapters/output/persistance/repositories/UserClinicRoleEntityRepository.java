@@ -1,6 +1,8 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories;
 
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.ClinicEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,10 +23,7 @@ public interface UserClinicRoleEntityRepository extends JpaRepository<UserClinic
     long recordExists(@Param("userId") Long userId, @Param("clinicId") Long clinicId, @Param("roleId") Long roleId);
 
     @Modifying
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
-    @Query(value = "DELETE FROM UserClinicRoleEntity u " +
-            "WHERE u.user.id = :userId " +
-            "AND u.clinic.id = :clinicId")
+    @Query(value = "DELETE FROM user_clinic_role WHERE user_id = :userId AND clinic_id = :clinicId", nativeQuery = true)
     void deleteUserClinicRole(@Param("userId") Long userId, @Param("clinicId") Long clinicId);
 
     @Query(value = "SELECT * FROM user_clinic_role ucr " +
