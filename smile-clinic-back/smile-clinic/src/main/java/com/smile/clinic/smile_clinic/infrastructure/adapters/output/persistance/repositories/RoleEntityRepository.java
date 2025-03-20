@@ -11,11 +11,12 @@ import java.util.List;
 
 @Repository
 public interface RoleEntityRepository extends JpaRepository<RoleEntity, Long> {
-    @Query(value = "SELECT role.* FROM role " +
-            " INNER JOIN user_clinic_role ucr ON ucr.user_id = role.role_id " +
-            " INNER JOIN clinics ON ucr.clinic_id = clinics.clinic_id " +
-            " INNER JOIN users ON users.id = ucr.user_id " +
-            " WHERE users.id = :userId " +
-            " AND clinics.clinic_id = :clinicId ", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT r.* " +
+            "FROM role r " +
+            "INNER JOIN user_clinic_role ucr ON ucr.role_id = r.role_id " +
+            "INNER JOIN clinics c ON ucr.clinic_id = c.clinic_id " +
+            "INNER JOIN users u ON u.id = ucr.user_id " +
+            "WHERE c.clinic_id = :clinicId " +
+            "AND u.id = :userId ", nativeQuery = true)
     List<RoleEntity> findRoleUserByClinic(@Param("userId") Long userId, @Param("clinicId") Long clinicId);
 }

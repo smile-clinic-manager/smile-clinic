@@ -22,6 +22,8 @@ import {
 } from '@angular/material/dialog';
 import { AddUserClinicComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic/add-user-clinic.component';
 import { AddUserClinicStepperComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic-stepper.component';
+import { DeleteUserClinicComponent } from '../../../dialogs/delete-user-clinic/delete-user-clinic.component';
+import { EditUserClinicRolesComponent } from '../../../dialogs/edit-user-clinic-roles/edit-user-clinic-roles.component';
 
 
 
@@ -82,11 +84,43 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
       panelClass: 'lateral-dialog'
     });
     
-    dialogRef.afterClosed().subscribe(() => {
-      this.getUsersByClinicId(); // reload user data to show the newly added user
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    })
+    this.updateDataSource(dialogRef);
+  }
+
+
+
+  openEditUserRoleDialog(user: RegisteredUserDTO): void {
+    const dialogRef = this.dialog.open(EditUserClinicRolesComponent, {
+      data: { 
+        clinicId: this.clinicId,
+        user: user
+      },
+      panelClass: 'lateral-dialog'
+    });
+
+    this.updateDataSource(dialogRef);
+  }
+
+  openDeleteUserClinicDialog(user: RegisteredUserDTO): void {
+    const dialogRef = this.dialog.open(DeleteUserClinicComponent, {
+      data: { 
+        clinicId: this.clinicId,
+        user: user
+      },
+       panelClass: 'pop-up-dialog'
+    });
+
+    this.updateDataSource(dialogRef);
+  }
+
+  private updateDataSource(dialogRef: MatDialogRef<any, any>) {
+    dialogRef.afterClosed().subscribe((reload) => {
+      if(reload){
+        this.getUsersByClinicId(); // reload user data to show the newly added user
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      }
+    });
   }
 
 }

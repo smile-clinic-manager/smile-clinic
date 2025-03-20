@@ -29,12 +29,12 @@ export class ClinicListComponent implements OnInit {
     private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
-    this.user = {'id': 1};
+    this.user = this.localStorageService.getUserData();
     this.findAll();
   }
 
   findAll(): void {
-    this.clinicService.getAllClinics(this.user.id)
+    this.clinicService.getAllClinics(this.user!.id.toString())
       .then(clinics=>{
         this.dataSource = clinics;
       })

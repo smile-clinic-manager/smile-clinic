@@ -4,4 +4,6 @@ import java.util.List;
 
 public interface UserClinicRoleServicePort {
     void createMultipleUserClinicRole(Long userId, Long clinicId, List<Long> roleIds) throws Exception;
+
+    void deleteUserClinicRole(Long clinicId, Long userId);
 }

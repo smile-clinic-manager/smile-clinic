@@ -4,9 +4,11 @@ import com.smile.clinic.smile_clinic.application.ports.input.UserClinicRoleServi
 import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.UserClinicRolePersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.users.UserClinicRole;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -30,6 +32,16 @@ public class UserClinicRoleService implements UserClinicRoleServicePort {
     private void createUserClinicRole(Long userId, Long clinicId, Long roleId) {
         try{
             this.userClinicRolePersistancePort.createUserClinicRole(userId, clinicId, roleId);
+        }catch(Exception exception){
+            throw new RuntimeException(exception.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteUserClinicRole(Long clinicId, Long userId) {
+        try{
+            this.userClinicRolePersistancePort.deleteUserClinicRole(userId, clinicId);
         }catch(Exception exception){
             throw new RuntimeException(exception.getMessage());
         }

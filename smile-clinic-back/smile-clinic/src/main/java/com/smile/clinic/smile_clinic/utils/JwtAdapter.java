@@ -58,6 +58,9 @@ public class JwtAdapter implements TokenProviderPort {
 
     private Map<String,Object> generateExtraClaims(User user) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        claims.put("email", user.getEmail());
+        claims.put("dni", user.getDni());
         claims.put("username", user.getUsername());
         claims.put("firstName", user.getFirstName());
         claims.put("lastName1", user.getLastName1());

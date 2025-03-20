@@ -33,5 +33,14 @@ export class UserService {
         {'userId': userId, 'clinicId': clinicId, 'roleIds': roleIds})
     )
   }
+    
+  deleteUserFromClinic(clinicId: string, userId: number): Promise<void> {
+    const params: Map<string, any>  = new Map();
+    params.set('clinicId', clinicId)
+    params.set('userId', userId)
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/users/removeUserFromClinic', params))
+    )
+  }
 
 }

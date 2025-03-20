@@ -93,19 +93,28 @@ public class UserController {
     }
 
     @GetMapping("/userByUserId")
-    public ResponseEntity<RegisteredUserDTO> getUsersByUserId(@RequestParam("userId") Long id){
+    public ResponseEntity<RegisteredUserDTO> getUsersByUserId(@RequestParam("userId") Long id) {
         User users = this.userServicePort.findUserByUserId(id);
         RegisteredUserDTO userDTO = this.userRestMapper.toRegisteredUserDTO(users);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @PostMapping("/assignUserToClinic")
-    public ResponseEntity<Object> assignUserToClinic(
-            @RequestBody AssignUserToClinicRequestDTO request){
+    public ResponseEntity<Object> assignUserToClinic(@RequestBody AssignUserToClinicRequestDTO request) {
         try{
             this.userClinicRoleService.createMultipleUserClinicRole(request.getUserId(), request.getClinicId(), request.getRoleIds());
             return new ResponseEntity<>(HttpStatus.OK);
         }catch(Exception exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/removeUserFromClinic")
+    public ResponseEntity<Object> deleteUserFromClinic(@RequestParam("clinicId") Long clinicId, @RequestParam("userId") Long userId) {
+        try{
+            this.userClinicRoleService.deleteUserClinicRole(clinicId, userId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception exception){
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

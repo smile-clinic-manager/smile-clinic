@@ -16,7 +16,7 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
     @Query("SELECT u FROM UserEntity u WHERE u.dni = :dni")
     Optional<UserEntity> findUserByDNI(@Param("dni") String dni);
 
-    @Query(value = "SELECT users.* FROM users " +
+    @Query(value = "SELECT DISTINCT users.* FROM users " +
             "INNER JOIN user_clinic_role ucr ON ucr.user_id = users.id " +
             "INNER JOIN clinics ON ucr.clinic_id = clinics.clinic_id " +
             "WHERE clinics.clinic_id = :clinicId", nativeQuery = true)
