@@ -58,7 +58,6 @@ export class ClinicFormComponent implements OnInit {
       phoneNumber: '',
       email: '',
       img: '',
-      invitations: [],
       treatments: []
     };
     clinic.name = this.clinicForm.get('name')?.value ?? '';

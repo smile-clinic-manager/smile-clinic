@@ -35,7 +35,7 @@ export class ClinicService {
   createClinic(clinic: ClinicDTO): Promise<ClinicDTO>{
     console.log(clinic);
     return firstValueFrom(
-      this.api.post(this.apiEndpointHelper.createUrl('/clinics/createClinic'), clinic)
+      this.api.post(this.apiEndpointHelper.createUrl('clinics/createClinic'), clinic)
     )
   }
 
