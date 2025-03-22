@@ -16,10 +16,10 @@
       <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
       <td mat-cell *matCellDef="let element"> 
         <div>
-          <button mat-icon-button>
+          <button mat-icon-button (click)="openTreatmentFormDialog(element)">
             <mat-icon>edit</mat-icon> 
           </button>
-          <button mat-icon-button (click)="openDeleteUserClinicDialog(element)">
+          <button mat-icon-button (click)="openDeleteTreatmentDialog(element)">
             <mat-icon>delete</mat-icon> 
           </button>
         </div>

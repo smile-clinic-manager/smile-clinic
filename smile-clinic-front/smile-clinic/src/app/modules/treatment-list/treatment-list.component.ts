@@ -11,6 +11,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { DeleteTreatmentComponent } from "../../dialogs/delete-treatment/delete-treatment.component";
+import { TreatmentFormComponent } from "../../dialogs/treatment-form/treatment-form.component";
 
 @Component({
   selector: 'app-treatment-list',
@@ -43,7 +44,7 @@ export class TreatmentListComponent implements OnInit{
 
   }
 
-  openDeleteUserClinicDialog(treatment: TreatmentDTO): void {
+  openDeleteTreatmentDialog(treatment: TreatmentDTO): void {
     const dialogRef = this.dialog.open(DeleteTreatmentComponent, {
       data: { 
         treatment: treatment,
@@ -53,6 +54,18 @@ export class TreatmentListComponent implements OnInit{
 
     this.updateDataSource(dialogRef);
   }
+
+  openTreatmentFormDialog(treatment: TreatmentDTO): void {
+    const dialogRef = this.dialog.open(TreatmentFormComponent, {
+      data: { 
+        treatment: treatment,
+      },
+        panelClass: 'pop-up-dialog'
+    });
+
+    this.updateDataSource(dialogRef);
+  }
+
 
   private updateDataSource(dialogRef: MatDialogRef<any, any>) {
     dialogRef.afterClosed().subscribe((reload) => {
