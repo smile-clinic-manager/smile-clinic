@@ -35,15 +35,22 @@ public class TreatmentRestController {
     }
 
     @GetMapping("/findTreatmentsByClinicId")
-    public ResponseEntity<List<TreatmentDTO>> findTreatmentByClinicId(@RequestParam("id") Long id){
+    public ResponseEntity<List<TreatmentDTO>> findTreatmentByClinicId(@RequestParam("clinicId") Long id){
         List<TreatmentDTO> treatmentDTOs = treatmentRestMapper.toTreatmentDTOList(treatmentServicePort.findByClinicId(id));
         return new ResponseEntity<>(treatmentDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/deleteTreatment")
-    public ResponseEntity<Void> deleteTreatmentById(@RequestParam("id") Long id){
+    public ResponseEntity<Void> deleteTreatmentById(@RequestParam("treatmentId") Long id){
         Treatment treatment = treatmentServicePort.findById(id);
-        treatmentServicePort.delete(treatment);
+        if(treatment == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try{
+            treatmentServicePort.delete(treatment);
+        }catch (Exception exception){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

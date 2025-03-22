@@ -37,6 +37,7 @@ INSERT INTO roles_permissions (role_id, permission_id) VALUES (3, 5);  -- SCHEDU
     ------------- Eve - eveWhite - SuperSafe12&( ---------------
     ------------- Frank - frankScott - MyPass#45!Safe ----------
     ------------- PRUEBA - pruebaScott - MyPass#45!Safe ----------
+
 -- ************************************************************** --
 
 -- Create testing users
@@ -104,15 +105,18 @@ INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) 
 INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 6, 9, 3);  -- Frank, CLINIC_RECEPTIONIST, Centro Médico Salud Total
 
 
-INSERT INTO treatments(id, name, price, notes)
+INSERT INTO treatments(id, name, price, notes, clinic_id)
 VALUES
-    (13, 'Limpieza Dental', 50.0, 'Limpieza dental profesional'),
-    (14, 'Blanqueamiento Dental', 150.0, 'Blanqueamiento dental con luz LED'),
-    (15, 'Ortodoncia', 2000.0, 'Ortodoncia invisible'),
-    (16, 'Endodoncia', 500.0, 'Endodoncia de un conducto'),
-    (17, 'Implante Dental', 1000.0, 'Implante dental de titanio'),
-    (18, 'Carillas Dentales', 300.0, 'Carillas dentales de porcelana'),
-    (19, 'Prótesis Dental', 500.0, 'Prótesis dental removible'),
-    (20, 'Corona Dental', 300.0, 'Corona dental de porcelana'),
-    (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio'),
-    (22, 'Empaste Dental', 50.0, 'Empaste dental de composite');
+    (13, 'Limpieza Dental', 50.0, 'Limpieza dental profesional', 8),
+    (14, 'Blanqueamiento Dental', 150.0, 'Blanqueamiento dental con luz LED', 8),
+    (15, 'Ortodoncia', 2000.0, 'Ortodoncia invisible', 8),
+    (16, 'Endodoncia', 500.0, 'Endodoncia de un conducto', 8),
+    (17, 'Implante Dental', 1000.0, 'Implante dental de titanio', 8),
+    (18, 'Carillas Dentales', 300.0, 'Carillas dentales de porcelana', 8),
+    (19, 'Prótesis Dental', 500.0, 'Prótesis dental removible', 9),
+    (20, 'Corona Dental', 300.0, 'Corona dental de porcelana', 9),
+    (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio', 9),
+    (22, 'Empaste Dental', 50.0, 'Empaste dental de composite', 9);
+
+
+
