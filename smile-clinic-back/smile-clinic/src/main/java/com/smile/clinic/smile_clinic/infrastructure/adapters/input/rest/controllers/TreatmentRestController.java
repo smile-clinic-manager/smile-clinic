@@ -72,4 +72,21 @@ public class TreatmentRestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateTreatment(@RequestBody TreatmentDTO treatmentDTO){
+        Treatment treatment = treatmentServicePort.findById(treatmentDTO.getId());
+        if (treatment == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponseDTO("El tratamiento no existe"));
+        }
+        try{
+            TreatmentDTO responseTreatment = treatmentRestMapper.toTreatmentDTO(
+                    treatmentServicePort.update(treatmentDTO.getId(), treatmentRestMapper.toTreatment(treatmentDTO)));
+            return new ResponseEntity<>(responseTreatment, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

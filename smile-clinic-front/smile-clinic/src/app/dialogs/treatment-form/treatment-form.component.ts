@@ -24,15 +24,15 @@ export class TreatmentFormComponent implements OnInit{
 
   treatmentForm = new FormGroup({
     name: new FormControl('', Validators.required),
-    price: new FormControl('', Validators.required),
+    price: new FormControl('', [Validators.required,Validators.pattern('^\\d+$')]),
     notes: new FormControl('', Validators.required),
   })
 
   isEditing: boolean = false;
+  reload: boolean = false;
 
   ngOnInit(): void {
-    console.log("data");
-    console.log(this.data);
+
     if (this.data.treatment !== null) {
       this.isEditing = true;
       this.treatmentForm.patchValue({
@@ -42,7 +42,12 @@ export class TreatmentFormComponent implements OnInit{
     }
   }
 
+  isTreatmentFormValid(): boolean{
+    return this.treatmentForm.valid;
+  }
+
   sendTreatmentForm(): void{
+    this.reload = true;
     const treatment: TreatmentDTO = this.getTreatmentFormData();
     if(this.isEditing) this.updateTreatment(treatment);
     else this.createTreatment(treatment);
@@ -63,7 +68,7 @@ export class TreatmentFormComponent implements OnInit{
   }
 
   closeDialog():void{
-    this.dialogRef.close();
+    this.dialogRef.close(this.reload);
   }
 
   private getTreatmentFormData(): TreatmentDTO {
@@ -71,8 +76,17 @@ export class TreatmentFormComponent implements OnInit{
       id: this.data.treatment?.id || '',
       name: this.treatmentForm.get('name')?.value || '',
       price: Number(this.treatmentForm.get('price')?.value) || 0,
-      notes: this.treatmentForm.get('notes')?.value || ''
+      notes: this.treatmentForm.get('notes')?.value || '',
+      clinicId: this.data.clinicId,
     };
+  }
+
+// No permitimos inputs que no sean digitos en precio
+  validateNumberInput(event: KeyboardEvent) {
+    const pattern = /[0-9]/;
+    if (!pattern.test(event.key)) {
+      event.preventDefault();
+    }
   }
 }
 

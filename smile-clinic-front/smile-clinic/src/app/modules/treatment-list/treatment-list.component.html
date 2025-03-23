@@ -1,6 +1,9 @@
-<button mat-flat-button (click)="openTreatmentFormDialog()">
-  <mat-icon>add</mat-icon> Nuevo tratamiento
-</button>
+<div class="justify-end">
+  <button mat-flat-button (click)="openTreatmentFormDialog()" class="new-treatment-btn">
+    <mat-icon>add</mat-icon> Nuevo tratamiento
+  </button>
+</div>
+
 <div class="table-wrapper">
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
@@ -31,4 +34,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>  
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" aria-label="Listado de tratamientos"></mat-paginator>
 </div>

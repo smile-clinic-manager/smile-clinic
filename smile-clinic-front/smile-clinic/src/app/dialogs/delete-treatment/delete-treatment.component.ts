@@ -14,16 +14,12 @@ import { TreatmentService } from '../../../services/treatment.service';
   templateUrl: './delete-treatment.component.html',
   styleUrl: './delete-treatment.component.scss'
 })
-export class DeleteTreatmentComponent implements OnInit{
+export class DeleteTreatmentComponent{
 
   constructor(private dialogRef: MatDialogRef<DeleteUserClinicComponent>,
       @Inject(MAT_DIALOG_DATA) public data: { treatment: TreatmentDTO; }, 
       private treatmentService: TreatmentService, private snackBarService: SnackbarServiceService
     ){ }
-  
-    ngOnInit(): void {
-      console.log(this.data);
-    }
   
     reload: boolean = true;
   

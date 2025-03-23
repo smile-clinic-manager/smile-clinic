@@ -7,15 +7,15 @@ import { TreatmentService } from "../../../services/treatment.service";
 import { SnackbarServiceService } from "../../../services/snackbar-service.service";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
+import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
+import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { DeleteTreatmentComponent } from "../../dialogs/delete-treatment/delete-treatment.component";
 import { TreatmentFormComponent } from "../../dialogs/treatment-form/treatment-form.component";
 
 @Component({
   selector: 'app-treatment-list',
-  imports : [MatTableModule, MatIconModule, MatButtonModule],
+  imports : [MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatSortModule],
   templateUrl: './treatment-list.component.html',
   styleUrl: './treatment-list.component.scss',
 })
@@ -40,6 +40,8 @@ export class TreatmentListComponent implements OnInit{
   getTreatments(): void{
     this.treatmentService.getClinicTreatmentList(this.clinicId!).then((treatments: TreatmentDTO[])=>{
       this.dataSource.data = treatments;
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }).catch((error)=> this.snackBarService.showErrorSnackBar("Error al recuperar los tratamientos"))
 
   }
@@ -62,7 +64,7 @@ export class TreatmentListComponent implements OnInit{
         treatment: treatment ?? null, //cuando estamos creando se pasa valor 'null'
         clinicId: this.clinicId
       },
-      panelClass: 'pop-up-treatment-form' //AAAAAAAAAAAAAAAAAAAAAAAA
+      panelClass: 'pop-up-treatment-form'
     });
 
     this.updateDataSource(dialogRef);
@@ -70,12 +72,10 @@ export class TreatmentListComponent implements OnInit{
 
 
   private updateDataSource(dialogRef: MatDialogRef<any, any>) {
+    
     dialogRef.afterClosed().subscribe((reload) => {
-      if(reload){
-        this.getTreatments(); // reload treatments data
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
+      console.log(reload);
+      if(reload) this.getTreatments(); // reload treatments data
     });
   }
 
