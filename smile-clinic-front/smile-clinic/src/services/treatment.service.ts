@@ -26,4 +26,16 @@ export class TreatmentService {
         this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/treatments/deleteTreatment', params))
       )
   }
+
+  createTreatment(treatmentDTO: TreatmentDTO): Promise<TreatmentDTO> {
+      return firstValueFrom(
+        this.api.post(this.apiEndpointHelper.createUrl('treatments/create'), treatmentDTO)
+      )
+  }
+
+  updateTreatment(treatmentDTO: TreatmentDTO): Promise<TreatmentDTO> {
+      return firstValueFrom(
+        this.api.put(this.apiEndpointHelper.createUrl('treatments/update'), treatmentDTO)
+      )
+  }
 }

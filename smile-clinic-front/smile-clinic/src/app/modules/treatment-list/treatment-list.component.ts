@@ -55,12 +55,14 @@ export class TreatmentListComponent implements OnInit{
     this.updateDataSource(dialogRef);
   }
 
-  openTreatmentFormDialog(treatment: TreatmentDTO): void {
+  openTreatmentFormDialog(treatment?: TreatmentDTO): void {
+    console.log(treatment);
     const dialogRef = this.dialog.open(TreatmentFormComponent, {
       data: { 
-        treatment: treatment,
+        treatment: treatment ?? null, //cuando estamos creando se pasa valor 'null'
+        clinicId: this.clinicId
       },
-        panelClass: 'pop-up-dialog'
+      panelClass: 'pop-up-treatment-form' //AAAAAAAAAAAAAAAAAAAAAAAA
     });
 
     this.updateDataSource(dialogRef);

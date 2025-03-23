@@ -17,7 +17,9 @@ import lombok.Setter;
 @Table(name = "treatments")
 public class TreatmentEntity {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatment_seq")
+    @SequenceGenerator(name = "treatment_seq", sequenceName = "treatment_seq", allocationSize = 1)
+    private Long id;
 
     @NotBlank
     private String name;

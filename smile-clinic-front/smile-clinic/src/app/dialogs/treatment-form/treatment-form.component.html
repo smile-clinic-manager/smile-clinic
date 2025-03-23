@@ -1,14 +1,21 @@
-<div [formGroup]="treatmentForm">
-    <mat-form-field >
+<h1 class="header-form">{{isEditing ? "Editar tratamiento" : "Crear tratamiento" }}</h1>
+<div [formGroup]="treatmentForm" class="treatment-form">
+    <mat-form-field class="form-field-width">
         <mat-label>Nombre del tratamiento</mat-label>
         <input matInput formControlName="name" />
     </mat-form-field>
-    <mat-form-field >
-        <mat-label>Descripción del tratamiento</mat-label>
-        <input matInput formControlName="notes" />
-    </mat-form-field>
-    <mat-form-field >
+    <mat-form-field class="form-field-width">
         <mat-label>Precio del tratamiento</mat-label>
-        <input matInput formControlName="price" />
+        <input matInput type="number" class="right-align" formControlName="price" placeholder="0"/>
+        <span matTextPrefix>€&nbsp;</span>
+        <span matTextSuffix>.00</span>
     </mat-form-field>
+    <mat-form-field class="form-field-width">
+        <mat-label>Descripción del tratamiento</mat-label>
+        <textarea matInput formControlName="notes" ></textarea>
+    </mat-form-field>
+</div>
+<div class="button-separation-container content-center">
+    <button mat-stroked-button type="button" (click)="closeDialog()">Cancelar</button>
+    <button mat-flat-button type="button" (click)="sendTreatmentForm()">Confirmar</button>
 </div>
