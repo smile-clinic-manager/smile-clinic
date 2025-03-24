@@ -1,12 +1,12 @@
 
 import { Component, OnInit } from "@angular/core";
-import { TreatmentDTO } from "../../models/TreatmentDTO";
+import { TreatmentDTO } from "../../../models/TreatmentDTO";
 import { MatFormField, MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
-import { ApiEndpointHelperService } from "../../../services/api-endpoint-helper.service";
-import { ApiHttpService } from "../../../services/api-http.service";
+import { ApiEndpointHelperService } from "../../../../services/api-endpoint-helper.service";
+import { ApiHttpService } from "../../../../services/api-http.service";
 
 @Component({
   selector: 'app-treatment-detail',
