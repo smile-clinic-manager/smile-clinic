@@ -12,11 +12,11 @@ export class TreatmentService {
   constructor(private api: ApiHttpService, private apiEndpointHelper: ApiEndpointHelperService) { }
 
   getClinicTreatmentList(clinicId: string): Promise<TreatmentDTO[]>{
-      const params: Map<string, any>  = new Map();
-      params.set('clinicId', clinicId)
-      return firstValueFrom(
-        this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/treatments/findTreatmentsByClinicId', params))
-      )
+    const params: Map<string, any>  = new Map();
+    params.set('clinicId', clinicId)
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/treatments/findTreatmentsByClinicId', params))
+    )
   }
 
   deleteTreatment(treatmentId: string): Promise<void> {

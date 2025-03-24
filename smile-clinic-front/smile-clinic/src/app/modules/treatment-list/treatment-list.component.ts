@@ -58,7 +58,6 @@ export class TreatmentListComponent implements OnInit{
   }
 
   openTreatmentFormDialog(treatment?: TreatmentDTO): void {
-    console.log(treatment);
     const dialogRef = this.dialog.open(TreatmentFormComponent, {
       data: { 
         treatment: treatment ?? null, //cuando estamos creando se pasa valor 'null'
@@ -74,7 +73,6 @@ export class TreatmentListComponent implements OnInit{
   private updateDataSource(dialogRef: MatDialogRef<any, any>) {
     
     dialogRef.afterClosed().subscribe((reload) => {
-      console.log(reload);
       if(reload) this.getTreatments(); // reload treatments data
     });
   }

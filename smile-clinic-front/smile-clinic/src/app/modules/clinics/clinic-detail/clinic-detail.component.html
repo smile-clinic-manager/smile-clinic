@@ -50,7 +50,7 @@
       <mat-icon>emergency</mat-icon> Tratamientos
     </ng-template>
     @defer (when clinic !== undefined) { <!-- Retrasamos carga hasta que tengamos clinic definido -->
-    <app-treatment-list [id]="clinic?.id"></app-treatment-list>
+    <app-treatment-list [clinicId]="clinic?.id"></app-treatment-list>
     } @placeholder {
     <mat-spinner></mat-spinner>
     }

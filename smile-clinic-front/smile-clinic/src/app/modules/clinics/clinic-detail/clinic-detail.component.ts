@@ -8,7 +8,6 @@ import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute } from "@angular/router";
 import { TreatmentDTO } from '../../../models/TreatmentDTO';
 import {MatTabsModule} from '@angular/material/tabs';
-import { TreatmentListComponent } from "../../treatments/treatment-list/treatment-list.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,6 +18,7 @@ import { ClinicService } from '../../../../services/clinic.service';
 import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TreatmentListComponent } from '../../treatment-list/treatment-list.component';
 
 @Component({
   selector: 'app-clinic-detail',
