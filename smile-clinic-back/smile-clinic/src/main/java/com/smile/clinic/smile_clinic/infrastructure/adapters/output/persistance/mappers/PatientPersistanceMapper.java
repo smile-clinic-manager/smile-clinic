@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PatientPersistanceMapper {
     Patient toPatient(PatientEntity patientEntity);
-    PatientEntity toDisease(Patient patient);
-    List<Patient> toDiseaseList(List<PatientEntity> patientEntityList);
-    List<PatientEntity> toDiseaseEntityList(List<Patient> patientList);
+    PatientEntity toPatientEntity(Patient patient);
+    List<Patient> toPatientList(List<PatientEntity> patientEntityList);
+    List<PatientEntity> toPatientEntityList(List<Patient> patientList);
 }

@@ -13,6 +13,9 @@ public class DiseaseDTO {
     @NotNull(message = "Required parameter 'id'")
     private Long id;
 
-    @NotNull(message = "Required parameter 'name'")
+    @NotBlank(message = "Required parameter 'name'")
     private String name;
+
+    @NotNull(message = "Required parameter 'description'")
+    private String description;
 }

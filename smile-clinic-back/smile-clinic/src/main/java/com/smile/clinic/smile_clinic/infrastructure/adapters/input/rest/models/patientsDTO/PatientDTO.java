@@ -3,6 +3,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.
 import com.smile.clinic.smile_clinic.domain.models.patients.Disease;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
@@ -16,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PatientDTO implements Serializable {
+
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -38,11 +40,11 @@ public class PatientDTO implements Serializable {
     @NotBlank(message = "Required parameter 'email'")
     private String email;
 
-    @NotBlank(message = "Required parameter 'telephoneNumber'")
-    private String telephoneNumber;
+    @NotBlank(message = "Required parameter 'phoneNumber'")
+    private String phoneNumber;
 
-    @NotBlank(message = "Required parameter 'allergies'")
-    private String allergies;
+    @NotNull(message = "Required parameter 'allergies'")
+    private String allergies; //Why aren't we making an enum or something?
 
     @NotBlank(message = "Required parameter 'previousDiseases'")
     private List<Disease> previousDiseases;

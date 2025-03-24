@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.domain.models.patients;
 
+import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import lombok.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class Patient {
     private String dni;
     private String email;
     private String telephoneNumber;
-    private String allergies;
+    private String allergies; //List<Enum>?
     private List<Disease> previousDiseases;
+    private Clinic clinic;
 }

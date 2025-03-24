@@ -116,3 +116,8 @@ VALUES
     (20, 'Corona Dental', 300.0, 'Corona dental de porcelana'),
     (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio'),
     (22, 'Empaste Dental', 50.0, 'Empaste dental de composite');
+
+INSERT INTO patients(id, first_name, last_name1, last_name2, dni, email, phone_number, allergies, clinic_id)
+VALUES
+    (23, 'Pablo', 'García', 'Martínez', '12345678A', 'pablo@garcia.com', '123123123', '', 8),
+    (24, 'María', 'López', 'Gómez', '23456789B', 'maria@lop.com', '321321321', '', 9);

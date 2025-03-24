@@ -14,11 +14,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name="patients")
 public class PatientEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_seq")
     @SequenceGenerator(name="patients_seq", sequenceName = "patients_seq", allocationSize = 1)
@@ -41,9 +40,11 @@ public class PatientEntity {
     @Column(unique = true)
     private String email;
 
-    private String telephoneNumber;
+    private String phoneNumber;
 
     private String allergies;
+
+    //Relationships
 
     @ManyToMany
     @JoinTable(
@@ -52,5 +53,9 @@ public class PatientEntity {
             inverseJoinColumns = @JoinColumn(name = "disease_id") // Foreign key for Course
     )
     private List<DiseaseEntity> previousDiseases;
+
+    @ManyToOne
+    @JoinColumn(name = "clinic_id", nullable = false)
+    private ClinicEntity clinic;
 
 }

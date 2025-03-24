@@ -18,12 +18,18 @@ public class PatientService implements PatientServicePort {
 
     @Override
     public List<Patient> findAll() {
-        return null;
+        return patientPersistancePort.findAll();
     }
 
     @Override
-    public List<Patient> findById(Long id) {
-        return null;
+    public Patient findById(Long id) {
+        return patientPersistancePort.findById(id)
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
+    }
+
+    @Override
+    public List<Patient> findByClinicId(Long clinicId) {
+        return patientPersistancePort.findByClinicId(clinicId);
     }
 
     @Override
