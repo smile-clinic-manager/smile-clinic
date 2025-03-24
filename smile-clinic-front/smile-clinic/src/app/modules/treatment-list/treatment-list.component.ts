@@ -12,7 +12,6 @@ import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { DeleteTreatmentComponent } from "../../dialogs/delete-treatment/delete-treatment.component";
 import { TreatmentFormComponent } from "../../dialogs/treatment-form/treatment-form.component";
-import { TreatmentFormComponent } from "../../dialogs/treatment-form/treatment-form.component";
 
 @Component({
   selector: 'app-treatment-list',
