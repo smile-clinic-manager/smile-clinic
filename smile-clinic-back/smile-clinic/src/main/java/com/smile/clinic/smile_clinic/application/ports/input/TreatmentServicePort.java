@@ -12,4 +12,6 @@ public interface TreatmentServicePort {
     Treatment save(Treatment treatment);
     Treatment update(Long id, Treatment treatment);
     void delete(Treatment treatment);
+
+    Treatment create(Treatment treatment);
 }
