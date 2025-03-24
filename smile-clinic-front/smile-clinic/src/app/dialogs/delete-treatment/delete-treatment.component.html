@@ -1,0 +1,11 @@
+<div class="pop-up-component-div">   
+    <h1> Eliminar tratamiento </h1>
+    <p> ¿Está seguro que quiere eliminar el tratamiento 
+        <b>{{data.treatment.name}} </b>?
+    </p>
+    
+    <div class="button-separation-container">
+        <button mat-stroked-button type="button" (click)="closeDialog(false)">Cancelar</button>
+        <button mat-flat-button type="button" (click)="deleteTreatment()">Sí, eliminar</button>
+    </div>
+</div>   

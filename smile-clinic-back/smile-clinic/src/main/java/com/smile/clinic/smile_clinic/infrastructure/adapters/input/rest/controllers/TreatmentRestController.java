@@ -3,16 +3,17 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.control
 import com.smile.clinic.smile_clinic.application.ports.input.TreatmentServicePort;
 import com.smile.clinic.smile_clinic.domain.models.Treatment;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.TreatmentRestMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.TreatmentDTO;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.ErrorResponse;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/treatments")
@@ -35,15 +36,57 @@ public class TreatmentRestController {
     }
 
     @GetMapping("/findTreatmentsByClinicId")
-    public ResponseEntity<List<TreatmentDTO>> findTreatmentByClinicId(@RequestParam("id") Long id){
+    public ResponseEntity<List<TreatmentDTO>> findTreatmentByClinicId(@RequestParam("clinicId") Long id){
         List<TreatmentDTO> treatmentDTOs = treatmentRestMapper.toTreatmentDTOList(treatmentServicePort.findByClinicId(id));
         return new ResponseEntity<>(treatmentDTOs, HttpStatus.OK);
     }
 
     @GetMapping("/deleteTreatment")
-    public ResponseEntity<Void> deleteTreatmentById(@RequestParam("id") Long id){
+    public ResponseEntity<Void> deleteTreatmentById(@RequestParam("treatmentId") Long id){
         Treatment treatment = treatmentServicePort.findById(id);
-        treatmentServicePort.delete(treatment);
+        if(treatment == null){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        try{
+            treatmentServicePort.delete(treatment);
+        }catch (Exception exception){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<Object> createTreatment(@RequestBody TreatmentDTO treatmentDTO){
+        if (treatmentDTO.getId() != null) {
+            Treatment treatment = treatmentServicePort.findById(treatmentDTO.getId());
+            if (treatment != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(new ErrorResponseDTO("El tratamiento ya existe"));
+            }
+        }
+        try{
+            TreatmentDTO responseTreatment = treatmentRestMapper.toTreatmentDTO(
+                    treatmentServicePort.create(treatmentRestMapper.toTreatment(treatmentDTO)));
+            return new ResponseEntity<>(responseTreatment, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/update")
+    public ResponseEntity<Object> updateTreatment(@RequestBody TreatmentDTO treatmentDTO){
+        Treatment treatment = treatmentServicePort.findById(treatmentDTO.getId());
+        if (treatment == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new ErrorResponseDTO("El tratamiento no existe"));
+        }
+        try{
+            TreatmentDTO responseTreatment = treatmentRestMapper.toTreatmentDTO(
+                    treatmentServicePort.update(treatmentDTO.getId(), treatmentRestMapper.toTreatment(treatmentDTO)));
+            return new ResponseEntity<>(responseTreatment, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

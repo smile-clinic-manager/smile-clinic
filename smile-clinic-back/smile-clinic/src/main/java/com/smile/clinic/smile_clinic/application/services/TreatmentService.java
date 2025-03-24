@@ -49,4 +49,9 @@ public class TreatmentService implements TreatmentServicePort {
     public void delete(Treatment treatment) {
         treatmentPersistancePort.delete(treatment);
     }
+
+    @Override
+    public Treatment create(Treatment treatment) {
+        return treatmentPersistancePort.save(treatment);
+    }
 }

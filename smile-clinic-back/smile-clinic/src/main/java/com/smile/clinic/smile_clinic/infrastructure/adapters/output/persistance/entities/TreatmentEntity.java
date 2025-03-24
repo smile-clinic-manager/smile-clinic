@@ -17,7 +17,9 @@ import lombok.Setter;
 @Table(name = "treatments")
 public class TreatmentEntity {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatment_seq")
+    @SequenceGenerator(name = "treatment_seq", sequenceName = "treatment_seq", allocationSize = 1)
+    private Long id;
 
     @NotBlank
     private String name;
@@ -27,4 +29,8 @@ public class TreatmentEntity {
 
     @NotBlank
     private String notes;
+
+    @ManyToOne
+    @JoinColumn(name = "clinic_id", nullable = false) // Foreign Key
+    private ClinicEntity clinic;
 }

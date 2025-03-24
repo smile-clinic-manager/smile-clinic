@@ -14,4 +14,5 @@ public class Treatment {
     private String name;
     private Double price;
     private String notes;
+    private Long clinicId;
 }
