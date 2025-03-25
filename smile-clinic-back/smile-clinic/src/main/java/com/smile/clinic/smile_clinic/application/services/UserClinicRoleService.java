@@ -28,8 +28,8 @@ public class UserClinicRoleService implements UserClinicRoleServicePort {
             }
         }
     }
-
-    private void createUserClinicRole(Long userId, Long clinicId, Long roleId) {
+    @Override
+    public void createUserClinicRole(Long userId, Long clinicId, Long roleId) {
         try{
             this.userClinicRolePersistancePort.createUserClinicRole(userId, clinicId, roleId);
         }catch(Exception exception){
