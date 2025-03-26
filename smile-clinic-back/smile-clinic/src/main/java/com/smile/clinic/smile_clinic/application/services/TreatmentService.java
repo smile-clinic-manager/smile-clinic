@@ -32,7 +32,9 @@ public class TreatmentService implements TreatmentServicePort {
 
     @Override
     public List<Treatment> findByClinicId(Long id) {
-        return treatmentPersistancePort.findByClinicId(id);
+        List<Treatment> treatments =  treatmentPersistancePort.findByClinicId(id);
+        treatments.forEach(treatment -> treatment.setClinicId(id));
+        return treatments;
     }
 
     @Override
