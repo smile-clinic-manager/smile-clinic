@@ -47,7 +47,7 @@ public class ClinicEntity {
     private String image;
 
     // Relationships
-    @OneToMany(mappedBy = "clinic", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<TreatmentEntity> treatments;
 
 }
