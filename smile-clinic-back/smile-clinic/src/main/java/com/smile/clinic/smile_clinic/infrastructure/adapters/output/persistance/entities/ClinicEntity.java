@@ -9,6 +9,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.util.List;
 
@@ -45,12 +47,7 @@ public class ClinicEntity {
     private String image;
 
     // Relationships
-    @OneToMany
-    @JoinTable(
-            name = "clinic_treatments",
-            joinColumns = @JoinColumn(name = "clinic_id"),
-            inverseJoinColumns = @JoinColumn(name = "treatment_id")
-    )
+    @OneToMany(mappedBy = "clinic", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<TreatmentEntity> treatments;
 
 }

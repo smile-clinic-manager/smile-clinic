@@ -1,5 +1,5 @@
 import { ApiEndpointHelperService } from '../../../../services/api-endpoint-helper.service';
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, inject } from "@angular/core";
 import { ClinicDTO } from '../../../models/ClinicDTO';
 import { ApiHttpService } from "../../../../services/api-http.service";
 import { FormsModule } from "@angular/forms";
@@ -8,14 +8,17 @@ import { MatInputModule } from "@angular/material/input";
 import { ActivatedRoute } from "@angular/router";
 import { TreatmentDTO } from '../../../models/TreatmentDTO';
 import {MatTabsModule} from '@angular/material/tabs';
-import { TreatmentListComponent } from "../../treatments/treatment-list/treatment-list.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { ClinicPersonalComponent } from "../clinic-personal/clinic-personal.component";
 import { MatButtonModule } from '@angular/material/button';
+import { ClinicService } from '../../../../services/clinic.service';
+import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
+import { MatDialog } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { TreatmentListComponent } from '../../treatment-list/treatment-list.component';
 
 @Component({
   selector: 'app-clinic-detail',
@@ -27,10 +30,12 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 export class ClinicDetailComponent implements OnInit {
 
   clinic: ClinicDTO | undefined = undefined;
-  idParam: Number | undefined = undefined;
+  idParam: string = "";
   treatment: TreatmentDTO | undefined = undefined;
-  constructor(private route: ActivatedRoute, private api: ApiHttpService,
-    private endpointHelper: ApiEndpointHelperService) {}
+  readonly dialog = inject(MatDialog);
+
+  constructor(private route: ActivatedRoute,
+    private clinicService: ClinicService) {}
 
   ngOnInit(): void {
     this.extractId();
@@ -38,17 +43,34 @@ export class ClinicDetailComponent implements OnInit {
   }
 
   findClinic(): void {
-    const params: Map<string, any> = new Map<string, any>();
-    params.set("id", this.idParam);
-    this.api.get(this.endpointHelper.createUrlWithQueryParameters("/clinics/findClinicById",
-    params)).subscribe((clinic: ClinicDTO) => {
+    this.clinicService.getClinicById(this.idParam).then(clinic => {
       this.clinic = clinic;
     });
   }
 
-  extractId(): number {
-    return Number(this.route.params.subscribe(params => {
+  extractId(): string {
+    return String(this.route.params.subscribe(params => {
       this.idParam = params['id'];
     }));
+  }
+
+  updateClinic(): void {
+    const dialogRef = this.dialog.open(ClinicFormComponent, {
+      data: {clinic: this.clinic}
+    });
+
+    dialogRef.afterClosed().subscribe(clinic => {
+      if(clinic === undefined) return;
+      this.clinicService.updateClinic(Number(this.clinic?.id), clinic).then(clinic => {
+        this.clinic = clinic;
+      });
+    });
+  }
+
+  deleteClinic(): void {
+    if(this.clinic === undefined) return;
+    this.clinicService.deleteClinic(Number(this.clinic.id)).then(clinic => {
+      this.clinic = clinic;
+    });
   }
 }

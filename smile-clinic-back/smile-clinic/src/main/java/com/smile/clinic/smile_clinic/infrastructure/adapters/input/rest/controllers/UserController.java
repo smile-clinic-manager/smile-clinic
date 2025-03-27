@@ -7,9 +7,13 @@ import com.smile.clinic.smile_clinic.application.services.UserService;
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.RoleRestMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.TreatmentRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.UserRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AssignUserToClinicRequestDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.TreatmentDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.UpdateUserRolesRequestDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SignupRequestDTO;
 import jakarta.transaction.Transactional;
@@ -38,6 +42,7 @@ public class UserController {
     private final UserServicePort userServicePort;
     private final UserClinicRoleServicePort userClinicRoleService;
     private final UserRestMapper userRestMapper;
+    private final RoleRestMapper roleRestMapper;
 
     @PostMapping("/signup")
     public ResponseEntity<Object> signup(@RequestBody @Valid SignupRequestDTO signupRequestDTO, BindingResult bindingResult) {
@@ -113,6 +118,20 @@ public class UserController {
     public ResponseEntity<Object> deleteUserFromClinic(@RequestParam("clinicId") Long clinicId, @RequestParam("userId") Long userId) {
         try{
             this.userClinicRoleService.deleteUserClinicRole(clinicId, userId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/updateRoles")
+    public ResponseEntity<Object> updateUserRoles(@RequestBody UpdateUserRolesRequestDTO updateUserRolesRequestDTO){
+        try{
+            this.userClinicRoleService.updateUserClinicRole(
+                    userRestMapper.toUser(updateUserRolesRequestDTO.getUser()),
+                    updateUserRolesRequestDTO.getClinicId(),
+                    roleRestMapper.toRoleList(updateUserRolesRequestDTO.getRoles()));
+
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception exception){
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

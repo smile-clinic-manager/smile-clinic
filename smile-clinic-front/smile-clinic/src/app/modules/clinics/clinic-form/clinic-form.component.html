@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Formulario de clínica</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="clinic-form" [formGroup]="clinicForm">
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput placeholder="Address" formControlName="address">
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Código postal</mat-label>
+      <input matInput placeholder="Postal code" formControlName="postalCode">
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Teléfono</mat-label>
+      <input matInput placeholder="Phone number" formControlName="phoneNumber">
+    </mat-form-field>
+    <mat-form-field class="clinic-full-width">
+      <mat-label>Email</mat-label>
+      <textarea matInput placeholder="Email" formControlName="email"></textarea>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendClinicDTO()">Aceptar</button>
+</mat-dialog-actions>

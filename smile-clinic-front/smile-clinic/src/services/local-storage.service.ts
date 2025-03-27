@@ -18,6 +18,7 @@ export class LocalStorageService {
 
     const encryptedToken: string = CryptoJS.AES.encrypt(jwtToken, this.secretKey).toString();
     localStorage.setItem('accessToken', encryptedToken);
+    localStorage.setItem('apiToken', jwtToken);
     localStorage.setItem('refreshToken', refreshToken);
     localStorage.setItem('userData', JSON.stringify(userData));
   }

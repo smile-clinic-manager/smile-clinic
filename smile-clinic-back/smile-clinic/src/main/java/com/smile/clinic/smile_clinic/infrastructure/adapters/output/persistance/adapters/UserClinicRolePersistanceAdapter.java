@@ -23,7 +23,7 @@ public class UserClinicRolePersistanceAdapter implements UserClinicRolePersistan
 
     @Override
     public void deleteUserClinicRole(Long userId, Long clinicId) {
-        this.userClinicRoleEntityRepository.deleteUserClinicRole(clinicId, userId);
+        this.userClinicRoleEntityRepository.deleteUserClinicRole(userId, clinicId);
     }
 
     @Override

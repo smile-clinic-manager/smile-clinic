@@ -24,6 +24,7 @@ import { AddUserClinicComponent } from '../../../dialogs/add-user-clinic-stepper
 import { AddUserClinicStepperComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic-stepper.component';
 import { DeleteUserClinicComponent } from '../../../dialogs/delete-user-clinic/delete-user-clinic.component';
 import { EditUserClinicRolesComponent } from '../../../dialogs/edit-user-clinic-roles/edit-user-clinic-roles.component';
+import { UpdateUserClinicComponent } from '../../../dialogs/update-user-clinic/update-user-clinic.component';
 
 
 
@@ -93,7 +94,7 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
     const dialogRef = this.dialog.open(EditUserClinicRolesComponent, {
       data: { 
         clinicId: this.clinicId,
-        user: user
+        clinicUser: user
       },
       panelClass: 'lateral-dialog'
     });
@@ -106,6 +107,18 @@ export class ClinicPersonalComponent implements OnInit, AfterViewInit{
       data: { 
         clinicId: this.clinicId,
         user: user
+      },
+       panelClass: 'pop-up-dialog'
+    });
+
+    this.updateDataSource(dialogRef);
+  }
+
+  openUpdateUserClinicDialog(user: RegisteredUserDTO): void {
+    const dialogRef = this.dialog.open(UpdateUserClinicComponent, {
+      data: { 
+        clinicId: this.clinicId,
+        user: user,
       },
        panelClass: 'pop-up-dialog'
     });

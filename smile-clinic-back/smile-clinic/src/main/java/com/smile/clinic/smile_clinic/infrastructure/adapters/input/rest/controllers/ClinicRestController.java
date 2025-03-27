@@ -1,6 +1,9 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.controllers;
 
 import com.smile.clinic.smile_clinic.application.ports.input.ClinicServicePort;
+import com.smile.clinic.smile_clinic.application.ports.input.UserClinicRoleServicePort;
+import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
+import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.ClinicRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ClinicDTO;
 import jakarta.validation.Valid;
@@ -8,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,10 +20,14 @@ import java.util.List;
 @RestController
 @RequestMapping("/clinics")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class ClinicRestController {
 
     private final ClinicServicePort clinicServicePort;
     private final ClinicRestMapper clinicRestMapper;
+
+    private final UserServicePort userServicePort;
+    private final UserClinicRoleServicePort ucrServicePort;
 
     @GetMapping("/findAllByUserId")
     public ResponseEntity<List<ClinicDTO>> findAll(@RequestParam("id") Long id){
@@ -40,9 +48,11 @@ public class ClinicRestController {
     }
 
     @PostMapping("/createClinic")
-    public ResponseEntity<ClinicDTO> createClinic(@Valid @RequestBody ClinicDTO clinicData){
+    public ResponseEntity<ClinicDTO> createClinic(@Valid @RequestBody ClinicDTO clinicData) throws Exception {
         ClinicDTO clinicDTO = clinicRestMapper.toClinicDTO(
                 clinicServicePort.save(clinicRestMapper.toClinic(clinicData)));
+        User loggedUser = userServicePort.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        ucrServicePort.createUserClinicRole(loggedUser.getId(), clinicDTO.getId(), 1L);
         return new ResponseEntity<>(clinicDTO, HttpStatus.CREATED);
     }
 

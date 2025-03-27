@@ -1,22 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from './api-http.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
-import { catchError, firstValueFrom, Observable, throwError } from 'rxjs';
+import { catchError, first, firstValueFrom, Observable, throwError } from 'rxjs';
 import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
+import { RoleDTO } from '../app/models/RoleDTO';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-
   constructor(private api: ApiHttpService, private apiEndpointHelper: ApiEndpointHelperService) { }
 
   getClinicUserList(clinicId: string): Promise<RegisteredUserDTO[]>{
     const params: Map<string, any>  = new Map();
     params.set('clinicId', clinicId)
     return firstValueFrom(
-      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/usersByClinicId', params))
-    )
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/usersByClinicId', params)));
   }
 
   getUserById(userId: string) {
@@ -24,7 +23,7 @@ export class UserService {
     params.set('userId', userId);
     
     return firstValueFrom(
-      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/userByUserId', params)))
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/userByUserId', params)));
   }
 
   assignUserToClinic(userId: string, clinicId: string, roleIds: string[]) {
@@ -39,8 +38,13 @@ export class UserService {
     params.set('clinicId', clinicId)
     params.set('userId', userId)
     return firstValueFrom(
-      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/users/removeUserFromClinic', params))
-    )
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/users/removeUserFromClinic', params)));
+  }
+
+  updateUserClinicRoles(user: RegisteredUserDTO, clinicId: string, selectedRoles: RoleDTO[]) {
+    return firstValueFrom(
+      this.api.put(this.apiEndpointHelper.createUrl('users/updateRoles'), {'user': user, 'clinicId': clinicId, 'roles': selectedRoles})
+    );   
   }
 
 }
