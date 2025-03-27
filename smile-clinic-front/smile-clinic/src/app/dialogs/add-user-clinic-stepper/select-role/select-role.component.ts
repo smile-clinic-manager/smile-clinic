@@ -17,9 +17,7 @@ export class SelectRoleComponent implements OnInit{
   @Input() roleForm!: FormGroup;
   displayedColumns = ['ROL', 'ACCIONES']
 
-  roles: RoleDTO[] = [{id: '1', name: 'CLINIC_ADMIN', permissions: null},
-    {id: '2', name: 'CLINIC_DENTIST', permissions: null},
-    {id: '3', name: 'CLINIC_RECEPTIONIST', permissions: null}];
+  roles: RoleDTO[] = [];
   
   dataSource: RoleDTO[] = [];
 
