@@ -21,10 +21,11 @@ import { MatButtonModule } from '@angular/material/button';
 })
 export class EditUserClinicRolesComponent implements OnInit{
 
-  user: RegisteredUserDTO | null = null;
+  clinicUser: RegisteredUserDTO | null = null;
   clinicId: string = '';
   displayedColumns = ['ROL', 'ACCIONES'];
   dataSource: RoleDTO[] = [];
+  reload: boolean = false;
 
   formSelectRoles = new FormGroup({
     roles: new FormControl<RoleDTO[]>([], [Validators.required, nonEmptyArrayValidator()])
@@ -35,14 +36,9 @@ export class EditUserClinicRolesComponent implements OnInit{
     private snackBarService:  SnackbarServiceService, private roleService: RoleService){  }
 
   ngOnInit(): void {
-    this.user = this.data.clinicUser;
+    this.clinicUser = this.data.clinicUser;
     this.clinicId = this.data.clinicId;
-
     this.setDataSource();
-
-    console.log(this.dataSource);
-    console.log(this.data.clinicUser);
-    console.log(this.data.clinicId);
   }
 
   setDataSource(): void{
@@ -57,9 +53,9 @@ export class EditUserClinicRolesComponent implements OnInit{
   }
 
   togleAssignedRoles(): void {
-    this.formSelectRoles.patchValue({roles: this.user!.roles!});
+    this.formSelectRoles.patchValue({roles: this.clinicUser!.roles!});
 
-    console.log(this.user!.roles!);
+    console.log(this.clinicUser!.roles!);
     console.log('forms value');
     console.log(this.formSelectRoles.get('roles')!.value);
   }
@@ -82,6 +78,17 @@ export class EditUserClinicRolesComponent implements OnInit{
   isOnlyOneRoleSelected(element: RoleDTO): boolean{
     const oneRoleSelected: boolean = (this.formSelectRoles.value.roles?.length ?? 0) === 1;
     return oneRoleSelected && this.roleIsSelected(element);
+  }
+
+  enviarFormulario(): void{
+    const selectedRoles: RoleDTO[] = this.formSelectRoles!.get('roles')!.value!;
+    this.userService.updateUserClinicRoles(this.clinicUser!, this.clinicId, selectedRoles);
+    this.reload = true;
+    this.closeDialog();
+  }
+
+  closeDialog(): void {
+    this.dialogRef.close(this.reload);
   }
 
 }

@@ -47,8 +47,8 @@ export class UpdateUserClinicComponent implements OnInit{
   }
 
   sendFormUpdateUserClinic(): void {
-    const selectedRoles = this.selectRolesFormGroup.get('roles')!.value;
-    this.userService.updateClinicRoles(this.clinicUser!.id, this.clinicId, selectedRoles)
+    const selectedRoles: RoleDTO[] = this.selectRolesFormGroup.get('roles')!.value!;
+    this.userService.updateUserClinicRoles(this.clinicUser!, this.clinicId, selectedRoles);
   }
 
 

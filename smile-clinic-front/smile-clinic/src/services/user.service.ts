@@ -3,6 +3,7 @@ import { ApiHttpService } from './api-http.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { catchError, first, firstValueFrom, Observable, throwError } from 'rxjs';
 import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
+import { RoleDTO } from '../app/models/RoleDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -40,9 +41,9 @@ export class UserService {
       this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/users/removeUserFromClinic', params)));
   }
 
-  updateClinicRoles(userId: number, clinicId: string, selectedRoles: null) {
+  updateUserClinicRoles(user: RegisteredUserDTO, clinicId: string, selectedRoles: RoleDTO[]) {
     return firstValueFrom(
-      this.api.put(this.apiEndpointHelper.createUrl('/'), {'userId': userId, 'clinicId': clinicId, 'roles': selectedRoles})
+      this.api.put(this.apiEndpointHelper.createUrl('users/updateRoles'), {'user': user, 'clinicId': clinicId, 'roles': selectedRoles})
     );   
   }
 

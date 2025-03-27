@@ -19,7 +19,7 @@
     </table>
 
     <div class="button-separation-container content-center">
-        <button mat-stroked-button matStepperPrevious type="button">Cancelar</button>
-        <button mat-flat-button matStepperNext type="button">Confirmar</button>
+        <button mat-stroked-button matStepperPrevious type="button" (click)="closeDialog()">Cancelar</button>
+        <button mat-flat-button matStepperNext type="button" (click)="enviarFormulario()">Confirmar</button>
     </div>
 </div>
