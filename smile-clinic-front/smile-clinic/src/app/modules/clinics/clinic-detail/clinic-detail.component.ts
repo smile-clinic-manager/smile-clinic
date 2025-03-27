@@ -18,7 +18,8 @@ import { ClinicService } from '../../../../services/clinic.service';
 import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import { TreatmentListComponent } from '../../treatment-list/treatment-list.component';
+import { TreatmentListComponent } from '../../../treatment-list/treatment-list.component';
+
 
 @Component({
   selector: 'app-clinic-detail',

@@ -8,8 +8,7 @@ import { HomeComponent } from './modules/home/home.component';
 import { authGuard } from './auth.guard';
 import { ClinicListComponent } from './modules/clinics/clinic-list/clinic-list.component';
 import { ClinicDetailComponent } from './modules/clinics/clinic-detail/clinic-detail.component';
-import { TreatmentListComponent } from './modules/treatments/treatment-list/treatment-list.component';
-import { TreatmentDetailComponent } from './modules/treatments/treatment-detail/treatment-detail.component';
+import { TreatmentListComponent } from './treatment-list/treatment-list.component';
 import { PatientListComponent } from './modules/patients/patient-list/patient-list.component';
 
 export const routes: Routes = [
@@ -22,7 +21,6 @@ export const routes: Routes = [
       { path: 'clinic-list', component : ClinicListComponent, canActivate: [authGuard] },
       { path: 'clinic-detail/:id', component : ClinicDetailComponent, canActivate: [authGuard] },
       { path: 'treatment-list', component: TreatmentListComponent },
-      { path: 'treatment-detail/:id', component: TreatmentDetailComponent },
       { path: 'patients-list', component: PatientListComponent }
     ]
   },

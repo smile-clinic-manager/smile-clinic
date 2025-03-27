@@ -1,17 +1,17 @@
 import { Component, inject, Injector, Input, ViewChild } from "@angular/core";
 import { MatTableDataSource, MatTableModule } from "@angular/material/table";
-import { TreatmentDTO } from "../../models/TreatmentDTO";
-import { ApiHttpService } from "../../../services/api-http.service";
 import { OnInit } from "@angular/core";
-import { TreatmentService } from "../../../services/treatment.service";
-import { SnackbarServiceService } from "../../../services/snackbar-service.service";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { MatPaginator, MatPaginatorModule } from "@angular/material/paginator";
 import { MatSort, MatSortModule } from "@angular/material/sort";
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
-import { DeleteTreatmentComponent } from "../../dialogs/delete-treatment/delete-treatment.component";
-import { TreatmentFormComponent } from "../../dialogs/treatment-form/treatment-form.component";
+import { TreatmentDTO } from "../models/TreatmentDTO";
+import { ApiHttpService } from "../../services/api-http.service";
+import { SnackbarServiceService } from "../../services/snackbar-service.service";
+import { TreatmentService } from "../../services/treatment.service";
+import { DeleteTreatmentComponent } from "../dialogs/delete-treatment/delete-treatment.component";
+import { TreatmentFormComponent } from "../dialogs/treatment-form/treatment-form.component";
 
 @Component({
   selector: 'app-treatment-list',
