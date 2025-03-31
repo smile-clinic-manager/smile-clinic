@@ -2,20 +2,24 @@ package com.smile.clinic.smile_clinic.utils;
 
 import com.smile.clinic.smile_clinic.application.ports.output.TokenProviderPort;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.domain.models.users.UserClinicRole;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ClinicRoleDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.RoleDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
 import javax.crypto.SecretKey;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Slf4j
+@RequiredArgsConstructor
 @Component
 public class JwtAdapter implements TokenProviderPort {
 
@@ -25,6 +29,7 @@ public class JwtAdapter implements TokenProviderPort {
     private Long REFRESH_TOKEN_EXPIRATION;
     @Value("${security.jwt.secret-key}")
     private String SECRET_KEY;
+
 
     @Override
     public String generateRefreshToken(User user) {
@@ -73,16 +78,35 @@ public class JwtAdapter implements TokenProviderPort {
     }
 
     private List<ClinicRoleDTO> mapClinicRoles(User user){
-        List<ClinicRoleDTO> clinicRoles = new ArrayList<>();
         List<UserClinicRoleEntity> userClinicRoles = user.getUserClinicRoles();
-        for(UserClinicRoleEntity clinicRoleEntity : userClinicRoles){
-            ClinicRoleDTO clinicRole = ClinicRoleDTO.builder()
-                    .clinic(clinicRoleEntity.getClinic().getName())
-                    .role(clinicRoleEntity.getRole().getName())
-                    .build();
-            clinicRoles.add(clinicRole);
+        List<ClinicRoleDTO> ls = parseToClinicRoleDTO(userClinicRoles);
+        return ls;
+    }
+
+    private List<ClinicRoleDTO> parseToClinicRoleDTO(List<UserClinicRoleEntity> userClinicRoles) {
+        Map<Long, ClinicRoleDTO> clinicRoleMap = new HashMap<>();
+
+        for (UserClinicRoleEntity userClinicRole : userClinicRoles) {
+            Long clinicId = userClinicRole.getClinic().getId();
+            String clinicName = userClinicRole.getClinic().getName();
+
+            ClinicRoleDTO clinicRoleDTO = clinicRoleMap.get(clinicId);
+
+            // Create nuevo DTO si no existe la clinica
+            if (clinicRoleDTO == null) {
+                clinicRoleDTO = new ClinicRoleDTO();
+                clinicRoleDTO.setClinicId(clinicId);
+                clinicRoleDTO.setClinic(clinicName);
+                clinicRoleDTO.setRoles(new ArrayList<>());
+                clinicRoleMap.put(clinicId, clinicRoleDTO);
+            }
+
+            // Añadir roles
+            RoleDTO roleDTO = new RoleDTO(userClinicRole.getRole().getId(), userClinicRole.getRole().getName());
+            clinicRoleDTO.getRoles().add(roleDTO);
         }
-        return clinicRoles;
+
+        return new ArrayList<>(clinicRoleMap.values());
     }
 
     @Override

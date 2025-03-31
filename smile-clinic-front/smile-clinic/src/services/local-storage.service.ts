@@ -3,6 +3,9 @@ import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import * as CryptoJS from 'crypto-js';
 import { jwtDecode } from 'jwt-decode';
 import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
+import { userData } from '../app/models/userData';
+import { RoleDTO } from '../app/models/RoleDTO';
+import { ClinicRole } from '../app/models/ClinicRole';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +13,9 @@ import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
 export class LocalStorageService {
   private readonly secretKey: string = 'key-de-prueba';
   private platformId = inject(PLATFORM_ID); // Inject PLATFORM_ID
+
+  private selectedGlobalClinic: ClinicRole | null = null;
+  private selectedGlobalRole: RoleDTO | null = null;
 
   constructor() { }
 
@@ -28,9 +34,15 @@ export class LocalStorageService {
   
     try {
       const payloadBase64 = jwtToken.split('.')[1];
-      const payloadJson = atob(payloadBase64);
+      const binaryString = atob(payloadBase64);
+      const bytes = new Uint8Array([...binaryString].map(c => c.charCodeAt(0)));
+      // Decode with UTF-8 - Evitar que se rompa el texto con acentos y 'ñ'.
+      const payloadJson = new TextDecoder('utf-8').decode(bytes);
       const payload = JSON.parse(payloadJson);
-  
+
+      console.log('payload');
+      console.log(payload);
+
       return {
         id: payload.id || 0,
         username: payload.username || '',
@@ -49,9 +61,9 @@ export class LocalStorageService {
     }
   }
 
-  public getUserData(): RegisteredUserDTO | null {
+  public getUserData(): userData {
     const userData = localStorage.getItem('userData');
-    return userData ? JSON.parse(userData) : null;
+    return JSON.parse(userData!);
   }
 
   public getTokenInLocalStorage(): string {
@@ -96,6 +108,26 @@ export class LocalStorageService {
     localStorage.removeItem('refreshToken');
     localStorage.removeItem('userData');
   }
+
+  public getSelectedGlobalClinic(){
+    return this.selectedGlobalClinic;
+  }
+
+  public getSelectedGlobalRole(){
+    return this.selectedGlobalRole;
+  }
+
+  public setSelectedGlobalClinic(clinicRole: ClinicRole): void{
+    this.selectedGlobalClinic = clinicRole;
+    console.log(this.selectedGlobalClinic);
+  }
+
+  public setSelectedGlobalRole(globalRole: any): void{
+    this.selectedGlobalRole = globalRole;
+    console.log(this.selectedGlobalRole);
+
+  }
+
 
 
 }
