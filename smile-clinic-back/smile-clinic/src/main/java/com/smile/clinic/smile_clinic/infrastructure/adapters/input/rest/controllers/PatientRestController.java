@@ -34,4 +34,10 @@ public class PatientRestController {
         PatientDTO patientDTO = patientRestMapper.toPatientDTO(patientServicePort.findById(id));
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
+
+    @GetMapping("/findPatientsByClinicId")
+    public ResponseEntity<List<PatientDTO>> findByClinicId(@RequestParam("clinicId") Long clinicId){
+        List<PatientDTO> patientDTO = patientRestMapper.toPatientDTOList(patientServicePort.findByClinicId(clinicId));
+        return new ResponseEntity<>(patientDTO, HttpStatus.OK);
+    }
 }

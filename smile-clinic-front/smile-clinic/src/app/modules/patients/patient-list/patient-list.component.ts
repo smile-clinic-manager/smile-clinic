@@ -19,7 +19,7 @@ export class PatientListComponent implements OnInit {
   constructor(private patientService: PatientService) {}
 
   ngOnInit(): void {
-    this.findAll();
+    this.findByActiveClinicId();
   }
 
   findAll(): void {
@@ -28,5 +28,12 @@ export class PatientListComponent implements OnInit {
       this.dataSource = patients;
     });
   };
+
+  findByActiveClinicId(): void {
+    this.patientService.getPatientsByActiveClinicId()
+    .then(patients => {
+      this.dataSource = patients;
+    });
+  }
 
 }

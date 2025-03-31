@@ -60,6 +60,10 @@ export class SideVarComponent implements AfterViewInit{
     this.router.navigate(['clinic-list']);
   }
 
+  redirectToPatients(){
+    this.router.navigate(['patients-list']);
+  }
+
   redirectToHome(){
     this.router.navigate(['home']);
   }
