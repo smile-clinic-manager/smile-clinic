@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
+import com.smile.clinic.smile_clinic.domain.MedicalHistory;
 import com.smile.clinic.smile_clinic.domain.models.patients.Disease;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -57,5 +58,9 @@ public class PatientEntity {
     @ManyToOne
     @JoinColumn(name = "clinic_id", nullable = false)
     private ClinicEntity clinic;
+
+    @OneToOne
+    @JoinColumn(name = "medical_history_id")
+    private MedicalHistoryEntity medicalHistory;
 
 }

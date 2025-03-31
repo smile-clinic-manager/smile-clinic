@@ -1,6 +1,22 @@
 <mat-sidenav-container class="sidenav-container" >
     <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen()">
       <mat-nav-list>
+        <form [formGroup]="globalClinicRoleform">
+          <mat-form-field>
+            <mat-select formControlName="globalClinic" (selectionChange)="setSelectedClinic($event.value)">
+              @for(clinicRole of user!.roles; track clinicRole.clinicId){
+                <mat-option [value]="clinicRole">{{clinicRole.clinic}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field>
+              <mat-select formControlName="globalRole">
+                @for(role of clinicRoleList; track role.id){
+                  <mat-option [value]="role">{{role.name}}</mat-option>
+                }
+              </mat-select>
+          </mat-form-field>
+        </form>
 
         <mat-expansion-panel >
           <mat-expansion-panel-header>
@@ -23,16 +39,8 @@
           </mat-expansion-panel-header>
 
           <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Listado de clínicas</span>
-          </a>
-          <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">ejemplo2</span>
-          </a>
-          <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">ejemplo3</span> 
+            <mat-icon> home_health </mat-icon> <!-- TODO: Change icon -->
+            <span class="menu-text">Mis clínicas</span>
           </a>
         </mat-expansion-panel> 
 
@@ -45,11 +53,11 @@
 
           <a mat-list-item (click)="redirectToClinics()">
             <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Calendario</span>
+            <span class="menu-text">Ver Calendario</span>
           </a>
           <a mat-list-item (click)="redirectToClinics()">
             <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Citas</span>
+            <span class="menu-text">Ver Citas</span>
           </a>
 
         </mat-expansion-panel>
@@ -64,7 +72,7 @@
 
           <a mat-list-item (click)="redirectToClinics()">
             <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Listado de pacientes</span>
+            <span class="menu-text">Mis pacientes</span>
           </a>
         </mat-expansion-panel>
       
