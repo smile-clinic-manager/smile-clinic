@@ -1,70 +1,85 @@
-<mat-sidenav-container class="sidenav-container" >
-    <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen()">
-      <mat-nav-list>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [opened]="isMenuOpen()">
+    <mat-nav-list>
+      <form [formGroup]="globalClinicRoleform">
+        <mat-form-field>
+          <mat-select formControlName="globalClinic" (selectionChange)="setSelectedClinic($event.value)">
+            @for(clinicRole of user!.roles; track clinicRole.clinicId){
+            <mat-option [value]="clinicRole">{{clinicRole.clinic}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select formControlName="globalRole">
+            @for(role of clinicRoleList; track role.id){
+            <mat-option [value]="role">{{role.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>
 
-        <mat-expansion-panel >
-          <mat-expansion-panel-header>
-            <mat-panel-title matTooltip="Inicio"> 
-              <mat-icon> home </mat-icon><span class="menu-text">Inicio</span>
-            </mat-panel-title> 
-          </mat-expansion-panel-header> 
-          <a mat-list-item (click)="redirectToHome()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Inicio</span>
-          </a>  
-        </mat-expansion-panel> 
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title matTooltip="Inicio">
+            <mat-icon> home </mat-icon><span class="menu-text">Inicio</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <a mat-list-item (click)="redirectToHome()">
+          <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+          <span class="menu-text">Inicio</span>
+        </a>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title matTooltip="Clínicas">
-              <mat-icon> health_and_safety </mat-icon> 
-              <span class="menu-text">Clínicas</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title matTooltip="Clínicas">
+            <mat-icon> health_and_safety </mat-icon>
+            <span class="menu-text">Clínicas</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-          <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home_health </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Mis clínicas</span>
-          </a>
-        </mat-expansion-panel> 
+        <a mat-list-item (click)="redirectToClinics()">
+          <mat-icon> home_health </mat-icon> <!-- TODO: Change icon -->
+          <span class="menu-text">Mis clínicas</span>
+        </a>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon> calendar_today </mat-icon> <span class="menu-text">Citas y Calendario</span> 
-            </mat-panel-title>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon> calendar_today </mat-icon> <span class="menu-text">Citas y Calendario</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-          <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Ver Calendario</span>
-          </a>
-          <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Ver Citas</span>
-          </a>
+        <a mat-list-item (click)="redirectToClinics()">
+          <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+          <span class="menu-text">Ver Calendario</span>
+        </a>
+        <a mat-list-item (click)="redirectToClinics()">
+          <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+          <span class="menu-text">Ver Citas</span>
+        </a>
 
-        </mat-expansion-panel>
+      </mat-expansion-panel>
 
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <mat-icon> groups </mat-icon>
-              <span class="menu-text">Pacientes</span>
-            </mat-panel-title>
-          </mat-expansion-panel-header>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <mat-icon> groups </mat-icon>
+            <span class="menu-text">Pacientes</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-          <a mat-list-item (click)="redirectToClinics()">
-            <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
-            <span class="menu-text">Mis pacientes</span>
-          </a>
-        </mat-expansion-panel>
-      
-      </mat-nav-list>
-    </mat-sidenav>
-    
-    <mat-sidenav-content style="padding: 1%">
-      <router-outlet></router-outlet>
-    </mat-sidenav-content>
+        <a mat-list-item (click)="redirectToPatients()">
+          <mat-icon> home </mat-icon> <!-- TODO: Change icon -->
+          <span class="menu-text">Mis pacientes</span>
+        </a>
+      </mat-expansion-panel>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content style="padding: 1%">
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
 </mat-sidenav-container>
-  

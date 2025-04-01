@@ -24,7 +24,6 @@ export class ClinicFormComponent implements OnInit {
   isCreating = true;
 
   ngOnInit(): void {
-    console.log(this.data);
     if (this.data.clinic) {
       this.clinicForm.get('name')?.setValue(this.data.clinic.name);
       this.clinicForm.get('postalCode')?.setValue(this.data.clinic.postalCode);
