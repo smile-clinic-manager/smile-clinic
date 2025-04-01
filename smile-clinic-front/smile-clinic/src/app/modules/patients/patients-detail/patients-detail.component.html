@@ -1,5 +1,43 @@
 <h1>Detalle Paciente</h1>
-<div class="patient-detail-container">
-  <div class="patient-detail-item">
-    <p><strong>Nombre: </strong> {{patient?.firstName}} {{patient?.lastName1}} {{patient?.lastName2}}
-  </div>
+<mat-card>
+  <mat-card-header class="patient-avatar-image">
+    <button mat-icon-button [matMenuTriggerFor]="patientMenu" class="top-left-button" aria-label="patient menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #patientMenu="matMenu">
+      <button mat-menu-item aria-label="edit" (click)="updatePatient()">
+        <mat-icon>edit</mat-icon>
+        Editar paciente
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item aria-label="delete" (click)="deletePatient()">
+        <mat-icon>delete</mat-icon>
+        Eliminar paciente
+      </button>
+    </mat-menu>
+  </mat-card-header>
+
+  <mat-card-content>
+    <h2 style="text-align: center; margin-bottom: 20px;">{{patient?.firstName}} {{patient?.lastName1}}
+      {{patient?.lastName2}}</h2>
+    <div class="info-container">
+      <p>
+        <strong>DNI: </strong> {{patient?.dni}}
+      </p>
+      <p>
+        <strong>Email: </strong> {{patient?.email}}
+      </p>
+      <p>
+        <strong>Telefono: </strong> {{patient?.phoneNumber}}
+      </p>
+      <p>
+        <strong>Alergias: </strong> {{patient?.allergies}}
+      </p>
+      <p>
+        <strong>Patologías: </strong> {{patient?.diseases}}
+      </p>
+    </div>
+  </mat-card-content>
+
+</mat-card>

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTable, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { PatientDTO } from '../../../models/PatientDTO';
 import { PatientService } from '../../../../services/patient.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-patient-list',
@@ -13,10 +14,11 @@ import { PatientService } from '../../../../services/patient.service';
 })
 export class PatientListComponent implements OnInit {
 
-  displayedColumns: string[] = ["NOMBRE", "APELLIDOS"];
+  displayedColumns: string[] = ["NOMBRE", "APELLIDOS", "ACCIONES"];
   dataSource: PatientDTO[] = [];
 
-  constructor(private patientService: PatientService) {}
+  constructor(private router: Router,
+    private patientService: PatientService) {}
 
   ngOnInit(): void {
     this.findByActiveClinicId();
@@ -34,6 +36,14 @@ export class PatientListComponent implements OnInit {
     .then(patients => {
       this.dataSource = patients;
     });
+  }
+
+  viewPatient(id: string): void {
+    if(id !== null || id === undefined) this.router.navigate(['patient-detail', id]);
+  }
+
+  createPatient(): void {
+    //TODO implement this
   }
 
 }
