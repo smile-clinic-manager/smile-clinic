@@ -34,12 +34,26 @@ public class PatientService implements PatientServicePort {
 
     @Override
     public Patient save(Patient patient) {
-        return null;
+        return patientPersistancePort.save(patient);
     }
 
     @Override
     public Patient update(Long id, Patient patient) {
-        return null;
+        return patientPersistancePort.findById(id)
+                .map((savedPatient) -> {
+                    savedPatient.setFirstName(patient.getFirstName());
+                    savedPatient.setLastName1(patient.getLastName1());
+                    savedPatient.setLastName2(patient.getLastName2());
+                    savedPatient.setDni(patient.getDni());
+                    savedPatient.setEmail(patient.getEmail());
+                    savedPatient.setTelephoneNumber(patient.getTelephoneNumber());
+                    savedPatient.setAllergies(patient.getAllergies());
+                    savedPatient.setPreviousDiseases(patient.getPreviousDiseases());
+                    savedPatient.setClinic(patient.getClinic());
+                    savedPatient.setMedicalHistory(patient.getMedicalHistory());
+                    return patientPersistancePort.save(savedPatient);
+                })
+                .orElseThrow(() -> new RuntimeException("Patient not found"));
     }
 
     @Override

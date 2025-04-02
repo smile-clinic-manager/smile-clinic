@@ -24,21 +24,21 @@ public class PatientPersistanceAdapter implements PatientPersistancePort {
 
     @Override
     public List<Patient> findAll() {
-        return mapper.toPatientList(patientEntityRepository.findAll());
+        return mapper.toPatientList(this.patientEntityRepository.findAll());
     }
 
     @Override
     public List<Patient> findByClinicId(Long clinicId) {
-        return mapper.toPatientList(patientEntityRepository.findPatientsByClinicId(clinicId));
+        return mapper.toPatientList(this.patientEntityRepository.findPatientsByClinicId(clinicId));
     }
 
     @Override
     public Patient save(Patient patient) {
-        return mapper.toPatient(patientEntityRepository.save(mapper.toPatientEntity(patient)));
+        return mapper.toPatient(this.patientEntityRepository.save(mapper.toPatientEntity(patient)));
     }
 
     @Override
     public void deleteById(Long id) {
-
+        this.patientEntityRepository.deleteById(id);
     }
 }

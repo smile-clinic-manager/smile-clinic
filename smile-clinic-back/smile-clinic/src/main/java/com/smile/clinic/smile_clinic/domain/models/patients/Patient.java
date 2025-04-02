@@ -24,5 +24,5 @@ public class Patient {
     private String allergies; //List<Enum>?
     private List<Disease> previousDiseases;
     private Clinic clinic;
-
+    private MedicalHistory medicalHistory;
 }

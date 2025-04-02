@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,5 +36,23 @@ public class PatientRestController {
     public ResponseEntity<List<PatientDTO>> findByClinicId(@RequestParam("clinicId") Long clinicId){
         List<PatientDTO> patientDTO = patientRestMapper.toPatientDTOList(patientServicePort.findByClinicId(clinicId));
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/savePatient")
+    public ResponseEntity<PatientDTO> save(@RequestBody PatientDTO patientDTO){
+        PatientDTO savedPatientDTO = patientRestMapper.toPatientDTO(patientServicePort.save(patientRestMapper.toPatient(patientDTO)));
+        return new ResponseEntity<>(savedPatientDTO, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/updatePatient")
+    public ResponseEntity<PatientDTO> update(@RequestParam("id") Long id, @RequestBody PatientDTO patientDTO){
+        PatientDTO updatedPatientDTO = patientRestMapper.toPatientDTO(patientServicePort.update(id, patientRestMapper.toPatient(patientDTO)));
+        return new ResponseEntity<>(updatedPatientDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deletePatient")
+    public ResponseEntity<Void> delete(@RequestParam("id") Long id){
+        patientServicePort.delete(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
