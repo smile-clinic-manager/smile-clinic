@@ -36,4 +36,22 @@ export class PatientService {
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/patients/findPatientsByClinicId', params))
     )
   }
+
+  createPatient(patient: PatientDTO): Promise<PatientDTO> {
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('patients/savePatient'), patient)
+    )
+  }
+
+  updatePatient(id: Number, patient: PatientDTO): Promise<PatientDTO> {
+    return firstValueFrom(
+      this.api.put(this.apiEndpointHelper.createUrlWithQueryParameters('/patients/updatePatient', new Map([['id', id]])), patient)
+    )
+  }
+
+  deletePatient(id: Number): Promise<PatientDTO> {
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/patients/deletePatient', new Map([['id', id]])))
+    )
+  }
 }

@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Formulario de paciente</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="patient-form" [formGroup]="patientForm">
+    <mat-form-field class="patient-full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Nombre" formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>Primer apellido</mat-label>
+      <input matInput placeholder="Primer apellido" formControlName="lastName1">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>Segundo apellido</mat-label>
+      <input matInput placeholder="Segundo apellido" formControlName="lastName2">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>DNI</mat-label>
+      <input matInput placeholder="DNI" formControlName="dni">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>Telefono</mat-label>
+      <input matInput placeholder="Telefono" formControlName="phoneNumber">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>Alergias</mat-label>
+      <input matInput placeholder="Alergias" formControlName="allergies">
+    </mat-form-field>
+    <mat-form-field class="patient-full-width">
+      <mat-label>Patologías</mat-label>
+      <input matInput placeholder="Patologías" formControlName="diseases">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendPatientDTO()">Aceptar</button>
+</mat-dialog-actions>

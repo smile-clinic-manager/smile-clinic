@@ -5,6 +5,8 @@ import { MatTableModule } from '@angular/material/table';
 import { PatientDTO } from '../../../models/PatientDTO';
 import { PatientService } from '../../../../services/patient.service';
 import { Router } from '@angular/router';
+import { PatientFormComponent } from '../patient-form/patient-form.component';
+import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -16,9 +18,11 @@ export class PatientListComponent implements OnInit {
 
   displayedColumns: string[] = ["NOMBRE", "APELLIDOS", "ACCIONES"];
   dataSource: PatientDTO[] = [];
+  dialog: any;
 
   constructor(private router: Router,
-    private patientService: PatientService) {}
+    private patientService: PatientService,
+    private snackBarService: SnackbarServiceService) {}
 
   ngOnInit(): void {
     this.findByActiveClinicId();
@@ -43,7 +47,17 @@ export class PatientListComponent implements OnInit {
   }
 
   createPatient(): void {
-    //TODO implement this
+    const dialogRef = this.dialog.open(PatientFormComponent, {
+      data: {patient: null}
+    });
+
+    dialogRef.afterClosed().subscribe((patient: PatientDTO | undefined) => {
+      if(patient === undefined) return;
+      this.patientService.createPatient(patient).then(() => {
+        this.snackBarService.showSuccessSnackBar('Patient created');
+        this.findAll();
+      });
+    });
   }
 
 }
