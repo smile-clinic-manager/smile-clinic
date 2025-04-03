@@ -50,7 +50,7 @@ public class PatientService implements PatientServicePort {
                     savedPatient.setAllergies(patient.getAllergies());
                     savedPatient.setPreviousDiseases(patient.getPreviousDiseases());
                     savedPatient.setClinic(patient.getClinic());
-                    savedPatient.setMedicalHistory(patient.getMedicalHistory());
+                    //savedPatient.setMedicalHistory(patient.getMedicalHistory());
                     return patientPersistancePort.save(savedPatient);
                 })
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
@@ -58,6 +58,6 @@ public class PatientService implements PatientServicePort {
 
     @Override
     public void delete(Long id) {
-
+        patientPersistancePort.deleteById(id);
     }
 }
