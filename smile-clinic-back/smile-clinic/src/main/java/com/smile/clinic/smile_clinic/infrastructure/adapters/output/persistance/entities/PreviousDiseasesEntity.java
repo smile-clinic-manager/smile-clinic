@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -23,6 +24,6 @@ public class PreviousDiseasesEntity {
     private String name;
 
     @ManyToMany(mappedBy = "previousDiseases")
-    private Set<MedicalHistoryEntity> medicalHistories = new HashSet<>();
+    private List<MedicalHistoryEntity> medicalHistories;
 }
 

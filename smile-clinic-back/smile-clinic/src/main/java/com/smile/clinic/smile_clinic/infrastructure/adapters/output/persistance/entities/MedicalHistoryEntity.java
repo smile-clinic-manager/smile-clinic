@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -27,7 +28,7 @@ public class MedicalHistoryEntity {
             joinColumns = @JoinColumn(name = "medical_history_id"),
             inverseJoinColumns = @JoinColumn(name = "previous_diseases_id")
     )
-    private Set<PreviousDiseasesEntity> previousDiseases = new HashSet<>();
+    private List<PreviousDiseasesEntity> previousDiseases;
 
     @OneToOne(mappedBy = "medicalHistory")
     private PatientEntity patient;

@@ -7,7 +7,7 @@ import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring", uses = PreviousDiseasesMapper.class, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface PatientRestMapper {
     PatientDTO toPatientDTO(Patient patient);
     Patient toPatient(PatientDTO patientDTO);
