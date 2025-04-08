@@ -104,7 +104,7 @@ INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) 
 -- (CLINIC_RECEPTIONIST) - Centro Médico Salud Total
 INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 6, 9, 3);  -- Frank, CLINIC_RECEPTIONIST, Centro Médico Salud Total
 
-
+-- Tratamientos
 INSERT INTO treatments(id, name, price, notes, clinic_id)
 VALUES
     (13, 'Limpieza Dental', 50.0, 'Limpieza dental profesional', 8),
@@ -118,7 +118,80 @@ VALUES
     (21, 'Extracción Dental', 100.0, 'Extracción de muela del juicio', 9),
     (22, 'Empaste Dental', 50.0, 'Empaste dental de composite', 9);
 
-INSERT INTO patients(id, first_name, last_name1, last_name2, dni, email, phone_number, allergies, clinic_id)
-VALUES
-    (23, 'Pablo', 'García', 'Martínez', '12345678A', 'pablo@garcia.com', '123123123', '', 8),
-    (24, 'María', 'López', 'Gómez', '23456789B', 'maria@lop.com', '321321321', '', 9);
+-- Insertar enfermedades previas
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hipertensión arterial');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Diabetes');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Asma');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Enfermedades del corazón');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'VIH+');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis A');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis B');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis C');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis D');
+INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis E');
+
+-- Insertar historias clínicas
+INSERT INTO medical_history (id, allergies) VALUES (1, 'Ninguna');
+INSERT INTO medical_history (id, allergies) VALUES (2, 'Penicilina');
+INSERT INTO medical_history (id, allergies) VALUES (3, 'Mariscos');
+INSERT INTO medical_history (id, allergies) VALUES (4, 'Polen');
+INSERT INTO medical_history (id, allergies) VALUES (5, 'Lácteos');
+INSERT INTO medical_history (id, allergies) VALUES (6, 'Gluten');
+INSERT INTO medical_history (id, allergies) VALUES (7, 'Ninguna');
+INSERT INTO medical_history (id, allergies) VALUES (8, 'Ibuprofeno');
+INSERT INTO medical_history (id, allergies) VALUES (9, 'Aspirina');
+INSERT INTO medical_history (id, allergies) VALUES (10, 'Picaduras de abeja');
+
+-- Insertar pacientes (sin columna allergies)
+INSERT INTO patients (id, first_name, last_name1, last_name2, dni, email, phone_number, clinic_id, medical_history_id) VALUES
+    (23, 'Pablo', 'García', 'Martínez', '12345678A', 'pablo@garcia.com', '123123123', 8, 1),
+    (24, 'María', 'López', 'Gómez', '23456789B', 'maria@lop.com', '321321321', 9, 2),
+    (25, 'Luis', 'Ramírez', 'Soto', '34567890C', 'luis@ramirez.com', '111222333', 8, 3),
+    (26, 'Ana', 'Moreno', 'Díaz', '45678901D', 'ana@moreno.com', '444555666', 9, 4),
+    (27, 'Carlos', 'Jiménez', 'Rey', '56789012E', 'carlos@jimenez.com', '777888999', 8, 5),
+    (28, 'Lucía', 'Torres', 'Rivas', '67890123F', 'lucia@torres.com', '123321123', 9, 6),
+    (29, 'Javier', 'Hernández', 'Cruz', '78901234G', 'javier@hernandez.com', '654987321', 8, 7),
+    (30, 'Elena', 'Pérez', 'Sanz', '89012345H', 'elena@perez.com', '789789789', 9, 8),
+    (31, 'Diego', 'Ortega', 'Lozano', '90123456I', 'diego@ortega.com', '456456456', 8, 9),
+    (32, 'Sara', 'Navarro', 'Blanco', '01234567J', 'sara@navarro.com', '987987987', 9, 10);
+
+-- Relación de enfermedades previas con las historias clínicas
+-- Pablo (id=1): Hepatitis B, C
+INSERT INTO medical_history_previous_diseases VALUES (1, 7);
+INSERT INTO medical_history_previous_diseases VALUES (1, 8);
+
+-- María (id=2): Hepatitis A, E
+INSERT INTO medical_history_previous_diseases VALUES (2, 6);
+INSERT INTO medical_history_previous_diseases VALUES (2, 10);
+
+-- Luis (id=3): Diabetes, VIH+
+INSERT INTO medical_history_previous_diseases VALUES (3, 2);
+INSERT INTO medical_history_previous_diseases VALUES (3, 5);
+
+-- Ana (id=4): Asma
+INSERT INTO medical_history_previous_diseases VALUES (4, 3);
+
+-- Carlos (id=5): Hipertensión, Enfermedades del corazón
+INSERT INTO medical_history_previous_diseases VALUES (5, 1);
+INSERT INTO medical_history_previous_diseases VALUES (5, 4);
+
+-- Lucía (id=6): Hepatitis D, VIH+
+INSERT INTO medical_history_previous_diseases VALUES (6, 9);
+INSERT INTO medical_history_previous_diseases VALUES (6, 5);
+
+-- Javier (id=7): Asma, Hepatitis A
+INSERT INTO medical_history_previous_diseases VALUES (7, 3);
+INSERT INTO medical_history_previous_diseases VALUES (7, 6);
+
+-- Elena (id=8): Diabetes, Hepatitis B
+INSERT INTO medical_history_previous_diseases VALUES (8, 2);
+INSERT INTO medical_history_previous_diseases VALUES (8, 7);
+
+-- Diego (id=9): Hepatitis C, E
+INSERT INTO medical_history_previous_diseases VALUES (9, 8);
+INSERT INTO medical_history_previous_diseases VALUES (9, 10);
+
+-- Sara (id=10): Hipertensión, Asma, VIH+
+INSERT INTO medical_history_previous_diseases VALUES (10, 1);
+INSERT INTO medical_history_previous_diseases VALUES (10, 3);
+INSERT INTO medical_history_previous_diseases VALUES (10, 5);

@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface MedicalHistoryMapper {
+public interface MedicalHistoryRestMapper {
         MedicalHistoryDTO toMedicalHistoryDTO(MedicalHistory medicalHistory);
         MedicalHistory toMedicalHistory(MedicalHistoryDTO medicalHistoryDTO);
 
