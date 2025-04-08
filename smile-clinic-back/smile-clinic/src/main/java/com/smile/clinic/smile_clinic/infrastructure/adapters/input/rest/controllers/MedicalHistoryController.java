@@ -2,10 +2,12 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.control
 
 import com.smile.clinic.smile_clinic.application.ports.input.MedicalHistoryServicePort;
 import com.smile.clinic.smile_clinic.application.ports.input.PatientServicePort;
+import com.smile.clinic.smile_clinic.domain.models.MedicalHistory;
 import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.MedicalHistoryRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalHistoryDTO;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -21,7 +23,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/medical-history")
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class MedicalHistoryController {
     private final MedicalHistoryServicePort medicalHistoryServicePort;
     private final PatientServicePort patientServicePort;
@@ -31,10 +33,8 @@ public class MedicalHistoryController {
     public ResponseEntity<MedicalHistoryDTO> getMedicalHistoryByPatientId(@RequestParam("patientId") Long patientId) {
         try {
             Patient patient = this.patientServicePort.findById(patientId);
-
-            MedicalHistoryDTO medicalHistoryDTO = medicalHistoryRestMapper.toMedicalHistoryDTO(
-                    this.medicalHistoryServicePort.getMedicalHistoryByPatientId(patientId)
-            );
+            MedicalHistory m = this.medicalHistoryServicePort.getMedicalHistoryByPatientId(patientId);
+            MedicalHistoryDTO medicalHistoryDTO = medicalHistoryRestMapper.toMedicalHistoryDTO(m);
 
             return new ResponseEntity<>(medicalHistoryDTO, HttpStatus.OK);
 
