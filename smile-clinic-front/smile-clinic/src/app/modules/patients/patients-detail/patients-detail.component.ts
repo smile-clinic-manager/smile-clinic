@@ -13,6 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MedicalHistoryService } from '../../../../services/medical-history.service';
 import { MedicalHistoryDTO } from '../../../models/MedicalHistoryDTO';
+import { PreviousDiseasesService } from '../../../../services/previous-diseases.service';
+import { DiseaseDTO } from '../../../models/DiseaseDTO';
 
 @Component({
   selector: 'app-patients-detail',
@@ -27,10 +29,11 @@ export class PatientsDetailComponent implements OnInit {
   patient: PatientDTO | undefined = undefined;
   idParam: string = "";
   medicalHistory: MedicalHistoryDTO | undefined = undefined;
+  diseases: DiseaseDTO[] = [];
   readonly dialog = inject(MatDialog);
 
   constructor(private route: ActivatedRoute, private patientService: PatientService, 
-    private medicalHistoryService: MedicalHistoryService) {}
+    private medicalHistoryService: MedicalHistoryService, private previousDiseasesService: PreviousDiseasesService) {}
 
   ngOnInit(): void {
     this.extractId();
@@ -45,16 +48,29 @@ export class PatientsDetailComponent implements OnInit {
   }
 
   findPatient(): void {
-    this.patientService.getPatientById(this.idParam).then(patient => {
+    this.patientService.getPatientById(this.idParam)
+    .then(patient => {
       this.patient = patient;
-    });
+    })
   }
 
   findPatientMedicalHistory(): void {
-    this.medicalHistoryService.getMedicalHistoryByPatientId(this.idParam).then(medicalHistory=>{
+    this.medicalHistoryService.getMedicalHistoryByPatientId(this.idParam)
+    .then(medicalHistory=>{
       this.medicalHistory = medicalHistory;
       console.log(this.medicalHistory);
+    })
+    .finally(()=>{
+      this.findPreviousDiseases();
     });
+  }
+
+  findPreviousDiseases(): void {
+    console.log("GOOOFKEQNINOINAO");
+    this.previousDiseasesService.getPreviousDiseaseByMedicalHistoryId(this.medicalHistory!.id)
+    .then(diseases => {
+      this.diseases = diseases;
+    })
   }
 
   updatePatient(): void {

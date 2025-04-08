@@ -1,6 +1,7 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.controllers;
 
 import com.smile.clinic.smile_clinic.application.ports.input.PreviousDiseasesServicePort;
+import com.smile.clinic.smile_clinic.domain.models.PreviousDiseases;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.PreviousDiseasesMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.PreviousDiseasesDTO;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +20,11 @@ import java.util.List;
 public class PreviousDiseaseController {
     private final PreviousDiseasesServicePort previousDiseasesServicePort;
     private final PreviousDiseasesMapper previousDiseasesMapper;
+
     @GetMapping("/getByMedicalHistoryId")
     public ResponseEntity<List<PreviousDiseasesDTO>> getByMedicalHistoryId(@RequestParam("medicalHistoryId") Long medicalHistoryId){
-        List<PreviousDiseasesDTO> previousDiseasesDTOS = this.previousDiseasesMapper.toPreviousDiseasesDTOList(
-                this.previousDiseasesServicePort.getByMedicalHistoryId(medicalHistoryId));
+        List<PreviousDiseases> m = this.previousDiseasesServicePort.getByMedicalHistoryId(medicalHistoryId);
+        List<PreviousDiseasesDTO> previousDiseasesDTOS = this.previousDiseasesMapper.toPreviousDiseasesDTOList(m);
         return new ResponseEntity<>(previousDiseasesDTOS, HttpStatus.OK);
     }
 }
