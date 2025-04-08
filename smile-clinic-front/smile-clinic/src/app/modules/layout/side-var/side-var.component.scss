@@ -60,7 +60,7 @@ mat-icon{
   }
 }
 
-mat-sidenav{
+mat-sidenav {
   min-width: 120px;
 }
 
@@ -70,6 +70,23 @@ mat-sidenav{
     min-width: 200px;
   }
 }
+
+.mdc-text-field--filled:not{
+  background-color: transparent !important;
+}
+
+.mat-mdc-form-field {
+  display: ruby;
+}
+
+::ng-deep .mat-select-panel {
+  transform: translateX(-100%) !important;
+}
+
+::ng-deep .no-underline .mat-form-field-underline {
+  display: none !important;
+}
+
 
 // TODO: Arreglar alignment del menú lateral
 

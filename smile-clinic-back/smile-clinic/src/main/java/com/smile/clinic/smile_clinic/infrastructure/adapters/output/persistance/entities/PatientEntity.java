@@ -47,14 +47,6 @@ public class PatientEntity {
 
     //Relationships
 
-    @ManyToMany
-    @JoinTable(
-            name = "patient_disease", // Join table name
-            joinColumns = @JoinColumn(name = "patient_id"), // Foreign key for Student
-            inverseJoinColumns = @JoinColumn(name = "disease_id") // Foreign key for Course
-    )
-    private List<DiseaseEntity> previousDiseases;
-
     @ManyToOne
     @JoinColumn(name = "clinic_id", nullable = false)
     private ClinicEntity clinic;

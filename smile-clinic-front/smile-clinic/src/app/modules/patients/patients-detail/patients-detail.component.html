@@ -1,6 +1,6 @@
 <h1>Detalle Paciente</h1>
 <mat-card>
-  <mat-card-header class="patient-avatar-image">
+  <mat-card-header>
     <button mat-icon-button [matMenuTriggerFor]="patientMenu" class="top-left-button" aria-label="patient menu">
       <mat-icon>more_vert</mat-icon>
     </button>
@@ -41,3 +41,15 @@
   </mat-card-content>
 
 </mat-card>
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon> list_alt </mat-icon> Visitas anteriores
+    </ng-template>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon> dentistry </mat-icon> Odontograma
+    </ng-template>
+  </mat-tab>
+</mat-tab-group>

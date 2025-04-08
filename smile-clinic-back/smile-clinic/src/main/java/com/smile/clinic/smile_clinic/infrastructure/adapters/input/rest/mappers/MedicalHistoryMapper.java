@@ -13,4 +13,5 @@ public interface MedicalHistoryMapper {
 
         List<MedicalHistory> toMedicalHistoryList(List<MedicalHistoryDTO> medicalHistoryEntities);
         List<MedicalHistoryDTO> toMedicalHistoryDTOList(List<MedicalHistory> medicalHistories);
+
 }

@@ -1,4 +1,8 @@
 <h1> Tus Clínicas </h1>
+
+<button mat-flat-button (click)="createClinic()" class="marginBottom">Crear clínica
+  <mat-icon>add_circle_outline</mat-icon>
+</button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="NOMBRE">
     <th mat-header-cell *matHeaderCellDef> NOMBRE </th>
@@ -31,6 +35,3 @@
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
-<button mat-flat-button (click)="createClinic()">Crear clínica
-  <mat-icon>add_circle_outline</mat-icon>
-</button>

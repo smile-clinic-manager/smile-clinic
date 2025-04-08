@@ -9,10 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialog } from '@angular/material/dialog';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @Component({
   selector: 'app-patients-detail',
-  imports: [MatTableModule, MatCardModule, MatMenuModule, MatIconModule, MatDividerModule],
+  imports: [MatTableModule, MatCardModule, MatMenuModule, MatIconModule, MatDividerModule, MatButtonModule,
+    MatTabsModule
+  ],
   templateUrl: './patients-detail.component.html',
   styleUrl: './patients-detail.component.scss'
 })
