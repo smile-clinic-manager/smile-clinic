@@ -11,5 +11,5 @@ export interface PatientDTO {
   phoneNumber: string;
   allergies: string; //Why aren't we making an enum or something?
   diseases: DiseaseDTO[];
-  clinicId: string;
+  clinic: ClinicDTO;
 }

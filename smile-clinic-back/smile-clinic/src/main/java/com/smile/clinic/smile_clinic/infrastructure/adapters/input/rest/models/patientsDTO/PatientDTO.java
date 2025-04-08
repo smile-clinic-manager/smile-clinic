@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.patientsDTO;
 
+import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import com.smile.clinic.smile_clinic.domain.models.patients.Disease;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -49,6 +50,6 @@ public class PatientDTO implements Serializable {
     @NotBlank(message = "Required parameter 'previousDiseases'")
     private List<Disease> previousDiseases;
 
-    @NotNull(message = "Required parameter 'clinicId'")
-    private Long clinicId;
+    @NotNull(message = "Required parameter 'clinic'")
+    private Clinic clinic;
 }
