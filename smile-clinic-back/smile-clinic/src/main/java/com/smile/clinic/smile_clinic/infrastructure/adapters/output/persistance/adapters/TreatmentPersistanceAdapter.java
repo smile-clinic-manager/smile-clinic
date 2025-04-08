@@ -22,7 +22,6 @@ public class TreatmentPersistanceAdapter implements TreatmentPersistancePort {
     private final TreatmentEntityRepository treatmentEntityRepository;
     private final ClinicEntityRepository clinicEntityRepository;
     private final TreatmentPersistanceMapper treatmentPersistanceMapper;
-    private final ClinicPersistanceMapper clinicPersistanceMapper;
 
     @Override
     public Optional<Treatment> findById(Long id) {

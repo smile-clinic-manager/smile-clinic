@@ -1,6 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers;
 
-import com.smile.clinic.smile_clinic.domain.MedicalHistory;
+import com.smile.clinic.smile_clinic.domain.models.MedicalHistory;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalHistoryDTO;
 import org.mapstruct.Mapper;
 

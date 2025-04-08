@@ -1,10 +1,9 @@
-package com.smile.clinic.smile_clinic.domain;
+package com.smile.clinic.smile_clinic.domain.models;
 
 import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import lombok.*;
 
 import java.util.List;
-import java.util.Set;
 
 @Builder
 @Getter

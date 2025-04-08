@@ -1,13 +1,7 @@
 package com.smile.clinic.smile_clinic.domain.models.patients;
 
-import com.smile.clinic.smile_clinic.domain.MedicalHistory;
-import com.smile.clinic.smile_clinic.domain.PreviousDiseases;
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.*;
-
-import java.util.List;
 
 @Builder
 @Getter
