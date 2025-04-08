@@ -48,4 +48,7 @@ public class PatientDTO implements Serializable {
 
     @NotBlank(message = "Required parameter 'previousDiseases'")
     private List<Disease> previousDiseases;
+
+    @NotNull(message = "Required parameter 'clinicId'")
+    private Long clinicId;
 }

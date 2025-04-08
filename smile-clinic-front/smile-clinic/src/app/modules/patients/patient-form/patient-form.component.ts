@@ -36,9 +36,9 @@ export class PatientFormComponent implements OnInit {
       this.patientForm.get('phoneNumber')?.setValue(this.data.patient.phoneNumber);
       this.patientForm.get('allergies')?.setValue(this.data.patient.allergies);
       this.patientForm.get('diseases')?.setValue(String(this.data.patient.diseases));
-      this.patientForm.get('clinicId')?.setValue(this.data.patient.clinicId);
       this.isCreating = false;
     }
+    this.patientForm.get('clinicId')?.setValue(this.clinicId);
     console.log(this.patientForm);
   }
 
