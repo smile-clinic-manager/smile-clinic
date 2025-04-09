@@ -16,7 +16,6 @@ export class PreviousDiseasesService {
 
   getPreviousDiseaseByMedicalHistoryId(medicalHistoryId: string): Promise<DiseaseDTO[]> {
     const params: Map<string, any> = new Map();
-    console.log("golaaalalalala");
     params.set('medicalHistoryId', medicalHistoryId);
     return firstValueFrom(
       this.api.get(this.apiEndpointHelper

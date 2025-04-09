@@ -65,6 +65,7 @@ VALUES
 -------------------- **ALICE** -------------------
 -- (CLINIC_ADMIN) - Clínica Dental Sonrisa
 INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 1, 8, 1);  -- Alice, CLINIC_ADMIN, Clínica Dental Sonrisa
+INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 1, 8, 2);  -- Alice, CLINIC_ADMIN, Clínica Dental Sonrisa
 
 -- (CLINIC_DENTIST) - Centro Médico Salud Total
 INSERT INTO user_clinic_role (user_clinic_role_id, user_id, clinic_id, role_id) VALUES (NEXTVAL('seq_user_clinic_role'), 1, 9, 2);  -- Alice, CLINIC_DENTIST, Centro Médico Salud Total

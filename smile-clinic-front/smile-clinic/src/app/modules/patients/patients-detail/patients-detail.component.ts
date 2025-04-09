@@ -58,7 +58,6 @@ export class PatientsDetailComponent implements OnInit {
     this.medicalHistoryService.getMedicalHistoryByPatientId(this.idParam)
     .then(medicalHistory=>{
       this.medicalHistory = medicalHistory;
-      console.log(this.medicalHistory);
     })
     .finally(()=>{
       this.findPreviousDiseases();
@@ -66,11 +65,11 @@ export class PatientsDetailComponent implements OnInit {
   }
 
   findPreviousDiseases(): void {
-    console.log("GOOOFKEQNINOINAO");
     this.previousDiseasesService.getPreviousDiseaseByMedicalHistoryId(this.medicalHistory!.id)
     .then(diseases => {
       this.diseases = diseases;
     })
+    .catch
   }
 
   updatePatient(): void {

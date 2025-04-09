@@ -39,10 +39,7 @@ export class LocalStorageService {
       // Decode with UTF-8 - Evitar que se rompa el texto con acentos y 'ñ'.
       const payloadJson = new TextDecoder('utf-8').decode(bytes);
       const payload = JSON.parse(payloadJson);
-
-      console.log('payload');
-      console.log(payload);
-
+      
       return {
         id: payload.id || 0,
         username: payload.username || '',
@@ -119,13 +116,10 @@ export class LocalStorageService {
 
   public setSelectedGlobalClinic(clinicRole: ClinicRole): void{
     this.selectedGlobalClinic = clinicRole;
-    console.log(this.selectedGlobalClinic);
   }
 
   public setSelectedGlobalRole(globalRole: any): void{
     this.selectedGlobalRole = globalRole;
-    console.log(this.selectedGlobalRole);
-
   }
 
 

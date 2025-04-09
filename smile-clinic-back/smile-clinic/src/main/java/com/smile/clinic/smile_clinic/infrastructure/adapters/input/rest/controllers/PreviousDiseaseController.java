@@ -23,8 +23,8 @@ public class PreviousDiseaseController {
 
     @GetMapping("/getByMedicalHistoryId")
     public ResponseEntity<List<PreviousDiseasesDTO>> getByMedicalHistoryId(@RequestParam("medicalHistoryId") Long medicalHistoryId){
-        List<PreviousDiseases> m = this.previousDiseasesServicePort.getByMedicalHistoryId(medicalHistoryId);
-        List<PreviousDiseasesDTO> previousDiseasesDTOS = this.previousDiseasesMapper.toPreviousDiseasesDTOList(m);
+        List<PreviousDiseasesDTO> previousDiseasesDTOS = this.previousDiseasesMapper.toPreviousDiseasesDTOList(
+                this.previousDiseasesServicePort.getByMedicalHistoryId(medicalHistoryId));
         return new ResponseEntity<>(previousDiseasesDTOS, HttpStatus.OK);
     }
 }
