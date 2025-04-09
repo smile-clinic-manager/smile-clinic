@@ -42,7 +42,6 @@ export class PatientFormComponent implements OnInit {
         this.patientForm.get('email')?.setValue(this.data.patient.email);
         this.patientForm.get('phoneNumber')?.setValue(this.data.patient.phoneNumber);
         this.patientForm.get('allergies')?.setValue(this.data.patient.allergies);
-        this.patientForm.get('diseases')?.setValue(String(this.data.patient.diseases));
         this.isCreating = false;
       }
       console.log(this.patientForm);
@@ -57,7 +56,6 @@ export class PatientFormComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', []),
     allergies: new FormControl('', []),
-    diseases: new FormControl('', []),
   });
 
   isValid(): boolean {
@@ -85,7 +83,6 @@ export class PatientFormComponent implements OnInit {
     patient.email = this.patientForm.get('email')?.value ?? '';
     patient.phoneNumber = this.patientForm.get('phoneNumber')?.value ?? '';
     patient.allergies = this.patientForm.get('allergies')?.value ?? '';
-    patient.diseases = this.patientForm.get('diseases')?.value as unknown as DiseaseDTO[] ?? [];
     patient.clinic = this.clinic!;
     console.log(patient);
     this.dialogRef.close(patient);

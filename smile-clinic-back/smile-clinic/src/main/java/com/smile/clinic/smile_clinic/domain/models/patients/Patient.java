@@ -21,7 +21,7 @@ public class Patient {
     private String lastName2;
     private String dni;
     private String email;
-    private String telephoneNumber;
+    private String phoneNumber;
     private String allergies; //List<Enum>?
     private Clinic clinic;
     //private MedicalHistory medicalHistory;
