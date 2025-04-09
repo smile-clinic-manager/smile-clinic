@@ -50,7 +50,6 @@ export class PatientFormComponent implements OnInit {
       this.patientForm.get('diseases')?.setValue(String(this.data.patient.diseases));
       this.isCreating = false;
     }
-    console.log(this.patientForm);
   }
 
   patientForm = new FormGroup({

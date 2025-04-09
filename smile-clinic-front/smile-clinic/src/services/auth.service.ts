@@ -26,8 +26,6 @@ export class AuthService {
               resolve(true);
           },
           error: (error) => {
-            console.log(error.error)
-            console.error('Error login into application: ', error.error.errorMessage);
             reject(error.error.errorMessage);
           },
       });

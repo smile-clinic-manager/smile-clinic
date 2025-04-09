@@ -15,11 +15,13 @@ import { MedicalHistoryService } from '../../../../services/medical-history.serv
 import { MedicalHistoryDTO } from '../../../models/MedicalHistoryDTO';
 import { PreviousDiseasesService } from '../../../../services/previous-diseases.service';
 import { DiseaseDTO } from '../../../models/DiseaseDTO';
+import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-patients-detail',
   imports: [MatTableModule, MatCardModule, MatMenuModule, MatIconModule, MatDividerModule, MatButtonModule,
-    MatTabsModule
+    MatTabsModule, MatChipsModule
   ],
   templateUrl: './patients-detail.component.html',
   styleUrl: './patients-detail.component.scss'
@@ -33,7 +35,8 @@ export class PatientsDetailComponent implements OnInit {
   readonly dialog = inject(MatDialog);
 
   constructor(private route: ActivatedRoute, private patientService: PatientService, 
-    private medicalHistoryService: MedicalHistoryService, private previousDiseasesService: PreviousDiseasesService) {}
+    private medicalHistoryService: MedicalHistoryService, private previousDiseasesService: PreviousDiseasesService,
+    private snackBarService: SnackbarServiceService) {}
 
   ngOnInit(): void {
     this.extractId();
@@ -69,7 +72,7 @@ export class PatientsDetailComponent implements OnInit {
     .then(diseases => {
       this.diseases = diseases;
     })
-    .catch
+    .catch(error=> this.snackBarService.showErrorSnackBar("Error al obtener las patologías del paciente"))
   }
 
   updatePatient(): void {

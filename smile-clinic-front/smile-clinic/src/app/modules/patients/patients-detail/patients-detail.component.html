@@ -19,24 +19,45 @@
   </mat-card-header>
 
   <mat-card-content>
-    <h2 style="text-align: center; margin-bottom: 20px;">{{patient?.firstName}} {{patient?.lastName1}}
-      {{patient?.lastName2}}</h2>
-    <div class="info-container">
-      <p>
-        <strong>DNI: </strong> {{patient?.dni}}
-      </p>
-      <p>
-        <strong>Email: </strong> {{patient?.email}}
-      </p>
-      <p>
-        <strong>Telefono: </strong> {{patient?.phoneNumber}}
-      </p>
-      <p>
-        <strong>Alergias: </strong> {{patient?.allergies}}
-      </p>
-      <p>
-        <strong>Patologías: </strong> {{patient?.diseases}}
-      </p>
+    <div>
+      <h2 style="text-align: center; margin-bottom: 20px;">
+        {{patient?.firstName}} {{patient?.lastName1}}
+        {{patient?.lastName2}}
+      </h2>
+    </div>
+    
+    <div class="patient-data-container">
+      <div class="patient-data-column">
+        <div class="inline-patient-data">
+          <p><strong>DNI: </strong></p>
+          {{patient?.dni}}
+        </div>
+
+        <div class="inline-patient-data">
+        <p><strong>Email: </strong></p>
+        {{patient?.email}}
+        </div>
+        
+        <div class="inline-patient-data">
+          <p><strong>Teléfono: </strong></p>
+          {{patient?.phoneNumber}}
+        </div>
+      </div>
+      
+      <div class="patient-data-column">
+        <div class="inline-patient-data">
+          <p><strong>Alergias: </strong></p>
+          {{medicalHistory!.allergies}}
+        </div>
+  
+        <div class="inline-patient-data">
+          <p><strong>Patologías: </strong></p>
+          @for(disease of diseases; track disease.id){
+            <mat-chip>{{disease.name}}</mat-chip>
+          }
+        </div>
+      </div>
+
     </div>
   </mat-card-content>
 

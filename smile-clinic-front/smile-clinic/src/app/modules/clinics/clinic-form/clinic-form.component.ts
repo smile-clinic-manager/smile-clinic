@@ -32,7 +32,6 @@ export class ClinicFormComponent implements OnInit {
       this.clinicForm.get('email')?.setValue(this.data.clinic.email);
       this.isCreating = false;
     }
-    console.log(this.clinicForm);
   }
 
   clinicForm = new FormGroup({
