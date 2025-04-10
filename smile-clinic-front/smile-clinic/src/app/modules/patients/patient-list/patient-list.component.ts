@@ -56,7 +56,7 @@ export class PatientListComponent implements OnInit {
       if(patient === undefined) return;
       this.patientService.createPatient(patient).then(() => {
         this.snackBarService.showSuccessSnackBar('Patient created');
-        this.findAll();
+        this.findByActiveClinicId();
       })
       .catch((error) => this.snackBarService.showErrorSnackBar(error))
     });
