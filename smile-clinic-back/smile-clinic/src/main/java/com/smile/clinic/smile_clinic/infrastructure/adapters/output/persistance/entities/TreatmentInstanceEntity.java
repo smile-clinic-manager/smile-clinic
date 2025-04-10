@@ -3,21 +3,18 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "treatments")
-public class TreatmentEntity {
+@Table(name = "treatments_instance")
+public class TreatmentInstanceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatment_seq")
     @SequenceGenerator(name = "treatment_seq", sequenceName = "treatment_seq", allocationSize = 1)
@@ -33,9 +30,6 @@ public class TreatmentEntity {
     private String notes;
 
     @ManyToOne
-    @JoinColumn(name = "clinic_id", nullable = false) // Foreign Key
-    private ClinicEntity clinic;
-
-    @OneToMany(mappedBy = "treatment")
-    private List<TreatmentInstanceEntity> treatmentInstances;
+    @JoinColumn(name = "treatment_id", nullable = false) // Foreign Key
+    private TreatmentEntity treatment;
 }

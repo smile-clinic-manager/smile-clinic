@@ -1,6 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers;
 
-import com.smile.clinic.smile_clinic.domain.PreviousDiseases;
+import com.smile.clinic.smile_clinic.domain.models.PreviousDiseases;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.PreviousDiseasesEntity;
 import org.mapstruct.Mapper;
 
