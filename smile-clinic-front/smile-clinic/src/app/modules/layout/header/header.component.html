@@ -1,24 +1,23 @@
 <mat-toolbar>
-    <button mat-icon-button aria-label="toggle-menu-btn" (click)="toggleSideVar()">
-        <mat-icon class="menu">{{isMenuOpen() ? 'menu' : 'menu_open'}}</mat-icon>
-    </button>
-    <span>Smile Clinic</span>
-    <span class="spacer"></span>
+  <button mat-icon-button aria-label="toggle-menu-btn" (click)="toggleSideVar()">
+    <mat-icon class="menu">{{isMenuOpen() ? 'menu' : 'menu_open'}}</mat-icon>
+  </button>
+  <span>Smile Clinic</span>
+  <span class="spacer"></span>
 
-    <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="user menu">
-        <mat-icon class="menu">person</mat-icon>
-    </button>
+  <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="user menu">
+    <mat-icon class="menu">person</mat-icon>
+  </button>
 
-    <mat-menu #userMenu="matMenu">
-        <button mat-menu-item aria-label="logout" (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            Cerrar sesión
-        </button>
-        <mat-divider></mat-divider>
-        <button mat-menu-item aria-label="view profile">
-            <mat-icon>person</mat-icon>
-            Perfil
-        </button>
-    </mat-menu>
+  <mat-menu #userMenu="matMenu">
+    <button mat-menu-item aria-label="logout" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      Cerrar sesión
+    </button>
+    <mat-divider></mat-divider>
+    <button mat-menu-item aria-label="view profile" (click)="viewProfile()">
+      <mat-icon>person</mat-icon>
+      Perfil
+    </button>
+  </mat-menu>
 </mat-toolbar>
-  

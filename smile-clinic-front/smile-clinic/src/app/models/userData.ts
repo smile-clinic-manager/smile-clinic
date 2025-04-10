@@ -1,4 +1,4 @@
-import { ClinicRole } from "./ClinicRole";
+import { ClinicRoleDTO } from "./ClinicRoleDTO";
 
 export interface userData {
   id: number;
@@ -8,5 +8,5 @@ export interface userData {
   lastName1: string;
   lastName2: string;
   dni: string;
-  roles: ClinicRole[];
+  roles: ClinicRoleDTO[];
 }

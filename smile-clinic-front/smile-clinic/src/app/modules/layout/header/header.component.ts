@@ -39,6 +39,8 @@ export class HeaderComponent{
     this.toggleSideVarEvent.emit();
   }
 
-
+  viewProfile(): void {
+    this.router.navigate(['/profile']);
+  }
 
 }

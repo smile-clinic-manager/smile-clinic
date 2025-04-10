@@ -11,7 +11,7 @@ import { LocalStorageService } from '../../../../services/local-storage.service'
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { userData } from '../../../models/userData';
-import { ClinicRole } from '../../../models/ClinicRole';
+import { ClinicRoleDTO } from '../../../models/ClinicRoleDTO';
 
 @Component({
   selector: 'app-side-var',
@@ -46,7 +46,7 @@ export class SideVarComponent implements AfterViewInit{
     this.sidenav.openedChange.subscribe(()=>{ if(this.isFirstRender) this.isFirstRender = false; })
   }
 
-  setSelectedClinic(clinicRole: ClinicRole): void {
+  setSelectedClinic(clinicRole: ClinicRoleDTO): void {
     this.globalClinicRoleform.get('globalClinic')!.setValue(clinicRole); // Set clinic
     this.clinicRoleList = clinicRole.roles; // Set role options
     this.globalClinicRoleform.get('globalRole')!.setValue(this.clinicRoleList[0]); //Set default role

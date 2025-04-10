@@ -5,7 +5,7 @@ import { jwtDecode } from 'jwt-decode';
 import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
 import { userData } from '../app/models/userData';
 import { RoleDTO } from '../app/models/RoleDTO';
-import { ClinicRole } from '../app/models/ClinicRole';
+import { ClinicRoleDTO } from '../app/models/ClinicRoleDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class LocalStorageService {
   private readonly secretKey: string = 'key-de-prueba';
   private platformId = inject(PLATFORM_ID); // Inject PLATFORM_ID
 
-  private selectedGlobalClinic: ClinicRole | null = null;
+  private selectedGlobalClinic: ClinicRoleDTO | null = null;
   private selectedGlobalRole: RoleDTO | null = null;
 
   constructor() { }
@@ -117,7 +117,7 @@ export class LocalStorageService {
     return this.selectedGlobalRole;
   }
 
-  public setSelectedGlobalClinic(clinicRole: ClinicRole): void{
+  public setSelectedGlobalClinic(clinicRole: ClinicRoleDTO): void{
     this.selectedGlobalClinic = clinicRole;
     console.log(this.selectedGlobalClinic);
   }
@@ -127,7 +127,5 @@ export class LocalStorageService {
     console.log(this.selectedGlobalRole);
 
   }
-
-
 
 }

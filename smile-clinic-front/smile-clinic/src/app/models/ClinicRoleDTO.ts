@@ -1,8 +1,7 @@
 import { RoleDTO } from "./RoleDTO";
 
-export interface ClinicRole {
+export interface ClinicRoleDTO {
     clinicId: string,
     clinic: string,
     roles: RoleDTO[]
 }
-  
