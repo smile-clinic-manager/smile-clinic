@@ -1,0 +1,31 @@
+<h1>Perfil de usuario</h1>
+<mat-card>
+  <mat-card-header class="clinic-avatar-image">
+    <button mat-icon-button [matMenuTriggerFor]="userMenu" class="top-left-button" aria-label="user menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item aria-label="edit" (click)="updateUser()">
+        <mat-icon>edit</mat-icon>
+        Editar perfil
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item aria-label="delete" (click)="deleteUser()">
+        <mat-icon>delete</mat-icon>
+        Eliminar cuenta
+      </button>
+    </mat-menu>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="info-container">
+      <div class="info-item">
+        <p style="margin-right: 50px;"><strong>Nombre: </strong> {{user?.firstName}} </p>
+        <p><strong>Apellidos: </strong>{{user?.lastName1}} {{user?.lastName2}}</p>
+      </div>
+      <div class="info-item">
+        <p><strong>Correo electrónico: </strong> {{user?.email}}</p>
+      </div>
+    </div>
+  </mat-card-content>
