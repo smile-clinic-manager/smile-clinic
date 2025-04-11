@@ -1,6 +1,4 @@
-import { ClinicService } from './../../../../services/clinic.service';
 import { LocalStorageService } from './../../../../services/local-storage.service';
-import { ClinicDTO } from './../../../models/ClinicDTO';
 import { DiseaseDTO } from './../../../models/DiseaseDTO';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,6 +7,8 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { PatientDTO } from '../../../models/PatientDTO';
+import { ClinicDTO } from '../../../models/ClinicDTO';
+import { ClinicService } from '../../../../services/clinic.service';
 
 @Component({
   selector: 'app-patient-form',
@@ -25,44 +25,37 @@ export class PatientFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: { patient: PatientDTO | null; }
   ){}
 
-  clinic: ClinicDTO = {
-    id: '',
-    name: '',
-    postalCode: '',
-    address: '',
-    phoneNumber: '',
-    email: '',
-    img: '',
-    treatments: []
-  }
+  clinic: ClinicDTO | undefined = undefined;
   isCreating = true;
 
-  async ngOnInit(): Promise<void> {
+  async setClinic(): Promise<void> {
     this.clinic = await this.clinicService.getClinicById(this.localStorageService.getSelectedGlobalClinic()?.clinicId ?? '');
-    if (this.data.patient) {
-      this.patientForm.get('firstName')?.setValue(this.data.patient.firstName);
-      this.patientForm.get('lastName1')?.setValue(this.data.patient.lastName1);
-      this.patientForm.get('lastName2')?.setValue(this.data.patient.lastName2);
-      this.patientForm.get('dni')?.setValue(this.data.patient.dni);
-      this.patientForm.get('email')?.setValue(this.data.patient.email);
-      this.patientForm.get('phoneNumber')?.setValue(this.data.patient.phoneNumber);
-      this.patientForm.get('allergies')?.setValue(this.data.patient.allergies);
-      this.patientForm.get('diseases')?.setValue(String(this.data.patient.diseases));
-      this.isCreating = false;
-    }
-    console.log(this.patientForm);
+  }
+
+  ngOnInit(): void {
+    this.setClinic().then(() => {
+      if (this.data.patient) {
+        this.patientForm.get('firstName')?.setValue(this.data.patient.firstName);
+        this.patientForm.get('lastName1')?.setValue(this.data.patient.lastName1);
+        this.patientForm.get('lastName2')?.setValue(this.data.patient.lastName2);
+        this.patientForm.get('dni')?.setValue(this.data.patient.dni);
+        this.patientForm.get('email')?.setValue(this.data.patient.email);
+        this.patientForm.get('phoneNumber')?.setValue(this.data.patient.phoneNumber);
+        this.patientForm.get('allergies')?.setValue(this.data.patient.allergies);
+        this.isCreating = false;
+      }
+      console.log(this.patientForm);
+    })
   }
 
   patientForm = new FormGroup({
-    id: new FormControl('', [Validators.required]),
     firstName: new FormControl('', [Validators.required]),
     lastName1: new FormControl('', [Validators.required]),
     lastName2: new FormControl('', [Validators.required]),
     dni: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', [Validators.required]),
-    allergies: new FormControl('', [Validators.required]),
-    diseases: new FormControl('', [Validators.required]),
+    phoneNumber: new FormControl('', []),
+    allergies: new FormControl('', []),
   });
 
   isValid(): boolean {
@@ -81,7 +74,7 @@ export class PatientFormComponent implements OnInit {
       phoneNumber: '',
       allergies: '',
       diseases: [],
-      clinic: this.clinic,
+      clinic: this.clinic!,
     };
     patient.firstName = this.patientForm.get('firstName')?.value ?? '';
     patient.lastName1 = this.patientForm.get('lastName1')?.value ?? '';
@@ -90,8 +83,8 @@ export class PatientFormComponent implements OnInit {
     patient.email = this.patientForm.get('email')?.value ?? '';
     patient.phoneNumber = this.patientForm.get('phoneNumber')?.value ?? '';
     patient.allergies = this.patientForm.get('allergies')?.value ?? '';
-    patient.diseases = this.patientForm.get('diseases')?.value as unknown as DiseaseDTO[] ?? [];
-    patient.clinic = this.clinic;
+    patient.clinic = this.clinic!;
+    console.log(patient);
     this.dialogRef.close(patient);
   }
 

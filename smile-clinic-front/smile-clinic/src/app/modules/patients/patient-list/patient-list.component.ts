@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
@@ -7,6 +7,7 @@ import { PatientService } from '../../../../services/patient.service';
 import { Router } from '@angular/router';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-patient-list',
@@ -18,7 +19,7 @@ export class PatientListComponent implements OnInit {
 
   displayedColumns: string[] = ["NOMBRE", "APELLIDOS", "ACCIONES"];
   dataSource: PatientDTO[] = [];
-  dialog: any;
+  readonly dialog = inject(MatDialog);
 
   constructor(private router: Router,
     private patientService: PatientService,
@@ -51,12 +52,13 @@ export class PatientListComponent implements OnInit {
       data: {patient: null}
     });
 
-    dialogRef.afterClosed().subscribe((patient: PatientDTO | undefined) => {
+    dialogRef.afterClosed().subscribe((patient: any)  => {
       if(patient === undefined) return;
       this.patientService.createPatient(patient).then(() => {
         this.snackBarService.showSuccessSnackBar('Patient created');
-        this.findAll();
-      });
+        this.findByActiveClinicId();
+      })
+      .catch((error) => this.snackBarService.showErrorSnackBar(error))
     });
   }
 

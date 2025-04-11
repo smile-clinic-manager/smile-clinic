@@ -46,8 +46,10 @@ public class PatientService implements PatientServicePort {
                     savedPatient.setLastName2(patient.getLastName2());
                     savedPatient.setDni(patient.getDni());
                     savedPatient.setEmail(patient.getEmail());
-                    savedPatient.setTelephoneNumber(patient.getTelephoneNumber());
+                    savedPatient.setPhoneNumber(patient.getPhoneNumber());
                     savedPatient.setAllergies(patient.getAllergies());
+                    savedPatient.setClinic(patient.getClinic());
+                    //savedPatient.setMedicalHistory(patient.getMedicalHistory());
                     return patientPersistancePort.save(savedPatient);
                 })
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
@@ -55,6 +57,6 @@ public class PatientService implements PatientServicePort {
 
     @Override
     public void delete(Long id) {
-
+        patientPersistancePort.deleteById(id);
     }
 }
