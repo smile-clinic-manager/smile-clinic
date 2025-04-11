@@ -54,10 +54,6 @@ export class EditUserClinicRolesComponent implements OnInit{
 
   togleAssignedRoles(): void {
     this.formSelectRoles.patchValue({roles: this.clinicUser!.roles!});
-
-    console.log(this.clinicUser!.roles!);
-    console.log('forms value');
-    console.log(this.formSelectRoles.get('roles')!.value);
   }
   
 

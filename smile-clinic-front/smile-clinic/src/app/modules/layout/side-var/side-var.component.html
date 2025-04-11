@@ -10,7 +10,7 @@
           </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select formControlName="globalRole">
+          <mat-select formControlName="globalRole" (selectionChange)="setSelectedRole($event.value)">
             @for(role of clinicRoleList; track role.id){
             <mat-option [value]="role">{{role.name}}</mat-option>
             }

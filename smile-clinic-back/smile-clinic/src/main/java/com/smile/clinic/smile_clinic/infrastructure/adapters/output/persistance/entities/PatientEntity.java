@@ -37,8 +37,6 @@ public class PatientEntity {
 
     private String phoneNumber;
 
-    private String allergies;
-
     //Relationships
 
     @ManyToOne

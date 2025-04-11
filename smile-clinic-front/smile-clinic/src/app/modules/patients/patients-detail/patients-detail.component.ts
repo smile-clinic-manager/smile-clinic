@@ -11,11 +11,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MedicalHistoryService } from '../../../../services/medical-history.service';
+import { MedicalHistoryDTO } from '../../../models/MedicalHistoryDTO';
+import { PreviousDiseasesService } from '../../../../services/previous-diseases.service';
+import { DiseaseDTO } from '../../../models/DiseaseDTO';
+import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-patients-detail',
   imports: [MatTableModule, MatCardModule, MatMenuModule, MatIconModule, MatDividerModule, MatButtonModule,
-    MatTabsModule
+    MatTabsModule, MatChipsModule
   ],
   templateUrl: './patients-detail.component.html',
   styleUrl: './patients-detail.component.scss'
@@ -24,26 +30,49 @@ export class PatientsDetailComponent implements OnInit {
 
   patient: PatientDTO | undefined = undefined;
   idParam: string = "";
+  medicalHistory: MedicalHistoryDTO | undefined = undefined;
+  diseases: DiseaseDTO[] = [];
   readonly dialog = inject(MatDialog);
 
-  constructor(private route: ActivatedRoute,
-    private patientService: PatientService) {}
+  constructor(private route: ActivatedRoute, private patientService: PatientService, 
+    private medicalHistoryService: MedicalHistoryService, private previousDiseasesService: PreviousDiseasesService,
+    private snackBarService: SnackbarServiceService) {}
 
-    ngOnInit(): void {
-      this.extractId();
-      this.findPatient();
-    }
-  
-  findPatient(): void {
-    this.patientService.getPatientById(this.idParam).then(patient => {
-      this.patient = patient;
-    });
+  ngOnInit(): void {
+    this.extractId();
+    this.findPatient();
+    this.findPatientMedicalHistory();
   }
-
+  
   extractId(): string {
     return String(this.route.params.subscribe(params => {
       this.idParam = params['id'];
     }));
+  }
+
+  findPatient(): void {
+    this.patientService.getPatientById(this.idParam)
+    .then(patient => {
+      this.patient = patient;
+    })
+  }
+
+  findPatientMedicalHistory(): void {
+    this.medicalHistoryService.getMedicalHistoryByPatientId(this.idParam)
+    .then(medicalHistory=>{
+      this.medicalHistory = medicalHistory;
+    })
+    .finally(()=>{
+      this.findPreviousDiseases();
+    });
+  }
+
+  findPreviousDiseases(): void {
+    this.previousDiseasesService.getPreviousDiseaseByMedicalHistoryId(this.medicalHistory!.id)
+    .then(diseases => {
+      this.diseases = diseases;
+    })
+    .catch(error=> this.snackBarService.showErrorSnackBar("Error al obtener las patologías del paciente"))
   }
 
   updatePatient(): void {

@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { userData } from '../../../models/userData';
 import { ClinicRole } from '../../../models/ClinicRole';
+import { RoleDTO } from '../../../models/RoleDTO';
 
 @Component({
   selector: 'app-side-var',
@@ -54,7 +55,17 @@ export class SideVarComponent implements AfterViewInit{
     this.localStorageService.setSelectedGlobalClinic(clinicRole);
     this.localStorageService.setSelectedGlobalRole(this.clinicRoleList[0]);
 
+    this.router.navigate(['home'])
   }
+
+  setSelectedRole(role: RoleDTO): void {
+    this.globalClinicRoleform.get('globalRole')!.setValue(role); //Set selected role
+
+    this.localStorageService.setSelectedGlobalRole(role);
+    
+    this.router.navigate(['home'])
+  }
+
   
   redirectToClinics(){
     this.router.navigate(['clinic-list']);

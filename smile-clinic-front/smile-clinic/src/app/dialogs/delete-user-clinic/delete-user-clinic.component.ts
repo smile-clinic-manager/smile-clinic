@@ -11,16 +11,12 @@ import { SnackbarServiceService } from '../../../services/snackbar-service.servi
   templateUrl: './delete-user-clinic.component.html',
   styleUrl: './delete-user-clinic.component.scss'
 })
-export class DeleteUserClinicComponent implements OnInit{
+export class DeleteUserClinicComponent{
 
   constructor(private dialogRef: MatDialogRef<DeleteUserClinicComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { clinicId: string; user: RegisteredUserDTO }, 
     private userService: UserService, private snackBarService: SnackbarServiceService
   ){ }
-
-  ngOnInit(): void {
-    console.log(this.data);
-  }
 
   reload: boolean = true;
 

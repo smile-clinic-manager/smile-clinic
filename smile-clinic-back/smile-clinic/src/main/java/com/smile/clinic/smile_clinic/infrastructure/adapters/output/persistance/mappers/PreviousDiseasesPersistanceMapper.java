@@ -14,7 +14,4 @@ public interface PreviousDiseasesPersistanceMapper {
 
     List<PreviousDiseases> toPreviousDiseasesList(List<PreviousDiseasesEntity> previousDiseasesEntities);
     List<PreviousDiseasesEntity> toPreviousDiseasesEntityList(List<PreviousDiseases> previousDiseases);
-
-    Set<PreviousDiseases> toPreviousDiseasesList(Set<PreviousDiseasesEntity> previousDiseasesEntities);
-    Set<PreviousDiseasesEntity> toPreviousDiseasesEntityList(Set<PreviousDiseases> previousDiseases);
 }

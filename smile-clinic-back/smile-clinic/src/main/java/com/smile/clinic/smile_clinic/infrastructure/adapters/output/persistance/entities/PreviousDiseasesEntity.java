@@ -22,8 +22,5 @@ public class PreviousDiseasesEntity {
 
     @NotBlank
     private String name;
-
-    @ManyToMany(mappedBy = "previousDiseases")
-    private List<MedicalHistoryEntity> medicalHistories;
 }
 

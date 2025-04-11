@@ -46,10 +46,7 @@ public class PatientService implements PatientServicePort {
                     savedPatient.setLastName2(patient.getLastName2());
                     savedPatient.setDni(patient.getDni());
                     savedPatient.setEmail(patient.getEmail());
-                    savedPatient.setPhoneNumber(patient.getPhoneNumber());
-                    savedPatient.setAllergies(patient.getAllergies());
-                    savedPatient.setClinic(patient.getClinic());
-                    //savedPatient.setMedicalHistory(patient.getMedicalHistory());
+                    savedPatient.setTelephoneNumber(patient.getTelephoneNumber());
                     return patientPersistancePort.save(savedPatient);
                 })
                 .orElseThrow(() -> new RuntimeException("Patient not found"));
