@@ -1,5 +1,6 @@
 import { ClinicDTO } from "./ClinicDTO";
 import { DiseaseDTO } from "./DiseaseDTO";
+import { MedicalHistoryDTO } from "./MedicalHistoryDTO";
 
 export interface PatientDTO {
   id: string;
@@ -9,7 +10,6 @@ export interface PatientDTO {
   dni: string;
   email: string;
   phoneNumber: string;
-  allergies: string; //Why aren't we making an enum or something?
-  diseases: DiseaseDTO[];
   clinic: ClinicDTO;
+  medicalHistory: MedicalHistoryDTO;
 }

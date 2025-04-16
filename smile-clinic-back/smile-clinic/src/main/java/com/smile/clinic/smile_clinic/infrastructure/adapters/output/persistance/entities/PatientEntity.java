@@ -38,12 +38,11 @@ public class PatientEntity {
     private String phoneNumber;
 
     //Relationships
-
     @ManyToOne
     @JoinColumn(name = "clinic_id", nullable = false)
     private ClinicEntity clinic;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "medical_history_id")
     private MedicalHistoryEntity medicalHistory;
 

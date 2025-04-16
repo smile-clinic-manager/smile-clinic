@@ -9,28 +9,43 @@ import { MatInputModule } from '@angular/material/input';
 import { PatientDTO } from '../../../models/PatientDTO';
 import { ClinicDTO } from '../../../models/ClinicDTO';
 import { ClinicService } from '../../../../services/clinic.service';
+import { MedicalHistoryDTO } from '../../../models/MedicalHistoryDTO';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { MatChipsModule, MatChipInputEvent } from '@angular/material/chips';
+import { MatIcon } from '@angular/material/icon';
+import { PreviousDiseaseDTO } from '../../../models/PreviousDiseaseDTO';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-patient-form',
   imports: [MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule,
-  ReactiveFormsModule],
+  ReactiveFormsModule, MatOptionModule, MatSelectModule, MatChipsModule, MatIcon, CommonModule],
   templateUrl: './patient-form.component.html',
   styleUrl: './patient-form.component.scss'
 })
 export class PatientFormComponent implements OnInit {
 
+  clinic: ClinicDTO | undefined = undefined;
+  isCreating = true;
+  previousDiseases = [{'id': 1, 'name':'hepatitis'}, {'id': 2, 'name':'VIH+'}, {'id': 3, 'name':'meningitis'}];
+
+  patientForm = new FormGroup({
+    firstName: new FormControl('', [Validators.required]),
+    lastName1: new FormControl('', [Validators.required]),
+    lastName2: new FormControl('', [Validators.required]),
+    dni: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    phoneNumber: new FormControl('', []),
+    allergies: new FormControl('', []),
+    diseases: new FormControl<PreviousDiseaseDTO[]>([], [])
+  });
+
   constructor(private dialogRef: MatDialogRef<PatientFormComponent>,
     private localStorageService: LocalStorageService,
     private clinicService: ClinicService,
-    @Inject(MAT_DIALOG_DATA) public data: { patient: PatientDTO | null; }
-  ){}
-
-  clinic: ClinicDTO | undefined = undefined;
-  isCreating = true;
-
-  async setClinic(): Promise<void> {
-    this.clinic = await this.clinicService.getClinicById(this.localStorageService.getSelectedGlobalClinic()?.clinicId ?? '');
-  }
+    @Inject(MAT_DIALOG_DATA) public data: { patient: PatientDTO | null; medicalHistory: MedicalHistoryDTO; diseases: DiseaseDTO[]}
+  ){  }
 
   ngOnInit(): void {
     this.setClinic().then(() => {
@@ -41,28 +56,23 @@ export class PatientFormComponent implements OnInit {
         this.patientForm.get('dni')?.setValue(this.data.patient.dni);
         this.patientForm.get('email')?.setValue(this.data.patient.email);
         this.patientForm.get('phoneNumber')?.setValue(this.data.patient.phoneNumber);
-        this.patientForm.get('allergies')?.setValue(this.data.patient.allergies);
+        this.patientForm.get('allergies')?.setValue(this.data.medicalHistory.allergies);
+        this.patientForm.get('diseases')?.setValue(this.data.diseases);
         this.isCreating = false;
       }
-      console.log(this.patientForm);
     })
+    console.log(this.patientForm);
   }
 
-  patientForm = new FormGroup({
-    firstName: new FormControl('', [Validators.required]),
-    lastName1: new FormControl('', [Validators.required]),
-    lastName2: new FormControl('', [Validators.required]),
-    dni: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', []),
-    allergies: new FormControl('', []),
-  });
+  async setClinic(): Promise<void> {
+    this.clinic = await this.clinicService.getClinicById(this.localStorageService.getSelectedGlobalClinic()?.clinicId ?? '');
+  }
 
   isValid(): boolean {
     return this.patientForm.valid;
   }
 
-  sendPatientDTO(): void {
+  sendPatientForm(): void {
     if(!this.isValid()) return;
     const patient: PatientDTO = {
       id: '',
@@ -72,8 +82,7 @@ export class PatientFormComponent implements OnInit {
       dni: '',
       email: '',
       phoneNumber: '',
-      allergies: '',
-      diseases: [],
+      medicalHistory: this.data.medicalHistory,
       clinic: this.clinic!,
     };
     patient.firstName = this.patientForm.get('firstName')?.value ?? '';
@@ -82,10 +91,24 @@ export class PatientFormComponent implements OnInit {
     patient.dni = this.patientForm.get('dni')?.value ?? '';
     patient.email = this.patientForm.get('email')?.value ?? '';
     patient.phoneNumber = this.patientForm.get('phoneNumber')?.value ?? '';
-    patient.allergies = this.patientForm.get('allergies')?.value ?? '';
+    patient.medicalHistory.allergies = this.patientForm.get('allergies')?.value ?? '';
+    patient.medicalHistory.previousDiseases = this.patientForm.get('diseases')?.value!;
+    console.log(this.patientForm.get('diseases'));
+    console.log('patient.medicalHistory');
+    console.log(patient.medicalHistory);
     patient.clinic = this.clinic!;
-    console.log(patient);
+
     this.dialogRef.close(patient);
+  }
+
+  getSelectedDiseases(): PreviousDiseaseDTO[]{
+    return this.patientForm.get('diseases')?.value!;
+  }
+
+  removeDisease(diseaseToRemove: PreviousDiseaseDTO): void{
+    const diseases = this.patientForm.get('diseases')?.value as PreviousDiseaseDTO[] || [];
+    const filteredDiseaseList: PreviousDiseaseDTO[] = diseases.filter(disease => disease !== diseaseToRemove);
+    this.patientForm.patchValue({...this.patientForm.value, diseases: filteredDiseaseList})
   }
 
 }

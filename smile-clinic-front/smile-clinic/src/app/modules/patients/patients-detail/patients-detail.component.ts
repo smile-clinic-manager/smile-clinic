@@ -1,5 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from '../../../../services/patient.service';
 import { PatientDTO } from '../../../models/PatientDTO';
 import { MatTableModule } from '@angular/material/table';
@@ -36,7 +36,7 @@ export class PatientsDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private patientService: PatientService, 
     private medicalHistoryService: MedicalHistoryService, private previousDiseasesService: PreviousDiseasesService,
-    private snackBarService: SnackbarServiceService) {}
+    private snackBarService: SnackbarServiceService, private router: Router) {}
 
   ngOnInit(): void {
     this.extractId();
@@ -77,7 +77,11 @@ export class PatientsDetailComponent implements OnInit {
 
   updatePatient(): void {
     const dialogRef = this.dialog.open(PatientFormComponent, {
-      data: {patient: this.patient}
+      data: {
+        patient: this.patient,
+        medicalHistory: this.medicalHistory,
+        diseases: this.diseases
+      }
     });
 
     dialogRef.afterClosed().subscribe(patient => {
@@ -91,7 +95,9 @@ export class PatientsDetailComponent implements OnInit {
   deletePatient(): void {
     this.patientService.deletePatient(Number(this.patient?.id)).then(patient => {
       this.patient = patient;
-    });
+    })
+    .catch(error=> this.snackBarService.showErrorSnackBar("Error al eliminar el paciente"))
+    .finally(() => this.router.navigate(['patients-list']));
   }
 
 }

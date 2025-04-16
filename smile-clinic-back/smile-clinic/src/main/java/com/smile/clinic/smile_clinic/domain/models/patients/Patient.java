@@ -1,6 +1,7 @@
 package com.smile.clinic.smile_clinic.domain.models.patients;
 
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
+import com.smile.clinic.smile_clinic.domain.models.MedicalHistory;
 import lombok.*;
 
 @Builder
@@ -17,5 +18,5 @@ public class Patient {
     private String email;
     private String telephoneNumber;
     private Clinic clinic;
-    //private MedicalHistory medicalHistory;
+    private MedicalHistory medicalHistory;
 }

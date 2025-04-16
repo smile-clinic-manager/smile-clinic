@@ -14,5 +14,5 @@ public class MedicalHistory {
     private Long id;
     private String allergies;
     private List<PreviousDiseases> previousDiseases;
-    private Patient patient;
+    //private Patient patient;
 }

@@ -39,7 +39,7 @@ public class PatientRestController {
     }
 
     @PostMapping("/savePatient")
-    public ResponseEntity<PatientDTO> save(@RequestBody PatientDTO patientDTO){
+    public ResponseEntity<Object> save(@RequestBody PatientDTO patientDTO){
         PatientDTO savedPatientDTO = patientRestMapper.toPatientDTO(patientServicePort.save(patientRestMapper.toPatient(patientDTO)));
         return new ResponseEntity<>(savedPatientDTO, HttpStatus.CREATED);
     }

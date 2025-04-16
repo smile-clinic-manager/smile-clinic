@@ -8,9 +8,11 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.MedicalHistoryEntityRepository;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.PatientEntityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -20,10 +22,22 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
     private final MedicalHistoryPersistanceMapper medicalHistoryPersistanceMapper;
 
     @Override
+    public Optional<MedicalHistory> findById(Long medicalHistoryId) {
+        return this.medicalHistoryEntityRepository.findById(medicalHistoryId).map(medicalHistoryPersistanceMapper::toMedicalHistory);
+    }
+
+    @Override
     public MedicalHistory getMedicalHistoryByPatientId(Long patientId) {
         MedicalHistory medicalHistories = this.medicalHistoryPersistanceMapper.toMedicalHistory(
                 this.medicalHistoryEntityRepository.findByPatientId(patientId)
         );
         return medicalHistories;
+    }
+
+    @Override
+    public MedicalHistory save(MedicalHistory medicalHistory) {
+        return medicalHistoryPersistanceMapper.toMedicalHistory(
+                this.medicalHistoryEntityRepository.save(medicalHistoryPersistanceMapper.toMedicalHistoryEntity(medicalHistory))
+        );
     }
 }

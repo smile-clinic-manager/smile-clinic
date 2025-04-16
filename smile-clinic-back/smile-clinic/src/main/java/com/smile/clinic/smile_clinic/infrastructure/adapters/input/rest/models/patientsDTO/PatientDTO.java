@@ -2,6 +2,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.
 
 import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import com.smile.clinic.smile_clinic.domain.models.patients.Disease;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalHistoryDTO;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -44,12 +45,9 @@ public class PatientDTO implements Serializable {
     @NotBlank(message = "Required parameter 'phoneNumber'")
     private String phoneNumber;
 
-    @NotNull(message = "Required parameter 'allergies'")
-    private String allergies; //Why aren't we making an enum or something?
-
-    @NotBlank(message = "Required parameter 'previousDiseases'")
-    private List<Disease> previousDiseases;
-
     @NotNull(message = "Required parameter 'clinic'")
     private Clinic clinic;
+
+    @NotNull(message = "Required parameter 'medicalHistory'")
+    private MedicalHistoryDTO medicalHistory;
 }

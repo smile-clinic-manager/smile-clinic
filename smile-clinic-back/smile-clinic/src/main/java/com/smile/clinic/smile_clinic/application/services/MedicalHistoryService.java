@@ -8,6 +8,7 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.M
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,5 +23,14 @@ public class MedicalHistoryService implements MedicalHistoryServicePort {
     @Override
     public MedicalHistory getMedicalHistoryByPatientId(Long patientId) {
         return this.medicalHistoryPersistancePort.getMedicalHistoryByPatientId(patientId);
+    }
+
+    @Override
+    public MedicalHistory updateMedicalHistory(MedicalHistory medicalHistory) {
+        return medicalHistoryPersistancePort.findById(medicalHistory.getId()).map((savedMedicalHistory) -> {
+                savedMedicalHistory.setAllergies(medicalHistory.getAllergies());
+                return medicalHistoryPersistancePort.save(savedMedicalHistory);
+            })
+            .orElseThrow(() -> new RuntimeException("Medical history not found"));
     }
 }

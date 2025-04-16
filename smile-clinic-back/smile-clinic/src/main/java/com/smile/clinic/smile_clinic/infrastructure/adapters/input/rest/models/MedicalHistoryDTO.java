@@ -13,5 +13,5 @@ import java.util.List;
 public class MedicalHistoryDTO {
     private Long id;
     private String allergies;
-
+    private List<PreviousDiseasesDTO> previousDiseases;
 }
