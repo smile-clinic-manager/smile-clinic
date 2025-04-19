@@ -5,6 +5,7 @@ import com.smile.clinic.smile_clinic.domain.models.PreviousDiseases;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.PreviousDiseasesPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.PreviousDiseasesEntityRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,5 +20,11 @@ public class PreviousDiseasesAdapter implements PreviousDiseasesPersistancePort 
     public List<PreviousDiseases> getByMedicalHistoryId(Long medicalHistoryId) {
         return this.previousDiseasesPersistanceMapper.toPreviousDiseasesList(
                 this.previousDiseasesEntityRepository.findByMedicalHistoryId(medicalHistoryId));
+    }
+
+    @Override
+    public List<PreviousDiseases> getAllDiseases() {
+        return this.previousDiseasesPersistanceMapper.toPreviousDiseasesList(
+                this.previousDiseasesEntityRepository.findAll());
     }
 }

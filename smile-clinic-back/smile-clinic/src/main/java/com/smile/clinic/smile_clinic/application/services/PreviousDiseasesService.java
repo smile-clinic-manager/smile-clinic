@@ -18,4 +18,9 @@ public class PreviousDiseasesService implements PreviousDiseasesServicePort {
     public List<PreviousDiseases> getByMedicalHistoryId(Long medicalHistoryId) {
         return this.previousDiseasesPersistancePort.getByMedicalHistoryId(medicalHistoryId);
     }
+
+    @Override
+    public List<PreviousDiseases> getAllDiseases() {
+        return this.previousDiseasesPersistancePort.getAllDiseases();
+    }
 }

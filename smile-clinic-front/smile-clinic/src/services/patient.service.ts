@@ -5,6 +5,7 @@ import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { ApiHttpService } from './api-http.service';
 import { LocalStorageService } from './local-storage.service';
 import { ClinicDTO } from '../app/models/ClinicDTO';
+import { PreviousDiseaseDTO } from '../app/models/PreviousDiseaseDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -54,4 +55,11 @@ export class PatientService {
       this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/patients/deletePatient', new Map([['id', id]])))
     )
   }
+
+  getAllPreviousDiseases(): Promise<PreviousDiseaseDTO[]>{
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrl('previous-diseases/getAllDiseases'))
+    );
+  }
+
 }

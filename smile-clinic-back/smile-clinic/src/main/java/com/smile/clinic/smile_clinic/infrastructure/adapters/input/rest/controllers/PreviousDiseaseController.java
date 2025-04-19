@@ -27,4 +27,11 @@ public class PreviousDiseaseController {
                 this.previousDiseasesServicePort.getByMedicalHistoryId(medicalHistoryId));
         return new ResponseEntity<>(previousDiseasesDTOS, HttpStatus.OK);
     }
+
+    @GetMapping("/getAllDiseases")
+    public ResponseEntity<List<PreviousDiseasesDTO>> getAllDiseases(){
+        List<PreviousDiseasesDTO> previousDiseasesDTOS = this.previousDiseasesMapper.toPreviousDiseasesDTOList(
+                this.previousDiseasesServicePort.getAllDiseases());
+        return new ResponseEntity<>(previousDiseasesDTOS, HttpStatus.OK);
+    }
 }

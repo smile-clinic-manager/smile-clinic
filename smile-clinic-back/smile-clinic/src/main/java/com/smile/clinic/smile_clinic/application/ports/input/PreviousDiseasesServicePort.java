@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface PreviousDiseasesServicePort {
     List<PreviousDiseases> getByMedicalHistoryId(Long medicalHistoryId);
+
+    List<PreviousDiseases> getAllDiseases();
 }

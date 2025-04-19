@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface PreviousDiseasesPersistancePort {
     List<PreviousDiseases> getByMedicalHistoryId(Long medicalHistoryId);
+
+    List<PreviousDiseases> getAllDiseases();
 }
