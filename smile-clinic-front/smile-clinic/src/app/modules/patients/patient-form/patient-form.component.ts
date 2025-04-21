@@ -67,7 +67,7 @@ export class PatientFormComponent implements OnInit {
       this.patientForm.get('allergies')?.setValue(this.data.medicalHistory.allergies);
 
       // Inicializamos los disease que ya tiene el paciente que nos entra por injeccion del data
-      const selectedDiseases = this.previousDiseases.filter(d=> d.id in this.data.diseases.map(d2=>d2.id));
+      const selectedDiseases = this.previousDiseases.filter(d=> this.data.diseases.some(d2=>Number(d2.id) === Number(d.id)));
 
       this.patientForm.get('diseases')?.setValue(selectedDiseases);
       this.isCreating = false;
@@ -99,7 +99,7 @@ export class PatientFormComponent implements OnInit {
       dni: '',
       email: '',
       phoneNumber: '',
-      medicalHistory: this.data.medicalHistory,
+      medicalHistory: this.data.medicalHistory ?? this.defaultMedicalHistory(),
       clinic: this.clinic!,
     };
     patient.firstName = this.patientForm.get('firstName')?.value ?? '';
@@ -123,6 +123,10 @@ export class PatientFormComponent implements OnInit {
     const diseases = this.patientForm.get('diseases')?.value as PreviousDiseaseDTO[] || [];
     const filteredDiseaseList: PreviousDiseaseDTO[] = diseases.filter(disease => disease !== diseaseToRemove);
     this.patientForm.patchValue({...this.patientForm.value, diseases: filteredDiseaseList})
+  }
+
+  defaultMedicalHistory(): MedicalHistoryDTO {
+    return { id: '', allergies: '', previousDiseases: [] };
   }
 
 }

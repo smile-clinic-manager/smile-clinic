@@ -29,6 +29,7 @@ public class MedicalHistoryService implements MedicalHistoryServicePort {
     public MedicalHistory updateMedicalHistory(MedicalHistory medicalHistory) {
         return medicalHistoryPersistancePort.findById(medicalHistory.getId()).map((savedMedicalHistory) -> {
                 savedMedicalHistory.setAllergies(medicalHistory.getAllergies());
+                savedMedicalHistory.setPreviousDiseases(medicalHistory.getPreviousDiseases());
                 return medicalHistoryPersistancePort.save(savedMedicalHistory);
             })
             .orElseThrow(() -> new RuntimeException("Medical history not found"));
