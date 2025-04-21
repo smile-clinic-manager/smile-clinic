@@ -143,6 +143,8 @@ INSERT INTO medical_history (id, allergies) VALUES (8, 'Ibuprofeno');
 INSERT INTO medical_history (id, allergies) VALUES (9, 'Aspirina');
 INSERT INTO medical_history (id, allergies) VALUES (10, 'Picaduras de abeja');
 
+ALTER SEQUENCE medical_history_seq RESTART WITH 11;
+
 -- Insertar pacientes (sin columna allergies)
 INSERT INTO patients (id, first_name, last_name1, last_name2, dni, email, phone_number, clinic_id, medical_history_id) VALUES
     (23, 'Pablo', 'García', 'Martínez', '12345678A', 'pablo@garcia.com', '123123123', 8, 1),

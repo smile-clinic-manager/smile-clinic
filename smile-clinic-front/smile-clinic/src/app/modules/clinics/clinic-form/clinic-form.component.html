@@ -1,4 +1,4 @@
-<h2 mat-dialog-title>Formulario de clínica</h2>
+<h2 mat-dialog-title>{{isCreating ? 'Crear clínica' : 'Editar clínica'}}</h2>
 <mat-dialog-content class="mat-typography">
   <div class="clinic-form" [formGroup]="clinicForm">
     <mat-form-field class="clinic-full-width">

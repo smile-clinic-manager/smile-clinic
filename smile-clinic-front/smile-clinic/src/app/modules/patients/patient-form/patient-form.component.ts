@@ -35,8 +35,8 @@ export class PatientFormComponent implements OnInit {
   patientForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),
     lastName1: new FormControl('', [Validators.required]),
-    lastName2: new FormControl('', [Validators.required]),
-    dni: new FormControl('', [Validators.required]),
+    lastName2: new FormControl(''),
+    dni: new FormControl('', [Validators.required, Validators.pattern(/^[0-9]{8}[A-Za-z]$/)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     phoneNumber: new FormControl('', []),
     allergies: new FormControl('', []),

@@ -56,7 +56,7 @@ public class PatientService implements PatientServicePort {
                     savedPatient.setLastName2(patient.getLastName2());
                     savedPatient.setDni(patient.getDni());
                     savedPatient.setEmail(patient.getEmail());
-                    savedPatient.setTelephoneNumber(patient.getTelephoneNumber());
+                    savedPatient.setPhoneNumber(patient.getPhoneNumber());
                     savedPatient.setMedicalHistory(patient.getMedicalHistory());
                     return patientPersistancePort.save(savedPatient);
                 })

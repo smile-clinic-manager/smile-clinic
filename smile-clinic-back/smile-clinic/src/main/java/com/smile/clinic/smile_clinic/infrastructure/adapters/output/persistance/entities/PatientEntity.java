@@ -35,6 +35,7 @@ public class PatientEntity {
     @Column(unique = true)
     private String email;
 
+    @NotBlank
     private String phoneNumber;
 
     //Relationships
