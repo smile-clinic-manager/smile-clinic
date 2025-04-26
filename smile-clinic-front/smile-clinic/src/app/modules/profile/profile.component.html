@@ -25,7 +25,25 @@
         <p><strong>Apellidos: </strong>{{user?.lastName1}} {{user?.lastName2}}</p>
       </div>
       <div class="info-item">
+        <p><strong>Nombre de usuario: </strong> {{user?.username}}</p>
+      </div>
+      <div class="info-item">
         <p><strong>Correo electrónico: </strong> {{user?.email}}</p>
+      </div>
+      <div class="info-item">
+        <p><strong>Dni: </strong> {{user?.dni}}</p>
+      </div>
+      <div class="info-item">
+        <p><strong>Roles: </strong>
+          |
+          @for(clinicRole of user?.roles; track clinicRole){
+          {{clinicRole.clinic}} ->
+          @for(role of clinicRole.roles; track role){
+          {{role.name}}
+          |
+          }
+          }
+        </p>
       </div>
     </div>
   </mat-card-content>
