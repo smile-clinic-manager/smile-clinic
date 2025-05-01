@@ -5,5 +5,5 @@ public class TreatmentInstance {
     private String name;
     private Double price;
     private String notes;
-    private Long clinicId;
+    private Long patientId;
 }

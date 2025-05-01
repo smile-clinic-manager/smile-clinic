@@ -9,8 +9,8 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface TreatmentInstanceRestMapper {
     TreatmentInstanceDTO toTreatmentInstanceDTO(TreatmentInstance treatment);
-    TreatmentInstance toTreatment(TreatmentInstanceDTO treatmentInstanceDTO);
+    TreatmentInstance toTreatmentInstance(TreatmentInstanceDTO treatmentInstanceDTO);
 
-    List<TreatmentInstance> toTreatmentList(List<TreatmentInstanceDTO> treatmentInstanceDTOS);
-    List<TreatmentInstanceDTO> toTreatmentDTOList(List<TreatmentInstance> treatments);
+    List<TreatmentInstance> toTreatmentInstanceList(List<TreatmentInstanceDTO> treatmentInstanceDTOS);
+    List<TreatmentInstanceDTO> toTreatmentInstanceDTOList(List<TreatmentInstance> treatments);
 }

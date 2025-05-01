@@ -23,4 +23,5 @@ public class TreatmentInstanceDTO {
     @NotBlank(message = "Field notes cannot be empty, blank or null")
     private String notes;
 
+    private Long patientId;
 }

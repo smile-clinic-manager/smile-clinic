@@ -30,6 +30,6 @@ public class TreatmentInstanceEntity {
     private String notes;
 
     @ManyToOne
-    @JoinColumn(name = "treatment_id", nullable = false) // Foreign Key
-    private TreatmentEntity treatment;
+    @JoinColumn(name = "patient_id", nullable = false) // Foreign Key
+    private PatientEntity patient;
 }
