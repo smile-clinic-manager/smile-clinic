@@ -7,10 +7,10 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring", uses = TreatmentInstancePersistanceMapper.class)
-public interface RecordPersistanceMapper {
-
-    MedicalRecordEntryEntity toMedicalRecordEntryEntity(MedicalRecordEntry medicalRecordEntry);
+public interface MedicalRecordEntryPersistanceMapper {
     MedicalRecordEntry toMedicalRecordEntry(MedicalRecordEntryEntity medicalRecordEntryEntity);
-    List<MedicalRecordEntryEntity> toRecordEntityList(List<MedicalRecordEntry> medicalRecordEntries);
-    List<MedicalRecordEntry> toMedicalRecordEntryList(List<MedicalRecordEntryEntity> medicalRecordEntryEntities);
+    MedicalRecordEntryEntity toMedicalRecordEntryEntity(MedicalRecordEntry medicalRecordEntry);
+
+    List<MedicalRecordEntry> toMedicalRecordEntryList(List<MedicalRecordEntryEntity> medicalRecordEntriesEntity);
+    List<MedicalRecordEntryEntity> toMedicalRecordEntryEntityList(List<MedicalRecordEntry> medicalRecordEntries);
 }

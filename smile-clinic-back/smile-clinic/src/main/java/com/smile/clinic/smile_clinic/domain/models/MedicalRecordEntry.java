@@ -1,9 +1,11 @@
 package com.smile.clinic.smile_clinic.domain.models;
 
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.ToothEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Builder
 @Getter
@@ -13,8 +15,8 @@ import java.time.LocalDateTime;
 public class MedicalRecordEntry {
     private Long id;
     private LocalDateTime dateTime;
-    private String visitPurpose;
     private String observations;
-    private User dentist; //Dentist in charge of the intervention
-    private Treatment treatment;
+    private User user; //Dentist in charge of the intervention
+    private TreatmentInstance treatmentInstance;
+    private List<ToothEntity> teeth;
 }

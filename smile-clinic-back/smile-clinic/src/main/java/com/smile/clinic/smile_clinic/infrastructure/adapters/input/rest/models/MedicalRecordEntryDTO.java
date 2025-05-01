@@ -1,5 +1,7 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models;
 
+import com.smile.clinic.smile_clinic.domain.models.TreatmentInstance;
+import com.smile.clinic.smile_clinic.domain.models.users.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -20,6 +22,11 @@ public class MedicalRecordEntryDTO {
     private String dateTime;
 
     @NotNull(message = "Field notes cannot be null")
-    private String notes;
+    private String observations;
+
+    @NotNull(message = "Field user cannot be null")
+    private User user;
+
+    private TreatmentInstance treatmentInstance;
 
 }
