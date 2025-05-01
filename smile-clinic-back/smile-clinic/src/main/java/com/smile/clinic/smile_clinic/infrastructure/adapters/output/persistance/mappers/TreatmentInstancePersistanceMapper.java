@@ -8,9 +8,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface TreatmentInstancePersistanceMapper {
-    TreatmentInstanceEntity toTreatmentEntity(TreatmentInstance treatment);
-    TreatmentInstance toTreatment(TreatmentInstanceEntity entity);
+    TreatmentInstanceEntity toTreatmentInstanceEntity(TreatmentInstance treatment);
+    TreatmentInstance toTreatmentInstance(TreatmentInstanceEntity entity);
 
-    List<TreatmentInstance> toTreatmentList(List<TreatmentInstanceEntity> entities);
-    List<TreatmentInstanceEntity> toTreatmentEntityList(List<TreatmentInstance> treatments);
+    List<TreatmentInstance> toTreatmentInstanceList(List<TreatmentInstanceEntity> entities);
+    List<TreatmentInstanceEntity> toTreatmentInstanceEntityList(List<TreatmentInstance> treatments);
 }

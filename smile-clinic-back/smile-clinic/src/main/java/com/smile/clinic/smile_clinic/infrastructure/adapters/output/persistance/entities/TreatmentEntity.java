@@ -35,7 +35,4 @@ public class TreatmentEntity {
     @ManyToOne
     @JoinColumn(name = "clinic_id", nullable = false) // Foreign Key
     private ClinicEntity clinic;
-
-    @OneToMany(mappedBy = "treatment")
-    private List<TreatmentInstanceEntity> treatmentInstances;
 }
