@@ -47,4 +47,16 @@ export class UserService {
     );   
   }
 
+  updateUser(user: RegisteredUserDTO) {
+    return firstValueFrom(
+      this.api.put(this.apiEndpointHelper.createUrl('users/updateUser'), user)
+    );
+  }
+
+  deleteUser(userId: string) {
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrl('users/deleteUser/' + userId))
+    );
+  }
+
 }

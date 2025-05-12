@@ -11,7 +11,7 @@ import { ClinicDetailComponent } from './modules/clinics/clinic-detail/clinic-de
 import { TreatmentListComponent } from './treatment-list/treatment-list.component';
 import { PatientListComponent } from './modules/patients/patient-list/patient-list.component';
 import { PatientsDetailComponent } from './modules/patients/patients-detail/patients-detail.component';
-import { ProfileComponent } from './modules/profile/profile.component';
+import { ProfileDetailComponent } from './modules/profile/profile-detail/profile-detail.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -25,7 +25,7 @@ export const routes: Routes = [
       { path: 'treatment-list', component: TreatmentListComponent },
       { path: 'patients-list', component: PatientListComponent },
       { path: 'patient-detail/:id', component: PatientsDetailComponent, canActivate: [authGuard] },
-      { path: 'profile', component: ProfileComponent, canActivate: [authGuard] },
+      { path: 'profile', component: ProfileDetailComponent, canActivate: [authGuard] },
     ]
   },
   { path: '**', component: PageNotFoundComponent }, // Wildcard route (404 page)

@@ -21,22 +21,22 @@
   <mat-card-content>
     <div class="info-container">
       <div class="info-item">
-        <p style="margin-right: 50px;"><strong>Nombre: </strong> {{user?.firstName}} </p>
-        <p><strong>Apellidos: </strong>{{user?.lastName1}} {{user?.lastName2}}</p>
+        <p style="margin-right: 50px;"><strong>Nombre: </strong> {{data?.firstName}} </p>
+        <p><strong>Apellidos: </strong>{{data?.lastName1}} {{data?.lastName2}}</p>
       </div>
       <div class="info-item">
-        <p><strong>Nombre de usuario: </strong> {{user?.username}}</p>
+        <p><strong>Nombre de usuario: </strong> {{data?.username}}</p>
       </div>
       <div class="info-item">
-        <p><strong>Correo electrónico: </strong> {{user?.email}}</p>
+        <p><strong>Correo electrónico: </strong> {{data?.email}}</p>
       </div>
       <div class="info-item">
-        <p><strong>Dni: </strong> {{user?.dni}}</p>
+        <p><strong>Dni: </strong> {{data?.dni}}</p>
       </div>
       <div class="info-item">
         <p><strong>Roles: </strong>
           |
-          @for(clinicRole of user?.roles; track clinicRole){
+          @for(clinicRole of data?.roles; track clinicRole){
           {{clinicRole.clinic}} ->
           @for(role of clinicRole.roles; track role){
           {{role.name}}
