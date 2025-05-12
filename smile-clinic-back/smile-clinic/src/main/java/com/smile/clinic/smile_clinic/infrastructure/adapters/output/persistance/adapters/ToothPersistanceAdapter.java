@@ -1,12 +1,26 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.adapters;
 
 import com.smile.clinic.smile_clinic.application.ports.output.ToothServicePersistancePort;
+import com.smile.clinic.smile_clinic.domain.models.Tooth;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.ToothEntity;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.ToothPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.ToothEntityRepository;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class ToothPersistanceAdapter implements ToothServicePersistancePort {
     private final ToothEntityRepository toothEntityRepository;
+    private final ToothPersistanceMapper toothPersistanceMapper;
+
+    @Override
+    public List<Tooth> findAllTeeth() {
+        List<ToothEntity> entities = this.toothEntityRepository.findAll();
+        List<Tooth> teeth = this.toothPersistanceMapper.toToothList(entities);
+        return teeth;
+    }
 }

@@ -198,3 +198,40 @@ INSERT INTO medical_history_previous_diseases VALUES (9, 10);
 INSERT INTO medical_history_previous_diseases VALUES (10, 1);
 INSERT INTO medical_history_previous_diseases VALUES (10, 3);
 INSERT INTO medical_history_previous_diseases VALUES (10, 5);
+
+INSERT INTO tooth (id, code, name) VALUES
+    (1,  '11', 'Incisivo central superior derecho'),
+    (2,  '12', 'Incisivo lateral superior derecho'),
+    (3,  '13', 'Canino superior derecho'),
+    (4,  '14', 'Primer premolar superior derecho'),
+    (5,  '15', 'Segundo premolar superior derecho'),
+    (6,  '16', 'Primer molar superior derecho'),
+    (7,  '17', 'Segundo molar superior derecho'),
+    (8,  '18', 'Tercer molar superior derecho'),
+
+    (9,  '21', 'Incisivo central superior izquierdo'),
+    (10, '22', 'Incisivo lateral superior izquierdo'),
+    (11, '23', 'Canino superior izquierdo'),
+    (12, '24', 'Primer premolar superior izquierdo'),
+    (13, '25', 'Segundo premolar superior izquierdo'),
+    (14, '26', 'Primer molar superior izquierdo'),
+    (15, '27', 'Segundo molar superior izquierdo'),
+    (16, '28', 'Tercer molar superior izquierdo'),
+
+    (17, '31', 'Incisivo central inferior izquierdo'),
+    (18, '32', 'Incisivo lateral inferior izquierdo'),
+    (19, '33', 'Canino inferior izquierdo'),
+    (20, '34', 'Primer premolar inferior izquierdo'),
+    (21, '35', 'Segundo premolar inferior izquierdo'),
+    (22, '36', 'Primer molar inferior izquierdo'),
+    (23, '37', 'Segundo molar inferior izquierdo'),
+    (24, '38', 'Tercer molar inferior izquierdo'),
+
+    (25, '41', 'Incisivo central inferior derecho'),
+    (26, '42', 'Incisivo lateral inferior derecho'),
+    (27, '43', 'Canino inferior derecho'),
+    (28, '44', 'Primer premolar inferior derecho'),
+    (29, '45', 'Segundo premolar inferior derecho'),
+    (30, '46', 'Primer molar inferior derecho'),
+    (31, '47', 'Segundo molar inferior derecho'),
+    (32, '48', 'Tercer molar inferior derecho');

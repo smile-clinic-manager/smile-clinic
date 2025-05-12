@@ -1,0 +1,31 @@
+package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.controllers;
+
+import com.smile.clinic.smile_clinic.application.ports.input.ToothServicePort;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.ToothRestMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ToothDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/tooth")
+public class ToothController {
+    private final ToothServicePort toothServicePort;
+    private final ToothRestMapper toothRestMapper;
+
+    @GetMapping("/findAllTeeth")
+    public ResponseEntity<Object> findAllRoles() {
+        try{
+            List<ToothDTO> teeth = toothRestMapper.toToothDTOList(this.toothServicePort.findAllTeeth());
+            return new ResponseEntity<>(teeth, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+}
