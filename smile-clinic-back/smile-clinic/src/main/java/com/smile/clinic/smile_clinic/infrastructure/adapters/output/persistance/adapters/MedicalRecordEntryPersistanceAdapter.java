@@ -41,4 +41,10 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
     public void delete(MedicalRecordEntry record) {
         this.recordEntityRepository.delete(recordPersistanceMapper.toMedicalRecordEntryEntity(record));
     }
+
+    @Override
+    public List<MedicalRecordEntry> findPatientToothMedicalRecords(Long medicalRecordId, Long toothId) {
+        //TODO
+        return null;
+    }
 }

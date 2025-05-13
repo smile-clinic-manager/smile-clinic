@@ -5,5 +5,5 @@ import com.smile.clinic.smile_clinic.domain.models.Tooth;
 import java.util.List;
 
 public interface ToothServicePort {
-    List<Tooth> findAllTeeth();
+    List<Tooth> findAllTeeth(Long medicalRecordId);
 }

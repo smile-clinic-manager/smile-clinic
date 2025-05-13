@@ -18,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "medical_records")
+@Table(name = "medical_record_entries")
 public class MedicalRecordEntryEntity {
 
         @Id
@@ -32,7 +32,8 @@ public class MedicalRecordEntryEntity {
         @NotBlank
         private String observations;
 
-        @OneToOne
+        @ManyToOne
+        @JoinColumn(name = "user_id")
         private UserEntity user;
 
         @ManyToOne
