@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrl: './odontogram.component.scss'
 })
 export class OdontogramComponent {
-
+  
 }
