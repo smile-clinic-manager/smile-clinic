@@ -1,0 +1,29 @@
+.teeth-row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 5rem;
+  gap: 8px;
+}
+
+.teeth-div{
+    width: 6%;
+    height: 10rem;
+}
+
+.teeth-card{
+    height: 95%;
+}
+
+.teeth-code{
+    display: flex;
+    justify-content: center;
+}
+
+mat-card-content{
+    height: 90%;
+}
+
+mat-card-footer{
+    display: flex;
+    justify-content: center;
+}
