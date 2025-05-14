@@ -22,9 +22,9 @@ public class ToothController {
     private final ToothRestMapper toothRestMapper;
 
     @GetMapping("/findAllTeeth")
-    public ResponseEntity<Object> findAllRoles(@RequestParam("medicalRecordId") Long medicalRecordId) {
+    public ResponseEntity<Object> findAllTeeth(@RequestParam("medicalHistoryId") Long medicalHistoryId) {
         try{
-            List<ToothDTO> teeth = toothRestMapper.toToothDTOList(this.toothServicePort.findAllTeeth(medicalRecordId));
+            List<ToothDTO> teeth = toothRestMapper.toToothDTOList(this.toothServicePort.findAllTeeth(medicalHistoryId));
             return new ResponseEntity<>(teeth, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);

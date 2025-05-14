@@ -72,6 +72,8 @@
     <ng-template mat-tab-label>
       <mat-icon> dentistry </mat-icon> Odontograma
     </ng-template>
-    <app-odontogram></app-odontogram>
+    @defer(when medicalHistory !== undefined){
+      <app-odontogram [medicalHistoryDTO]="medicalHistory"></app-odontogram>
+    }
   </mat-tab>
 </mat-tab-group>

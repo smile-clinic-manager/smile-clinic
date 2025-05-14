@@ -12,8 +12,8 @@ import java.util.List;
 public interface MedicalHistoryEntityRepository extends JpaRepository<MedicalHistoryEntity, Long> {
 
 
-    @Query(value = "SELECT medical_history.* FROM medical_history " +
+    @Query(value = "SELECT medical_history.id, medical_history.allergies FROM medical_history " +
             "INNER JOIN patients ON patients.medical_history_id = medical_history.id " +
             "WHERE patients.id = :patientId", nativeQuery = true)
-    MedicalHistoryEntity findByPatientId(@Param("patientId") Long patientId);
+    MedicalHistoryEntity findHistoryByPatientId(@Param("patientId") Long patientId);
 }

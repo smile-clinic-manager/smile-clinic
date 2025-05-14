@@ -7,12 +7,14 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
+import java.io.Serializable;
+
 @Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class MedicalRecordEntryDTO {
+public class MedicalRecordEntryDTO implements Serializable {
 
     @NotBlank(message = "Field userId cannot be empty, blank or null")
     private int userId;

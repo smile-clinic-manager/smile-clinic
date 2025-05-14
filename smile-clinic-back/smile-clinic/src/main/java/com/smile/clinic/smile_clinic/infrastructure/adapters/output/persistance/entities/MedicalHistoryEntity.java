@@ -35,6 +35,6 @@ public class MedicalHistoryEntity {
     private PatientEntity patient;
 
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medical_record_id")
+    @JoinColumn(name = "medical_history_id")
     private List<MedicalRecordEntryEntity> medicalRecordEntries;
 }

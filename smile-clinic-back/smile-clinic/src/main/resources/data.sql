@@ -249,14 +249,14 @@ INSERT INTO treatments_instance (id, name, price, notes, patient_id) VALUES
 (10, 'Retiro de brackets', 100.0, 'Extracción de aparatología fija', 23);
 
 -- Entradas para medical_record_entries (todos con user_id = 1)
-INSERT INTO medical_record_entries (id, date_time, observations, user_id, treatment_instance_id, medical_record_id)
+INSERT INTO medical_record_entries (id, date_time, observations, user_id, treatment_instance_id, medical_history_id)
 VALUES
 (1, '2025-05-10 09:00:00', 'Chequeo general sin hallazgos.', 1, 1, 1),
 (2, '2025-05-10 10:15:00', 'Paciente con erupción, se sospecha reacción a penicilina.', 1, 2, 2),
-(3, '2025-05-10 11:00:00', 'Paciente refiere reacción a mariscos tras anestesia.', 1, 1, 3),
+(3, '2025-05-10 11:00:00', 'Paciente refiere reacción a mariscos tras anestesia.', 1, 1, 1),
 (4, '2025-05-11 08:45:00', 'Congestión nasal y estornudos frecuentes.', 1, 3, 4),
-(5, '2025-05-11 09:30:00', 'Paciente indica intolerancia a lácteos.', 1, 2, 5),
-(6, '2025-05-11 10:00:00', 'Dolor estomacal tras consumir gluten.', 1, 1, 6),
+(5, '2025-05-11 09:30:00', 'Paciente indica intolerancia a lácteos.', 1, 2, 1),
+(6, '2025-05-11 10:00:00', 'Dolor estomacal tras consumir gluten.', 1, 1, 1),
 (7, '2025-05-12 08:00:00', 'Sin antecedentes relevantes.', 1, 3, 7),
 (8, '2025-05-12 10:30:00', 'Reacción previa a ibuprofeno.', 1, 1, 8),
 (9, '2025-05-12 11:45:00', 'Paciente con antecedentes de reacción a aspirina.', 1, 2, 9),

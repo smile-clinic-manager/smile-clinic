@@ -29,7 +29,7 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
     @Override
     public MedicalHistory getMedicalHistoryByPatientId(Long patientId) {
         MedicalHistory medicalHistories = this.medicalHistoryPersistanceMapper.toMedicalHistory(
-                this.medicalHistoryEntityRepository.findByPatientId(patientId)
+                this.medicalHistoryEntityRepository.findHistoryByPatientId(patientId)
         );
         return medicalHistories;
     }
