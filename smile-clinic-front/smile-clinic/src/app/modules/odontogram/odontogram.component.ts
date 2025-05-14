@@ -21,6 +21,7 @@ export class OdontogramComponent implements OnInit{
     this.odontogramService.getAllTeeth(this.medicalHistoryDTO!.id)
       .then((teethList)=>{
         this.teethList = teethList;
+        console.log('this.teethList');
         console.log(this.teethList);
       })
       .catch(e=>this.snackBarService.showErrorSnackBar("Error al obtener el odontograma"));
