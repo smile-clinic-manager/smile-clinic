@@ -1,6 +1,7 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models;
 
 import com.smile.clinic.smile_clinic.domain.models.TreatmentInstance;
+import com.smile.clinic.smile_clinic.domain.models.users.DentistData;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class MedicalRecordEntryDTO implements Serializable {
     private String observations;
 
     @NotNull(message = "Field user cannot be null")
-    private User user;
+    private DentistData user;
 
     private TreatmentInstance treatmentInstance;
 
