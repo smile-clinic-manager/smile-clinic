@@ -3,17 +3,14 @@
         <div class="teeth-row">
             @for(teeth of row; track teeth.id){
                 <div class="teeth-div">
-                    <mat-card class="teeth-card">
-                        <mat-card-content>
-                        </mat-card-content>
+                    <mat-card class="teeth-card" (click)="openTeethDetailDialog(teeth)">
+                        <span></span>
                         <mat-card-footer>
                             {{teeth.code}}
                         </mat-card-footer>
                     </mat-card>
                 </div>
-                
             }
-            
         </div>
     }
 </div>

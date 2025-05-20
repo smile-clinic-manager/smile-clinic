@@ -12,6 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { RegisteredUserDTO } from '../../../models/RegisteredUserDTO';
 import { LocalStorageService } from '../../../../services/local-storage.service';
+import { userData } from '../../../models/userData';
 
 @Component({
   selector: 'app-header',
@@ -21,13 +22,17 @@ import { LocalStorageService } from '../../../../services/local-storage.service'
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent{
+export class HeaderComponent implements OnInit{
   @Output() toggleSideVarEvent: EventEmitter<void> = new EventEmitter(); 
   @Input({required: true}) isMenuOpen!: Signal<boolean>;
-  user: RegisteredUserDTO | null = null;
+  user: userData | undefined = undefined;
 
   constructor(private readonly authService: AuthService, private readonly router: Router, 
-    private localStorageService: LocalStorageService){  }  
+    private localStorageService: LocalStorageService){  }
+
+  ngOnInit(): void {
+    this.user = this.localStorageService.getUserData();
+  }
 
 
   logout(): void {

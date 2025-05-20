@@ -19,11 +19,23 @@
     justify-content: center;
 }
 
-mat-card-content{
+mat-card{
+    transition: background-color 0.2s ease;
+}
+
+mat-card span{
+    background-image: url('../../assets/images/odontogram/diente_generico.png');
+    background-size: cover;
     height: 90%;
+}
+
+mat-card:hover{
+    background-color: #dce0de;
 }
 
 mat-card-footer{
     display: flex;
     justify-content: center;
 }
+
+
