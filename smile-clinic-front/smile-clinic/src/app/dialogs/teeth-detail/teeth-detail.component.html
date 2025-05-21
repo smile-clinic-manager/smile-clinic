@@ -1,6 +1,46 @@
-<p>{{teeth?.code}}</p>
-@for(t of treatments; track t.id){
-    <p>{{t.name}}</p>
-}
+<div> 
+    <h1>Detalle diente</h1>
+    <div class="div-diente">
+        <div class="img-diente"></div>
+        <div class="info-diente">
+            <span> <b>Pieza:</b> {{teeth?.name}} </span>
+            <span> <b>Código:</b> {{teeth?.code}} </span>
+        </div>
+    </div>
+</div> 
+<div class="div-visitas-asociadas">
+    <h4>Visitas asociadas</h4>
+    @defer(when medicalRecords!==undefined){
+        <mat-accordion>
+            @if(medicalRecords!.length > 0){
+                @for(record of medicalRecords; track record.id){
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title> {{getFecha(record.dateTime)}} </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <p><b>Atendido por:</b></p>
+                            <p>{{record.user.firstName}} {{record.user.lastName1}} {{record.user.lastName2}}</p>
+                        </div>
+                        <div>
+                            <p><b>Observaciones de la visita:</b></p>
+                            <p>{{record.observations}}</p>
+                        </div>
+                        <div>
+                            <p><b>Tratamiento aplicado:</b></p>
+                            <p>{{record.treatmentInstance.name}}</p>
+                            <p>{{record.treatmentInstance.price}} €</p>
+                            <p>{{record.treatmentInstance.notes}}</p>
+                        </div>
 
+                    </mat-expansion-panel>
+                }
+            }@else{
+                <p>No se ha aplicado ningún tratamiento</p>
+            }
+        </mat-accordion>
+    }@placeholder {
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+</div>
 

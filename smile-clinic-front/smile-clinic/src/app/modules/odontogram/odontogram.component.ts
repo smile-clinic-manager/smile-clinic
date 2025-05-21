@@ -30,8 +30,6 @@ export class OdontogramComponent implements OnInit{
     this.odontogramService.getAllTeeth(this.medicalHistoryDTO!.id)
       .then((teethList)=>{
         this.teethList = teethList;
-        console.log('this.teethList');
-        console.log(this.teethList);
       })
       .finally(() => this.buildOdontogramLayout())
       .catch(e=>this.snackBarService.showErrorSnackBar("Error al obtener el odontograma"));
@@ -58,7 +56,7 @@ export class OdontogramComponent implements OnInit{
       panelClass: 'lateral-dialog'
     });
 
-    dialogRef.afterClosed().subscribe(()=> console.log('gola'));
+    //dialogRef.afterClosed().subscribe(()=> );
 
   }
 }
