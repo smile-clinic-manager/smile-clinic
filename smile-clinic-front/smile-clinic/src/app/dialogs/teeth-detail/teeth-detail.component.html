@@ -2,7 +2,7 @@
     <h1>Detalle diente</h1>
     <div class="div-diente">
         <div class="img-diente"></div>
-        <div class="info-diente">
+        <div class="center-content">
             <span> <b>Pieza:</b> {{teeth?.name}} </span>
             <span> <b>Código:</b> {{teeth?.code}} </span>
         </div>
@@ -19,7 +19,7 @@
                             <mat-panel-title> {{getFecha(record.dateTime)}} </mat-panel-title>
                         </mat-expansion-panel-header>
                         <div>
-                            <p><b>Atendido por:</b></p>
+                            <p><b>Especialista:</b></p>
                             <p>{{record.user.firstName}} {{record.user.lastName1}} {{record.user.lastName2}}</p>
                         </div>
                         <div>
@@ -36,7 +36,7 @@
                     </mat-expansion-panel>
                 }
             }@else{
-                <p>No se ha aplicado ningún tratamiento</p>
+                <p class="center-content">No existen visitas asociada</p>
             }
         </mat-accordion>
     }@placeholder {

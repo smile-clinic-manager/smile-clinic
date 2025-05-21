@@ -18,11 +18,12 @@ import { DiseaseDTO } from '../../../models/DiseaseDTO';
 import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
 import { MatChipsModule } from '@angular/material/chips';
 import { OdontogramComponent } from "../../odontogram/odontogram.component";
+import { MedicalRecordEntryListComponent } from '../../medical-record-entry/medical-record-entry-list/medical-record-entry-list.component';
 
 @Component({
   selector: 'app-patients-detail',
   imports: [MatTableModule, MatCardModule, MatMenuModule, MatIconModule, MatDividerModule, MatButtonModule,
-    MatTabsModule, MatChipsModule, OdontogramComponent],
+    MatTabsModule, MatChipsModule, OdontogramComponent, MedicalRecordEntryListComponent],
   templateUrl: './patients-detail.component.html',
   styleUrl: './patients-detail.component.scss'
 })
