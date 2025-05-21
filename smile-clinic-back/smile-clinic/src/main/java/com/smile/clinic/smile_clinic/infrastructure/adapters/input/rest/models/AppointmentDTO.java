@@ -1,5 +1,10 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models;
 
+import com.smile.clinic.smile_clinic.domain.models.appointments.AppointmentState;
+import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
+import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.patientsDTO.PatientDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -11,7 +16,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class AppointmentDTO {
     private Long id;
-    private Double duration;
+    private double duration;
     private String visitPurpose;
+    private AppointmentState state;
     private LocalDateTime dateTime;
+    private RegisteredUserDTO user;
+    private PatientDTO patient;
 }

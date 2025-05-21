@@ -14,7 +14,8 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class AppointService implements AppointmentServicePort {
+public class AppointmentService implements AppointmentServicePort {
+
     private AppointmentPersistancePort appointmentPersistancePort;
 
     @Override
@@ -30,18 +31,23 @@ public class AppointService implements AppointmentServicePort {
     }
 
     @Override
-    public Appointment save(Appointment appointment) {
-        return null;
+    public List<Appointment> findByUserId(Long userId) {
+        return this.appointmentPersistancePort.findByUserId(userId);
     }
 
     @Override
-    public Appointment update(Appointment appointment) {
-        return null;
+    public List<Appointment> findByPatientId(Long patientId) {
+        return this.appointmentPersistancePort.findByPatientId(patientId);
+    }
+
+    @Override
+    public Appointment save(Appointment appointment) {
+        return this.appointmentPersistancePort.save(appointment);
     }
 
     @Override
     public void delete(Long id) {
-
+        this.appointmentPersistancePort.deleteById(id);
     }
 
 }

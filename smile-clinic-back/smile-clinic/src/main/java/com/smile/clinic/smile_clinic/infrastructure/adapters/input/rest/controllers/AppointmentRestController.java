@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/appointments")
@@ -29,6 +31,28 @@ public class AppointmentRestController {
             AppointmentDTO appointment = mapper.toAppointmentDTO(this.appointmentServicePort.findById(id));
             return new ResponseEntity<>(appointment, HttpStatus.OK);
         } catch (AppointmentNotFoundException e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/findByUserId")
+    public ResponseEntity<Object> findAppointmentByUserId(@RequestParam("userId") Long userId){
+        try{
+            List<AppointmentDTO> appointment = mapper.toAppointmentDTOList(this.appointmentServicePort.findByUserId(userId));
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/findByPatientId")
+    public ResponseEntity<Object> findAppointmentByPatientId(@RequestParam("patientId") Long patientId){
+        try{
+            List<AppointmentDTO> appointment = mapper.toAppointmentDTOList(this.appointmentServicePort.findByPatientId(patientId));
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
         }
