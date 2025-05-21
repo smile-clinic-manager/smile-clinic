@@ -10,4 +10,6 @@ public interface MedicalRecordEntryServicePort {
     MedicalRecordEntry save(MedicalRecordEntry record);
     MedicalRecordEntry update(Long id, MedicalRecordEntry record);
     void delete(MedicalRecordEntry record);
+
+    List<MedicalRecordEntry> findAllByMedicalHistory(Long medicalHistoryId);
 }

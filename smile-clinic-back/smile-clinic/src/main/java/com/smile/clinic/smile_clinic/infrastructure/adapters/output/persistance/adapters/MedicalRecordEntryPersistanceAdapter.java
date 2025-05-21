@@ -43,8 +43,9 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
     }
 
     @Override
-    public List<MedicalRecordEntry> findPatientToothMedicalRecords(Long medicalRecordId, Long toothId) {
-        //TODO
-        return null;
+    public List<MedicalRecordEntry> findAllByMedicalHistory(Long medicalHistoryId) {
+        return recordPersistanceMapper.toMedicalRecordEntryList(
+                this.recordEntityRepository.findAllByMedicalHistory(medicalHistoryId));
     }
+
 }

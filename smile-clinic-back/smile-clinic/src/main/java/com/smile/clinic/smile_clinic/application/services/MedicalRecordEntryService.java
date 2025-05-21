@@ -1,6 +1,7 @@
 package com.smile.clinic.smile_clinic.application.services;
 
 import com.smile.clinic.smile_clinic.application.ports.input.MedicalRecordEntryServicePort;
+import com.smile.clinic.smile_clinic.application.ports.output.MedicalRecordEntryPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MedicalRecordEntryService implements MedicalRecordEntryServicePort {
 
-    MedicalRecordEntryServicePort medicalRecordEntryPersistancePort;
+    private final MedicalRecordEntryPersistancePort medicalRecordEntryPersistancePort;
 
     @Override
     public List<MedicalRecordEntry> findAll() {
@@ -36,5 +37,10 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
     @Override
     public void delete(MedicalRecordEntry MedicalRecordEntry) {
         medicalRecordEntryPersistancePort.delete(MedicalRecordEntry);
+    }
+
+    @Override
+    public List<MedicalRecordEntry> findAllByMedicalHistory(Long medicalHistoryId) {
+        return medicalRecordEntryPersistancePort.findAllByMedicalHistory(medicalHistoryId);
     }
 }
