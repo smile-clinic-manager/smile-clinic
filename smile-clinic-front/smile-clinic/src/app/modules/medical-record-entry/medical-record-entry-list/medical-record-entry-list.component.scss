@@ -5,3 +5,21 @@
 ::ng-deep .mat-column-ACCIONES {
   width: 20%;
 }
+
+::ng-deep .mat-mdc-table .mat-mdc-header-row {
+  border-bottom: none !important;
+}
+
+
+::ng-deep .mat-mdc-table .mdc-data-table__row {
+  border-bottom: none !important;
+} 
+
+.justify-end{
+    display: flex;
+    justify-content: end; 
+}
+
+.new-treatment-btn{
+    margin: 1%;
+}

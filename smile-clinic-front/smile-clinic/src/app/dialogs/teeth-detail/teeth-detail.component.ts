@@ -25,8 +25,7 @@ export class TeethDetailComponent implements OnInit{
     this.teeth = this.data.teeth;
     this.medicalRecords = this.teeth.medicalRecords.sort((a, b) => new Date(b.dateTime).getTime() - new Date(a.dateTime).getTime());
     this.treatments = this.teeth.medicalRecords.map(record => record.treatmentInstance);
-    console.log("RECROOOORODO");
-    console.log(this.medicalRecords);
+
   }
   
   getFecha(dateTime: string): string{

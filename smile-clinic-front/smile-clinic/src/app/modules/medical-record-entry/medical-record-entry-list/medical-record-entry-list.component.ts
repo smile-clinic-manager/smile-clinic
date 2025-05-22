@@ -11,7 +11,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-medical-record-entry-list',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatExpansionModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatExpansionModule, MatButtonModule],
   templateUrl: './medical-record-entry-list.component.html',
   styleUrl: './medical-record-entry-list.component.scss'
 })
@@ -20,7 +20,7 @@ export class MedicalRecordEntryListComponent implements OnInit{
   dataSource: MatTableDataSource<MedicalRecordEntryDTO> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns: string[] = ["VISITA", "ACCIONES"];
+  displayedColumns: string[] = ["TRATAMIENTOS"];
 
   constructor(private medicalRecordEntriesService: MedicalRecordEntriesService, private snackbarService: SnackbarServiceService){  }
 
@@ -34,10 +34,8 @@ export class MedicalRecordEntryListComponent implements OnInit{
 
   async getAllMedicalRecordsByMedicalHistory(): Promise<void>{
     this.medicalRecordEntriesService.getAllMedicalRecordsByMedicalHistory(this.medicalHistoryDTO!.id)
-      .then((medicalRecords: MedicalRecordEntryDTO[])=>{
+      .then((medicalRecords: MedicalRecordEntryDTO[]) => {
         this.dataSource.data = medicalRecords;
-        console.log('gholalalalal');
-        console.log(this.dataSource.data);
       })
       .catch(()=>this.snackbarService.showErrorSnackBar("Error al encontrar la visitas"));
   }

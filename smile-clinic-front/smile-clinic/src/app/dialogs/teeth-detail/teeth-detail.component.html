@@ -9,7 +9,7 @@
     </div>
 </div> 
 <div class="div-visitas-asociadas">
-    <h4>Visitas asociadas</h4>
+    <h4>Tratamientos asociados</h4>
     @defer(when medicalRecords!==undefined){
         <mat-accordion>
             @if(medicalRecords!.length > 0){
@@ -36,7 +36,7 @@
                     </mat-expansion-panel>
                 }
             }@else{
-                <p class="center-content">No existen visitas asociada</p>
+                <p class="center-content">No existen tratamientos asociados</p>
             }
         </mat-accordion>
     }@placeholder {

@@ -1,7 +1,13 @@
 
+<div class="justify-end">
+  <button mat-flat-button class="new-treatment-btn">
+    <mat-icon>add</mat-icon> Añadir tratamiento
+  </button>
+</div>
+
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container matColumnDef="VISITA">
-    <th mat-header-cell *matHeaderCellDef> VISITA </th>
+  <ng-container matColumnDef="TRATAMIENTOS">
+    <th mat-header-cell *matHeaderCellDef> TRATAMIENTOS </th>
     <td mat-cell *matCellDef="let element"> 
         <mat-expansion-panel>
             <mat-expansion-panel-header>
@@ -12,14 +18,6 @@
                 Some deferred content
             </ng-template>
         </mat-expansion-panel>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="ACCIONES">
-    <th mat-header-cell *matHeaderCellDef> ACCIONES </th>
-    <td mat-cell *matCellDef="let element">
-      <button mat-icon-button >
-        <mat-icon>edit</mat-icon>
-      </button>
     </td>
   </ng-container>
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
