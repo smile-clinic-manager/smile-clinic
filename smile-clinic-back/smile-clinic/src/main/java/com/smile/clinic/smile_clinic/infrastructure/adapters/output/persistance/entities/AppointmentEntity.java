@@ -41,8 +41,10 @@ public class AppointmentEntity {
 
     //Relations
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
     
     @ManyToOne
+    @JoinColumn(name = "patient_id")
     private PatientEntity patient;
 }

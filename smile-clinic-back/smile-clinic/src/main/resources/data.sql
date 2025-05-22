@@ -198,3 +198,13 @@ INSERT INTO medical_history_previous_diseases VALUES (9, 10);
 INSERT INTO medical_history_previous_diseases VALUES (10, 1);
 INSERT INTO medical_history_previous_diseases VALUES (10, 3);
 INSERT INTO medical_history_previous_diseases VALUES (10, 5);
+
+INSERT INTO appointments (id, duration, visit_purpose, date_time, state, user_id, patient_id)
+VALUES
+    (1, 30, 'Revisión dental', '2023-10-01 10:00:00', 'DONE', 1, 23),
+    (2, 45, 'Limpieza dental', '2023-10-02 11:00:00', 'DONE', 2, 24),
+    (3, 60, 'Consulta de ortodoncia', '2023-10-03 12:00:00', 'PENDING', 3, 25),
+    (4, 30, 'Extracción dental', '2023-10-04 09:00:00', 'CANCELLED', 4, 26),
+    (5, 45, 'Consulta de endodoncia', '2023-10-05 14:00:00', 'PENDING', 5, 27),
+    (6, 60, 'Revisión dental', '2023-10-06 15:00:00', 'DONE', 6, 28),
+    (7, 30, 'Consulta de caries', '2023-10-07 16:00:00', 'PENDING', 7, 29);
