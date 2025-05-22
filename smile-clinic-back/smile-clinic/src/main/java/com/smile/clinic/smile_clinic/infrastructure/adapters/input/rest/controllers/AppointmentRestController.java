@@ -36,6 +36,17 @@ public class AppointmentRestController {
         }
     }
 
+    @GetMapping("/findByClinicId")
+    public ResponseEntity<Object> findAppointmentByClinicId(@RequestParam("clinicId") Long clinicId){
+        try{
+            List<AppointmentDTO> appointment = mapper.toAppointmentDTOList(this.appointmentServicePort.findByClinicId(clinicId));
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("/findByUserId")
     public ResponseEntity<Object> findAppointmentByUserId(@RequestParam("userId") Long userId){
         try{

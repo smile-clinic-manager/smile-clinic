@@ -31,6 +31,11 @@ public class AppointmentService implements AppointmentServicePort {
     }
 
     @Override
+    public List<Appointment> findByClinicId(Long clinicId) {
+        return this.appointmentPersistancePort.findByClinicId(clinicId);
+    }
+
+    @Override
     public List<Appointment> findByUserId(Long userId) {
         return this.appointmentPersistancePort.findByUserId(userId);
     }

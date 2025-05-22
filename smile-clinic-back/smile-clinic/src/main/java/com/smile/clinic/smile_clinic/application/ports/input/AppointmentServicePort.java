@@ -8,6 +8,7 @@ import java.util.List;
 public interface AppointmentServicePort {
     List<Appointment> findAll();
     Appointment findById(Long id) throws AppointmentNotFoundException;
+    List<Appointment> findByClinicId(Long clinicId);
     List<Appointment> findByUserId(Long userId);
     List<Appointment> findByPatientId(Long patientId);
     Appointment save(Appointment appointment);

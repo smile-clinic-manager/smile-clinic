@@ -8,6 +8,7 @@ import java.util.Optional;
 public interface AppointmentPersistancePort {
     List<Appointment> findAll();
     Optional<Appointment> findById(Long id);
+    List<Appointment> findByClinicId(Long clinicId);
     List<Appointment> findByUserId(Long userId);
     List<Appointment> findByPatientId(Long patientId);
     Appointment save(Appointment appointment);
