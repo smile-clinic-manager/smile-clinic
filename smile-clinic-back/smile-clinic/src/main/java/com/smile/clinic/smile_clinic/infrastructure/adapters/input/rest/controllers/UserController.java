@@ -6,6 +6,7 @@ import com.smile.clinic.smile_clinic.application.services.UserClinicRoleService;
 import com.smile.clinic.smile_clinic.application.services.UserService;
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
+import com.smile.clinic.smile_clinic.domain.models.users.DentistData;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.RoleRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.TreatmentRestMapper;
@@ -16,6 +17,7 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.T
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.UpdateUserRolesRequestDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.SignupRequestDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.UserToDentistDataMapper;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +44,7 @@ public class UserController {
     private final UserServicePort userServicePort;
     private final UserClinicRoleServicePort userClinicRoleService;
     private final UserRestMapper userRestMapper;
+    private final UserToDentistDataMapper dentistDataMapper;
     private final RoleRestMapper roleRestMapper;
 
     @PostMapping("/signup")
@@ -97,6 +100,18 @@ public class UserController {
         return new ResponseEntity<>(usersDTO, HttpStatus.OK);
     }
 
+    @GetMapping("findAllDentistDataByClinicId")
+    public ResponseEntity<Object> getAllUsersByClinicId(@RequestParam("clinicId") Long id) {
+        try{
+            List<User> users = this.userServicePort.findUsersByClinicId(id);
+            List<DentistData> usersDTO = this.dentistDataMapper.toDentistDataList(users);
+            return new ResponseEntity<>(usersDTO, HttpStatus.OK);
+
+        }catch (Exception exception){
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/userByUserId")
     public ResponseEntity<RegisteredUserDTO> getUsersByUserId(@RequestParam("userId") Long id) {
         User users = this.userServicePort.findUserByUserId(id);
@@ -137,5 +152,7 @@ public class UserController {
             return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+
 
 }

@@ -4,11 +4,13 @@ import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { catchError, first, firstValueFrom, Observable, throwError } from 'rxjs';
 import { RegisteredUserDTO } from '../app/models/RegisteredUserDTO';
 import { RoleDTO } from '../app/models/RoleDTO';
+import { userData } from '../app/models/userData';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+
   constructor(private api: ApiHttpService, private apiEndpointHelper: ApiEndpointHelperService) { }
 
   getClinicUserList(clinicId: string): Promise<RegisteredUserDTO[]>{
@@ -30,7 +32,7 @@ export class UserService {
     return firstValueFrom(
       this.api.post(this.apiEndpointHelper.createUrl('users/assignUserToClinic'), 
         {'userId': userId, 'clinicId': clinicId, 'roleIds': roleIds})
-    )
+    );
   }
     
   deleteUserFromClinic(clinicId: string, userId: number): Promise<void> {
@@ -45,6 +47,14 @@ export class UserService {
     return firstValueFrom(
       this.api.put(this.apiEndpointHelper.createUrl('users/updateRoles'), {'user': user, 'clinicId': clinicId, 'roles': selectedRoles})
     );   
+  }
+
+    getAllDentistsByClinicId(clinicId: string): Promise<userData[]> {
+      const params: Map<string, any>  = new Map();
+      params.set('clinicId', clinicId)
+      return firstValueFrom(
+        this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/findAllDentistDataByClinicId', params))
+      );
   }
 
 }

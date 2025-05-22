@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Builder
 @Getter
@@ -18,11 +19,10 @@ import java.io.Serializable;
 public class MedicalRecordEntryDTO implements Serializable {
 
     @NotBlank(message = "Field userId cannot be empty, blank or null")
-    private int userId;
+    private int id;
 
     @NotBlank(message = "Field dateTime cannot be empty, blank or null")
-    @Pattern(regexp = "^[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}:[0-9]{2}$", message = "Field dateTime must have the format yyyy-MM-dd HH:mm")
-    private String dateTime;
+    private LocalDateTime dateTime;
 
     @NotNull(message = "Field notes cannot be null")
     private String observations;

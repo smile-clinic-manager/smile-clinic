@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>{{isCreating ? 'Crear tratamiento' : 'Editar tratamiento'}}</h2>
+<div class="patient-form" [formGroup]="medicalRecordEntryForm">
+    <mat-form-field>
+        <mat-label>Elija una fecha</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="date">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Elija una hora</mat-label>
+        <input matInput [matTimepicker]="timePicker" formControlName="time">
+        <mat-timepicker-toggle matIconSuffix [for]="timePicker"/>
+        <mat-timepicker #timePicker/>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Observaciones</mat-label>
+      <textarea matInput placeholder="Observaciones" formControlName="observations"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="diseases-select">
+      <mat-label>Tratamiento</mat-label>
+      <mat-select formControlName="treatment" multiple>
+        @for (treatment of treatments; track treatment.id) {
+          <mat-option [value]="treatment.id">{{ treatment.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="diseases-select">
+      <mat-label>Especialista</mat-label>
+      <mat-select formControlName="user" multiple>
+        @for (user of users; track user.id) {
+          <mat-option [value]="user.id">{{ getCompleteName(user) }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+</div>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-button cdkFocusInitial>Aceptar</button>
+</mat-dialog-actions>

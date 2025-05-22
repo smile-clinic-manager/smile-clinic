@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { MedicalHistoryDTO } from '../../../models/MedicalHistoryDTO';
 import { MedicalRecordEntriesService } from '../../../../services/medical-record-entries.service';
 import { MedicalRecordEntryDTO } from '../../../models/MedicalRecordEntryDTO';
@@ -8,6 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatDialog } from '@angular/material/dialog';
+import { MedicalRecordEntryFormComponent } from '../../../dialogs/medical-record-entry-form/medical-record-entry-form.component';
 
 @Component({
   selector: 'app-medical-record-entry-list',
@@ -16,9 +18,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
   styleUrl: './medical-record-entry-list.component.scss'
 })
 export class MedicalRecordEntryListComponent implements OnInit{
+
   @Input() medicalHistoryDTO: MedicalHistoryDTO | undefined = undefined;
   dataSource: MatTableDataSource<MedicalRecordEntryDTO> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  readonly dialog = inject(MatDialog);
 
   displayedColumns: string[] = ["TRATAMIENTOS"];
 
@@ -43,4 +47,14 @@ export class MedicalRecordEntryListComponent implements OnInit{
   getFecha(dateTime: string): string{
     return dateTime.split('T')[0]; //Mostramos solo el dia de la fecha en el accordion
   }
-}
+
+  openMedicalRecordEntryFormDialog(): void{
+    const dialogRef = this.dialog.open(MedicalRecordEntryFormComponent, {
+            data: {
+              clinicId: 8, //TODO: Pasar el dato de la clínica activa
+              medicalHistoryDTO: this.medicalHistoryDTO
+            },
+            panelClass: "lateral-dialog"
+          });
+  }
+}   

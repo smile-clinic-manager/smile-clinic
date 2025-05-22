@@ -1,6 +1,6 @@
 
 <div class="justify-end">
-  <button mat-flat-button class="new-treatment-btn">
+  <button mat-flat-button class="new-treatment-btn" (click)="openMedicalRecordEntryFormDialog()">
     <mat-icon>add</mat-icon> Añadir tratamiento
   </button>
 </div>
@@ -15,7 +15,20 @@
             </mat-expansion-panel-header>
 
             <ng-template matExpansionPanelContent>
-                Some deferred content
+                <div>
+                            <p><b>Especialista:</b></p>
+                            <p>{{element.user.firstName}} {{element.user.lastName1}} {{element.user.lastName2}}</p>
+                        </div>
+                        <div>
+                            <p><b>Observaciones de la visita:</b></p>
+                            <p>{{element.observations}}</p>
+                        </div>
+                        <div>
+                            <p><b>Tratamiento aplicado:</b></p>
+                            <p>{{element.treatmentInstance.name}}</p>
+                            <p>{{element.treatmentInstance.price}} €</p>
+                            <p>{{element.treatmentInstance.notes}}</p>
+                        </div>
             </ng-template>
         </mat-expansion-panel>
     </td>
