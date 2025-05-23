@@ -39,8 +39,9 @@ public class MedicalRecordEntryController {
     }
 
     @PostMapping("/createMedicalRecordEntry")
-    public ResponseEntity<List<MedicalRecordEntryDTO>> createMedicalRecordEntry(@RequestBody MedicalRecordEntryFormDTO medicalHistoryId) {
+    public ResponseEntity<List<MedicalRecordEntryDTO>> createMedicalRecordEntry(@RequestBody MedicalRecordEntryFormDTO medicalRecordEntryForm) {
         try {
+            MedicalRecordEntryFormDTO medicalRecordEntryForm1 = medicalRecordEntryForm;
             // List<MedicalRecordEntry> medicalRecords = this.medicalRecordEntryServicePort.findAllByMedicalHistory(medicalHistoryId);
             // List<MedicalRecordEntryDTO> medicalRecordsDTO = this.medicalRecordEntryRestMapper.toMedicalRecordEntryDTOList(medicalRecords);
             return ResponseEntity.status(HttpStatus.OK).build();

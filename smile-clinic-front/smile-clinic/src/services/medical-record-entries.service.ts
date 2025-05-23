@@ -23,8 +23,6 @@ export class MedicalRecordEntriesService {
   }
 
   createNewMedicalRecordEntry(form: MedicalRecordEntryFormDTO): Promise<void> {
-    console.log("FORM VALUEEESS");
-    console.log(form);
     return firstValueFrom(
       this.api.post(this.apiEndpointHelper.createUrl('medical-records/createMedicalRecordEntry'), form)
     );

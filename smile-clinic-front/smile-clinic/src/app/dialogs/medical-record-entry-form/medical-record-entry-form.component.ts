@@ -132,10 +132,6 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     return this.medicalRecordEntryForm.valid;
   }
 
-  showMsg(){
-    this.snackBarService.showSuccessSnackBar("CHECK!")
-  }
-
   requiredFieldErrorMessage(): string {
     return ('Campo obligatorio');
   }
@@ -146,13 +142,14 @@ export class MedicalRecordEntryFormComponent implements OnInit {
 
     const form: MedicalRecordEntryFormDTO = {
       date: dateValue ? new Date(dateValue).toISOString().split('T')[0] : '', //Cogemos solo la fecha
-      time: timeValue ? new Date(timeValue).toISOString().split('T')[1].substring(0, 5) : '', //Cogemos solo la hora
-
+      time: timeValue ? new Date(timeValue).toISOString().split('T')[1] : '', //Cogemos solo la hora
       treatmentId: this.medicalRecordEntryForm.get('treatment')?.value!,
-      userId: this.medicalRecordEntryForm.get('dentist')?.value!,
+      userId: this.medicalRecordEntryForm.get('user')?.value!,
       observations: this.medicalRecordEntryForm.get('observations')?.value!,
       teethListId: this.medicalRecordEntryForm.get('teeth')?.value!
     };
+    console.log("FORRORORORROR");
+    console.log(form);
 
     this.medicalRecordEntriesService.createNewMedicalRecordEntry(form).then(()=>{
       this.dialogRef.close();
