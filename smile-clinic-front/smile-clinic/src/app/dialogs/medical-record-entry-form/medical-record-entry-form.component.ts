@@ -23,6 +23,7 @@ import { TeethDTO } from '../../models/TeethDTO';
 import { OdontogramService } from '../../../services/odontogram.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MedicalRecordEntryFormDTO } from '../../models/MedicalRecordEntryFormDTO';
 
 @Component({
   selector: 'app-medical-record-entry-form',
@@ -45,9 +46,9 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     date: new FormControl('', [Validators.required]),
     time: new FormControl('', [Validators.required]),
     observations: new FormControl(''),
-    treatment: new FormControl('', [Validators.required]),
+    treatment: new FormControl<string>('', [Validators.required]),
     user: new FormControl('', [Validators.required]),
-    teeth: new FormControl<TeethDTO[]>([], [Validators.required]),
+    teeth: new FormControl<string[]>([], [Validators.required]), // Use string[] or number[] as appropriate
   });
 
   constructor(private dialogRef: MatDialogRef<MedicalRecordEntryFormComponent>,
@@ -98,7 +99,7 @@ export class MedicalRecordEntryFormComponent implements OnInit {
   }
 
   getCompleteName(user: userData){
-    return `${user.firstName} ${user.lastName1} ${user.lastName2}`;
+    return `${user.firstName} ${user.lastName1} ${user.lastName2 ?? ''}`;
   }
 
   buildOdontogramLayout(): void{
@@ -117,15 +118,46 @@ export class MedicalRecordEntryFormComponent implements OnInit {
   }
 
   toggleSelectTooth(selected: boolean, eventTeeth: TeethDTO):void{
-    let selectedTeeth = this.medicalRecordEntryForm.get('teeth')?.value as TeethDTO[] || [];
+    let selectedTeeth = this.medicalRecordEntryForm.get('teeth')?.value || [];
     if(!selected){
-      selectedTeeth = selectedTeeth.filter(t => t !== eventTeeth); //Quitamos si se ha deseleccionado
+      selectedTeeth = selectedTeeth.filter(t => t !== eventTeeth.id); //Quitamos si se ha deseleccionado
     } else{
-      selectedTeeth = [...selectedTeeth, eventTeeth];
+      selectedTeeth = [...selectedTeeth, eventTeeth.id];
     }
     
     this.medicalRecordEntryForm.patchValue({...this.medicalRecordEntryForm.value, teeth: selectedTeeth});
-    console.log(this.medicalRecordEntryForm.get('teeth')?.value);
+  }
+  
+  isValid(): boolean {
+    return this.medicalRecordEntryForm.valid;
   }
 
+  showMsg(){
+    this.snackBarService.showSuccessSnackBar("CHECK!")
+  }
+
+  requiredFieldErrorMessage(): string {
+    return ('Campo obligatorio');
+  }
+
+  sendMedicalRecordEntryForm(): void {
+    const dateValue = this.medicalRecordEntryForm.get('date')?.value;
+    const timeValue = this.medicalRecordEntryForm.get('time')?.value;
+
+    const form: MedicalRecordEntryFormDTO = {
+      date: dateValue ? new Date(dateValue).toISOString().split('T')[0] : '', //Cogemos solo la fecha
+      time: timeValue ? new Date(timeValue).toISOString().split('T')[1].substring(0, 5) : '', //Cogemos solo la hora
+
+      treatmentId: this.medicalRecordEntryForm.get('treatment')?.value!,
+      userId: this.medicalRecordEntryForm.get('dentist')?.value!,
+      observations: this.medicalRecordEntryForm.get('observations')?.value!,
+      teethListId: this.medicalRecordEntryForm.get('teeth')?.value!
+    };
+
+    this.medicalRecordEntriesService.createNewMedicalRecordEntry(form).then(()=>{
+      this.dialogRef.close();
+    })
+    .catch(()=> this.snackBarService.showErrorSnackBar("Error al crear el tratamiento"));
+  }
+ 
 }

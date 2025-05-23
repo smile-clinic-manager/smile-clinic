@@ -8,12 +8,18 @@
           <mat-hint>MM/DD/YYYY</mat-hint>
           <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
+          @if(medicalRecordEntryForm.get('date')?.invalid && (medicalRecordEntryForm.get('date')?.touched || medicalRecordEntryForm.get('date')?.dirty)){
+            <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+          }
       </mat-form-field>
       <mat-form-field class="selects">
           <mat-label>Hora</mat-label>
           <input matInput [matTimepicker]="timePicker" formControlName="time">
           <mat-timepicker-toggle matIconSuffix [for]="timePicker"/>
           <mat-timepicker #timePicker/>
+          @if(medicalRecordEntryForm.get('time')?.invalid && (medicalRecordEntryForm.get('time')?.touched || medicalRecordEntryForm.get('time')?.dirty)){
+            <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+          }
       </mat-form-field>
     </div> 
 
@@ -25,6 +31,9 @@
             <mat-option [value]="treatment.id">{{ treatment.name }}</mat-option>
           }
         </mat-select>
+        @if(medicalRecordEntryForm.get('treatment')?.invalid && (medicalRecordEntryForm.get('treatment')?.touched || medicalRecordEntryForm.get('treatment')?.dirty)){
+          <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+        }
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="selects">
@@ -34,6 +43,9 @@
             <mat-option [value]="user.id">{{ getCompleteName(user) }}</mat-option>
           }
         </mat-select>
+          @if(medicalRecordEntryForm.get('user')?.invalid && (medicalRecordEntryForm.get('user')?.touched || medicalRecordEntryForm.get('user')?.dirty)){
+            <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+          }
       </mat-form-field>
     </div>
 
@@ -44,7 +56,7 @@
 
     </div>
     <!-- Selector de piezas dentales -->
-    <h4>Piezas afectadas por el tratamiento</h4>
+    <h4>Piezas afectadas por el tratamiento*</h4>
     <div>
     @for(row of rows; track row){
         <div class="teeth-row">
@@ -62,8 +74,9 @@
         </div>
     }
     </div>
+    
     <mat-dialog-actions>
     <button mat-button mat-dialog-close>Cancelar</button>
-    <button mat-flat-button cdkFocusInitial>Aceptar</button>
+    <button mat-flat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendMedicalRecordEntryForm()">Aceptar</button>
     </mat-dialog-actions>
 </div>

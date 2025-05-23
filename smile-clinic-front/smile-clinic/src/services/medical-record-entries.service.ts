@@ -4,6 +4,7 @@ import { ApiHttpService } from './api-http.service';
 import { LocalStorageService } from './local-storage.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { MedicalRecordEntryDTO } from '../app/models/MedicalRecordEntryDTO';
+import { MedicalRecordEntryFormDTO } from '../app/models/MedicalRecordEntryFormDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,14 @@ export class MedicalRecordEntriesService {
       return firstValueFrom(
         this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/medical-records/getAllMedicalRecordsByMedicalHistory', params)
       ));
+  }
+
+  createNewMedicalRecordEntry(form: MedicalRecordEntryFormDTO): Promise<void> {
+    console.log("FORM VALUEEESS");
+    console.log(form);
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('medical-records/createMedicalRecordEntry'), form)
+    );
   }
 
 }
