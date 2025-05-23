@@ -54,7 +54,7 @@ export class MedicalRecordEntryListComponent implements OnInit{
               clinicId: 8, //TODO: Pasar el dato de la clínica activa
               medicalHistoryDTO: this.medicalHistoryDTO
             },
-            panelClass: "lateral-dialog"
+            panelClass: "wide-lateral-dialog"
           });
   }
 }   

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ToothServicePersistancePort {
     List<Tooth> findAllTeeth();
+
+    List<Tooth> getToothEntities();
 }

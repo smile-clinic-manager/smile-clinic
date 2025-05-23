@@ -21,4 +21,9 @@ public class ToothService implements ToothServicePort {
     public List<Tooth> findAllTeeth(Long medicalHistoryId) {
         return this.toothServicePersistancePort.findAllTeeth();
     }
+
+    @Override
+    public List<Tooth> getToothEntities() {
+        return this.toothServicePersistancePort.getToothEntities();
+    }
 }

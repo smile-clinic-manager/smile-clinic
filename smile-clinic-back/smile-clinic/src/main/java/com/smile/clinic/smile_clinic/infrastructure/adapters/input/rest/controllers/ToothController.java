@@ -30,4 +30,14 @@ public class ToothController {
             return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/getToothEntities")
+    public ResponseEntity<Object> getToothEntities() {
+        try{
+            List<ToothDTO> teeth = toothRestMapper.toToothDTOList(this.toothServicePort.getToothEntities());
+            return new ResponseEntity<>(teeth, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

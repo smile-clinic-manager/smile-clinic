@@ -19,11 +19,16 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatTimepickerModule} from '@angular/material/timepicker';
+import { TeethDTO } from '../../models/TeethDTO';
+import { OdontogramService } from '../../../services/odontogram.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-medical-record-entry-form',
   imports: [MatDialogModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule,
-    ReactiveFormsModule, MatOptionModule, MatSelectModule, MatIconModule, CommonModule, MatDatepickerModule, MatTimepickerModule
+    ReactiveFormsModule, MatOptionModule, MatSelectModule, MatIconModule, CommonModule, MatDatepickerModule, 
+    MatTimepickerModule, MatCardModule, MatCheckboxModule
   ],
   templateUrl: './medical-record-entry-form.component.html',
   providers:[provideNativeDateAdapter()],
@@ -33,6 +38,8 @@ export class MedicalRecordEntryFormComponent implements OnInit {
   isCreating: boolean = true;
   users: userData[] = [];
   treatments: TreatmentDTO[] = [];
+  teethList: TeethDTO[] = [];
+  rows: any = [];
 
   medicalRecordEntryForm = new FormGroup({
     date: new FormControl('', [Validators.required]),
@@ -40,16 +47,17 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     observations: new FormControl(''),
     treatment: new FormControl('', [Validators.required]),
     user: new FormControl('', [Validators.required]),
-    
+    teeth: new FormControl<TeethDTO[]>([], [Validators.required]),
   });
 
   constructor(private dialogRef: MatDialogRef<MedicalRecordEntryFormComponent>,
       @Inject(MAT_DIALOG_DATA) public data: { clinicId: string, medicalHistoryDTO: MedicalHistoryDTO, medicalRecordEntry: MedicalRecordEntryDTO },
       private snackBarService: SnackbarServiceService, private medicalRecordEntriesService: MedicalRecordEntriesService,
-      private userService: UserService, private treatmentService: TreatmentService
+      private userService: UserService, private treatmentService: TreatmentService, private odontogramService: OdontogramService
     ){ }
 
   ngOnInit(): void {
+    this.getAllTeeth();
     this.getAllDentistsByClinicId();
     this.getAllTreatmentsByClinicId();
     this.initializeMedicalRecordEntryForm()
@@ -81,8 +89,43 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     .catch(() => this.snackBarService.showErrorSnackBar("Error al recuperar los tratamientos"));
   }
 
+  getAllTeeth(): void{
+    this.odontogramService.getToothEntities().then((teeth: TeethDTO[])=>{
+      this.teethList = teeth;
+    })
+    .finally(()=>this.buildOdontogramLayout())
+    .catch(()=> this.snackBarService.showErrorSnackBar("Error al recuperar las piezas dentales"))
+  }
+
   getCompleteName(user: userData){
     return `${user.firstName} ${user.lastName1} ${user.lastName2}`;
+  }
+
+  buildOdontogramLayout(): void{
+  // Divimos las piezas en 2 filas para su correcto display en el front
+    const teethRowLength = 16;
+    for (let i = 0; i < this.teethList.length; i += teethRowLength) {
+      this.rows.push(this.teethList.slice(i, i + teethRowLength));
+    }
+
+    // Ordenamos bien las piezas dentales
+    for(let i = 0; i < this.rows.length; i++){
+      let leftTeethQuarter = this.rows[i].slice(0, 8); // Cogemos los dientes del cuadrante izq ya que están mal ordenados
+      leftTeethQuarter = leftTeethQuarter.reverse(); // Invertimos y sustituimos en la lista
+      this.rows[i] = [...leftTeethQuarter, ...this.rows[i].slice(8)];
+    }
+  }
+
+  toggleSelectTooth(selected: boolean, eventTeeth: TeethDTO):void{
+    let selectedTeeth = this.medicalRecordEntryForm.get('teeth')?.value as TeethDTO[] || [];
+    if(!selected){
+      selectedTeeth = selectedTeeth.filter(t => t !== eventTeeth); //Quitamos si se ha deseleccionado
+    } else{
+      selectedTeeth = [...selectedTeeth, eventTeeth];
+    }
+    
+    this.medicalRecordEntryForm.patchValue({...this.medicalRecordEntryForm.value, teeth: selectedTeeth});
+    console.log(this.medicalRecordEntryForm.get('teeth')?.value);
   }
 
 }

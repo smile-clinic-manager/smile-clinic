@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface ToothServicePort {
     List<Tooth> findAllTeeth(Long medicalRecordId);
+
+    List<Tooth> getToothEntities();
 }

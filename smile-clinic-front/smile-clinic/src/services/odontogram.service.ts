@@ -21,4 +21,11 @@ export class OdontogramService {
     ));
   }
 
+  //Recuperamos los dientes sin sus medicalRecords
+  getToothEntities(): Promise<TeethDTO[]>{
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrl('tooth/getToothEntities'))
+    );
+  }
+
 }
