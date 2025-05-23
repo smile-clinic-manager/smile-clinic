@@ -9,9 +9,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface AppointmentRestMapper {
-    Appointment toAppointment(AppointmentDTO clinicDTO);
-    AppointmentDTO toAppointmentDTO(Appointment clinic);
+    Appointment toAppointment(AppointmentDTO appointmentDTO);
+    AppointmentDTO toAppointmentDTO(Appointment appointment);
 
-    List<Appointment> toAppointmentList(List<AppointmentDTO> clinicsDTO);
-    List<AppointmentDTO> toAppointmentDTOList(List<Appointment> clinics);
+    List<Appointment> toAppointmentList(List<AppointmentDTO> appointmentDTO);
+    List<AppointmentDTO> toAppointmentDTOList(List<Appointment> appointments);
 }
