@@ -8,4 +8,6 @@ public interface ToothServicePersistancePort {
     List<Tooth> findAllTeeth();
 
     List<Tooth> getToothEntities();
+
+    Tooth findToothById(Long toothId);
 }

@@ -30,4 +30,11 @@ public class ToothPersistanceAdapter implements ToothServicePersistancePort {
         List<Tooth> teeth = this.toothPersistanceMapper.toToothList(entities);
         return teeth;
     }
+
+    @Override
+    public Tooth findToothById(Long toothId) {
+        return this.toothPersistanceMapper.toTooth(
+                this.toothEntityRepository.findById(toothId).orElseThrow()
+        );
+    }
 }

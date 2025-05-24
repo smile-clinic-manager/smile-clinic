@@ -9,4 +9,6 @@ import java.util.List;
 public interface MedicalHistoryServicePort {
     MedicalHistory getMedicalHistoryByPatientId(Long patientId);
     MedicalHistory updateMedicalHistory(MedicalHistory medicalHistory) throws ChangeSetPersister.NotFoundException;
+
+    MedicalHistory findMedicalHistoryById(Long medicalHistoryId);
 }

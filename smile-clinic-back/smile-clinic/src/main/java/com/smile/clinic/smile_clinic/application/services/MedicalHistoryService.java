@@ -34,4 +34,9 @@ public class MedicalHistoryService implements MedicalHistoryServicePort {
             })
             .orElseThrow(() -> new RuntimeException("Medical history not found"));
     }
+
+    @Override
+    public MedicalHistory findMedicalHistoryById(Long medicalHistoryId) {
+        return medicalHistoryPersistancePort.findById(medicalHistoryId).orElseThrow();
+    }
 }

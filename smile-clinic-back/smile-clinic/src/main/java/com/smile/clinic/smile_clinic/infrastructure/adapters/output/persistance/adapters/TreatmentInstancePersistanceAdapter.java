@@ -1,8 +1,11 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.adapters;
 
 import com.smile.clinic.smile_clinic.application.ports.output.TreatmentInstancePersistancePort;
+import com.smile.clinic.smile_clinic.domain.models.Treatment;
 import com.smile.clinic.smile_clinic.domain.models.TreatmentInstance;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.TreatmentEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.TreatmentInstancePersistanceMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.TreatmentPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.TreatmentInstanceEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,7 +18,7 @@ public class TreatmentInstancePersistanceAdapter implements TreatmentInstancePer
 
     private final TreatmentInstanceEntityRepository treatmentInstanceEntityRepository;
     private final TreatmentInstancePersistanceMapper treatmentInstanceMapper;
-    private final TreatmentInstanceEntityRepository treatmentInstanceEntityMapper;
+    private final TreatmentPersistanceMapper treatmentPersistanceMapper;
 
     @Override
     public TreatmentInstance findById(Long id) {
@@ -45,5 +48,11 @@ public class TreatmentInstancePersistanceAdapter implements TreatmentInstancePer
     @Override
     public void delete(TreatmentInstance treatmentInstance) {
         treatmentInstanceEntityRepository.delete(treatmentInstanceMapper.toTreatmentInstanceEntity(treatmentInstance));
+    }
+
+    @Override
+    public Treatment findTreatmentToCopy(Long treatmentToCopyId) {
+        TreatmentEntity t = treatmentInstanceEntityRepository.findTreatmentToCopy(treatmentToCopyId);
+        return treatmentPersistanceMapper.toTreatment(t);
     }
 }

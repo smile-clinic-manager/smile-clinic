@@ -24,6 +24,7 @@ import { OdontogramService } from '../../../services/odontogram.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 import { MedicalRecordEntryFormDTO } from '../../models/MedicalRecordEntryFormDTO';
+import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-medical-record-entry-form',
@@ -146,7 +147,8 @@ export class MedicalRecordEntryFormComponent implements OnInit {
       treatmentId: this.medicalRecordEntryForm.get('treatment')?.value!,
       userId: this.medicalRecordEntryForm.get('user')?.value!,
       observations: this.medicalRecordEntryForm.get('observations')?.value!,
-      teethListId: this.medicalRecordEntryForm.get('teeth')?.value!
+      teethListId: this.medicalRecordEntryForm.get('teeth')?.value!,
+      medicalHistoryId: this.data.medicalHistoryDTO.id
     };
     console.log("FORRORORORROR");
     console.log(form);

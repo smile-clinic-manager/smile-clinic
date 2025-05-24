@@ -1,10 +1,14 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.adapters;
 
 import com.smile.clinic.smile_clinic.application.ports.output.MedicalRecordEntryPersistancePort;
+import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
+import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalRecordEntryEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.RecordPersistanceMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.UserPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.RecordEntityRepository;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.UserEntityRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -15,6 +19,7 @@ import java.util.List;
 public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryPersistancePort {
 
     private final RecordEntityRepository recordEntityRepository;
+    private final UserPersistanceMapper userMapper;
     private final RecordPersistanceMapper recordPersistanceMapper;
 
     @Override
@@ -46,6 +51,14 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
     public List<MedicalRecordEntry> findAllByMedicalHistory(Long medicalHistoryId) {
         return recordPersistanceMapper.toMedicalRecordEntryList(
                 this.recordEntityRepository.findAllByMedicalHistory(medicalHistoryId));
+    }
+
+    @Override
+    public MedicalRecordEntry createMedicalRecordEntry(MedicalRecordEntry medicalRecordEntry, User user) {
+        MedicalRecordEntryEntity medicalRecord = recordPersistanceMapper.toMedicalRecordEntryEntity(medicalRecordEntry);
+        medicalRecord.setUser(userMapper.toUserEntity(user));
+        return recordPersistanceMapper.toMedicalRecordEntry(this.recordEntityRepository.save(medicalRecord));
+
     }
 
 }

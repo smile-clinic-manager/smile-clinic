@@ -247,6 +247,7 @@ INSERT INTO treatments_instance (id, name, price, notes, patient_id) VALUES
 (8, 'Implante dental', 900.0, 'Implante de titanio con corona', 23),
 (9, 'Ortodoncia', 1500.0, 'Colocación de brackets metálicos', 23),
 (10, 'Retiro de brackets', 100.0, 'Extracción de aparatología fija', 23);
+ALTER SEQUENCE treatment_instance_seq RESTART WITH 11;
 
 -- Entradas para medical_record_entries (todos con user_id = 1)
 INSERT INTO medical_record_entries (id, date_time, observations, user_id, treatment_instance_id, medical_history_id)
@@ -261,6 +262,7 @@ VALUES
 (8, '2025-05-12 10:30:00', 'Reacción previa a ibuprofeno.', 1, 1, 8),
 (9, '2025-05-12 11:45:00', 'Paciente con antecedentes de reacción a aspirina.', 1, 2, 9),
 (10,'2025-05-13 09:00:00', 'Paciente refiere hinchazón por picadura de abeja.', 1, 3, 10);
+ALTER SEQUENCE medical_record_seq RESTART WITH 11;
 
 -- Relación con dientes (medical_record_entry_tooth)
 -- Asociaciones variadas

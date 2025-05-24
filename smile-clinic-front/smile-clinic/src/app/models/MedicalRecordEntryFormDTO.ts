@@ -8,5 +8,6 @@ export interface MedicalRecordEntryFormDTO{
     treatmentId: string,
     userId: string,
     observations: string,
-    teethListId: string[]
+    teethListId: string[],
+    medicalHistoryId: string
 }

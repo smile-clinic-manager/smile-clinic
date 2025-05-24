@@ -26,4 +26,9 @@ public class ToothService implements ToothServicePort {
     public List<Tooth> getToothEntities() {
         return this.toothServicePersistancePort.getToothEntities();
     }
+
+    @Override
+    public Tooth findToothById(Long toothId) {
+        return this.toothServicePersistancePort.findToothById(toothId);
+    }
 }

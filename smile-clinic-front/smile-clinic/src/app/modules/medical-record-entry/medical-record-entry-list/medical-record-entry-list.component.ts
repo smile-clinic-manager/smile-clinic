@@ -10,6 +10,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicalRecordEntryFormComponent } from '../../../dialogs/medical-record-entry-form/medical-record-entry-form.component';
+import { LocalStorageService } from '../../../../services/local-storage.service';
 
 @Component({
   selector: 'app-medical-record-entry-list',
@@ -23,17 +24,25 @@ export class MedicalRecordEntryListComponent implements OnInit{
   dataSource: MatTableDataSource<MedicalRecordEntryDTO> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   readonly dialog = inject(MatDialog);
+  clinicId: string = "";
 
   displayedColumns: string[] = ["TRATAMIENTOS"];
 
-  constructor(private medicalRecordEntriesService: MedicalRecordEntriesService, private snackbarService: SnackbarServiceService){  }
+  constructor(private medicalRecordEntriesService: MedicalRecordEntriesService, private snackbarService: SnackbarServiceService,
+    private localStorageService: LocalStorageService
+  ){  }
 
   async ngOnInit(): Promise<void> {
+    this.getActiveClinicId();
     await this.getAllMedicalRecordsByMedicalHistory();
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
+  }
+
+  getActiveClinicId(): void{
+    this.clinicId = this.localStorageService.getSelectedGlobalClinic()!.clinicId;
   }
 
   async getAllMedicalRecordsByMedicalHistory(): Promise<void>{
@@ -51,7 +60,7 @@ export class MedicalRecordEntryListComponent implements OnInit{
   openMedicalRecordEntryFormDialog(): void{
     const dialogRef = this.dialog.open(MedicalRecordEntryFormComponent, {
             data: {
-              clinicId: 8, //TODO: Pasar el dato de la clínica activa
+              clinicId: this.clinicId, //TODO: Pasar el dato de la clínica activa
               medicalHistoryDTO: this.medicalHistoryDTO
             },
             panelClass: "wide-lateral-dialog"

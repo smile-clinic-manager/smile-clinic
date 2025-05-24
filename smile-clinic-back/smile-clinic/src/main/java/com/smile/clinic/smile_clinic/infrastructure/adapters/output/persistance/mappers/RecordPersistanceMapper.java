@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring", uses = TreatmentInstancePersistanceMapper.class)
+@Mapper(componentModel = "spring", uses = {TreatmentInstancePersistanceMapper.class, ToothPersistanceMapper.class})
 public interface RecordPersistanceMapper {
 
     MedicalRecordEntryEntity toMedicalRecordEntryEntity(MedicalRecordEntry medicalRecordEntry);

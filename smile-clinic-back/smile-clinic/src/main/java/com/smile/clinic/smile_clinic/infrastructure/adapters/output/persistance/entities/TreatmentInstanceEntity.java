@@ -1,13 +1,9 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
-import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
@@ -17,8 +13,8 @@ import lombok.Setter;
 @Table(name = "treatments_instance")
 public class TreatmentInstanceEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatment_seq")
-    @SequenceGenerator(name = "treatment_seq", sequenceName = "treatment_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "treatment_instance_seq")
+    @SequenceGenerator(name = "treatment_instance_seq", sequenceName = "treatment_instance_seq", allocationSize = 1)
     private Long id;
 
     @NotBlank
@@ -31,6 +27,6 @@ public class TreatmentInstanceEntity {
     private String notes;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id", nullable = false) // Foreign Key
+    @JoinColumn(name = "patient_id", nullable = true) // Foreign Key
     private PatientEntity patient;
 }

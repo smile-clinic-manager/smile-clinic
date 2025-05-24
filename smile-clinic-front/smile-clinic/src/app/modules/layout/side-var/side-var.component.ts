@@ -40,7 +40,7 @@ export class SideVarComponent implements AfterViewInit{
   globalClinicRoleform = new FormGroup({
     globalClinic: new FormControl(),
     globalRole: new FormControl(),
-  })
+  });
 
   ngAfterViewInit(){
     //Evitamos que en el 1er renderizado detecte el cambio de estado del menú para evitar loop infinito
