@@ -1,6 +1,7 @@
 package com.smile.clinic.smile_clinic.application.ports.output;
 
 import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
+import com.smile.clinic.smile_clinic.domain.models.Tooth;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

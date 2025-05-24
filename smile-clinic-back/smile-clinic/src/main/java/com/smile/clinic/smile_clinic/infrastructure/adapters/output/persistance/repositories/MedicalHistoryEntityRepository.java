@@ -2,6 +2,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalHistoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -16,4 +17,8 @@ public interface MedicalHistoryEntityRepository extends JpaRepository<MedicalHis
             "INNER JOIN patients ON patients.medical_history_id = medical_history.id " +
             "WHERE patients.id = :patientId", nativeQuery = true)
     MedicalHistoryEntity findHistoryByPatientId(@Param("patientId") Long patientId);
+
+    @Modifying
+    @Query(value = "INSERT INTO medical_record_entry_tooth (medical_record_entry_id, tooth_id) VALUES (:medicalRecordId, :toothId)", nativeQuery = true)
+    void insertToothRelationship(@Param("medicalRecordId") Long medicalRecordId, @Param("toothId") Long toothId);
 }

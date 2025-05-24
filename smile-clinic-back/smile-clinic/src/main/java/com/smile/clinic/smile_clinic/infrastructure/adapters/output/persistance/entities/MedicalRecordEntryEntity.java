@@ -29,7 +29,6 @@ public class MedicalRecordEntryEntity {
         @NotNull
         private LocalDateTime dateTime;
 
-        @NotBlank
         private String observations;
 
         @ManyToOne
@@ -40,7 +39,7 @@ public class MedicalRecordEntryEntity {
         @JoinColumn(name = "treatment_instance_id")
         private TreatmentInstanceEntity treatmentInstance;
 
-        @ManyToMany
+        @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
         @JoinTable(
                 name = "medical_record_entry_tooth",
                 joinColumns = @JoinColumn(name = "medical_record_entry_id"),

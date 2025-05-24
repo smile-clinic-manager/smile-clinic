@@ -266,14 +266,14 @@ ALTER SEQUENCE medical_record_seq RESTART WITH 11;
 
 -- Relación con dientes (medical_record_entry_tooth)
 -- Asociaciones variadas
-INSERT INTO medical_record_entry_tooth (medical_record_entry_id, tooth_id) VALUES
-(1, 11), (1, 12),
-(2, 13), (2, 14), (2, 15),
-(3, 21),
-(4, 22), (4, 23),
-(5, 31), (5, 32),
-(6, 17), (6, 21),
-(7, 25),
-(8, 26), (8, 27),
-(9, 28), (9, 29),
-(10, 30), (10, 31), (10, 32);
+--INSERT INTO medical_record_entry_tooth (medical_record_entry_id, tooth_id) VALUES
+--(1, 11), (1, 12),
+--(2, 13), (2, 14), (2, 15),
+--(3, 21),
+--(4, 22), (4, 23),
+--(5, 31), (5, 32),
+--(6, 17), (6, 21),
+--(7, 25),
+--(8, 26), (8, 27),
+--(9, 28), (9, 29),
+--(10, 30), (10, 31), (10, 32);

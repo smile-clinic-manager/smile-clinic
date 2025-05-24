@@ -15,7 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RestController
@@ -30,7 +32,7 @@ public class MedicalRecordEntryController {
         try {
             List<MedicalRecordEntry> medicalRecords = this.medicalRecordEntryServicePort.findAllByMedicalHistory(medicalHistoryId);
             List<MedicalRecordEntryDTO> medicalRecordsDTO = this.medicalRecordEntryRestMapper.toMedicalRecordEntryDTOList(medicalRecords);
-
+            medicalRecordsDTO = medicalRecordsDTO.stream().sorted(Comparator.comparing(MedicalRecordEntryDTO::getDateTime).reversed()).collect(Collectors.toList());
             return new ResponseEntity<>(medicalRecordsDTO, HttpStatus.OK);
 
         } catch (EntityNotFoundException e) {

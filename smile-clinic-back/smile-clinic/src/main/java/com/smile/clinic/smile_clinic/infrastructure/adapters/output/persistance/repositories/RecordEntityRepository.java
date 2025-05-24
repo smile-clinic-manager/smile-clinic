@@ -9,8 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface RecordEntityRepository extends JpaRepository<MedicalRecordEntryEntity, Long> {
-    @Query(value = "SELECT * FROM medical_record_entries " +
-            "INNER JOIN medical_record_entry_tooth ON medical_record_entry_tooth.medical_record_entry_id = medical_record_entries.id " +
+    @Query(value = "SELECT DISTINCT medical_record_entries.* FROM medical_record_entries " +
             "WHERE medical_record_entries.medical_history_id = :medicalHistoryId", nativeQuery = true)
     List<MedicalRecordEntryEntity> findAllByMedicalHistory(@Param("medicalHistoryId") Long medicalHistoryId);
 

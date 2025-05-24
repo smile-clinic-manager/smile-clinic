@@ -65,5 +65,9 @@ export class MedicalRecordEntryListComponent implements OnInit{
             },
             panelClass: "wide-lateral-dialog"
           });
+    dialogRef.afterClosed().subscribe(()=>{
+      this.ngOnInit();
+      console.log('hola');
+    });
   }
 }   
