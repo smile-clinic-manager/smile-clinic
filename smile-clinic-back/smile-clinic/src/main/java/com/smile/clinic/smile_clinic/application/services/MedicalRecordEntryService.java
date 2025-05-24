@@ -73,13 +73,12 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
         MedicalRecordEntry medicalRecordEntry = MedicalRecordEntry.builder()
                 .observations(medicalRecordEntryForm.getObservations())
                 .dateTime(dateTime)
-                .teeth(teethList)
                 .treatmentInstance(treatmentInstance)
                 .build();
         MedicalRecordEntry record = this.medicalRecordEntryPersistancePort.createMedicalRecordEntry(medicalRecordEntry, user);
 
         // Asociamos al medicalHistory
-        //MedicalHistory medicalHistory = this.medicalHistoryService.findMedicalHistoryById(medicalRecordEntryForm.getMedicalHistoryId());
+        MedicalHistory medicalHistory = this.medicalHistoryService.findMedicalHistoryById(medicalRecordEntryForm.getMedicalHistoryId());
         return record;
     }
 }

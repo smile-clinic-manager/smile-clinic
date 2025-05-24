@@ -19,5 +19,4 @@ public class MedicalRecordEntry {
     private String observations;
     private DentistData user; //Dentist in charge of the intervention
     private TreatmentInstance treatmentInstance;
-    private List<Tooth> teeth;
 }
