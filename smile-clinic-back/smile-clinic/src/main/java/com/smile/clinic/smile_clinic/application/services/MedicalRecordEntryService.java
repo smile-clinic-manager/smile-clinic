@@ -85,4 +85,9 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
         this.medicalHistoryService.bindRecordToMedicalHistory(medicalRecordEntryForm.getMedicalHistoryId(), record);
         return record;
     }
+
+    @Override
+    public List<Long> getAllRelatedTeethIds(Long medicalRecordId) {
+        return this.medicalHistoryService.findRelatedTeethIds(medicalRecordId);
+    }
 }

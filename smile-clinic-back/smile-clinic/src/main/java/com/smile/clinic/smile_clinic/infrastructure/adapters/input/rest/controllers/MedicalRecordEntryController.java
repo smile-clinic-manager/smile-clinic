@@ -40,6 +40,18 @@ public class MedicalRecordEntryController {
         }
     }
 
+    @GetMapping(value = "/getAllRelatedTeeth")
+    public ResponseEntity<List<Long>> getAllRelatedTeeth(@RequestParam("medicalRecordId") Long medicalRecordId) {
+        try {
+            List<Long> relatedTeethIds = this.medicalRecordEntryServicePort.getAllRelatedTeethIds(medicalRecordId);
+            return new ResponseEntity<>(relatedTeethIds, HttpStatus.OK);
+
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+
     @PostMapping("/createMedicalRecordEntry")
     public ResponseEntity<List<MedicalRecordEntryDTO>> createMedicalRecordEntry(@RequestBody MedicalRecordEntryFormDTO medicalRecordEntryForm) {
         try {

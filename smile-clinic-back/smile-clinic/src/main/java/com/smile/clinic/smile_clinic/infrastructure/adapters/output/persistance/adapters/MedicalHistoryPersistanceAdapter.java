@@ -61,4 +61,9 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
     public void insertToothRelationship(Long medicalRecordId, Long toothId) {
         this.medicalHistoryEntityRepository.insertToothRelationship(medicalRecordId, toothId);
     }
+
+    @Override
+    public List<Long> findRelatedTeeth(Long medicalRecordId) {
+        return this.medicalHistoryEntityRepository.findRelatedTeeth(medicalRecordId);
+    }
 }

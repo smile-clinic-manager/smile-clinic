@@ -68,7 +68,7 @@
                             {{teeth.code}}
                         </mat-card-footer>
                     </mat-card>
-                    <mat-checkbox (change)="toggleSelectTooth($event.checked, teeth)"></mat-checkbox> 
+                    <mat-checkbox (change)="toggleSelectTooth($event.checked, teeth)" [checked]="checkSelectedTeeth(teeth)"></mat-checkbox> 
                 </div>
             }
         </div>

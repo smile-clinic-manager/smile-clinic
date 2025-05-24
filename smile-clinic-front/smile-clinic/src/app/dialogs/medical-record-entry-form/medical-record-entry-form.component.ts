@@ -22,9 +22,8 @@ import {MatTimepickerModule} from '@angular/material/timepicker';
 import { TeethDTO } from '../../models/TeethDTO';
 import { OdontogramService } from '../../../services/odontogram.service';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MedicalRecordEntryFormDTO } from '../../models/MedicalRecordEntryFormDTO';
-import { LocalStorageService } from '../../../services/local-storage.service';
 
 @Component({
   selector: 'app-medical-record-entry-form',
@@ -59,11 +58,12 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     ){ }
 
   ngOnInit(): void {
-    // COGER LAS RELACIONES CON LOS DIENTES
     this.getAllTeeth();
     this.getAllDentistsByClinicId();
     this.getAllTreatmentsByClinicId();
     this.initializeMedicalRecordEntryForm();
+    
+    if(!this.isCreating) this.getMedicalRecordRelatedTeeth(); //Recuperamos dientes asociados en la edicion
   }
 
   ngAfterViewInit(): void{
@@ -170,6 +170,24 @@ export class MedicalRecordEntryFormComponent implements OnInit {
       this.dialogRef.close();
     })
     .catch(()=> this.snackBarService.showErrorSnackBar("Error al crear el tratamiento"));
+  }
+
+  getMedicalRecordRelatedTeeth(): void{
+    this.medicalRecordEntriesService.getAllRelatedTeethToMedicalRecord(this.data.medicalRecordEntry?.id)
+      .then((teethIdList: string[])=>{
+        this.checkAllRelatedTeeth(teethIdList);
+        console.log("SELECTED");
+        console.log(this.medicalRecordEntryForm.get('teeth')!.value);
+      })
+      .catch(()=>this.snackBarService.showErrorSnackBar("Error al recuperar piezas dentales asociadas"));
+  }
+
+  checkAllRelatedTeeth(teethIdList: string[]) {
+    this.medicalRecordEntryForm.patchValue({...this.medicalRecordEntryForm.value, teeth: teethIdList});
+  }
+
+  checkSelectedTeeth(teeth: TeethDTO): boolean{
+    return this.medicalRecordEntryForm.get('teeth')!.value?.includes(teeth.id) ?? false;
   }
  
 }

@@ -21,4 +21,7 @@ public interface MedicalHistoryEntityRepository extends JpaRepository<MedicalHis
     @Modifying
     @Query(value = "INSERT INTO medical_record_entry_tooth (medical_record_entry_id, tooth_id) VALUES (:medicalRecordId, :toothId)", nativeQuery = true)
     void insertToothRelationship(@Param("medicalRecordId") Long medicalRecordId, @Param("toothId") Long toothId);
+
+    @Query(value = "SELECT tooth_id FROM medical_record_entry_tooth where medical_record_entry_id = :medicalRecordId ", nativeQuery = true)
+    List<Long> findRelatedTeeth(@Param("medicalRecordId")Long medicalRecordId);
 }

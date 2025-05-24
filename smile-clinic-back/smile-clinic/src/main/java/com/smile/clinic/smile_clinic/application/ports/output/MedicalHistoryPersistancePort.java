@@ -17,4 +17,6 @@ public interface MedicalHistoryPersistancePort {
     void bindRecordToMedicalHistory(Long medicalHistoryId, MedicalRecordEntry record);
 
     void insertToothRelationship(Long medicalRecordId, Long toothId);
+
+    List<Long> findRelatedTeeth(Long medicalRecordId);
 }

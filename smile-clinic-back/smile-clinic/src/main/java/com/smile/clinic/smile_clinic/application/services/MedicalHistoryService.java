@@ -50,4 +50,9 @@ public class MedicalHistoryService implements MedicalHistoryServicePort {
     public void insertToothRelationship(Long medicalRecordId, Long toothId) {
         medicalHistoryPersistancePort.insertToothRelationship(medicalRecordId, toothId);
     }
+
+    @Override
+    public List<Long> findRelatedTeethIds(Long medicalRecordId) {
+        return medicalHistoryPersistancePort.findRelatedTeeth(medicalRecordId);
+    }
 }

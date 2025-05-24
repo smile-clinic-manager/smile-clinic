@@ -15,4 +15,6 @@ public interface MedicalRecordEntryServicePort {
     List<MedicalRecordEntry> findAllByMedicalHistory(Long medicalHistoryId);
 
     MedicalRecordEntry createMedicalRecordEntry(MedicalRecordEntryFormDTO medicalRecordEntryForm);
+
+    List<Long> getAllRelatedTeethIds(Long medicalRecordId);
 }
