@@ -1,17 +1,13 @@
 .teeth-row {
   display: flex;
   flex-wrap: nowrap;
-  margin-bottom: 5rem;
+  margin-bottom: 3rem;
   gap: 8px;
 }
 
 .teeth-div{
     width: 6%;
-    height: 10rem;
-}
-
-.teeth-card{
-    height: 95%;
+    height: 4rem;
 }
 
 .teeth-code{
@@ -38,4 +34,7 @@ mat-card-footer{
     justify-content: center;
 }
 
+.margin-top{
+    margin-top: 2rem;
+}
 

@@ -45,7 +45,7 @@ export class MedicalRecordEntryFormComponent implements OnInit {
 
   medicalRecordEntryForm = new FormGroup({
     date: new FormControl('', [Validators.required]),
-    time: new FormControl('', [Validators.required]),
+    time: new FormControl<Date | null>(null, [Validators.required]),
     observations: new FormControl(''),
     treatment: new FormControl<string>('', [Validators.required]),
     user: new FormControl('', [Validators.required]),
@@ -53,28 +53,42 @@ export class MedicalRecordEntryFormComponent implements OnInit {
   });
 
   constructor(private dialogRef: MatDialogRef<MedicalRecordEntryFormComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: { clinicId: string, medicalHistoryDTO: MedicalHistoryDTO, medicalRecordEntry: MedicalRecordEntryDTO },
+      @Inject(MAT_DIALOG_DATA) public data: { clinicId: string, medicalHistoryDTO: MedicalHistoryDTO, medicalRecordEntry?: MedicalRecordEntryDTO },
       private snackBarService: SnackbarServiceService, private medicalRecordEntriesService: MedicalRecordEntriesService,
       private userService: UserService, private treatmentService: TreatmentService, private odontogramService: OdontogramService
     ){ }
 
   ngOnInit(): void {
+    // COGER LAS RELACIONES CON LOS DIENTES
     this.getAllTeeth();
     this.getAllDentistsByClinicId();
     this.getAllTreatmentsByClinicId();
-    this.initializeMedicalRecordEntryForm()
+    this.initializeMedicalRecordEntryForm();
+  }
+
+  ngAfterViewInit(): void{
+    this.initializeMedicalRecordEntryForm();
   }
 
   initializeMedicalRecordEntryForm() {
     if (this.data.medicalRecordEntry) {
-      this.medicalRecordEntryForm.get('date')?.setValue("");
-      this.medicalRecordEntryForm.get('time')?.setValue("");
+      this.medicalRecordEntryForm.get('date')?.setValue(this.data.medicalRecordEntry.dateTime.split('T')[0]);
+      const timeFormatted: Date = this.getTimeFormat(this.data.medicalRecordEntry.dateTime.split('T')[1]);
+      this.medicalRecordEntryForm.get('time')?.setValue(timeFormatted);
       this.medicalRecordEntryForm.get('observations')?.setValue(this.data.medicalRecordEntry.observations);
       this.medicalRecordEntryForm.get('treatment')?.setValue(this.data.medicalRecordEntry.treatmentInstance.id);
       this.medicalRecordEntryForm.get('user')?.setValue(this.data.medicalRecordEntry.user.id);
 
       this.isCreating = false;
     }
+  }
+
+  getTimeFormat(timeString: string): Date {
+    const [hours, minutes, seconds] = timeString.split(':').map(Number);
+
+    const dateWithTime = new Date();
+    dateWithTime.setHours(hours, minutes, seconds || 0, 0);
+    return dateWithTime;
   }
 
   getAllDentistsByClinicId():void{
@@ -88,6 +102,7 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     this.treatmentService.getClinicTreatmentList(this.data.clinicId).then((treatments: TreatmentDTO[])=>{
       this.treatments = treatments;
     })
+    .finally(()=>this.medicalRecordEntryForm.get('treatment')?.setValue(this.data.medicalRecordEntry?.treatmentInstance?.id ?? null))
     .catch(() => this.snackBarService.showErrorSnackBar("Error al recuperar los tratamientos"));
   }
 
@@ -150,8 +165,6 @@ export class MedicalRecordEntryFormComponent implements OnInit {
       teethListId: this.medicalRecordEntryForm.get('teeth')?.value!,
       medicalHistoryId: this.data.medicalHistoryDTO.id
     };
-    console.log("FORRORORORROR");
-    console.log(form);
 
     this.medicalRecordEntriesService.createNewMedicalRecordEntry(form).then(()=>{
       this.dialogRef.close();

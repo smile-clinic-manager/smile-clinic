@@ -11,10 +11,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { MedicalRecordEntryFormComponent } from '../../../dialogs/medical-record-entry-form/medical-record-entry-form.component';
 import { LocalStorageService } from '../../../../services/local-storage.service';
+import { MatDivider } from '@angular/material/divider';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'app-medical-record-entry-list',
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatExpansionModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, MatExpansionModule, 
+  MatButtonModule, MatDivider, MatMenuModule],
   templateUrl: './medical-record-entry-list.component.html',
   styleUrl: './medical-record-entry-list.component.scss'
 })
@@ -57,17 +60,23 @@ export class MedicalRecordEntryListComponent implements OnInit{
     return dateTime.split('T')[0]; //Mostramos solo el dia de la fecha en el accordion
   }
 
-  openMedicalRecordEntryFormDialog(): void{
+  openMedicalRecordEntryFormDialog(element?: MedicalRecordEntryDTO): void{
     const dialogRef = this.dialog.open(MedicalRecordEntryFormComponent, {
             data: {
               clinicId: this.clinicId, //TODO: Pasar el dato de la clínica activa
-              medicalHistoryDTO: this.medicalHistoryDTO
+              medicalHistoryDTO: this.medicalHistoryDTO,
+              medicalRecordEntry: element
             },
             panelClass: "wide-lateral-dialog"
           });
     dialogRef.afterClosed().subscribe(()=>{
       this.ngOnInit();
-      console.log('hola');
     });
   }
+
+  deleteMedicalRecordEntry(): void {
+    console.log("gola");
+  }
+
+
 }   
