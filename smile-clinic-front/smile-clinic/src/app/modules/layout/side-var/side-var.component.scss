@@ -67,7 +67,7 @@ mat-sidenav {
 @media (min-width: 661px) {
   /* Hide text and show only icons */
   mat-sidenav {
-    min-width: 200px;
+    min-width: 300px !important;
   }
 }
 
@@ -87,9 +87,8 @@ mat-sidenav {
   display: none !important;
 }
 
-
-// TODO: Arreglar alignment del menú lateral
-
-/* .mat-mdc-list-item-unscoped-content .mdc-list-item__primary-text{
-  display: flex;
-} */
+.mat-drawer-inner-container {
+  width: 100%;
+  height: 100%;
+  overflow: clip !important;
+}
