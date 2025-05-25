@@ -11,7 +11,6 @@ import { MedicalRecordEntryFormDTO } from '../app/models/MedicalRecordEntryFormD
 })
 export class MedicalRecordEntriesService {
 
-
   constructor(private api: ApiHttpService, private apiEndpointHelper: ApiEndpointHelperService,
         private localStorageService: LocalStorageService) { }
 
@@ -29,11 +28,25 @@ export class MedicalRecordEntriesService {
     );
   }
 
+  editMedicalRecordEntry(form: MedicalRecordEntryFormDTO): Promise<void> {
+    return firstValueFrom(
+      this.api.put(this.apiEndpointHelper.createUrl('medical-records/editMedicalRecordEntry'), form)
+    );
+  }
+
   getAllRelatedTeethToMedicalRecord(medicalRecordId: string | undefined) {
     const params: Map<string, any> = new Map();
-      params.set('medicalRecordId', medicalRecordId);
-      return firstValueFrom(
-        this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/medical-records/getAllRelatedTeeth', params)
-      ));
+    params.set('medicalRecordId', medicalRecordId);
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/medical-records/getAllRelatedTeeth', params)
+    ));
+  }
+
+  deleteMedicalRecord(medicalRecordId: string): Promise<void> {
+    const params: Map<string, any> = new Map();
+    params.set('medicalRecordId', medicalRecordId);
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/medical-records/deleteMedicalRecordEntry', params)
+    ));
   }
 }

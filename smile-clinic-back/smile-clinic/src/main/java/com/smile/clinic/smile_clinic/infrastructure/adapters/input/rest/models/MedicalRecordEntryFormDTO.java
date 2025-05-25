@@ -19,6 +19,7 @@ public class MedicalRecordEntryFormDTO {
     private Long userId;
     private String observations;
     private List<String> teethListId;
+    private Long medicalRecordId;
 }
 
 

@@ -74,8 +74,13 @@ export class MedicalRecordEntryListComponent implements OnInit{
     });
   }
 
-  deleteMedicalRecordEntry(): void {
-    console.log("gola");
+  deleteMedicalRecordEntry(medicalRecordEntry: MedicalRecordEntryDTO): void {
+    this.medicalRecordEntriesService.deleteMedicalRecord(medicalRecordEntry.id)
+      .then(() => {
+        this.ngOnInit();
+      })
+      .catch(()=>this.snackbarService.showErrorSnackBar("Error al eliminar elemento"))
+      .finally(()=> this.snackbarService.showSuccessSnackBar("Elementp borrado con éxito"));
   }
 
 

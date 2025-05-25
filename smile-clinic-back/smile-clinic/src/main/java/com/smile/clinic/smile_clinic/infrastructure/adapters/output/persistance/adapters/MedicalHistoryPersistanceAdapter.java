@@ -66,4 +66,5 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
     public List<Long> findRelatedTeeth(Long medicalRecordId) {
         return this.medicalHistoryEntityRepository.findRelatedTeeth(medicalRecordId);
     }
+
 }

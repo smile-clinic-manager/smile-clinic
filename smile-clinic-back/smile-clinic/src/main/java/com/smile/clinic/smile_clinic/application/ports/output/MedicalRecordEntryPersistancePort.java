@@ -13,10 +13,12 @@ public interface MedicalRecordEntryPersistancePort {
     List<MedicalRecordEntry> findAll();
     MedicalRecordEntry findById(Long id);
     MedicalRecordEntry save(MedicalRecordEntry record);
-    MedicalRecordEntry update(Long id, MedicalRecordEntry record);
+    MedicalRecordEntry update(MedicalRecordEntry record);
     void delete(MedicalRecordEntry record);
 
     List<MedicalRecordEntry> findAllByMedicalHistory(Long medicalHistoryId);
 
     MedicalRecordEntry createMedicalRecordEntry(MedicalRecordEntry medicalRecordEntry, User user);
+
+    void clearToothRelationships(Long medicalHistoryId);
 }

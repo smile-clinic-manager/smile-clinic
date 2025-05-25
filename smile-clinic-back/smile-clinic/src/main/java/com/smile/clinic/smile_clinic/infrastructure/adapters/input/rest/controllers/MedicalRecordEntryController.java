@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -57,6 +58,27 @@ public class MedicalRecordEntryController {
         try {
             MedicalRecordEntry medicalRecordEntry = this.medicalRecordEntryServicePort.createMedicalRecordEntry(medicalRecordEntryForm);
             medicalRecordEntryRestMapper.toMedicalRecordEntryDTO(medicalRecordEntry);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @PutMapping("/editMedicalRecordEntry")
+    public ResponseEntity<Object> editMedicalRecordEntry(@RequestBody MedicalRecordEntryFormDTO medicalRecordEntryForm) {
+        try {
+            MedicalRecordEntry medicalRecordEntry = this.medicalRecordEntryServicePort.editMedicalRecordEntry(medicalRecordEntryForm);
+            medicalRecordEntryRestMapper.toMedicalRecordEntryDTO(medicalRecordEntry);
+            return ResponseEntity.status(HttpStatus.OK).build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+    }
+
+    @DeleteMapping("/deleteMedicalRecordEntry")
+    public ResponseEntity<Object> deleteMedicalRecordEntry(@RequestParam("medicalRecordId") Long medicalRecordId) {
+        try {
+            this.medicalRecordEntryServicePort.deleteById(medicalRecordId);
             return ResponseEntity.status(HttpStatus.OK).build();
         } catch (EntityNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();

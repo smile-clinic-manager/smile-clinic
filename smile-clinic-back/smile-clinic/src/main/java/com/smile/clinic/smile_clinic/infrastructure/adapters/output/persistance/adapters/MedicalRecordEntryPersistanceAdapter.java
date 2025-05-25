@@ -27,7 +27,6 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
     private final RecordEntityRepository recordEntityRepository;
     private final UserPersistanceMapper userMapper;
     private final RecordPersistanceMapper recordPersistanceMapper;
-    private final ToothEntityRepository toothEntityRepository;
 
     @Override
     public List<MedicalRecordEntry> findAll() {
@@ -45,7 +44,7 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
     }
 
     @Override
-    public MedicalRecordEntry update(Long id, MedicalRecordEntry record) {
+    public MedicalRecordEntry update(MedicalRecordEntry record) {
         return recordPersistanceMapper.toMedicalRecordEntry(this.recordEntityRepository.save(recordPersistanceMapper.toMedicalRecordEntryEntity(record)));
     }
 
@@ -68,6 +67,10 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
 
     }
 
+    @Override
+    public void clearToothRelationships(Long medicalRecordEntryId) {
+        this.recordEntityRepository.clearToothRelationships(medicalRecordEntryId);
+    }
 
 
 }

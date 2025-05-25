@@ -163,21 +163,35 @@ export class MedicalRecordEntryFormComponent implements OnInit {
       userId: this.medicalRecordEntryForm.get('user')?.value!,
       observations: this.medicalRecordEntryForm.get('observations')?.value!,
       teethListId: this.medicalRecordEntryForm.get('teeth')?.value!,
-      medicalHistoryId: this.data.medicalHistoryDTO.id
+      medicalHistoryId: this.data.medicalHistoryDTO.id,
+      medicalRecordId: this.data.medicalRecordEntry?.id ?? '0'
     };
+    
+    if(this.isCreating){
+      this.createMedicalRecordEntry(form);
+    } else{
+      this.editMedicalRecordEntry(form);
+    }
+  }
 
-    this.medicalRecordEntriesService.createNewMedicalRecordEntry(form).then(()=>{
+  private createMedicalRecordEntry(form: MedicalRecordEntryFormDTO) {
+    this.medicalRecordEntriesService.createNewMedicalRecordEntry(form).then(() => {
       this.dialogRef.close();
     })
-    .catch(()=> this.snackBarService.showErrorSnackBar("Error al crear el tratamiento"));
+    .catch(() => this.snackBarService.showErrorSnackBar("Error al crear el tratamiento"));
+  }
+
+  private editMedicalRecordEntry(form: MedicalRecordEntryFormDTO) {
+    this.medicalRecordEntriesService.editMedicalRecordEntry(form).then(() => {
+      this.dialogRef.close();
+    })
+    .catch(() => this.snackBarService.showErrorSnackBar("Error al editar el tratamiento"));
   }
 
   getMedicalRecordRelatedTeeth(): void{
     this.medicalRecordEntriesService.getAllRelatedTeethToMedicalRecord(this.data.medicalRecordEntry?.id)
       .then((teethIdList: string[])=>{
         this.checkAllRelatedTeeth(teethIdList);
-        console.log("SELECTED");
-        console.log(this.medicalRecordEntryForm.get('teeth')!.value);
       })
       .catch(()=>this.snackBarService.showErrorSnackBar("Error al recuperar piezas dentales asociadas"));
   }

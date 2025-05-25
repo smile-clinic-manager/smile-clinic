@@ -10,12 +10,17 @@ import com.smile.clinic.smile_clinic.domain.models.TreatmentInstance;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalRecordEntryFormDTO;
 import com.smile.clinic.smile_clinic.utils.DateTimeComposer;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +31,8 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
     private final UserService userService;
     private final MedicalHistoryService medicalHistoryService;
     private final DateTimeComposer dateTimeComposer;
-    private final ToothService toothService;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<MedicalRecordEntry> findAll() {
@@ -45,7 +51,7 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
 
     @Override
     public MedicalRecordEntry update(Long id, MedicalRecordEntry MedicalRecordEntry) {
-        return medicalRecordEntryPersistancePort.update(id, MedicalRecordEntry);
+        return medicalRecordEntryPersistancePort.update(MedicalRecordEntry);
     }
 
     @Override
@@ -59,14 +65,10 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
     }
 
     @Override
+    @Transactional
     public MedicalRecordEntry createMedicalRecordEntry(MedicalRecordEntryFormDTO medicalRecordEntryForm) {
         TreatmentInstance treatmentInstance = this.treatmentInstanceService.createInstanceFromTreatmentDTO(medicalRecordEntryForm.getTreatmentId());
         User user = this.userService.findUserByUserId(medicalRecordEntryForm.getUserId());
-        List<Tooth> teethList = new ArrayList<>();
-        for(String toothId : medicalRecordEntryForm.getTeethListId()){
-            Tooth tooth = toothService.findToothById(Long.valueOf(toothId));
-            teethList.add(tooth);
-        }
 
         LocalDateTime dateTime = this.dateTimeComposer.composeDateTime(medicalRecordEntryForm.getDate(),medicalRecordEntryForm.getTime());
 
@@ -84,6 +86,49 @@ public class MedicalRecordEntryService implements MedicalRecordEntryServicePort 
         // Asociamos al medicalHistory
         this.medicalHistoryService.bindRecordToMedicalHistory(medicalRecordEntryForm.getMedicalHistoryId(), record);
         return record;
+    }
+
+    @Override
+    @Transactional
+    public MedicalRecordEntry editMedicalRecordEntry(MedicalRecordEntryFormDTO medicalRecordEntryForm) {
+        MedicalRecordEntry existingRecord = this.medicalRecordEntryPersistancePort.findById(medicalRecordEntryForm.getMedicalRecordId());
+        if (existingRecord == null) {
+            throw new EntityNotFoundException("MedicalRecordEntry not found with ID: " + medicalRecordEntryForm.getMedicalRecordId());
+        }
+
+        // Update TreatmentInstance
+        TreatmentInstance treatmentInstance = this.treatmentInstanceService.createInstanceFromTreatmentDTO(medicalRecordEntryForm.getTreatmentId());
+        existingRecord.setTreatmentInstance(treatmentInstance);
+
+        // Update dateTime
+        LocalDateTime dateTime = this.dateTimeComposer.composeDateTime(medicalRecordEntryForm.getDate(), medicalRecordEntryForm.getTime());
+        existingRecord.setDateTime(dateTime);
+
+        // Update observations
+        existingRecord.setObservations(medicalRecordEntryForm.getObservations());
+
+        // Update the entry
+        MedicalRecordEntry updatedRecord = this.medicalRecordEntryPersistancePort.update(existingRecord);
+
+        // Update teeth relationships
+        this.medicalRecordEntryPersistancePort.clearToothRelationships(medicalRecordEntryForm.getMedicalRecordId());
+        for (String teethId : medicalRecordEntryForm.getTeethListId()) {
+            this.medicalHistoryService.insertToothRelationship(medicalRecordEntryForm.getMedicalRecordId(), Long.valueOf(teethId));
+        }
+
+        return updatedRecord;
+    }
+
+    @Override
+    @Transactional
+    public void deleteById(Long medicalRecordId) {
+        MedicalRecordEntry medicalRecordEntry = this.medicalRecordEntryPersistancePort.findById(medicalRecordId);
+        if (medicalRecordEntry == null) {
+            throw new EntityNotFoundException("MedicalRecordEntry not found with ID: " + medicalRecordId);
+        }
+        this.medicalRecordEntryPersistancePort.clearToothRelationships(medicalRecordEntry.getId());
+        medicalRecordEntryPersistancePort.delete(medicalRecordEntry);
+
     }
 
     @Override

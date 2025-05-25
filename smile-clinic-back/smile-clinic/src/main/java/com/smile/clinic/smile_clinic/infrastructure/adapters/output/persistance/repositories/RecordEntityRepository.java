@@ -3,6 +3,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalRecordEntryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -13,4 +14,7 @@ public interface RecordEntityRepository extends JpaRepository<MedicalRecordEntry
             "WHERE medical_record_entries.medical_history_id = :medicalHistoryId", nativeQuery = true)
     List<MedicalRecordEntryEntity> findAllByMedicalHistory(@Param("medicalHistoryId") Long medicalHistoryId);
 
+    @Modifying
+    @Query(value = "DELETE FROM medical_record_entry_tooth where medical_record_entry_id = :medicalRecordEntryId ", nativeQuery = true)
+    void clearToothRelationships(@Param("medicalRecordEntryId") Long medicalRecordEntryId);
 }

@@ -17,4 +17,8 @@ public interface MedicalRecordEntryServicePort {
     MedicalRecordEntry createMedicalRecordEntry(MedicalRecordEntryFormDTO medicalRecordEntryForm);
 
     List<Long> getAllRelatedTeethIds(Long medicalRecordId);
+
+    MedicalRecordEntry editMedicalRecordEntry(MedicalRecordEntryFormDTO medicalRecordEntryForm);
+
+    void deleteById(Long medicalRecordId);
 }
