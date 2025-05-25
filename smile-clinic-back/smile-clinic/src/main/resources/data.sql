@@ -238,7 +238,7 @@ INSERT INTO medical_history_previous_diseases VALUES (10, 5);
 
 INSERT INTO treatments_instance (id, name, price, notes, patient_id) VALUES
 (1, 'Limpieza dental', 35.0, 'Limpieza profunda y remoción de sarro', 23),
-(2, 'Obturación', 50.0, 'Relleno de caries con resina compuesta', 23),
+(2, 'Limpieza dental', 50.0, 'Relleno de caries con resina compuesta', 23),
 (3, 'Extracción dental', 70.0, 'Extracción simple de pieza dental', 23),
 (4, 'Extracción de muela del juicio', 120.0, 'Extracción quirúrgica', 23),
 (5, 'Blanqueamiento dental', 150.0, 'Tratamiento cosmético con gel de peróxido', 23),

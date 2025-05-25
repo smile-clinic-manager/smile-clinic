@@ -102,8 +102,14 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     this.treatmentService.getClinicTreatmentList(this.data.clinicId).then((treatments: TreatmentDTO[])=>{
       this.treatments = treatments;
     })
-    .finally(()=>this.medicalRecordEntryForm.get('treatment')?.setValue(this.data.medicalRecordEntry?.treatmentInstance?.id ?? null))
+    .finally(()=>{
+      this.medicalRecordEntryForm.get('treatment')?.setValue(this.findSelectedTreatmentId());
+    })
     .catch(() => this.snackBarService.showErrorSnackBar("Error al recuperar los tratamientos"));
+  }
+
+  findSelectedTreatmentId(): string | null{
+    return this.treatments.find((t)=> t.name.toLowerCase() === this.data.medicalRecordEntry?.treatmentInstance?.name.toLowerCase())?.id ?? null;
   }
 
   getAllTeeth(): void{
@@ -119,7 +125,7 @@ export class MedicalRecordEntryFormComponent implements OnInit {
   }
 
   buildOdontogramLayout(): void{
-  // Divimos las piezas en 2 filas para su correcto display en el front
+    // Divimos las piezas en 2 filas para su correcto display en el front
     const teethRowLength = 16;
     for (let i = 0; i < this.teethList.length; i += teethRowLength) {
       this.rows.push(this.teethList.slice(i, i + teethRowLength));
@@ -133,7 +139,7 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     }
   }
 
-  toggleSelectTooth(selected: boolean, eventTeeth: TeethDTO):void{
+  toggleSelectTooth(selected: boolean, eventTeeth: TeethDTO):void {
     let selectedTeeth = this.medicalRecordEntryForm.get('teeth')?.value || [];
     if(!selected){
       selectedTeeth = selectedTeeth.filter(t => t !== eventTeeth.id); //Quitamos si se ha deseleccionado
