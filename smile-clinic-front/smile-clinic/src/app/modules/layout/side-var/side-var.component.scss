@@ -1,6 +1,30 @@
 .sidenav-container {
-    height: 100%;
+  display: flex;
+  min-height: 100vh; /* allows body to grow beyond viewport */
 }
+
+mat-sidenav-content {
+  display: block;
+  width: 100%;
+  padding: 1%;
+  box-sizing: border-box;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 0 1 auto;
+}
+
+.footer {
+  margin-top: 2rem;
+  padding: 1rem;
+  background: #f1f1f1;
+}
+
 
 mat-sidenav {
   height: 100%;
