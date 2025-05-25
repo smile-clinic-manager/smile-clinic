@@ -1,7 +1,7 @@
 import { LocalStorageService } from './../../../services/local-storage.service';
 import { CalendarComponent } from './calendar/calendar.component';
 import { AppointmentService } from '../../../services/appointment.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { AppointmentDTO } from '../../models/AppointmentDTO';
 
 @Component({
@@ -14,21 +14,28 @@ export class AppointmentComponent implements OnInit {
 
   user: any;
   appointments: AppointmentDTO[] = [];
+  selectedDate: Date | null = null;
 
   constructor(private appointmentService: AppointmentService,
-    private localStorageService: LocalStorageService,
-    private calendar: CalendarComponent) { }
+    private localStorageService: LocalStorageService) { }
 
   ngOnInit(): void {
-    this.user = this.localStorageService.getUserData(); 
+    this.user = this.localStorageService.getUserData();
+    console.log('User data:', this.user);
     this.findAppointmentsByUserPermissions();
+  }
+
+  onDateSelected(date: Date): void {
+    this.selectedDate = date;
+    console.log('Selected date:', this.selectedDate);
   }
 
   findAppointmentsByUserPermissions(): void {
     if (this.user.role === 'CLINIC_DENTIST') {
       this.findAllByUserId(this.user.id);
     } else {
-      this.findAllByClinicId(this.user.clinicId);
+      const clinicId = this.localStorageService.getSelectedGlobalClinic()?.clinicId;
+      this.findAllByClinicId(clinicId!);
     }
   }
 

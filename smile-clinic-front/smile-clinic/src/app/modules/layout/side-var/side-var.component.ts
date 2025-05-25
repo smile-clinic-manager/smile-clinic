@@ -67,7 +67,7 @@ export class SideVarComponent implements AfterViewInit{
   }
 
   redirectToAppointments(){
-    this.router.navigate(['appointment']);
+    this.router.navigate(['appointments']);
   }
   
   redirectToClinics(){

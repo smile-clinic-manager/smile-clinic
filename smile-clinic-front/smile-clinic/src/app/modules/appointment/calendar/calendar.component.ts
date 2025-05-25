@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnDestroy, Output, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { DateAdapter, MAT_DATE_FORMATS, provideNativeDateAdapter } from '@angular/material/core';
 import { MatCalendar, MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,6 +9,7 @@ import { Subject, startWith, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-calendar',
+  standalone: true,
   templateUrl: './calendar.component.html',
   providers: [provideNativeDateAdapter()],
   imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule],
@@ -16,6 +17,11 @@ import { Subject, startWith, takeUntil } from 'rxjs';
 })
 export class CalendarComponent {
   readonly exampleHeader = ExampleHeader;
+  @Output() dateSelected = new EventEmitter<Date>();
+
+  onDateChange(event: any) {
+    this.dateSelected.emit(event.value);
+  }
 }
 
 @Component({
