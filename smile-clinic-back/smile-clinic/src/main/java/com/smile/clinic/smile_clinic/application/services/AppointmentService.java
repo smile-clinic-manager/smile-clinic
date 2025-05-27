@@ -4,6 +4,7 @@ import com.smile.clinic.smile_clinic.application.ports.input.AppointmentServiceP
 import com.smile.clinic.smile_clinic.application.ports.output.AppointmentPersistancePort;
 import com.smile.clinic.smile_clinic.domain.exceptions.AppointmentNotFoundException;
 import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,14 +14,15 @@ import java.util.Optional;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AppointmentService implements AppointmentServicePort {
 
-    private AppointmentPersistancePort appointmentPersistancePort;
+    private final AppointmentPersistancePort appointmentPersistancePort;
 
     @Override
     public List<Appointment> findAll() {
-        return null;
+        return this.appointmentPersistancePort.findAll();
     }
 
     @Override

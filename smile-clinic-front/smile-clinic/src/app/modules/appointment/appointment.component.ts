@@ -31,7 +31,7 @@ export class AppointmentComponent implements OnInit {
   }
 
   findAppointmentsByUserPermissions(): void {
-    if (this.user.role === 'CLINIC_DENTIST') {
+    if (this.localStorageService.getSelectedGlobalRole()?.name === 'CLINIC_DENTIST') {
       this.findAllByUserId(this.user.id);
     } else {
       const clinicId = this.localStorageService.getSelectedGlobalClinic()?.clinicId;
