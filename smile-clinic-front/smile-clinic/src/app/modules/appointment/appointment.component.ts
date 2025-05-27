@@ -3,10 +3,11 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { AppointmentService } from '../../../services/appointment.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { AppointmentDTO } from '../../models/AppointmentDTO';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-appointment',
-  imports: [CalendarComponent],
+  imports: [CalendarComponent, MatTableModule],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.scss'
 })
@@ -15,6 +16,9 @@ export class AppointmentComponent implements OnInit {
   user: any;
   appointments: AppointmentDTO[] = [];
   selectedDate: Date | null = null;
+
+  displayedColumns: string[] = ['FECHA', 'HORA', 'PACIENTE', 'DENTISTA', 'ESTADO', 'ACCIONES'];
+  dataSource: AppointmentDTO[] = this.appointments;
 
   constructor(private appointmentService: AppointmentService,
     private localStorageService: LocalStorageService) { }
