@@ -1,28 +1,26 @@
-<app-calendar (dateSelected)="onDateSelected($event)"></app-calendar>
-
 <table mat-table [dataSource]="dataSource">
   <ng-container matColumnDef="FECHA">
     <th mat-header-cell *matHeaderCellDef> Fecha </th>
-    <td mat-cell *matCellDef="let appointment"> {{appointment.date | date:'short'}} </td>
+    <td mat-cell *matCellDef="let appointment"> {{getAppointmentDate(appointment)}} </td>
   </ng-container>
   <ng-container matColumnDef="HORA">
     <th mat-header-cell *matHeaderCellDef> Hora </th>
-    <td mat-cell *matCellDef="let appointment"> {{appointment.time | date:'shortTime'}} </td>
+    <td mat-cell *matCellDef="let appointment"> {{getAppointmentTime(appointment)}} </td>
   </ng-container>
   <ng-container matColumnDef="PACIENTE">
     <th mat-header-cell *matHeaderCellDef> Paciente </th>
-    <td mat-cell *matCellDef="let appointment"> {{appointment.patientName}} </td>
+    <td mat-cell *matCellDef="let appointment"> {{getPatientName(appointment)}} </td>
   </ng-container>
   <ng-container matColumnDef="DENTISTA">
     <th mat-header-cell *matHeaderCellDef> Dentista </th>
-    <td mat-cell *matCellDef="let appointment"> {{appointment.dentistName}} </td>
+    <td mat-cell *matCellDef="let appointment"> {{getDentistName(appointment)}} </td>
   </ng-container>
   <ng-container matColumnDef="ESTADO">
     <th mat-header-cell *matHeaderCellDef> Estado </th>
     <td mat-cell *matCellDef="let appointment"> {{appointment.state}} </td>
   </ng-container>
   <ng-container matColumnDef="ACCIONES">
-    <!--<th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
     <td mat-cell *matCellDef="let appointment">
       <button mat-icon-button (click)="editAppointment(appointment.id)">
         <mat-icon>edit</mat-icon>
@@ -30,6 +28,8 @@
       <button mat-icon-button (click)="deleteAppointment(appointment.id)">
         <mat-icon>delete</mat-icon>
       </button>
-    </td>-->
+    </td>
   </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>

@@ -4,21 +4,23 @@ import { AppointmentService } from '../../../services/appointment.service';
 import { Component, OnInit, inject } from '@angular/core';
 import { AppointmentDTO } from '../../models/AppointmentDTO';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 @Component({
   selector: 'app-appointment',
-  imports: [CalendarComponent, MatTableModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.scss'
 })
 export class AppointmentComponent implements OnInit {
 
   user: any;
-  appointments: AppointmentDTO[] = [];
   selectedDate: Date | null = null;
 
   displayedColumns: string[] = ['FECHA', 'HORA', 'PACIENTE', 'DENTISTA', 'ESTADO', 'ACCIONES'];
-  dataSource: AppointmentDTO[] = this.appointments;
+  dataSource: AppointmentDTO[] = [];
 
   constructor(private appointmentService: AppointmentService,
     private localStorageService: LocalStorageService) { }
@@ -46,17 +48,43 @@ export class AppointmentComponent implements OnInit {
   //filterByDate
 
   async findAllByUserId(userId: string): Promise<void> {
-    this.appointments = await this.appointmentService.getAllAppointmentsFromUserId(userId);
-    console.log(this.appointments);
+    this.dataSource = await this.appointmentService.getAllAppointmentsFromUserId(userId);
+    console.log(this.dataSource);
   }
 
   async findAllByPatientId(patientId: string): Promise<void> {
-    this.appointments = await this.appointmentService.getAllAppointmentsFromPatientId(patientId);
-    console.log(this.appointments);
+    this.dataSource = await this.appointmentService.getAllAppointmentsFromPatientId(patientId);
+    console.log(this.dataSource);
   }
 
   async findAllByClinicId(clinicId: string): Promise<void> {
-    this.appointments = await this.appointmentService.getAllAppointmentsFromClinicId(clinicId);
-    console.log(this.appointments);
+    this.dataSource = await this.appointmentService.getAllAppointmentsFromClinicId(clinicId);
+    console.log('dataSource');
+    console.log(this.dataSource);
   }
+
+  editAppointment(appointmentId: number): void{
+    console.log('adios');
+  }
+
+  deleteAppointment(appointmentId: number): void{
+    console.log('hola');
+  }
+
+  getAppointmentDate(appointment: AppointmentDTO): string{
+    return appointment.dateTime.split('T')[0];
+  }
+
+  getAppointmentTime(appointment: AppointmentDTO): string{
+    return appointment.dateTime.split('T')[1];
+  }
+
+  getPatientName(appointment: AppointmentDTO): string{
+    return `${appointment.patient.firstName} ${appointment.patient.lastName1} ${appointment.patient.lastName2}`;
+  }
+
+  getDentistName(appointment: AppointmentDTO): string{
+    return `${appointment.user.firstName} ${appointment.user.lastName1} ${appointment.user.lastName2}`;
+  }
+  
 }
