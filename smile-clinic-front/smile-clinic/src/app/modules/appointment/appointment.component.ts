@@ -7,10 +7,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-appointment',
-  imports: [MatTableModule, MatIconModule, MatButtonModule],
+  imports: [MatTableModule, MatIconModule, MatButtonModule, MatChipsModule, CommonModule],
   templateUrl: './appointment.component.html',
   styleUrl: './appointment.component.scss'
 })
@@ -85,6 +86,10 @@ export class AppointmentComponent implements OnInit {
 
   getDentistName(appointment: AppointmentDTO): string{
     return `${appointment.user.firstName} ${appointment.user.lastName1} ${appointment.user.lastName2}`;
+  }
+
+  getRowClass(appointment: AppointmentDTO): string{
+    return 'success-chip';
   }
   
 }

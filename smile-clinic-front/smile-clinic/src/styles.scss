@@ -181,3 +181,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   gap: 5px;
 }
 
+.success-chip{
+  color: green;
+}
+
+.alert-chip{
+  color: yellow;
+}
+
+.danger-chip{
+  color: red;
+}
