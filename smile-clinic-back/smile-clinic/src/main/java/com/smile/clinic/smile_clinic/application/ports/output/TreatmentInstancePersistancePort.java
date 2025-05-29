@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.application.ports.output;
 
+import com.smile.clinic.smile_clinic.domain.models.Treatment;
 import com.smile.clinic.smile_clinic.domain.models.TreatmentInstance;
 
 import java.util.List;
@@ -12,4 +13,6 @@ public interface TreatmentInstancePersistancePort {
     TreatmentInstance save(TreatmentInstance treatmentInstance);
     TreatmentInstance update(Long id, TreatmentInstance treatmentInstance);
     void delete(TreatmentInstance treatmentInstance);
+
+    Treatment findTreatmentToCopy(Long treatmentToCopyId);
 }

@@ -30,7 +30,7 @@ export class PatientFormComponent implements OnInit {
 
   clinic: ClinicDTO | undefined = undefined;
   isCreating = true;
-  previousDiseases: PreviousDiseaseDTO[] = [];//[{'id': 1, 'name':'hepatitis'}, {'id': 2, 'name':'VIH+'}, {'id': 3, 'name':'meningitis'}];
+  previousDiseases: PreviousDiseaseDTO[] = []; //[{'id': 1, 'name':'hepatitis'}, {'id': 2, 'name':'VIH+'}, {'id': 3, 'name':'meningitis'}];
 
   patientForm = new FormGroup({
     firstName: new FormControl('', [Validators.required]),

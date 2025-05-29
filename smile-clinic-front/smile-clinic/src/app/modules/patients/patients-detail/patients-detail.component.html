@@ -65,12 +65,18 @@
 <mat-tab-group>
   <mat-tab>
     <ng-template mat-tab-label>
-      <mat-icon> list_alt </mat-icon> Visitas anteriores
+      <mat-icon> list_alt </mat-icon> Tratamientos del paciente
     </ng-template>
+    @defer(when medicalHistory !== undefined){
+      <app-medical-record-entry-list [medicalHistoryDTO]="medicalHistory"></app-medical-record-entry-list>
+    }
   </mat-tab>
   <mat-tab>
     <ng-template mat-tab-label>
       <mat-icon> dentistry </mat-icon> Odontograma
     </ng-template>
+    @defer(when medicalHistory !== undefined){
+      <app-odontogram [medicalHistoryDTO]="medicalHistory"></app-odontogram>
+    }
   </mat-tab>
 </mat-tab-group>

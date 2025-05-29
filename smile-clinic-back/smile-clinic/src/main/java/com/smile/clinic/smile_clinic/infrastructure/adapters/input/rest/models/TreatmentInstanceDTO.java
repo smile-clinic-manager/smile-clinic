@@ -1,5 +1,7 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models;
 
+import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.patientsDTO.PatientDTO;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,5 +25,5 @@ public class TreatmentInstanceDTO {
     @NotBlank(message = "Field notes cannot be empty, blank or null")
     private String notes;
 
-    private Long patientId;
+    private PatientDTO patient;
 }

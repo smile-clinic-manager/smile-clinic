@@ -29,7 +29,6 @@ export class LoginComponent {
     password: new FormControl('', [Validators.required])
   });
 
-
   toggleHidePassword(): void{
     this.hidePassword = !this.hidePassword;
   }

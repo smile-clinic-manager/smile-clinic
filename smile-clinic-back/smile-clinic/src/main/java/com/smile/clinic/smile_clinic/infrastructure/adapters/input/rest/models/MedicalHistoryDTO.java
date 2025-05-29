@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models;
 
+import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import com.smile.clinic.smile_clinic.domain.models.PreviousDiseases;
 import lombok.*;
 

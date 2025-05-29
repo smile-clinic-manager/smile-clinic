@@ -2,7 +2,10 @@ package com.smile.clinic.smile_clinic.application.services;
 
 import com.smile.clinic.smile_clinic.application.ports.input.TreatmentInstanceServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.TreatmentInstancePersistancePort;
+import com.smile.clinic.smile_clinic.domain.models.Treatment;
 import com.smile.clinic.smile_clinic.domain.models.TreatmentInstance;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.TreatmentDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.TreatmentInstanceEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +45,17 @@ public class TreatmentInstanceService implements TreatmentInstanceServicePort {
     @Override
     public void delete(TreatmentInstance treatmentInstance) {
         treatmentInstancePersistancePort.delete(treatmentInstance);
+    }
+
+    // Recupera el tratamiento escogido en el front y copia sus propiedades a una instancia del tratamiento
+    // específico para esa visita.
+    public TreatmentInstance createInstanceFromTreatmentDTO(Long treatmentId) {
+        Treatment treatmentToCopy = treatmentInstancePersistancePort.findTreatmentToCopy(treatmentId);
+        TreatmentInstance treatmentInstance = new TreatmentInstance();
+        treatmentInstance.setName(treatmentToCopy.getName());
+        treatmentInstance.setNotes(treatmentToCopy.getNotes());
+        treatmentInstance.setPrice(treatmentToCopy.getPrice());
+        return treatmentInstancePersistancePort.save(treatmentInstance);
+
     }
 }

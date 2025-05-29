@@ -131,6 +131,43 @@ INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepat
 INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis D');
 INSERT INTO previous_diseases (id, name) VALUES (NEXTVAL('patients_seq'), 'Hepatitis E');
 
+INSERT INTO tooth (id, code, name) VALUES
+    (1,  '11', 'Incisivo central superior derecho'),
+    (2,  '12', 'Incisivo lateral superior derecho'),
+    (3,  '13', 'Canino superior derecho'),
+    (4,  '14', 'Primer premolar superior derecho'),
+    (5,  '15', 'Segundo premolar superior derecho'),
+    (6,  '16', 'Primer molar superior derecho'),
+    (7,  '17', 'Segundo molar superior derecho'),
+    (8,  '18', 'Tercer molar superior derecho'),
+
+    (9,  '21', 'Incisivo central superior izquierdo'),
+    (10, '22', 'Incisivo lateral superior izquierdo'),
+    (11, '23', 'Canino superior izquierdo'),
+    (12, '24', 'Primer premolar superior izquierdo'),
+    (13, '25', 'Segundo premolar superior izquierdo'),
+    (14, '26', 'Primer molar superior izquierdo'),
+    (15, '27', 'Segundo molar superior izquierdo'),
+    (16, '28', 'Tercer molar superior izquierdo'),
+
+    (17, '31', 'Incisivo central inferior izquierdo'),
+    (18, '32', 'Incisivo lateral inferior izquierdo'),
+    (19, '33', 'Canino inferior izquierdo'),
+    (20, '34', 'Primer premolar inferior izquierdo'),
+    (21, '35', 'Segundo premolar inferior izquierdo'),
+    (22, '36', 'Primer molar inferior izquierdo'),
+    (23, '37', 'Segundo molar inferior izquierdo'),
+    (24, '38', 'Tercer molar inferior izquierdo'),
+
+    (25, '41', 'Incisivo central inferior derecho'),
+    (26, '42', 'Incisivo lateral inferior derecho'),
+    (27, '43', 'Canino inferior derecho'),
+    (28, '44', 'Primer premolar inferior derecho'),
+    (29, '45', 'Segundo premolar inferior derecho'),
+    (30, '46', 'Primer molar inferior derecho'),
+    (31, '47', 'Segundo molar inferior derecho'),
+    (32, '48', 'Tercer molar inferior derecho');
+
 -- Insertar historias clínicas
 INSERT INTO medical_history (id, allergies) VALUES (1, 'Ninguna');
 INSERT INTO medical_history (id, allergies) VALUES (2, 'Penicilina');
@@ -198,6 +235,48 @@ INSERT INTO medical_history_previous_diseases VALUES (9, 10);
 INSERT INTO medical_history_previous_diseases VALUES (10, 1);
 INSERT INTO medical_history_previous_diseases VALUES (10, 3);
 INSERT INTO medical_history_previous_diseases VALUES (10, 5);
+
+INSERT INTO treatments_instance (id, name, price, notes, patient_id) VALUES
+(1, 'Limpieza dental', 35.0, 'Limpieza profunda y remoción de sarro', 23),
+(2, 'Limpieza dental', 50.0, 'Relleno de caries con resina compuesta', 23),
+(3, 'Extracción dental', 70.0, 'Extracción simple de pieza dental', 23),
+(4, 'Extracción de muela del juicio', 120.0, 'Extracción quirúrgica', 23),
+(5, 'Blanqueamiento dental', 150.0, 'Tratamiento cosmético con gel de peróxido', 23),
+(6, 'Endodoncia', 200.0, 'Tratamiento de conducto en pieza molar', 23),
+(7, 'Colocación de corona', 300.0, 'Corona de porcelana sobre pieza endodonciada', 23),
+(8, 'Implante dental', 900.0, 'Implante de titanio con corona', 23),
+(9, 'Ortodoncia', 1500.0, 'Colocación de brackets metálicos', 23),
+(10, 'Retiro de brackets', 100.0, 'Extracción de aparatología fija', 23);
+ALTER SEQUENCE treatment_instance_seq RESTART WITH 11;
+
+-- Entradas para medical_record_entries (todos con user_id = 1)
+INSERT INTO medical_record_entries (id, date_time, observations, user_id, treatment_instance_id, medical_history_id)
+VALUES
+(1, '2025-05-10 09:00:00', 'Chequeo general sin hallazgos.', 1, 1, 1),
+(2, '2025-05-10 10:15:00', 'Paciente con erupción, se sospecha reacción a penicilina.', 1, 2, 2),
+(3, '2025-05-10 11:00:00', 'Paciente refiere reacción a mariscos tras anestesia.', 1, 1, 1),
+(4, '2025-05-11 08:45:00', 'Congestión nasal y estornudos frecuentes.', 1, 3, 4),
+(5, '2025-05-11 09:30:00', 'Paciente indica intolerancia a lácteos.', 1, 2, 1),
+(6, '2025-05-11 10:00:00', 'Dolor estomacal tras consumir gluten.', 1, 1, 1),
+(7, '2025-05-12 08:00:00', 'Sin antecedentes relevantes.', 1, 3, 7),
+(8, '2025-05-12 10:30:00', 'Reacción previa a ibuprofeno.', 1, 1, 8),
+(9, '2025-05-12 11:45:00', 'Paciente con antecedentes de reacción a aspirina.', 1, 2, 9),
+(10,'2025-05-13 09:00:00', 'Paciente refiere hinchazón por picadura de abeja.', 1, 3, 10);
+ALTER SEQUENCE medical_record_seq RESTART WITH 11;
+
+-- Relación con dientes (medical_record_entry_tooth)
+-- Asociaciones variadas
+INSERT INTO medical_record_entry_tooth (medical_record_entry_id, tooth_id) VALUES
+(1, 11), (1, 12),
+(2, 13), (2, 14), (2, 15),
+(3, 21),
+(4, 22), (4, 23),
+(5, 31), (5, 32),
+(6, 17), (6, 21),
+(7, 25),
+(8, 26), (8, 27),
+(9, 28), (9, 29),
+(10, 30), (10, 31), (10, 32);
 
 INSERT INTO appointments (id, duration, visit_purpose, date_time, state, user_id, patient_id)
 VALUES

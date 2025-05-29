@@ -1,0 +1,16 @@
+<div class="margin-top">
+    @for(row of rows; track row){
+        <div class="teeth-row">
+            @for(teeth of row; track teeth.id){
+                <div class="teeth-div">
+                    <mat-card (click)="openTeethDetailDialog(teeth)">
+                        <img src="assets/icons/tooth.svg" alt="tooth" />
+                        <mat-card-footer>
+                            {{teeth.code}}
+                        </mat-card-footer>
+                    </mat-card>
+                </div>
+            }
+        </div>
+    }
+</div>

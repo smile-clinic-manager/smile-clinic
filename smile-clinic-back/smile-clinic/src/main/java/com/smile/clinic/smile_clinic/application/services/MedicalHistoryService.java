@@ -4,6 +4,7 @@ import com.smile.clinic.smile_clinic.application.ports.input.MedicalHistoryServi
 import com.smile.clinic.smile_clinic.application.ports.output.MedicalHistoryPersistancePort;
 import com.smile.clinic.smile_clinic.application.ports.output.PatientPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.MedicalHistory;
+import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalHistoryDTO;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -33,5 +34,25 @@ public class MedicalHistoryService implements MedicalHistoryServicePort {
                 return medicalHistoryPersistancePort.save(savedMedicalHistory);
             })
             .orElseThrow(() -> new RuntimeException("Medical history not found"));
+    }
+
+    @Override
+    public MedicalHistory findMedicalHistoryById(Long medicalHistoryId) {
+        return medicalHistoryPersistancePort.findById(medicalHistoryId).orElseThrow();
+    }
+
+    @Override
+    public void bindRecordToMedicalHistory(Long medicalHistoryId, MedicalRecordEntry record) {
+        medicalHistoryPersistancePort.bindRecordToMedicalHistory(medicalHistoryId, record);
+    }
+
+    @Override
+    public void insertToothRelationship(Long medicalRecordId, Long toothId) {
+        medicalHistoryPersistancePort.insertToothRelationship(medicalRecordId, toothId);
+    }
+
+    @Override
+    public List<Long> findRelatedTeethIds(Long medicalRecordId) {
+        return medicalHistoryPersistancePort.findRelatedTeeth(medicalRecordId);
     }
 }

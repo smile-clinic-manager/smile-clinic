@@ -1,5 +1,6 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities;
 
+import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,4 +33,8 @@ public class MedicalHistoryEntity {
 
     @OneToOne(mappedBy = "medicalHistory")
     private PatientEntity patient;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medical_history_id")
+    private List<MedicalRecordEntryEntity> medicalRecordEntries;
 }

@@ -6,7 +6,7 @@ import org.mapstruct.Mapper;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = PatientRestMapper.class)
 public interface TreatmentRestMapper {
 
     Treatment toTreatment(TreatmentDTO treatmentDTO);

@@ -16,7 +16,7 @@ export class TreatmentService {
     params.set('clinicId', clinicId)
     return firstValueFrom(
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/treatments/findTreatmentsByClinicId', params))
-    )
+    );
   }
 
   deleteTreatment(treatmentId: string): Promise<void> {

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -17,7 +18,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "medical_records")
+@Table(name = "medical_record_entries")
 public class MedicalRecordEntryEntity {
 
         @Id
@@ -28,16 +29,21 @@ public class MedicalRecordEntryEntity {
         @NotNull
         private LocalDateTime dateTime;
 
-        @NotBlank
-        private String visitPurpose;
-
-        @NotBlank
         private String observations;
 
-        @OneToOne
-        private UserEntity dentist;
+        @ManyToOne
+        @JoinColumn(name = "user_id")
+        private UserEntity user;
 
         @ManyToOne
-        private TreatmentEntity treatment;
+        @JoinColumn(name = "treatment_instance_id")
+        private TreatmentInstanceEntity treatmentInstance;
 
+        @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+        @JoinTable(
+                name = "medical_record_entry_tooth",
+                joinColumns = @JoinColumn(name = "medical_record_entry_id"),
+                inverseJoinColumns = @JoinColumn(name = "tooth_id")
+        )
+        private List<ToothEntity> teeth;
 }

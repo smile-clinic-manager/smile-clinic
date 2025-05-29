@@ -2,8 +2,12 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance
 
 import com.smile.clinic.smile_clinic.application.ports.output.MedicalHistoryPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.MedicalHistory;
+import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalHistoryDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalHistoryEntity;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalRecordEntryEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.MedicalHistoryPersistanceMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.MedicalRecordEntryPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.PatientPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.MedicalHistoryEntityRepository;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.PatientEntityRepository;
@@ -20,6 +24,7 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
 
     private final MedicalHistoryEntityRepository medicalHistoryEntityRepository;
     private final MedicalHistoryPersistanceMapper medicalHistoryPersistanceMapper;
+    private final MedicalRecordEntryPersistanceMapper medicalRecordEntryPersistanceMapper;
 
     @Override
     public Optional<MedicalHistory> findById(Long medicalHistoryId) {
@@ -29,7 +34,7 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
     @Override
     public MedicalHistory getMedicalHistoryByPatientId(Long patientId) {
         MedicalHistory medicalHistories = this.medicalHistoryPersistanceMapper.toMedicalHistory(
-                this.medicalHistoryEntityRepository.findByPatientId(patientId)
+                this.medicalHistoryEntityRepository.findHistoryByPatientId(patientId)
         );
         return medicalHistories;
     }
@@ -40,4 +45,26 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
                 this.medicalHistoryEntityRepository.save(medicalHistoryPersistanceMapper.toMedicalHistoryEntity(medicalHistory))
         );
     }
+
+    @Override
+    public void bindRecordToMedicalHistory(Long medicalHistoryId, MedicalRecordEntry record) {
+        MedicalRecordEntryEntity recordEntity = medicalRecordEntryPersistanceMapper.toMedicalRecordEntryEntity(record);
+        MedicalHistoryEntity medicalHistoryEntity = this.medicalHistoryEntityRepository.findById(medicalHistoryId).orElseThrow();
+
+        List<MedicalRecordEntryEntity> records = medicalHistoryEntity.getMedicalRecordEntries();
+        records.add(recordEntity);
+        medicalHistoryEntity.setMedicalRecordEntries(records);
+        this.medicalHistoryEntityRepository.save(medicalHistoryEntity);
+    }
+
+    @Override
+    public void insertToothRelationship(Long medicalRecordId, Long toothId) {
+        this.medicalHistoryEntityRepository.insertToothRelationship(medicalRecordId, toothId);
+    }
+
+    @Override
+    public List<Long> findRelatedTeeth(Long medicalRecordId) {
+        return this.medicalHistoryEntityRepository.findRelatedTeeth(medicalRecordId);
+    }
+
 }
