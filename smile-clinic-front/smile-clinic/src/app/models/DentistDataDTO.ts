@@ -1,4 +1,4 @@
-export interface DentistMedicalRecordDTO{
+export interface DentistDataDTO{
     id: string,
     firstName: string,
     lastName1: string,

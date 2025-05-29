@@ -4,6 +4,7 @@ import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { AppointmentDTO } from '../app/models/AppointmentDTO';
 import { firstValueFrom } from 'rxjs';
 import { AppointmentComponent } from '../app/modules/appointment/appointment.component';
+import { AppointmentFormDTO } from '../app/models/AppointmentFormDTO';
 
 @Injectable({
   providedIn: 'root'
@@ -37,13 +38,13 @@ export class AppointmentService {
     );
   }
 
-  updateAppointment(appointment: AppointmentDTO): Promise<AppointmentDTO> { 
+  updateAppointment(appointment: AppointmentFormDTO): Promise<AppointmentDTO> { 
     return firstValueFrom(
       this.api.post(this.apiEndpointHelper.createUrl('appointments/updateAppointment'), appointment)
     );
   }
 
-  createAppointment(appointment: AppointmentDTO): Promise<AppointmentDTO> {
+  createAppointment(appointment: AppointmentFormDTO): Promise<AppointmentDTO> {
     return firstValueFrom(
       this.api.post(this.apiEndpointHelper.createUrl('appointments/createAppointment'), appointment)
     );

@@ -34,13 +34,11 @@ export class AppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.localStorageService.getUserData();
     this.clinicId = this.localStorageService.getSelectedGlobalClinic()!.clinicId;
-    console.log('User data:', this.user);
     this.findAppointmentsByUserPermissions();
   }
 
   onDateSelected(date: Date): void {
     this.selectedDate = date;
-    console.log('Selected date:', this.selectedDate);
   }
 
   findAppointmentsByUserPermissions(): void {
@@ -56,18 +54,18 @@ export class AppointmentComponent implements OnInit {
 
   async findAllByUserId(userId: string): Promise<void> {
     this.dataSource = await this.appointmentService.getAllAppointmentsFromUserId(userId);
-    console.log(this.dataSource);
   }
 
   async findAllByPatientId(patientId: string): Promise<void> {
     this.dataSource = await this.appointmentService.getAllAppointmentsFromPatientId(patientId);
-    console.log(this.dataSource);
   }
 
   async findAllByClinicId(clinicId: string): Promise<void> {
     this.dataSource = await this.appointmentService.getAllAppointmentsFromClinicId(clinicId);
-    console.log('dataSource');
-    console.log(this.dataSource);
+  }
+  
+  openAppointmentForm(appointment: AppointmentDTO): void{
+
   }
 
   editAppointment(appointment: AppointmentDTO): void{
@@ -82,12 +80,23 @@ export class AppointmentComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.ngOnInit();
     });
-  }
+  }  
 
-  
+  createAppointment(): void{
+    const dialogRef = this.dialog.open(AppointmentFormComponent,
+        {
+          data: { 
+            clinicId: this.clinicId
+          }
+        });
+    
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
+  }  
 
-  deleteAppointment(appointmentId: number): void{
-    console.log('hola');
+  deleteAppointment(appointment: AppointmentDTO): void{
+    console.log('delete', appointment);
   }
 
   getAppointmentDate(appointment: AppointmentDTO): string{

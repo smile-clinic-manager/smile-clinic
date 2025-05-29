@@ -20,6 +20,7 @@ import { LocalStorageService } from '../../../services/local-storage.service';
 import { MatButtonModule } from '@angular/material/button';
 import { PatientDTO } from '../../models/PatientDTO';
 import { PatientService } from '../../../services/patient.service';
+import { AppointmentFormDTO } from '../../models/AppointmentFormDTO';
 
 @Component({
   selector: 'app-appointment-form',
@@ -41,8 +42,11 @@ export class AppointmentFormComponent implements OnInit{
   appointmentForm = new FormGroup({
       date: new FormControl('', [Validators.required]),
       time: new FormControl<Date | null>(null, [Validators.required]),
-      patient: new FormControl(''),
+      patient: new FormControl('', [Validators.required]),
       user: new FormControl('', [Validators.required]),
+      state: new FormControl(''),
+      visitPurpose: new FormControl(''),
+      duration: new FormControl('')
     });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {appointment: AppointmentDTO | undefined, clinicId: string}, 
@@ -58,14 +62,16 @@ export class AppointmentFormComponent implements OnInit{
   }
 
   initializeForm() {
-    if (this.data.appointment === undefined) {
+    if (this.data.appointment !== undefined) {
       this.appointment = this.data.appointment;
-
+      // TODO: HACER EL ESTADO DE LA CITA
       this.appointmentForm.get('date')?.setValue(this.appointment!.dateTime.split('T')[0]);
       const timeFormatted: Date = this.getTimeFormat(this.appointment!.dateTime.split('T')[1]);
       this.appointmentForm.get('time')?.setValue(timeFormatted);
       this.appointmentForm.get('patient')?.setValue(this.appointment!.patient.id);
-      this.appointmentForm.get('user')?.setValue(String(this.appointment!.user.id));
+      this.appointmentForm.get('user')?.setValue(this.appointment!.user.id);
+      this.appointmentForm.get('duration')?.setValue("");
+      this.appointmentForm.get('visitPurpose')?.setValue("");
 
       this.isCreating = false;
     }
@@ -89,7 +95,7 @@ export class AppointmentFormComponent implements OnInit{
     .catch(() => this.snackBarService.showErrorSnackBar("Error al recuperar los pacientes"));
   }
   
-  updateAppointment(appointment: AppointmentDTO): void{
+  updateAppointment(appointment: AppointmentFormDTO): void{
     this.appointmentService.updateAppointment(appointment)
     .then((appointment) => {
       this.appointment = appointment;
@@ -98,7 +104,7 @@ export class AppointmentFormComponent implements OnInit{
     .catch(()=> this.snackBarService.showErrorSnackBar('Error al actualizar la cita'));
   }
 
-  createAppointment(appointment: AppointmentDTO): void{
+  createAppointment(appointment: AppointmentFormDTO): void{
     this.appointmentService.createAppointment(appointment)
     .then(() => {
       this.dialogRef.close();
@@ -128,5 +134,31 @@ export class AppointmentFormComponent implements OnInit{
     const dateWithTime = new Date();
     dateWithTime.setHours(hours, minutes, seconds || 0, 0);
     return dateWithTime;
+  }
+
+  sendAppointmentForm():void{
+    if (!this.appointmentForm.valid) {
+      this.snackBarService.showErrorSnackBar('Por favor complete todos los campos requeridos');
+      return;
+    }
+
+    const formValue = this.appointmentForm.value;
+
+    const appointment: AppointmentFormDTO = {
+      id: this.appointment?.id ?? '', // or generate a new id if needed
+      date: formValue.date ? new Date(formValue.date).toISOString().split('T')[0] : '',
+      time: formValue.time ? new Date(formValue.time).toISOString().split('T')[1] : '',
+      duration: (formValue?.duration ?? 30).toString(),
+      visitPurpose: formValue?.visitPurpose ?? '',
+      appointmentState: this.appointment?.appointmentState ?? '',
+      patientId: formValue.patient!,
+      userId: formValue.user!
+    };
+
+    if(this.isCreating){
+      this.createAppointment(appointment);
+    }else {
+      this.updateAppointment(appointment);
+    }
   }
 }

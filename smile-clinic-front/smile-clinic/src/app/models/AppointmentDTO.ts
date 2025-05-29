@@ -1,5 +1,7 @@
+import { DentistDataDTO } from "./DentistDataDTO";
 import { PatientDTO } from "./PatientDTO";
 import { RegisteredUserDTO } from "./RegisteredUserDTO";
+import { userData } from "./userData";
 
 export interface AppointmentDTO {
   id: string;
@@ -7,6 +9,6 @@ export interface AppointmentDTO {
   visitPurpose: string;
   appointmentState: string;
   dateTime: string; //DateTime
-  user: RegisteredUserDTO;
+  user: DentistDataDTO;
   patient: PatientDTO;
 }
