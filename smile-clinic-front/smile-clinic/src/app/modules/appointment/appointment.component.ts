@@ -8,6 +8,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ClinicFormComponent } from '../clinics/clinic-form/clinic-form.component';
+import { AppointmentFormComponent } from '../../dialogs/appointment-form/appointment-form.component';
 
 @Component({
   selector: 'app-appointment',
@@ -19,6 +22,8 @@ export class AppointmentComponent implements OnInit {
 
   user: any;
   selectedDate: Date | null = null;
+  readonly dialog = inject(MatDialog);
+  clinicId: string | undefined = undefined;
 
   displayedColumns: string[] = ['FECHA', 'HORA', 'PACIENTE', 'DENTISTA', 'ESTADO', 'ACCIONES'];
   dataSource: AppointmentDTO[] = [];
@@ -28,6 +33,7 @@ export class AppointmentComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.localStorageService.getUserData();
+    this.clinicId = this.localStorageService.getSelectedGlobalClinic()!.clinicId;
     console.log('User data:', this.user);
     this.findAppointmentsByUserPermissions();
   }
@@ -64,9 +70,21 @@ export class AppointmentComponent implements OnInit {
     console.log(this.dataSource);
   }
 
-  editAppointment(appointmentId: number): void{
-    console.log('adios');
+  editAppointment(appointment: AppointmentDTO): void{
+    const dialogRef = this.dialog.open(AppointmentFormComponent,
+        {
+          data: {
+            appointment: appointment, 
+            clinicId: this.clinicId
+          }
+        });
+    
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
+
+  
 
   deleteAppointment(appointmentId: number): void{
     console.log('hola');

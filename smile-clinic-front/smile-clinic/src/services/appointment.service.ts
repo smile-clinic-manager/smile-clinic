@@ -3,6 +3,7 @@ import { ApiHttpService } from './api-http.service';
 import { ApiEndpointHelperService } from './api-endpoint-helper.service';
 import { AppointmentDTO } from '../app/models/AppointmentDTO';
 import { firstValueFrom } from 'rxjs';
+import { AppointmentComponent } from '../app/modules/appointment/appointment.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class AppointmentService {
     params.set('userId', userId)
     return firstValueFrom(
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/appointments/findByUserId', params))
-    )
+    );
   }
 
   getAllAppointmentsFromPatientId(patientId: string): Promise<AppointmentDTO[]> {
@@ -25,7 +26,7 @@ export class AppointmentService {
     params.set('patientId', patientId)
     return firstValueFrom(
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/appointments/findByPatientId', params))
-    )
+    );
   }
 
   getAllAppointmentsFromClinicId(clinicId: string): Promise<AppointmentDTO[]> {
@@ -33,7 +34,19 @@ export class AppointmentService {
     params.set('clinicId', clinicId)
     return firstValueFrom(
       this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/appointments/findByClinicId', params))
-    )
+    );
+  }
+
+  updateAppointment(appointment: AppointmentDTO): Promise<AppointmentDTO> { 
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('appointments/updateAppointment'), appointment)
+    );
+  }
+
+  createAppointment(appointment: AppointmentDTO): Promise<AppointmentDTO> {
+    return firstValueFrom(
+      this.api.post(this.apiEndpointHelper.createUrl('appointments/createAppointment'), appointment)
+    );
   }
 
 }

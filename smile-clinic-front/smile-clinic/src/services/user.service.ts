@@ -49,12 +49,12 @@ export class UserService {
     );   
   }
 
-    getAllDentistsByClinicId(clinicId: string): Promise<userData[]> {
-      const params: Map<string, any>  = new Map();
-      params.set('clinicId', clinicId)
-      return firstValueFrom(
-        this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/findAllDentistDataByClinicId', params))
-      );
+  getAllDentistsByClinicId(clinicId: string): Promise<userData[]> {
+    const params: Map<string, any>  = new Map();
+    params.set('clinicId', clinicId)
+    return firstValueFrom(
+      this.api.get(this.apiEndpointHelper.createUrlWithQueryParameters('/users/findAllDentistDataByClinicId', params))
+    );
   }
 
 }

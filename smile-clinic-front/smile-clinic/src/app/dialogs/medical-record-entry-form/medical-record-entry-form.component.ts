@@ -27,7 +27,7 @@ import { MedicalRecordEntryFormDTO } from '../../models/MedicalRecordEntryFormDT
 
 @Component({
   selector: 'app-medical-record-entry-form',
-  imports: [MatDialogModule, MatButtonModule, MatDialogModule, MatFormFieldModule, MatInputModule, FormsModule,
+  imports: [MatDialogModule, MatButtonModule, MatFormFieldModule, MatInputModule, FormsModule,
     ReactiveFormsModule, MatOptionModule, MatSelectModule, MatIconModule, CommonModule, MatDatepickerModule, 
     MatTimepickerModule, MatCardModule, MatCheckboxModule
   ],
