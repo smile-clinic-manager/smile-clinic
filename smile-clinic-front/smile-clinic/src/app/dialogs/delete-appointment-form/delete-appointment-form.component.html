@@ -1,1 +1,11 @@
-<p>delete-appointment-form works!</p>
+<div class="pop-up-component-div">   
+    <h1> Eliminar cita </h1>
+    <p> 
+        ¿Está seguro que quiere eliminar la cita?
+    </p>
+    
+    <div class="button-separation-container">
+        <button mat-stroked-button type="button" (click)="closeDialog()">Cancelar</button>
+        <button mat-flat-button type="button" (click)="deleteAppointment()">Sí, eliminar</button>
+    </div>
+</div>   
