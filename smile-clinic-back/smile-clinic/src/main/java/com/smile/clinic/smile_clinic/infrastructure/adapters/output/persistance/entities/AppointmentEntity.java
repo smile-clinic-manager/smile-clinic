@@ -35,10 +35,6 @@ public class AppointmentEntity {
     @NotNull
     private LocalDateTime dateTime;
 
-    @Enumerated(EnumType.STRING)
-    @NotNull
-    private AppointmentState state;
-
     //Relations
     @ManyToOne
     @JoinColumn(name = "user_id")

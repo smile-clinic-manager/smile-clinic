@@ -1,6 +1,6 @@
 <h1>Listado de citas</h1>
 
-<div>
+<div class="align-end">
   <button mat-flat-button (click)="createAppointment()">
     <mat-icon>add</mat-icon>
     Nueva cita
@@ -23,14 +23,6 @@
   <ng-container matColumnDef="DENTISTA">
     <th mat-header-cell *matHeaderCellDef> Dentista </th>
     <td mat-cell *matCellDef="let appointment"> {{getDentistName(appointment)}} </td>
-  </ng-container>
-  <ng-container matColumnDef="ESTADO">
-    <th mat-header-cell *matHeaderCellDef> Estado </th>
-    <td mat-cell *matCellDef="let appointment"> 
-      <mat-chip>
-        <p [ngClass]="getRowClass(appointment)">{{appointment.state}}</p>
-      </mat-chip> 
-    </td>
   </ng-container>
   <ng-container matColumnDef="ACCIONES">
     <th mat-header-cell *matHeaderCellDef> Acciones </th>

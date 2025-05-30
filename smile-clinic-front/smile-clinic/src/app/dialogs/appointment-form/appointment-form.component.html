@@ -1,7 +1,7 @@
 <h2 mat-dialog-title>{{isCreating ? 'Crear cita' : 'Editar cita'}}</h2>
 <div class="container-dialog">
     <div class="patient-form" [formGroup]="appointmentForm">
-        <div class="selector-inputs width-80">
+        <div class="appointment-inputs-row width-80">
             <mat-form-field class="selects">
                 <mat-label>Fecha</mat-label>
                 <input matInput [matDatepicker]="picker" formControlName="date">
@@ -13,7 +13,7 @@
                 }
             </mat-form-field>
             <mat-form-field class="selects">
-                <mat-label>Hora</mat-label>
+                <mat-label>Hora inicio</mat-label>
                 <input matInput [matTimepicker]="timePicker" formControlName="time">
                 <mat-timepicker-toggle matIconSuffix [for]="timePicker"/>
                 <mat-timepicker #timePicker/>
@@ -21,10 +21,17 @@
                     <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
                 }
             </mat-form-field>
+            <mat-form-field class="selects">
+                <mat-label> Duración (minutos) </mat-label>
+                <input matInput formControlName="duration" (keydown)="blockNonNumeric($event)"/>
+                @if(appointmentForm.get('duration')?.invalid && (appointmentForm.get('duration')?.touched || appointmentForm.get('duration')?.dirty)){
+                    <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+                }
+            </mat-form-field>
         </div> 
 
-        <div class="selector-inputs width-80">
-            <mat-form-field appearance="outline" class="selects">
+        <div class="appointment-inputs-row width-80">
+            <mat-form-field appearance="outline" class="selects dropdown-select">
                 <mat-label>Especialista</mat-label>
                 <mat-select formControlName="user">
                 @for (user of users; track user.id) {
@@ -36,7 +43,7 @@
                 }
             </mat-form-field>
 
-            <mat-form-field appearance="outline" class="selects">
+            <mat-form-field appearance="outline" class="selects dropdown-select">
                 <mat-label>Paciente</mat-label>
                 <mat-select formControlName="patient">
                 @for (patient of patients; track patient.id) {
@@ -48,9 +55,15 @@
                 }
             </mat-form-field>
         </div>
+        <div class="appointment-inputs-row">
+            <mat-form-field class="width-100">
+                <mat-label>Motivo de la cita</mat-label>
+                <textarea matInput placeholder="Ej. Revisión anual..." formControlName="visitPurpose"></textarea>
+            </mat-form-field>
+        </div>
     </div>
     
-    <mat-dialog-actions>
+    <mat-dialog-actions class="center">
         <button mat-button mat-dialog-close>Cancelar</button>
         <button mat-flat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendAppointmentForm()">Aceptar</button>
     </mat-dialog-actions>

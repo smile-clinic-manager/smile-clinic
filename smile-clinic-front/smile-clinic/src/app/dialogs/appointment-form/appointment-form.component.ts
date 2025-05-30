@@ -46,7 +46,7 @@ export class AppointmentFormComponent implements OnInit{
       user: new FormControl('', [Validators.required]),
       state: new FormControl(''),
       visitPurpose: new FormControl(''),
-      duration: new FormControl('')
+      duration: new FormControl(30, [Validators.required, Validators.pattern('^[0-9]*$')])
     });
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: {appointment: AppointmentDTO | undefined, clinicId: string}, 
@@ -70,8 +70,8 @@ export class AppointmentFormComponent implements OnInit{
       this.appointmentForm.get('time')?.setValue(timeFormatted);
       this.appointmentForm.get('patient')?.setValue(this.appointment!.patient.id);
       this.appointmentForm.get('user')?.setValue(this.appointment!.user.id);
-      this.appointmentForm.get('duration')?.setValue("");
-      this.appointmentForm.get('visitPurpose')?.setValue("");
+      this.appointmentForm.get('duration')?.setValue(this.appointment!.duration);
+      this.appointmentForm.get('visitPurpose')?.setValue(this.appointment.visitPurpose);
 
       this.isCreating = false;
     }
@@ -159,6 +159,13 @@ export class AppointmentFormComponent implements OnInit{
       this.createAppointment(appointment);
     }else {
       this.updateAppointment(appointment);
+    }
+  }
+
+  blockNonNumeric(event: KeyboardEvent): void{
+    const allowed = /^[0-9]$/;
+    if (!allowed.test(event.key)) {
+      event.preventDefault();
     }
   }
 }

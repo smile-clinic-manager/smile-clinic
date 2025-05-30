@@ -19,7 +19,6 @@ public class AppointmentDTO {
     private Long id;
     private double duration;
     private String visitPurpose;
-    private AppointmentState state;
     private LocalDateTime dateTime;
     private DentistData user;
     private PatientDTO patient;

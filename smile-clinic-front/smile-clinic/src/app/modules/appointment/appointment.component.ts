@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { ClinicFormComponent } from '../clinics/clinic-form/clinic-form.component';
 import { AppointmentFormComponent } from '../../dialogs/appointment-form/appointment-form.component';
+import { DeleteAppointmentFormComponent } from '../../dialogs/delete-appointment-form/delete-appointment-form.component';
 
 @Component({
   selector: 'app-appointment',
@@ -25,7 +26,7 @@ export class AppointmentComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   clinicId: string | undefined = undefined;
 
-  displayedColumns: string[] = ['FECHA', 'HORA', 'PACIENTE', 'DENTISTA', 'ESTADO', 'ACCIONES'];
+  displayedColumns: string[] = ['FECHA', 'HORA', 'PACIENTE', 'DENTISTA', 'ACCIONES'];
   dataSource: AppointmentDTO[] = [];
 
   constructor(private appointmentService: AppointmentService,
@@ -96,7 +97,16 @@ export class AppointmentComponent implements OnInit {
   }  
 
   deleteAppointment(appointment: AppointmentDTO): void{
-    console.log('delete', appointment);
+    const dialogRef = this.dialog.open(DeleteAppointmentFormComponent,
+        {
+          data: {
+            appointment: appointment, 
+          }
+        });
+    
+    dialogRef.afterClosed().subscribe(() => {
+      this.ngOnInit();
+    });
   }
 
   getAppointmentDate(appointment: AppointmentDTO): string{

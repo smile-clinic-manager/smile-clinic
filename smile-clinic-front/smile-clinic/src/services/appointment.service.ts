@@ -50,4 +50,12 @@ export class AppointmentService {
     );
   }
 
+  deleteAppointment(appointmentId: string): Promise<void> {
+    const params: Map<string, any> = new Map();
+    params.set('appointmentId', appointmentId)
+    return firstValueFrom(
+      this.api.delete(this.apiEndpointHelper.createUrlWithQueryParameters('/appointments/deleteAppointment', params))
+    );
+  }
+
 }

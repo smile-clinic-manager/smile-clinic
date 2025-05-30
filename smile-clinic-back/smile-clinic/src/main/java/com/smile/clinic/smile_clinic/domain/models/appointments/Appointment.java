@@ -17,7 +17,6 @@ public class Appointment {
     private double duration;
     private String visitPurpose;
     private LocalDateTime dateTime;
-    private AppointmentState state;
 
     //Relations
     private User user;
