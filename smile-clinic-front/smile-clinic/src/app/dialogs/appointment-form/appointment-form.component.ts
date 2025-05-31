@@ -150,7 +150,6 @@ export class AppointmentFormComponent implements OnInit{
       time: formValue.time ? new Date(formValue.time).toISOString().split('T')[1] : '',
       duration: (formValue?.duration ?? 30).toString(),
       visitPurpose: formValue?.visitPurpose ?? '',
-      appointmentState: this.appointment?.appointmentState ?? '',
       patientId: formValue.patient!,
       userId: formValue.user!
     };

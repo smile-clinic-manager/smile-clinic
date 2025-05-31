@@ -4,6 +4,7 @@ import com.smile.clinic.smile_clinic.application.ports.input.AppointmentServiceP
 import com.smile.clinic.smile_clinic.domain.exceptions.AppointmentNotFoundException;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.AppointmentRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AppointmentDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AppointmentFormDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -65,6 +66,39 @@ public class AppointmentRestController {
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/createAppointment")
+    public ResponseEntity<Object> createAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
+        try{
+            //TODO: JOSE
+            return new ResponseEntity<>(appointmentFormDTO, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/updateAppointment")
+    public ResponseEntity<Object> updateAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
+        try{
+            //TODO: JOSE
+            return new ResponseEntity<>(appointmentFormDTO, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteAppointment")
+    public ResponseEntity<Object> deleteAppointment(@RequestParam("appointmentId") Long appointmentId){
+        try{
+            //TODO: JOSE
+            return new ResponseEntity<>(appointmentId, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

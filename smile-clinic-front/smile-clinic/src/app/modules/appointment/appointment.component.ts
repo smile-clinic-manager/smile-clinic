@@ -118,11 +118,11 @@ export class AppointmentComponent implements OnInit {
   }
 
   getPatientName(appointment: AppointmentDTO): string{
-    return `${appointment.patient.firstName} ${appointment.patient.lastName1} ${appointment.patient.lastName2}`;
+    return `${appointment.patient.firstName} ${appointment.patient.lastName1} ${appointment.patient.lastName2?? ''}`;
   }
 
   getDentistName(appointment: AppointmentDTO): string{
-    return `${appointment.user.firstName} ${appointment.user.lastName1} ${appointment.user.lastName2}`;
+    return `${appointment.user.firstName} ${appointment.user.lastName1} ${appointment.user.lastName2?? ''}`;
   }
 
   getRowClass(appointment: AppointmentDTO): string{
