@@ -14,6 +14,8 @@ public interface AppointmentRestMapper {
     Appointment toAppointment(AppointmentDTO appointmentDTO);
     AppointmentDTO toAppointmentDTO(Appointment appointment);
 
+    Appointment toAppointmentFromForm(AppointmentFormDTO appointmentFormDTO);
+
     List<Appointment> toAppointmentList(List<AppointmentDTO> appointmentDTO);
     List<AppointmentDTO> toAppointmentDTOList(List<Appointment> appointments);
 }

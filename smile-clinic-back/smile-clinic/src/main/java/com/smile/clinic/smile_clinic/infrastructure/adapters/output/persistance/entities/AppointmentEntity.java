@@ -6,19 +6,19 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.service.annotation.GetExchange;
 
 import java.time.LocalDateTime;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
+@Slf4j
 @Getter
 @Setter
+@Builder
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "appointments")
 public class AppointmentEntity {
 

@@ -38,13 +38,15 @@ export class AppointmentService {
     );
   }
 
-  updateAppointment(appointment: AppointmentFormDTO): Promise<AppointmentDTO> { 
+  updateAppointment(appointment: AppointmentFormDTO): Promise<AppointmentDTO> {
+    console.log('Updating appointment:', appointment);
     return firstValueFrom(
-      this.api.put(this.apiEndpointHelper.createUrl('appointments/updateAppointment'), appointment, appointment.id)
+      this.api.put(this.apiEndpointHelper.createUrl('appointments/updateAppointment'), appointment)
     );
   }
 
   createAppointment(appointment: AppointmentFormDTO): Promise<AppointmentDTO> {
+    console.log('Creating appointment:', appointment);
     return firstValueFrom(
       this.api.post(this.apiEndpointHelper.createUrl('appointments/createAppointment'), appointment)
     );

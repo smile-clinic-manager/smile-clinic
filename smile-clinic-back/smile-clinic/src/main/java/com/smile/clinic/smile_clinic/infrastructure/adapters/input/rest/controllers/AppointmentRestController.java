@@ -21,7 +21,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Slf4j
@@ -86,7 +89,7 @@ public class AppointmentRestController {
     public ResponseEntity<Object> createAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
         try{
             AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(
-                    appointmentServicePort.save(mapper.toAppointment(toAppointmentDTO(appointmentFormDTO))));
+                    appointmentServicePort.save(mapper.toAppointmentFromForm(appointmentFormDTO)));
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
@@ -95,11 +98,10 @@ public class AppointmentRestController {
     }
 
     @PutMapping("/updateAppointment")
-    public ResponseEntity<Object> updateAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO,
-                                                    @RequestParam("id") Long id){
+    public ResponseEntity<Object> updateAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
         try{
             AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(
-                    appointmentServicePort.update(mapper.toAppointment(toAppointmentDTO(appointmentFormDTO)), id));
+                    appointmentServicePort.update(mapper.toAppointmentFromForm(appointmentFormDTO), appointmentFormDTO.getId()));
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
@@ -125,11 +127,17 @@ public class AppointmentRestController {
                         .orElseThrow(() -> new RuntimeException("User not found"))));
         PatientDTO patientDTO = patientRestController.findById(appointmentFormDTO.getPatientId()).getBody();
 
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        LocalTime localTime = LocalTime.parse(appointmentFormDTO.getTime(), timeFormatter);
+        LocalDateTime appointmentDateTime = LocalDateTime.parse(appointmentFormDTO.getDate() + " " + localTime.toString(),
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
         return AppointmentDTO.builder()
                 .id(appointmentFormDTO.getId())
                 .duration(appointmentFormDTO.getDuration())
                 .visitPurpose(appointmentFormDTO.getVisitPurpose())
-                .dateTime(LocalDateTime.parse(appointmentFormDTO.getDate() + "T" + appointmentFormDTO.getTime()))
+                .dateTime(appointmentDateTime)
                 .user(dentistDataDTO)
                 .patient(patientDTO)
                 .build();
