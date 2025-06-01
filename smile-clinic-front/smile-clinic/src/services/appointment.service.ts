@@ -40,7 +40,7 @@ export class AppointmentService {
 
   updateAppointment(appointment: AppointmentFormDTO): Promise<AppointmentDTO> { 
     return firstValueFrom(
-      this.api.put(this.apiEndpointHelper.createUrl('appointments/updateAppointment'), appointment)
+      this.api.put(this.apiEndpointHelper.createUrl('appointments/updateAppointment'), appointment, appointment.id)
     );
   }
 

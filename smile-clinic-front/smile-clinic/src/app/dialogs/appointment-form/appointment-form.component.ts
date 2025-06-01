@@ -78,7 +78,14 @@ export class AppointmentFormComponent implements OnInit{
   }
 
   updateForm(appointment: AppointmentDTO){
-
+    this.appointmentForm.get('date')?.setValue(appointment.dateTime.split('T')[0]);
+    const timeFormatted: Date = this.getTimeFormat(appointment.dateTime.split('T')[1]);
+    this.appointmentForm.get('time')?.setValue(timeFormatted);
+    this.appointmentForm.get('patient')?.setValue(appointment.patient.id);
+    this.appointmentForm.get('user')?.setValue(appointment.user.id);
+    this.appointmentForm.get('duration')?.setValue(appointment.duration);
+    this.appointmentForm.get('visitPurpose')?.setValue(appointment.visitPurpose);
+    this.isCreating = false;
   }
 
   getAllDentistsByClinicId(): void{
@@ -96,6 +103,7 @@ export class AppointmentFormComponent implements OnInit{
   }
   
   updateAppointment(appointment: AppointmentFormDTO): void{
+    console.log(appointment);
     this.appointmentService.updateAppointment(appointment)
     .then((appointment) => {
       this.appointment = appointment;
@@ -105,6 +113,7 @@ export class AppointmentFormComponent implements OnInit{
   }
 
   createAppointment(appointment: AppointmentFormDTO): void{
+    console.log(appointment);
     this.appointmentService.createAppointment(appointment)
     .then(() => {
       this.dialogRef.close();

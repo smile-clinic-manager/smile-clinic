@@ -57,4 +57,14 @@ public class AppointmentService implements AppointmentServicePort {
         this.appointmentPersistancePort.deleteById(id);
     }
 
+    @Override
+    public Appointment update(Appointment appointment, Long id) throws AppointmentNotFoundException {
+        Optional<Appointment> existingAppointment = this.appointmentPersistancePort.findById(id);
+        if (existingAppointment.isEmpty()) {
+            throw new AppointmentNotFoundException("Appointment with id " + id + " not found");
+        }
+        appointment.setId(id);
+        return this.appointmentPersistancePort.save(appointment);
+    }
+
 }

@@ -20,6 +20,6 @@ public class AppointmentDTO {
     private double duration;
     private String visitPurpose;
     private LocalDateTime dateTime;
-    private DentistData user;
+    private DentistDataDTO user;
     private PatientDTO patient;
 }

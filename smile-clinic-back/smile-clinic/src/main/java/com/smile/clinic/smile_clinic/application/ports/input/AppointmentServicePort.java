@@ -13,4 +13,6 @@ public interface AppointmentServicePort {
     List<Appointment> findByPatientId(Long patientId);
     Appointment save(Appointment appointment);
     void delete(Long id);
+
+    Appointment update(Appointment appointment, Long id) throws AppointmentNotFoundException;
 }
