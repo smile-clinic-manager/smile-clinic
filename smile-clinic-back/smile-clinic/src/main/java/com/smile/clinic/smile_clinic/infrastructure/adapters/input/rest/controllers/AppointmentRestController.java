@@ -87,24 +87,40 @@ public class AppointmentRestController {
 
     @PostMapping("/createAppointment")
     public ResponseEntity<Object> createAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
+        AppointmentDTO appointmentDTO = toAppointmentDTO(appointmentFormDTO);
         try{
-            AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(
-                    appointmentServicePort.save(mapper.toAppointmentFromForm(appointmentFormDTO)));
+            appointmentServicePort.save(mapper.toAppointment(appointmentDTO));
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            log.error("Error creating appointment: {}", e.getMessage());
+            log.info("{} {} {} {} {} {}",
+                    appointmentDTO.getId(),
+                    appointmentDTO.getDuration(),
+                    appointmentDTO.getVisitPurpose(),
+                    appointmentDTO.getDateTime(),
+                    appointmentDTO.getUser().getId(),
+                    appointmentDTO.getPatient().getId());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PutMapping("/updateAppointment")
     public ResponseEntity<Object> updateAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
+        AppointmentDTO appointmentDTO = toAppointmentDTO(appointmentFormDTO);
         try{
-            AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(
-                    appointmentServicePort.update(mapper.toAppointmentFromForm(appointmentFormDTO), appointmentFormDTO.getId()));
+            appointmentServicePort.update(mapper.toAppointment(appointmentDTO), appointmentFormDTO.getId());
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            log.error("Error updating appointment: {}", e.getMessage());
+            log.info("{} {} {} {} {} {}",
+                    appointmentDTO.getId(),
+                    appointmentDTO.getDuration(),
+                    appointmentDTO.getVisitPurpose(),
+                    appointmentDTO.getDateTime(),
+                    appointmentDTO.getUser().getId(),
+                    appointmentDTO.getPatient().getId());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -122,18 +138,30 @@ public class AppointmentRestController {
 
     private AppointmentDTO toAppointmentDTO(AppointmentFormDTO appointmentFormDTO) {
 
+        log.info("AppointmentFormDTO: {} {} {} {} {} {}",
+                appointmentFormDTO.getId(),
+                appointmentFormDTO.getDuration(),
+                appointmentFormDTO.getVisitPurpose(),
+                appointmentFormDTO.getDate(),
+                appointmentFormDTO.getTime(),
+                appointmentFormDTO.getUserId(),
+                appointmentFormDTO.getPatientId());
+
         DentistDataDTO dentistDataDTO = toDentistDataDTO(
                 userPersistanceMapper.toUser(userEntityRepository.findById(appointmentFormDTO.getUserId())
                         .orElseThrow(() -> new RuntimeException("User not found"))));
         PatientDTO patientDTO = patientRestController.findById(appointmentFormDTO.getPatientId()).getBody();
 
-        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        if(appointmentFormDTO.getTime().contains(".")) {
+            int index = appointmentFormDTO.getTime().indexOf('.');
+            appointmentFormDTO.setTime(appointmentFormDTO.getTime().substring(0, index));
+        }
 
-        LocalTime localTime = LocalTime.parse(appointmentFormDTO.getTime(), timeFormatter);
-        LocalDateTime appointmentDateTime = LocalDateTime.parse(appointmentFormDTO.getDate() + " " + localTime.toString(),
-                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        LocalDateTime appointmentDateTime = LocalDateTime.of(
+                LocalDate.parse(appointmentFormDTO.getDate(), DateTimeFormatter.ISO_DATE),
+                LocalTime.parse(appointmentFormDTO.getTime(), DateTimeFormatter.ISO_TIME));
 
-        return AppointmentDTO.builder()
+        AppointmentDTO appointmentDTO = AppointmentDTO.builder()
                 .id(appointmentFormDTO.getId())
                 .duration(appointmentFormDTO.getDuration())
                 .visitPurpose(appointmentFormDTO.getVisitPurpose())
@@ -141,6 +169,16 @@ public class AppointmentRestController {
                 .user(dentistDataDTO)
                 .patient(patientDTO)
                 .build();
+
+        log.info("AppointmentDTO: {} {} {} {} {} {}",
+                appointmentDTO.getId(),
+                appointmentDTO.getDuration(),
+                appointmentDTO.getVisitPurpose(),
+                appointmentDTO.getDateTime(),
+                appointmentDTO.getUser().getId(),
+                appointmentDTO.getPatient().getId());
+
+        return appointmentDTO;
     }
 
     private DentistDataDTO toDentistDataDTO(User user) {
