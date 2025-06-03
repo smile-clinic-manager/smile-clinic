@@ -67,7 +67,11 @@ export class AppointmentFormComponent implements OnInit{
       // TODO: HACER EL ESTADO DE LA CITA
       this.appointmentForm.get('date')?.setValue(this.appointment!.dateTime.split('T')[0]);
       const timeFormatted: Date = this.getTimeFormat(this.appointment!.dateTime.split('T')[1]);
+      console.log('timeFormatted');
+      console.log(timeFormatted);
       this.appointmentForm.get('time')?.setValue(timeFormatted);
+      console.log("FORM VALUE");
+      console.log(this.appointmentForm.get('time')?.value);
       this.appointmentForm.get('patient')?.setValue(this.appointment!.patient.id);
       this.appointmentForm.get('user')?.setValue(this.appointment!.user.id);
       this.appointmentForm.get('duration')?.setValue(this.appointment!.duration);
@@ -80,6 +84,9 @@ export class AppointmentFormComponent implements OnInit{
   updateForm(appointment: AppointmentDTO){
     this.appointmentForm.get('date')?.setValue(appointment.dateTime.split('T')[0]);
     const timeFormatted: Date = this.getTimeFormat(appointment.dateTime.split('T')[1]);
+    
+    console.log('timeFormatted');
+    console.log(timeFormatted);
     this.appointmentForm.get('time')?.setValue(timeFormatted);
     this.appointmentForm.get('patient')?.setValue(appointment.patient.id);
     this.appointmentForm.get('user')?.setValue(appointment.user.id);
@@ -105,15 +112,17 @@ export class AppointmentFormComponent implements OnInit{
   updateAppointment(appointment: AppointmentFormDTO): void{
     console.log(appointment);
     this.appointmentService.updateAppointment(appointment)
-    .then((appointment) => {
-      this.appointment = appointment;
-      this.updateForm(appointment);
-    })
-    .catch(()=> this.snackBarService.showErrorSnackBar('Error al actualizar la cita'));
-  }
+      .then((appointment) => {
+        this.dialogRef.close();
+      })
+      .catch((error)=> {
+        console.log('GHOALSLSS');
+        console.log(error);
+        console.log(appointment);
+        this.snackBarService.showErrorSnackBar('Error al actualizar la cita')});
+    }
 
   createAppointment(appointment: AppointmentFormDTO): void{
-    console.log(appointment);
     this.appointmentService.createAppointment(appointment)
     .then(() => {
       this.dialogRef.close();
@@ -153,10 +162,15 @@ export class AppointmentFormComponent implements OnInit{
 
     const formValue = this.appointmentForm.value;
 
+    console.log("TIME");
+    console.log(formValue.time);
+    const time = this.getTimeFormatted(formValue.time);
+    console.log(time);
+
     const appointment: AppointmentFormDTO = {
       id: this.appointment?.id ?? '', // or generate a new id if needed
       date: formValue.date ? new Date(formValue.date).toISOString().split('T')[0] : '',
-      time: formValue.time ? new Date(formValue.time).toISOString().split('T')[1] : '',
+      time: this.getTimeFormatted(formValue.time),
       duration: (formValue?.duration ?? 30).toString(),
       visitPurpose: formValue?.visitPurpose ?? '',
       patientId: formValue.patient!,
@@ -168,6 +182,15 @@ export class AppointmentFormComponent implements OnInit{
     }else {
       this.updateAppointment(appointment);
     }
+  }
+
+  private getTimeFormatted(time: Date | null| undefined ) {
+    return new Date(time!).toLocaleTimeString('en-GB', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
   }
 
   blockNonNumeric(event: KeyboardEvent): void{

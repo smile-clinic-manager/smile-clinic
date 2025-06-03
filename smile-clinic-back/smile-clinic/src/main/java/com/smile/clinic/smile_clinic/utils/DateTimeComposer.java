@@ -14,9 +14,7 @@ public class DateTimeComposer {
     public LocalDateTime composeDateTime(String date, String time) {
         LocalDate localDate = LocalDate.parse(date); // e.g., "2025-05-27"
 
-        // Parse time as OffsetTime and extract LocalTime (handles "Z" for UTC)
-        OffsetTime offsetTime = OffsetTime.parse(time);
-        LocalTime localTime = offsetTime.toLocalTime();
+        LocalTime localTime = LocalTime.parse(time);
 
         return LocalDateTime.of(localDate, localTime);
     }

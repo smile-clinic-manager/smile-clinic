@@ -1,14 +1,22 @@
 package com.smile.clinic.smile_clinic.application.services;
 
 import com.smile.clinic.smile_clinic.application.ports.input.AppointmentServicePort;
+import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.AppointmentPersistancePort;
+import com.smile.clinic.smile_clinic.application.ports.output.PatientPersistancePort;
+import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePort;
 import com.smile.clinic.smile_clinic.domain.exceptions.AppointmentNotFoundException;
 import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
+import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
+import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AppointmentFormDTO;
+import com.smile.clinic.smile_clinic.utils.DateTimeComposer;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,6 +27,9 @@ import java.util.Optional;
 public class AppointmentService implements AppointmentServicePort {
 
     private final AppointmentPersistancePort appointmentPersistancePort;
+    private final UserPersistancePort userPersistancePort;
+    private final PatientPersistancePort patientPersistancePort;
+    private final DateTimeComposer dateTimeComposer;
 
     @Override
     public List<Appointment> findAll() {
@@ -58,13 +69,26 @@ public class AppointmentService implements AppointmentServicePort {
     }
 
     @Override
-    public Appointment update(Appointment appointment, Long id) throws AppointmentNotFoundException {
-        Optional<Appointment> existingAppointment = this.appointmentPersistancePort.findById(id);
+    public Appointment update(AppointmentFormDTO appointmentFormDTO) throws AppointmentNotFoundException {
+        Optional<Appointment> existingAppointment = this.appointmentPersistancePort.findById(appointmentFormDTO.getId());
         if (existingAppointment.isEmpty()) {
-            throw new AppointmentNotFoundException("Appointment with id " + id + " not found");
+            throw new AppointmentNotFoundException("Appointment with id " + appointmentFormDTO.getId() + " not found");
         }
-        appointment.setId(id);
-        return this.appointmentPersistancePort.save(appointment);
+        Appointment appointmentToSave = existingAppointment.get();
+
+        appointmentToSave.setDuration(appointmentFormDTO.getDuration());
+        appointmentToSave.setVisitPurpose(appointmentFormDTO.getVisitPurpose());
+        // Update dateTime
+        LocalDateTime dateTime = this.dateTimeComposer.composeDateTime(appointmentFormDTO.getDate(), appointmentFormDTO.getTime());
+        appointmentToSave.setDateTime(dateTime);
+
+        User user = this.userPersistancePort.findById(appointmentFormDTO.getUserId()).orElseThrow();
+        Patient patient = this.patientPersistancePort.findById(appointmentFormDTO.getPatientId()).orElseThrow();
+
+        appointmentToSave.setUser(user);
+        appointmentToSave.setPatient(patient);
+
+        return this.appointmentPersistancePort.save(appointmentToSave);
     }
 
 }

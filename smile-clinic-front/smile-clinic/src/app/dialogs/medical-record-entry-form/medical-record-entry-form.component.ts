@@ -164,7 +164,7 @@ export class MedicalRecordEntryFormComponent implements OnInit {
 
     const form: MedicalRecordEntryFormDTO = {
       date: dateValue ? new Date(dateValue).toISOString().split('T')[0] : '', //Cogemos solo la fecha
-      time: timeValue ? new Date(timeValue).toISOString().split('T')[1] : '', //Cogemos solo la hora
+      time: this.getTimeFormatted(timeValue), //Cogemos solo la hora
       treatmentId: this.medicalRecordEntryForm.get('treatment')?.value!,
       userId: this.medicalRecordEntryForm.get('user')?.value!,
       observations: this.medicalRecordEntryForm.get('observations')?.value!,
@@ -210,4 +210,13 @@ export class MedicalRecordEntryFormComponent implements OnInit {
     return this.medicalRecordEntryForm.get('teeth')!.value?.includes(teeth.id) ?? false;
   }
  
+    private getTimeFormatted(time: Date | null| undefined ) {
+    return new Date(time!).toLocaleTimeString('en-GB', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  }
+
 }

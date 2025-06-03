@@ -3,6 +3,8 @@ package com.smile.clinic.smile_clinic.application.ports.input;
 import com.smile.clinic.smile_clinic.application.ports.output.AppointmentPersistancePort;
 import com.smile.clinic.smile_clinic.domain.exceptions.AppointmentNotFoundException;
 import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AppointmentFormDTO;
+
 import java.util.List;
 
 public interface AppointmentServicePort {
@@ -14,5 +16,5 @@ public interface AppointmentServicePort {
     Appointment save(Appointment appointment);
     void delete(Long id);
 
-    Appointment update(Appointment appointment, Long id) throws AppointmentNotFoundException;
+    Appointment update(AppointmentFormDTO appointmentFormDTO) throws AppointmentNotFoundException;
 }

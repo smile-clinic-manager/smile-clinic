@@ -87,7 +87,7 @@ public class AppointmentRestController {
 
     @PostMapping("/createAppointment")
     public ResponseEntity<Object> createAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
-        AppointmentDTO appointmentDTO = toAppointmentDTO(appointmentFormDTO);
+        AppointmentDTO appointmentDTO = mapper.toAppointmentDTOFromForm(appointmentFormDTO);
         try{
             appointmentServicePort.save(mapper.toAppointment(appointmentDTO));
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
@@ -107,20 +107,13 @@ public class AppointmentRestController {
 
     @PutMapping("/updateAppointment")
     public ResponseEntity<Object> updateAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
-        AppointmentDTO appointmentDTO = toAppointmentDTO(appointmentFormDTO);
+        AppointmentDTO appointmentDTO = mapper.toAppointmentDTOFromForm(appointmentFormDTO);
         try{
-            appointmentServicePort.update(mapper.toAppointment(appointmentDTO), appointmentFormDTO.getId());
+            appointmentServicePort.update(appointmentFormDTO);
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             log.error("Error updating appointment: {}", e.getMessage());
-            log.info("{} {} {} {} {} {}",
-                    appointmentDTO.getId(),
-                    appointmentDTO.getDuration(),
-                    appointmentDTO.getVisitPurpose(),
-                    appointmentDTO.getDateTime(),
-                    appointmentDTO.getUser().getId(),
-                    appointmentDTO.getPatient().getId());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -134,61 +127,6 @@ public class AppointmentRestController {
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
-    }
-
-    private AppointmentDTO toAppointmentDTO(AppointmentFormDTO appointmentFormDTO) {
-
-        log.info("AppointmentFormDTO: {} {} {} {} {} {}",
-                appointmentFormDTO.getId(),
-                appointmentFormDTO.getDuration(),
-                appointmentFormDTO.getVisitPurpose(),
-                appointmentFormDTO.getDate(),
-                appointmentFormDTO.getTime(),
-                appointmentFormDTO.getUserId(),
-                appointmentFormDTO.getPatientId());
-
-        DentistDataDTO dentistDataDTO = toDentistDataDTO(
-                userPersistanceMapper.toUser(userEntityRepository.findById(appointmentFormDTO.getUserId())
-                        .orElseThrow(() -> new RuntimeException("User not found"))));
-        PatientDTO patientDTO = patientRestController.findById(appointmentFormDTO.getPatientId()).getBody();
-
-        if(appointmentFormDTO.getTime().contains(".")) {
-            int index = appointmentFormDTO.getTime().indexOf('.');
-            appointmentFormDTO.setTime(appointmentFormDTO.getTime().substring(0, index));
-        }
-
-        LocalDateTime appointmentDateTime = LocalDateTime.of(
-                LocalDate.parse(appointmentFormDTO.getDate(), DateTimeFormatter.ISO_DATE),
-                LocalTime.parse(appointmentFormDTO.getTime(), DateTimeFormatter.ISO_TIME));
-
-        AppointmentDTO appointmentDTO = AppointmentDTO.builder()
-                .id(appointmentFormDTO.getId())
-                .duration(appointmentFormDTO.getDuration())
-                .visitPurpose(appointmentFormDTO.getVisitPurpose())
-                .dateTime(appointmentDateTime)
-                .user(dentistDataDTO)
-                .patient(patientDTO)
-                .build();
-
-        log.info("AppointmentDTO: {} {} {} {} {} {}",
-                appointmentDTO.getId(),
-                appointmentDTO.getDuration(),
-                appointmentDTO.getVisitPurpose(),
-                appointmentDTO.getDateTime(),
-                appointmentDTO.getUser().getId(),
-                appointmentDTO.getPatient().getId());
-
-        return appointmentDTO;
-    }
-
-    private DentistDataDTO toDentistDataDTO(User user) {
-
-        return DentistDataDTO.builder()
-                .id(user.getId())
-                .firstName(user.getFirstName())
-                .lastName1(user.getLastName1())
-                .lastName2(user.getLastName2())
-                .build();
     }
 
 }
