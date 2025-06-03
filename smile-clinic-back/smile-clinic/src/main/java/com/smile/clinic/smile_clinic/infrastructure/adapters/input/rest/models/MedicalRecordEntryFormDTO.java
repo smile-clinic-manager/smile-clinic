@@ -21,5 +21,3 @@ public class MedicalRecordEntryFormDTO {
     private List<String> teethListId;
     private Long medicalRecordId;
 }
-
-
