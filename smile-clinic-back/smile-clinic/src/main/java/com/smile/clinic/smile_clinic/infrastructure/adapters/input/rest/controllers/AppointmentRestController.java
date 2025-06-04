@@ -3,6 +3,7 @@ package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.control
 import com.smile.clinic.smile_clinic.application.ports.input.AppointmentServicePort;
 import com.smile.clinic.smile_clinic.application.services.UserService;
 import com.smile.clinic.smile_clinic.domain.exceptions.AppointmentNotFoundException;
+import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
 import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
 import com.smile.clinic.smile_clinic.domain.models.users.DentistData;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
@@ -87,20 +88,12 @@ public class AppointmentRestController {
 
     @PostMapping("/createAppointment")
     public ResponseEntity<Object> createAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
-        AppointmentDTO appointmentDTO = mapper.toAppointmentDTOFromForm(appointmentFormDTO);
         try{
-            appointmentServicePort.save(mapper.toAppointment(appointmentDTO));
+            AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(appointmentServicePort.save(appointmentFormDTO));
             return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
         } catch (Exception e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             log.error("Error creating appointment: {}", e.getMessage());
-            log.info("{} {} {} {} {} {}",
-                    appointmentDTO.getId(),
-                    appointmentDTO.getDuration(),
-                    appointmentDTO.getVisitPurpose(),
-                    appointmentDTO.getDateTime(),
-                    appointmentDTO.getUser().getId(),
-                    appointmentDTO.getPatient().getId());
             return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

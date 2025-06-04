@@ -59,13 +59,20 @@ public class AppointmentService implements AppointmentServicePort {
     }
 
     @Override
-    public Appointment save(Appointment appointment) {
-        return this.appointmentPersistancePort.save(appointment);
-    }
+    public Appointment save(AppointmentFormDTO appointmentFormDTO) {
+        LocalDateTime dateTime = this.dateTimeComposer.composeDateTime(appointmentFormDTO.getDate(), appointmentFormDTO.getTime());
+        User user = this.userPersistancePort.findById(appointmentFormDTO.getUserId()).orElseThrow();
+        Patient patient = this.patientPersistancePort.findById(appointmentFormDTO.getPatientId()).orElseThrow();
 
-    @Override
-    public void delete(Long id) {
-        this.appointmentPersistancePort.deleteById(id);
+        Appointment appointmentToSave = Appointment.builder()
+                .dateTime(dateTime)
+                .user(user)
+                .patient(patient)
+                .duration(appointmentFormDTO.getDuration())
+                .visitPurpose(appointmentFormDTO.getVisitPurpose())
+                .build();
+
+        return this.appointmentPersistancePort.save(appointmentToSave);
     }
 
     @Override
@@ -89,6 +96,11 @@ public class AppointmentService implements AppointmentServicePort {
         appointmentToSave.setPatient(patient);
 
         return this.appointmentPersistancePort.save(appointmentToSave);
+    }
+
+    @Override
+    public void delete(Long id) {
+        this.appointmentPersistancePort.deleteById(id);
     }
 
 }

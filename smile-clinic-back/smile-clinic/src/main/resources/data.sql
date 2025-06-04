@@ -287,3 +287,5 @@ VALUES
     (5, 45, 'Consulta de endodoncia', '2023-10-05 14:00:00', 5, 27),
     (6, 60, 'Revisión dental', '2023-10-06 15:00:00', 6, 28),
     (7, 30, 'Consulta de caries', '2023-10-07 16:00:00', 7, 29);
+
+ALTER SEQUENCE appointment_seq RESTART WITH 8;

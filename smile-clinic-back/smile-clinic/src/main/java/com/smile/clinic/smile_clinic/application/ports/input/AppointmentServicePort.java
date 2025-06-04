@@ -13,7 +13,7 @@ public interface AppointmentServicePort {
     List<Appointment> findByClinicId(Long clinicId);
     List<Appointment> findByUserId(Long userId);
     List<Appointment> findByPatientId(Long patientId);
-    Appointment save(Appointment appointment);
+    Appointment save(AppointmentFormDTO appointmentFormDTO);
     void delete(Long id);
 
     Appointment update(AppointmentFormDTO appointmentFormDTO) throws AppointmentNotFoundException;
