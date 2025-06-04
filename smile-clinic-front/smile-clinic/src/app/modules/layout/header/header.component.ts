@@ -16,7 +16,7 @@ import { userData } from '../../../models/userData';
 
 @Component({
   selector: 'app-header',
-  imports: [MatToolbarModule, MatButtonModule, MatIcon, MatIconModule, MatMenuModule, MatDivider, MatFormFieldModule,
+  imports: [MatToolbarModule, MatButtonModule, MatIcon, MatIconModule, MatMenuModule, MatFormFieldModule,
     MatSelectModule, MatFormFieldModule, ReactiveFormsModule, FormsModule
   ],
   templateUrl: './header.component.html',
