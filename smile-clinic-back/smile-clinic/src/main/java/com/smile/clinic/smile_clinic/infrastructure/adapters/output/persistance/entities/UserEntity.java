@@ -58,10 +58,6 @@ public class UserEntity implements UserDetails {
     @NotBlank
     private String password;
 
-    //Citas
-    @OneToMany(mappedBy = "user")
-    private List<AppointmentEntity> appointments;
-
     //Relaciones con clínicas y su rol asociado
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserClinicRoleEntity> userClinicRoles;

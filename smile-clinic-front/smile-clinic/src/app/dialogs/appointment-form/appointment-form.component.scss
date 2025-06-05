@@ -1,0 +1,23 @@
+.container-dialog {
+    display: flex;
+    flex-direction: column;
+}
+
+.appointment-inputs-row{
+    display: flex;
+    gap: 5px;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.dropdown-select{
+    width: 50%;
+}
+.width-100{
+    width: 100%;
+    min-height: 150px;
+}
+.center{
+    justify-content: center;
+}

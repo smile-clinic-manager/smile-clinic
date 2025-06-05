@@ -38,11 +38,12 @@
           </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <a mat-list-item (click)="redirectToClinics()">
-          <span class="menu-text">Ver Calendario</span>
-        </a>
-        <a mat-list-item (click)="redirectToClinics()">
+        <a mat-list-item (click)="redirectToAppointments()">
           <span class="menu-text">Ver Citas</span>
+        </a>
+
+        <a mat-list-item matTooltip="Disponible próximamente">
+          <span class="menu-text">Ver Calendario</span>
         </a>
 
       </mat-expansion-panel>
@@ -58,6 +59,33 @@
         <a mat-list-item (click)="redirectToPatients()">
           <span class="menu-text">Mis pacientes</span>
         </a>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [disabled]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title matTooltip="Disponible próximamente">
+            <mat-icon class="disabled"> receipt_long </mat-icon>
+            <span class="menu-text">Facturación</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [disabled]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title matTooltip="Disponible próximamente">
+            <mat-icon class="disabled"> monitoring </mat-icon>
+            <span class="menu-text">Estadísticas</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+
+      <mat-expansion-panel [disabled]="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title matTooltip="Disponible próximamente">
+            <mat-icon class="disabled"> notifications </mat-icon>
+            <span class="menu-text">Notificaciones</span>
+          </mat-panel-title>
+        </mat-expansion-panel-header>
       </mat-expansion-panel>
 
     </mat-nav-list>

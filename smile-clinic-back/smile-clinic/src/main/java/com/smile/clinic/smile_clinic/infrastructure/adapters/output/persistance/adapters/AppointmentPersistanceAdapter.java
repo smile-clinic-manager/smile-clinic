@@ -30,6 +30,21 @@ public class AppointmentPersistanceAdapter implements AppointmentPersistancePort
     }
 
     @Override
+    public List<Appointment> findByClinicId(Long clinicId) {
+        return this.mapper.toAppointmentList(this.appointmentEntityRepository.findByClinicId(clinicId));
+    }
+
+    @Override
+    public List<Appointment> findByUserId(Long userId) {
+        return this.mapper.toAppointmentList(this.appointmentEntityRepository.findByUserId(userId));
+    }
+
+    @Override
+    public List<Appointment> findByPatientId(Long patientId) {
+        return this.mapper.toAppointmentList(this.appointmentEntityRepository.findByPatientId(patientId));
+    }
+
+    @Override
     public Appointment save(Appointment appointment) {
         return mapper.toAppointment(this.appointmentEntityRepository.save(mapper.toAppointmentEntity(appointment)));
     }

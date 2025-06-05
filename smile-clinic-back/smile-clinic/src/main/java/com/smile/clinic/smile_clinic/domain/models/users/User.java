@@ -22,7 +22,7 @@ public class User {
     private String email;
     private String password;
     // Relationships
-    private List<Appointment> appointments;
+
     private List<Clinic> clinics;
     private List<Role> roles;
 

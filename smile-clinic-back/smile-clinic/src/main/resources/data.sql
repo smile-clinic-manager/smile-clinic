@@ -277,3 +277,15 @@ INSERT INTO medical_record_entry_tooth (medical_record_entry_id, tooth_id) VALUE
 (8, 26), (8, 27),
 (9, 28), (9, 29),
 (10, 30), (10, 31), (10, 32);
+
+INSERT INTO appointments (id, duration, visit_purpose, date_time, user_id, patient_id)
+VALUES
+    (1, 30, 'Revisión dental', '2023-10-01 10:00:00', 1, 23),
+    (2, 45, 'Limpieza dental', '2023-10-02 11:00:00', 2, 24),
+    (3, 60, 'Consulta de ortodoncia', '2023-10-03 12:00:00', 3, 25),
+    (4, 30, 'Extracción dental', '2023-10-04 09:00:00', 4, 26),
+    (5, 45, 'Consulta de endodoncia', '2023-10-05 14:00:00', 5, 27),
+    (6, 60, 'Revisión dental', '2023-10-06 15:00:00', 6, 28),
+    (7, 30, 'Consulta de caries', '2023-10-07 16:00:00', 7, 29);
+
+ALTER SEQUENCE appointment_seq RESTART WITH 8;

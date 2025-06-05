@@ -69,6 +69,11 @@ mat-icon{
   padding-right: 5% !important;
 }
 
+mat-icon.disabled{
+  color: var(--mat-sys-on-surface-variant);
+  padding-right: 5% !important;
+}
+
 /* 
   Ocultar los iconos del menu lateral en pantallas pequeñas
 */
@@ -76,6 +81,7 @@ mat-icon{
 .menu-text{
   padding-left: 5%;
 }
+
 
 @media (max-width: 660px) {
   /* Hide text and show only icons */

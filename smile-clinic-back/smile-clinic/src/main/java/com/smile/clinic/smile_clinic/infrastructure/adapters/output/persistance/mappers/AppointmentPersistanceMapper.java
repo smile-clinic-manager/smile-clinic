@@ -8,9 +8,9 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface AppointmentPersistanceMapper {
-    AppointmentEntity toAppointmentEntity(Appointment clinic);
-    Appointment toAppointment(AppointmentEntity entity);
+    AppointmentEntity toAppointmentEntity(Appointment appointment);
+    Appointment toAppointment(AppointmentEntity appointment);
 
-    List<Appointment> toAppointmentList(List<AppointmentEntity> entities);
-    List<AppointmentEntity> toAppointmentEntityList(List<Appointment> clinics);
+    List<Appointment> toAppointmentList(List<AppointmentEntity> appointment);
+    List<AppointmentEntity> toAppointmentEntityList(List<Appointment> appointments);
 }

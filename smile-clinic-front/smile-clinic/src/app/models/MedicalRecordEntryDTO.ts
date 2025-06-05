@@ -1,4 +1,5 @@
-import { DentistMedicalRecordDTO } from "./DentistMedicalRecordDTO";
+
+import { DentistDataDTO } from "./DentistDataDTO";
 import { TreatmentInstanceDTO } from "./TreatmentInstanceDTO";
 import { userData } from "./userData";
 
@@ -7,5 +8,5 @@ export interface MedicalRecordEntryDTO{
     dateTime: string;
     observations: string;
     treatmentInstance: TreatmentInstanceDTO;
-    user: DentistMedicalRecordDTO;
+    user: DentistDataDTO;
 }

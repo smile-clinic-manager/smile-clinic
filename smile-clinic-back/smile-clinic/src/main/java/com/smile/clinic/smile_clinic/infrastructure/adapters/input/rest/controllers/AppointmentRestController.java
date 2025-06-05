@@ -1,27 +1,46 @@
 package com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.controllers;
 
 import com.smile.clinic.smile_clinic.application.ports.input.AppointmentServicePort;
+import com.smile.clinic.smile_clinic.application.services.UserService;
 import com.smile.clinic.smile_clinic.domain.exceptions.AppointmentNotFoundException;
+import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
+import com.smile.clinic.smile_clinic.domain.models.patients.Patient;
+import com.smile.clinic.smile_clinic.domain.models.users.DentistData;
+import com.smile.clinic.smile_clinic.domain.models.users.User;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.mappers.AppointmentRestMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AppointmentDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.AppointmentFormDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.DentistDataDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.ErrorResponseDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.patientsDTO.PatientDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.UserPersistanceMapper;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.UserEntityRepository;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Slf4j
 @RestController
 @RequestMapping("/appointments")
-@AllArgsConstructor
+@RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class AppointmentRestController {
 
     private final AppointmentServicePort appointmentServicePort;
     private final AppointmentRestMapper mapper;
+
+    private final UserEntityRepository userEntityRepository;
+    private final UserPersistanceMapper userPersistanceMapper;
+    private final PatientRestController patientRestController;
 
     @GetMapping("/findById")
     public ResponseEntity<Object> findAppointmentById(@RequestParam("id") Long id){
@@ -31,6 +50,75 @@ public class AppointmentRestController {
         } catch (AppointmentNotFoundException e){
             ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
             return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/findByClinicId")
+    public ResponseEntity<Object> findAppointmentByClinicId(@RequestParam("clinicId") Long clinicId){
+        try{
+            List<AppointmentDTO> appointment = mapper.toAppointmentDTOList(this.appointmentServicePort.findByClinicId(clinicId));
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/findByUserId")
+    public ResponseEntity<Object> findAppointmentByUserId(@RequestParam("userId") Long userId){
+        try{
+            List<AppointmentDTO> appointment = mapper.toAppointmentDTOList(this.appointmentServicePort.findByUserId(userId));
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/findByPatientId")
+    public ResponseEntity<Object> findAppointmentByPatientId(@RequestParam("patientId") Long patientId){
+        try{
+            List<AppointmentDTO> appointment = mapper.toAppointmentDTOList(this.appointmentServicePort.findByPatientId(patientId));
+            return new ResponseEntity<>(appointment, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("/createAppointment")
+    public ResponseEntity<Object> createAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
+        try{
+            AppointmentDTO appointmentDTO = mapper.toAppointmentDTO(appointmentServicePort.save(appointmentFormDTO));
+            return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            log.error("Error creating appointment: {}", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @PutMapping("/updateAppointment")
+    public ResponseEntity<Object> updateAppointment(@RequestBody AppointmentFormDTO appointmentFormDTO){
+        AppointmentDTO appointmentDTO = mapper.toAppointmentDTOFromForm(appointmentFormDTO);
+        try{
+            appointmentServicePort.update(appointmentFormDTO);
+            return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            log.error("Error updating appointment: {}", e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @DeleteMapping("/deleteAppointment")
+    public ResponseEntity<Object> deleteAppointment(@RequestParam("appointmentId") Long appointmentId){
+        try{
+            this.appointmentServicePort.delete(appointmentId);
+            return new ResponseEntity<>(appointmentId, HttpStatus.OK);
+        } catch (Exception e){
+            ErrorResponseDTO response = new ErrorResponseDTO(e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 

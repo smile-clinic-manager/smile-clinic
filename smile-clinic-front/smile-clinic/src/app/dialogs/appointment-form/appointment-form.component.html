@@ -1,0 +1,70 @@
+<h2 mat-dialog-title>{{isCreating ? 'Crear cita' : 'Editar cita'}}</h2>
+<div class="container-dialog">
+    <div class="patient-form" [formGroup]="appointmentForm">
+        <div class="appointment-inputs-row width-80">
+            <mat-form-field class="selects">
+                <mat-label>Fecha</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                @if(appointmentForm.get('date')?.invalid && (appointmentForm.get('date')?.touched || appointmentForm.get('date')?.dirty)){
+                    <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="selects">
+                <mat-label>Hora inicio</mat-label>
+                <input matInput [matTimepicker]="timePicker" formControlName="time">
+                <mat-timepicker-toggle matIconSuffix [for]="timePicker"/>
+                <mat-timepicker #timePicker/>
+                @if(appointmentForm.get('time')?.invalid && (appointmentForm.get('time')?.touched || appointmentForm.get('time')?.dirty)){
+                    <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="selects">
+                <mat-label> Duración (minutos) </mat-label>
+                <input matInput formControlName="duration" (keydown)="blockNonNumeric($event)"/>
+                @if(appointmentForm.get('duration')?.invalid && (appointmentForm.get('duration')?.touched || appointmentForm.get('duration')?.dirty)){
+                    <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+                }
+            </mat-form-field>
+        </div> 
+
+        <div class="appointment-inputs-row width-80">
+            <mat-form-field appearance="outline" class="selects dropdown-select">
+                <mat-label>Especialista</mat-label>
+                <mat-select formControlName="user">
+                @for (user of users; track user.id) {
+                    <mat-option [value]="user.id">{{ getCompleteName(user) }}</mat-option>
+                }
+                </mat-select>
+                @if(appointmentForm.get('user')?.invalid && (appointmentForm.get('user')?.touched || appointmentForm.get('user')?.dirty)){
+                    <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="selects dropdown-select">
+                <mat-label>Paciente</mat-label>
+                <mat-select formControlName="patient">
+                @for (patient of patients; track patient.id) {
+                    <mat-option [value]="patient.id">{{ getCompleteNamePatient(patient) }}</mat-option>
+                }
+                </mat-select>
+                @if(appointmentForm.get('patient')?.invalid && (appointmentForm.get('patient')?.touched || appointmentForm.get('patient')?.dirty)){
+                    <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+                }
+            </mat-form-field>
+        </div>
+        <div class="appointment-inputs-row">
+            <mat-form-field class="width-100">
+                <mat-label>Motivo de la cita</mat-label>
+                <textarea matInput placeholder="Ej. Revisión anual..." formControlName="visitPurpose"></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    
+    <mat-dialog-actions class="center">
+        <button mat-button mat-dialog-close>Cancelar</button>
+        <button mat-flat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendAppointmentForm()">Aceptar</button>
+    </mat-dialog-actions>
+</div>
