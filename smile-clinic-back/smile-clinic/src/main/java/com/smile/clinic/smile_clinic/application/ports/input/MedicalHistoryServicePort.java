@@ -11,8 +11,6 @@ public interface MedicalHistoryServicePort {
     MedicalHistory getMedicalHistoryByPatientId(Long patientId);
     MedicalHistory updateMedicalHistory(MedicalHistory medicalHistory);
 
-    MedicalHistory findMedicalHistoryById(Long medicalHistoryId);
-
     void bindRecordToMedicalHistory(Long medicalHistoryId, MedicalRecordEntry record);
 
     void insertToothRelationship(Long id, Long aLong);

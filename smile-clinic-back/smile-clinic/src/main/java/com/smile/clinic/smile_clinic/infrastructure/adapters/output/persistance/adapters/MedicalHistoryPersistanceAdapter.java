@@ -6,6 +6,8 @@ import com.smile.clinic.smile_clinic.domain.models.MedicalRecordEntry;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.MedicalHistoryDTO;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalHistoryEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalRecordEntryEntity;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalHistoryEntity;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.MedicalRecordEntryEntity;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.MedicalHistoryPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.MedicalRecordEntryPersistanceMapper;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.mappers.PatientPersistanceMapper;
@@ -27,8 +29,8 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
     private final MedicalRecordEntryPersistanceMapper medicalRecordEntryPersistanceMapper;
 
     @Override
-    public Optional<MedicalHistory> findById(Long medicalHistoryId) {
-        return this.medicalHistoryEntityRepository.findById(medicalHistoryId).map(medicalHistoryPersistanceMapper::toMedicalHistory);
+    public Optional<MedicalHistoryEntity> findById(Long medicalHistoryId) {
+        return this.medicalHistoryEntityRepository.findById(medicalHistoryId);
     }
 
     @Override
@@ -67,4 +69,14 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
         return this.medicalHistoryEntityRepository.findRelatedTeeth(medicalRecordId);
     }
 
+
+    @Override
+    public MedicalHistory save(MedicalHistoryEntity medicalHistory) {
+        return medicalHistoryPersistanceMapper.toMedicalHistory(this.medicalHistoryEntityRepository.save(medicalHistory));
+    }
+
+    @Override
+    public List<MedicalRecordEntryEntity> findMedicalRecordsByHistoryId(Long id) {
+        return this.medicalHistoryEntityRepository.findMedicalRecordsByHistoryId(id);
+    }
 }

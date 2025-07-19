@@ -11,4 +11,6 @@ public interface PatientPersistancePort {
     List<Patient> findByClinicId(Long clinicId);
     Patient save(Patient patient);
     void deleteById(Long id);
+
+    Patient create(Patient patient);
 }

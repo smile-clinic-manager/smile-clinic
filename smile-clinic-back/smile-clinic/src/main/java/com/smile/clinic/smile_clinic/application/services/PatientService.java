@@ -40,15 +40,14 @@ public class PatientService implements PatientServicePort {
     }
 
     @Override
-    public Patient save(Patient patient) {
-        return patientPersistancePort.save(patient);
+    public Patient create(Patient patient) {
+        return patientPersistancePort.create(patient);
     }
 
     @Override
     public Patient update(Long id, Patient patient) {
         MedicalHistory medicalHistory = this.medicalHistoryServicePort.updateMedicalHistory(patient.getMedicalHistory());
         patient.setMedicalHistory(medicalHistory);
-
         return updateSavedPatient(id, patient);
     }
 
@@ -61,7 +60,6 @@ public class PatientService implements PatientServicePort {
                     savedPatient.setDni(patient.getDni());
                     savedPatient.setEmail(patient.getEmail());
                     savedPatient.setPhoneNumber(patient.getPhoneNumber());
-                    savedPatient.setMedicalHistory(patient.getMedicalHistory());
                     return patientPersistancePort.save(savedPatient);
                 })
                 .orElseThrow(() -> new RuntimeException("Patient not found"));

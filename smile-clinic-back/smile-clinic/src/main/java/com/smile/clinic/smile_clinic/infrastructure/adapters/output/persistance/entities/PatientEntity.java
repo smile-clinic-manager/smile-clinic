@@ -43,7 +43,7 @@ public class PatientEntity {
     @JoinColumn(name = "clinic_id", nullable = false)
     private ClinicEntity clinic;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(name = "medical_history_id")
     private MedicalHistoryEntity medicalHistory;
 
