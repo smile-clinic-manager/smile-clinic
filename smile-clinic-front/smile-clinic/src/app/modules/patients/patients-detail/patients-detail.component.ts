@@ -86,7 +86,7 @@ export class PatientsDetailComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(patient => {
-      if(patient === undefined) return;
+      if(!patient) return;
 
       this.patientService.updatePatient(Number(this.patient?.id), patient)
         .then(patient => {

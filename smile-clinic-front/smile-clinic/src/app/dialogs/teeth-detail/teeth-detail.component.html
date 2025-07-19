@@ -1,46 +1,48 @@
-<div> 
-    <h1>Detalle diente</h1>
-    <div class="div-diente">
-        <img src="assets/icons/tooth.svg" alt="tooth" class="img-diente"/>
-        <div class="center-content">
-            <span> <b>Pieza:</b> {{teeth?.name}} </span>
-            <span> <b>Código:</b> {{teeth?.code}} </span>
+<div class="padding-container">
+    <div> 
+        <h1>Detalle diente</h1>
+        <div class="div-diente">
+            <img src="assets/icons/tooth.svg" alt="tooth" class="img-diente"/>
+            <div class="center-content">
+                <span> <b>Pieza:</b> {{teeth?.name}} </span>
+                <span> <b>Código:</b> {{teeth?.code}} </span>
+            </div>
         </div>
-    </div>
-</div> 
-<div class="div-visitas-asociadas">
-    <h4>Tratamientos asociados</h4>
-    @defer(when medicalRecords!==undefined){
-        <mat-accordion>
-            @if(medicalRecords!.length > 0){
-                @for(record of medicalRecords; track record.id){
-                    <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                            <mat-panel-title> {{getFecha(record.dateTime)}} </mat-panel-title>
-                        </mat-expansion-panel-header>
-                        <div>
-                            <p><b>Especialista:</b></p>
-                            <p>{{record.user.firstName}} {{record.user.lastName1}} {{record.user.lastName2}}</p>
-                        </div>
-                        <div>
-                            <p><b>Observaciones de la visita:</b></p>
-                            <p>{{record.observations}}</p>
-                        </div>
-                        <div>
-                            <p><b>Tratamiento aplicado:</b></p>
-                            <p>{{record.treatmentInstance.name}}</p>
-                            <p>{{record.treatmentInstance.price}} €</p>
-                            <p>{{record.treatmentInstance.notes}}</p>
-                        </div>
+    </div> 
+    <div class="div-visitas-asociadas">
+        <h4>Tratamientos asociados</h4>
+        @defer(when medicalRecords!==undefined){
+            <mat-accordion>
+                @if(medicalRecords!.length > 0){
+                    @for(record of medicalRecords; track record.id){
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title> {{getFecha(record.dateTime)}} </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <div>
+                                <p><b>Especialista:</b></p>
+                                <p>{{record.user.firstName}} {{record.user.lastName1}} {{record.user.lastName2}}</p>
+                            </div>
+                            <div>
+                                <p><b>Observaciones de la visita:</b></p>
+                                <p>{{record.observations}}</p>
+                            </div>
+                            <div>
+                                <p><b>Tratamiento aplicado:</b></p>
+                                <p>{{record.treatmentInstance.name}}</p>
+                                <p>{{record.treatmentInstance.price}} €</p>
+                                <p>{{record.treatmentInstance.notes}}</p>
+                            </div>
 
-                    </mat-expansion-panel>
+                        </mat-expansion-panel>
+                    }
+                }@else{
+                    <p class="center-content">No existen tratamientos asociados</p>
                 }
-            }@else{
-                <p class="center-content">No existen tratamientos asociados</p>
-            }
-        </mat-accordion>
-    }@placeholder {
-        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-    }
+            </mat-accordion>
+        }@placeholder {
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        }
+    </div>
 </div>
 

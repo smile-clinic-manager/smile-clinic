@@ -55,7 +55,7 @@ export class PatientListComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((patient: any)  => {
-      if(patient === undefined) return;
+      if(!patient) return;
       this.patientService.createPatient(patient).then(() => {
         this.snackBarService.showSuccessSnackBar('Patient created');
         this.findByActiveClinicId();

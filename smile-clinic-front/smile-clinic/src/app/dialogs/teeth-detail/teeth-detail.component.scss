@@ -9,6 +9,7 @@
 .center-content{
     display: flex;
     flex-direction: column;
+    margin-left: 2%;
 }
 
 span{
@@ -27,4 +28,8 @@ h4{
 
 .div-visitas-asociadas{
     margin-top: 3%;
+}
+
+.padding-container{
+    padding: 2%;
 }

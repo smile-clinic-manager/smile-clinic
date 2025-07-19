@@ -52,6 +52,8 @@ export class MedicalRecordEntryListComponent implements OnInit{
     this.medicalRecordEntriesService.getAllMedicalRecordsByMedicalHistory(this.medicalHistoryDTO!.id)
       .then((medicalRecords: MedicalRecordEntryDTO[]) => {
         this.dataSource.data = medicalRecords;
+        console.log(this.dataSource.data);
+        console.log(this.dataSource.data.length);
       })
       .catch(()=>this.snackbarService.showErrorSnackBar("Error al encontrar la visitas"));
   }

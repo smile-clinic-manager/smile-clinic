@@ -70,16 +70,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   ));
 }
 
-:root .snack-bar-error{
-  @include mat.snack-bar-overrides((
-    supporting-text-color: var(--mat-sys-error),
-  ));
-}
+:root {
+  .snack-bar-error {
+    color: black !important;
+    border-bottom: 6px solid red;
+  }
 
-:root .snack-bar-success{
-  @include mat.snack-bar-overrides((
-    supporting-text-color: var(--mat-sys-tertiary),
-  ));
+  .snack-bar-success {
+    color: black !important;
+    border-bottom: 6px solid green;
+  }
 }
 
 :root {
