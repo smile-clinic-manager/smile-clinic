@@ -64,14 +64,9 @@ export class AppointmentFormComponent implements OnInit{
   initializeForm() {
     if (this.data.appointment !== undefined) {
       this.appointment = this.data.appointment;
-      // TODO: HACER EL ESTADO DE LA CITA
       this.appointmentForm.get('date')?.setValue(this.appointment!.dateTime.split('T')[0]);
       const timeFormatted: Date = this.getTimeFormat(this.appointment!.dateTime.split('T')[1]);
-      console.log('timeFormatted');
-      console.log(timeFormatted);
       this.appointmentForm.get('time')?.setValue(timeFormatted);
-      console.log("FORM VALUE");
-      console.log(this.appointmentForm.get('time')?.value);
       this.appointmentForm.get('patient')?.setValue(this.appointment!.patient.id);
       this.appointmentForm.get('user')?.setValue(this.appointment!.user.id);
       this.appointmentForm.get('duration')?.setValue(this.appointment!.duration);
@@ -85,8 +80,6 @@ export class AppointmentFormComponent implements OnInit{
     this.appointmentForm.get('date')?.setValue(appointment.dateTime.split('T')[0]);
     const timeFormatted: Date = this.getTimeFormat(appointment.dateTime.split('T')[1]);
     
-    console.log('timeFormatted');
-    console.log(timeFormatted);
     this.appointmentForm.get('time')?.setValue(timeFormatted);
     this.appointmentForm.get('patient')?.setValue(appointment.patient.id);
     this.appointmentForm.get('user')?.setValue(appointment.user.id);
@@ -110,15 +103,11 @@ export class AppointmentFormComponent implements OnInit{
   }
   
   updateAppointment(appointment: AppointmentFormDTO): void{
-    console.log(appointment);
     this.appointmentService.updateAppointment(appointment)
       .then((appointment) => {
         this.dialogRef.close();
       })
       .catch((error)=> {
-        console.log('GHOALSLSS');
-        console.log(error);
-        console.log(appointment);
         this.snackBarService.showErrorSnackBar('Error al actualizar la cita')});
     }
 
@@ -148,7 +137,6 @@ export class AppointmentFormComponent implements OnInit{
 
   getTimeFormat(timeString: string): Date {
     const [hours, minutes, seconds] = timeString.split(':').map(Number);
-
     const dateWithTime = new Date();
     dateWithTime.setHours(hours, minutes, seconds || 0, 0);
     return dateWithTime;
@@ -161,15 +149,16 @@ export class AppointmentFormComponent implements OnInit{
     }
 
     const formValue = this.appointmentForm.value;
-
-    console.log("TIME");
-    console.log(formValue.time);
-    const time = this.getTimeFormatted(formValue.time);
-    console.log(time);
+    // Parse date
+    let appointmentDate = '';
+    if (formValue.date) {
+      const dateObj = new Date(formValue.date);
+      appointmentDate = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
+    }
 
     const appointment: AppointmentFormDTO = {
       id: this.appointment?.id ?? '', // or generate a new id if needed
-      date: formValue.date ? new Date(formValue.date).toISOString().split('T')[0] : '',
+      date: appointmentDate,
       time: this.getTimeFormatted(formValue.time),
       duration: (formValue?.duration ?? 30).toString(),
       visitPurpose: formValue?.visitPurpose ?? '',

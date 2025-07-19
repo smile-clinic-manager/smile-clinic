@@ -160,10 +160,17 @@ export class MedicalRecordEntryFormComponent implements OnInit {
 
   sendMedicalRecordEntryForm(): void {
     const dateValue = this.medicalRecordEntryForm.get('date')?.value;
+
+    // Parse date
+    let medicalRecordEntryDate = '';
+    if (dateValue) {
+      const dateObj = new Date(dateValue);
+      medicalRecordEntryDate = `${dateObj.getFullYear()}-${(dateObj.getMonth() + 1).toString().padStart(2, '0')}-${dateObj.getDate().toString().padStart(2, '0')}`;
+    }
     const timeValue = this.medicalRecordEntryForm.get('time')?.value;
 
     const form: MedicalRecordEntryFormDTO = {
-      date: dateValue ? new Date(dateValue).toISOString().split('T')[0] : '', //Cogemos solo la fecha
+      date: medicalRecordEntryDate, //Cogemos solo la fecha
       time: this.getTimeFormatted(timeValue), //Cogemos solo la hora
       treatmentId: this.medicalRecordEntryForm.get('treatment')?.value!,
       userId: this.medicalRecordEntryForm.get('user')?.value!,
