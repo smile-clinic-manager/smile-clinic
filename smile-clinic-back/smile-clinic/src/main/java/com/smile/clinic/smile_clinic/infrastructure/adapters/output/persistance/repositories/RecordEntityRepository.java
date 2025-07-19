@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,4 +18,5 @@ public interface RecordEntityRepository extends JpaRepository<MedicalRecordEntry
     @Modifying
     @Query(value = "DELETE FROM medical_record_entry_tooth where medical_record_entry_id = :medicalRecordEntryId ", nativeQuery = true)
     void clearToothRelationships(@Param("medicalRecordEntryId") Long medicalRecordEntryId);
+
 }

@@ -53,4 +53,9 @@ public class AppointmentPersistanceAdapter implements AppointmentPersistancePort
     public void deleteById(Long id) {
         this.appointmentEntityRepository.deleteById(id);
     }
+
+    @Override
+    public void deleteByPatientId(Long id) {
+        this.appointmentEntityRepository.deleteByPatientId(id);
+    }
 }

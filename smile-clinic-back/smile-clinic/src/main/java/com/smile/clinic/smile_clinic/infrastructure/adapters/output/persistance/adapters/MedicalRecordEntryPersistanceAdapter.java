@@ -71,6 +71,4 @@ public class MedicalRecordEntryPersistanceAdapter implements MedicalRecordEntryP
     public void clearToothRelationships(Long medicalRecordEntryId) {
         this.recordEntityRepository.clearToothRelationships(medicalRecordEntryId);
     }
-
-
 }

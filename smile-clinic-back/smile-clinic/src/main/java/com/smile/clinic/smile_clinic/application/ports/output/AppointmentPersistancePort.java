@@ -13,4 +13,6 @@ public interface AppointmentPersistancePort {
     List<Appointment> findByPatientId(Long patientId);
     Appointment save(Appointment appointment);
     void deleteById(Long id);
+
+    void deleteByPatientId(Long id);
 }

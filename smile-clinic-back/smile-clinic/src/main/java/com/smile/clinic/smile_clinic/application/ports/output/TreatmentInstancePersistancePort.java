@@ -15,4 +15,6 @@ public interface TreatmentInstancePersistancePort {
     void delete(TreatmentInstance treatmentInstance);
 
     Treatment findTreatmentToCopy(Long treatmentToCopyId);
+
+    void deleteMedicalRecordsByTreatmentInstanceId(Long id);
 }

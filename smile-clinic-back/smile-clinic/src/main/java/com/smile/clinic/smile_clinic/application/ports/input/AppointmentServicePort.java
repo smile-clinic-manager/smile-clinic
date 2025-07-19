@@ -17,4 +17,6 @@ public interface AppointmentServicePort {
     void delete(Long id);
 
     Appointment update(AppointmentFormDTO appointmentFormDTO) throws AppointmentNotFoundException;
+
+    void deleteByPatientId(Long id);
 }

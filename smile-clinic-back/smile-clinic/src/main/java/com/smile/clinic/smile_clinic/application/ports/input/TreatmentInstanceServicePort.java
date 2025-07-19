@@ -13,4 +13,6 @@ public interface TreatmentInstanceServicePort {
     TreatmentInstance save(TreatmentInstance treatmentInstance);
     TreatmentInstance update(Long id, TreatmentInstance treatmentInstance);
     void delete(TreatmentInstance treatmentInstance);
+
+    void deleteByPatientId(Long id);
 }

@@ -1,6 +1,9 @@
 package com.smile.clinic.smile_clinic.application.services;
 
+import com.smile.clinic.smile_clinic.application.ports.input.AppointmentServicePort;
+import com.smile.clinic.smile_clinic.application.ports.input.MedicalHistoryServicePort;
 import com.smile.clinic.smile_clinic.application.ports.input.PatientServicePort;
+import com.smile.clinic.smile_clinic.application.ports.input.TreatmentInstanceServicePort;
 import com.smile.clinic.smile_clinic.application.ports.output.MedicalHistoryPersistancePort;
 import com.smile.clinic.smile_clinic.application.ports.output.PatientPersistancePort;
 import com.smile.clinic.smile_clinic.domain.models.MedicalHistory;
@@ -15,9 +18,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PatientService implements PatientServicePort {
-
+    private final TreatmentInstanceServicePort treatmentInstanceServicePort;
+    private final AppointmentServicePort appointmentServicePort;
     private final PatientPersistancePort patientPersistancePort;
-    private final MedicalHistoryService medicalHistoryService;
+    private final MedicalHistoryServicePort medicalHistoryServicePort;
 
     @Override
     public List<Patient> findAll() {
@@ -42,7 +46,7 @@ public class PatientService implements PatientServicePort {
 
     @Override
     public Patient update(Long id, Patient patient) {
-        MedicalHistory medicalHistory = this.medicalHistoryService.updateMedicalHistory(patient.getMedicalHistory());
+        MedicalHistory medicalHistory = this.medicalHistoryServicePort.updateMedicalHistory(patient.getMedicalHistory());
         patient.setMedicalHistory(medicalHistory);
 
         return updateSavedPatient(id, patient);
@@ -65,6 +69,8 @@ public class PatientService implements PatientServicePort {
 
     @Override
     public void delete(Long id) {
+        treatmentInstanceServicePort.deleteByPatientId(id);
+        appointmentServicePort.deleteByPatientId(id); //Borramos los appointments asociados al paciente
         patientPersistancePort.deleteById(id);
     }
 }

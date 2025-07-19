@@ -99,6 +99,11 @@ public class AppointmentService implements AppointmentServicePort {
     }
 
     @Override
+    public void deleteByPatientId(Long id) {
+        this.appointmentPersistancePort.deleteByPatientId(id);
+    }
+
+    @Override
     public void delete(Long id) {
         this.appointmentPersistancePort.deleteById(id);
     }

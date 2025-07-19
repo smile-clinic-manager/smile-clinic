@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { PatientFormComponent } from '../patient-form/patient-form.component';
 import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
 import { MatDialog } from '@angular/material/dialog';
+import { LocalStorageService } from '../../../../services/local-storage.service';
 
 @Component({
   selector: 'app-patient-list',
@@ -19,14 +20,15 @@ export class PatientListComponent implements OnInit {
 
   displayedColumns: string[] = ["NOMBRE", "APELLIDOS", "ACCIONES"];
   dataSource: PatientDTO[] = [];
+  activeClinicName: string | undefined = undefined; 
   readonly dialog = inject(MatDialog);
 
-  constructor(private router: Router,
-    private patientService: PatientService,
-    private snackBarService: SnackbarServiceService) {}
+  constructor(private router: Router, private patientService: PatientService,
+    private snackBarService: SnackbarServiceService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
     this.findByActiveClinicId();
+    this.activeClinicName = this.localStorageService.getSelectedGlobalClinic()?.clinic;
   }
 
   findAll(): void {

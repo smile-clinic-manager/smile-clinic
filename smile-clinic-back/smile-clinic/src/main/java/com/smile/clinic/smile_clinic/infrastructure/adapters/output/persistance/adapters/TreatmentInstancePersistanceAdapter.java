@@ -55,4 +55,9 @@ public class TreatmentInstancePersistanceAdapter implements TreatmentInstancePer
         TreatmentEntity t = treatmentInstanceEntityRepository.findTreatmentToCopy(treatmentToCopyId);
         return treatmentPersistanceMapper.toTreatment(t);
     }
+
+    @Override
+    public void deleteMedicalRecordsByTreatmentInstanceId(Long id) {
+        this.treatmentInstanceEntityRepository.deleteMedicalRecordsByTreatmentInstanceId(id);
+    }
 }

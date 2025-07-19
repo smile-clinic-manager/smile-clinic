@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,4 +31,5 @@ public class TreatmentInstanceEntity {
     @ManyToOne
     @JoinColumn(name = "patient_id", nullable = true) // Foreign Key
     private PatientEntity patient;
+
 }
