@@ -4,6 +4,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { FooterComponent } from '../layout/footer/footer.component';
 
 @Component({
   selector: 'app-welcome',
