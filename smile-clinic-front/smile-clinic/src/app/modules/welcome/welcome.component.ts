@@ -9,7 +9,7 @@ import { FooterComponent } from '../layout/footer/footer.component';
 @Component({
   selector: 'app-welcome',
   imports: [
-    MatCardModule, MatButtonModule, MatToolbarModule, MatButtonModule, MatTooltipModule,
+    MatCardModule, MatButtonModule, MatToolbarModule, MatButtonModule, MatTooltipModule, FooterComponent
   ],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.scss'
