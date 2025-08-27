@@ -1,8 +1,9 @@
 <h1> Tus Clínicas </h1>
-
-<button mat-flat-button (click)="createClinic()" class="marginBottom">Crear clínica
-  <mat-icon>add</mat-icon>
-</button>
+@if(this.userRole?.name === 'CLINIC_ADMIN'){ <!-- Solo los admins pueden crear clinicas -->
+  <button mat-flat-button (click)="createClinic()" class="marginBottom">Crear clínica
+    <mat-icon>add</mat-icon>
+  </button>
+}
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
   <ng-container matColumnDef="NOMBRE">
     <th mat-header-cell *matHeaderCellDef> NOMBRE </th>

@@ -12,6 +12,8 @@ import { SnackbarServiceService } from "../../services/snackbar-service.service"
 import { TreatmentService } from "../../services/treatment.service";
 import { DeleteTreatmentComponent } from "../dialogs/delete-treatment/delete-treatment.component";
 import { TreatmentFormComponent } from "../dialogs/treatment-form/treatment-form.component";
+import { LocalStorageService } from "../../services/local-storage.service";
+import { RoleDTO } from "../models/RoleDTO";
 
 @Component({
   selector: 'app-treatment-list',
@@ -28,14 +30,26 @@ export class TreatmentListComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
 
   readonly dialog = inject(MatDialog);
+  userRole: RoleDTO | undefined = undefined;
   
 
   constructor(private api: ApiHttpService, private treatmentService: TreatmentService, 
-    private snackBarService: SnackbarServiceService) {}
+    private snackBarService: SnackbarServiceService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
+    this.getSelectedRole();
+    this.getDisplayedColumns();
     this.getTreatments();
   }
+
+  getSelectedRole(): void{
+    this.userRole = this.localStorageService.getSelectedGlobalRole() ?? undefined;
+  }
+
+  getDisplayedColumns(): void{
+    this.displayedColumns = this.userRole?.name === 'CLINIC_ADMIN' ? ["name", "notes", "price", "acciones"] : ["name", "notes", "price"];
+  }
+
 
   getTreatments(): void{
     this.treatmentService.getClinicTreatmentList(this.clinicId!).then((treatments: TreatmentDTO[])=>{

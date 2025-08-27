@@ -7,54 +7,58 @@ import { MatIcon } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { UserService } from '../../../../services/user.service';
 import { SnackbarServiceService } from '../../../../services/snackbar-service.service';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import {
-  MAT_DIALOG_DATA,
-  MatDialog,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent,
-  MatDialogRef,
-  MatDialogTitle,
-} from '@angular/material/dialog';
-import { AddUserClinicComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic/add-user-clinic.component';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddUserClinicStepperComponent } from '../../../dialogs/add-user-clinic-stepper/add-user-clinic-stepper.component';
 import { DeleteUserClinicComponent } from '../../../dialogs/delete-user-clinic/delete-user-clinic.component';
 import { EditUserClinicRolesComponent } from '../../../dialogs/edit-user-clinic-roles/edit-user-clinic-roles.component';
 import { UpdateUserClinicComponent } from '../../../dialogs/update-user-clinic/update-user-clinic.component';
-
-
+import { LocalStorageService } from '../../../../services/local-storage.service';
+import { userData } from '../../../models/userData';
+import { RoleDTO } from '../../../models/RoleDTO';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-clinic-personal',
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatIcon, MatPaginatorModule, MatSortModule, MatButtonModule,
-    MatChipsModule, MatTooltipModule],
+    MatChipsModule, MatTooltipModule, MatProgressSpinnerModule],
   templateUrl: './clinic-personal.component.html',
   styleUrl: './clinic-personal.component.scss'
 })
 export class ClinicPersonalComponent implements OnInit, AfterViewInit{
 
-  constructor(private userService: UserService, private snackBarService: SnackbarServiceService) {
+  constructor(private userService: UserService, private snackBarService: SnackbarServiceService, private localStorageService: LocalStorageService) {
   }
 
   @Input() clinicId: string | undefined = '';
-  displayedColumns: string[] = ['USUARIO', 'NOMBRE', 'ROLES', 'ACCIONES'];
+  displayedColumns: string[] = [];
   dataSource: MatTableDataSource<RegisteredUserDTO> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  userRole: RoleDTO | undefined = undefined;
 
   readonly dialog = inject(MatDialog);
 
   ngOnInit(): void {
+    this.getSelectedRole();
+    this.getDisplayedColumns();
     this.getUsersByClinicId();
   }
 
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+  }
+
+  getSelectedRole(): void{
+    this.userRole = this.localStorageService.getSelectedGlobalRole() ?? undefined;
+  }
+
+  getDisplayedColumns(): void{
+    this.displayedColumns = this.userRole?.name === 'CLINIC_ADMIN' ? ['USUARIO', 'NOMBRE', 'ROLES', 'ACCIONES'] : ['USUARIO', 'NOMBRE', 'ROLES'];
   }
 
   getUsersByClinicId(): void {

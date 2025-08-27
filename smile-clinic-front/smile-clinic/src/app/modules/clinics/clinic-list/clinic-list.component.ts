@@ -10,6 +10,8 @@ import { SnackbarServiceService } from '../../../../services/snackbar-service.se
 import { LocalStorageService } from '../../../../services/local-storage.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
+import { userData } from '../../../models/userData';
+import { RoleDTO } from '../../../models/RoleDTO';
 
 @Component({
   selector: 'app-clinic-list',
@@ -21,8 +23,9 @@ export class ClinicListComponent implements OnInit {
 
   displayedColumns: string[] = ["NOMBRE", "C. POSTAL", "DIRECCIÓN", "Nº CONTACTO", "EMAIL", "ACCIONES"];
   dataSource: ClinicDTO[] = [];
-  user: any; //TEMPORALMENTE
+  user: userData | undefined = undefined; //TEMPORALMENTE
   readonly dialog = inject(MatDialog);
+  userRole: RoleDTO | undefined = undefined;
 
   constructor(private router: Router, 
     private clinicService: ClinicService, private snackBarService: SnackbarServiceService,
@@ -30,6 +33,7 @@ export class ClinicListComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.localStorageService.getUserData();
+    this.getSelectedRole();
     this.findAll();
   }
 
@@ -43,6 +47,10 @@ export class ClinicListComponent implements OnInit {
 
   viewClinic(id : string){
     if(id!==null || id === undefined) this.router.navigate(['clinic-detail', id]);
+  }
+
+  getSelectedRole(): void{
+    this.userRole = this.localStorageService.getSelectedGlobalRole() ?? undefined;
   }
 
   createClinic(): void {

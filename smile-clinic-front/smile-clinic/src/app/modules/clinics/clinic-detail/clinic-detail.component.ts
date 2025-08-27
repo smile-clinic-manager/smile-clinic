@@ -19,6 +19,8 @@ import { ClinicFormComponent } from '../clinic-form/clinic-form.component';
 import { MatDialog } from '@angular/material/dialog';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { TreatmentListComponent } from '../../../treatment-list/treatment-list.component';
+import { LocalStorageService } from '../../../../services/local-storage.service';
+import { RoleDTO } from '../../../models/RoleDTO';
 
 
 @Component({
@@ -34,13 +36,18 @@ export class ClinicDetailComponent implements OnInit {
   idParam: string = "";
   treatment: TreatmentDTO | undefined = undefined;
   readonly dialog = inject(MatDialog);
+  userRole: RoleDTO | undefined = undefined;
 
-  constructor(private route: ActivatedRoute,
-    private clinicService: ClinicService) {}
+  constructor(private route: ActivatedRoute, private clinicService: ClinicService, private localStorageService: LocalStorageService) {}
 
   ngOnInit(): void {
+    this.getSelectedRole();
     this.extractId();
     this.findClinic();
+  }
+
+  getSelectedRole(): void{
+    this.userRole = this.localStorageService.getSelectedGlobalRole() ?? undefined;
   }
 
   findClinic(): void {

@@ -1,54 +1,62 @@
-<div class="filters-action">
-    <mat-form-field>
-        <mat-label>Filtro nombre</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Buscar usuario... " #input>
-    </mat-form-field>
+@defer (when this.userRole !== undefined) {
+    <div class="filters-action">
+        <mat-form-field>
+            <mat-label>Filtro nombre</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar usuario... " #input>
+        </mat-form-field>
+        @if(this.userRole?.name === 'CLINIC_ADMIN'){
+            <button mat-icon-button class="add-user" matTooltip="Añadir usuario" (click)="openDialogAddUser()">
+                <mat-icon> person_add </mat-icon>
+            </button>
+        }
+    </div>
 
-    <button mat-icon-button class="add-user" matTooltip="Añadir usuario" (click)="openDialogAddUser()">
-        <mat-icon> person_add </mat-icon>
-    </button>
-</div>
-
-<div class="table-wrapper">
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-        <ng-container matColumnDef="USUARIO">
-            <th mat-header-cell *matHeaderCellDef>USUARIO</th>
-            <td mat-cell *matCellDef="let element">{{element.username}}</td>
-        </ng-container>
-        <ng-container matColumnDef="NOMBRE">
-            <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
-            <td mat-cell *matCellDef="let element">{{ element.firstName + ' ' + element.lastName1 + ' ' + element.lastName2 }}</td>
-        </ng-container>
-        <ng-container matColumnDef="ROLES">
-            <th mat-header-cell *matHeaderCellDef>ROLES</th>
-            <td mat-cell *matCellDef="let element">
-                @for(role of element.roles; track role.id){
-                    @if(element.roles){
-                    <mat-chip>{{role.name}}</mat-chip>
-                    } @else {
-                        <mat-chip>noRole</mat-chip>
+    <div class="table-wrapper">
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+            <ng-container matColumnDef="USUARIO">
+                <th mat-header-cell *matHeaderCellDef>USUARIO</th>
+                <td mat-cell *matCellDef="let element">{{element.username}}</td>
+            </ng-container>
+            <ng-container matColumnDef="NOMBRE">
+                <th mat-header-cell *matHeaderCellDef>NOMBRE</th>
+                <td mat-cell *matCellDef="let element">{{ element.firstName + ' ' + element.lastName1 + ' ' + element.lastName2 }}</td>
+            </ng-container>
+            <ng-container matColumnDef="ROLES">
+                <th mat-header-cell *matHeaderCellDef>ROLES</th>
+                <td mat-cell *matCellDef="let element">
+                    @for(role of element.roles; track role.id){
+                        @if(element.roles){
+                        <mat-chip>{{role.name}}</mat-chip>
+                        } @else {
+                            <mat-chip>noRole</mat-chip>
+                        }
                     }
-                }
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="ACCIONES">
-            <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
-            <td mat-cell *matCellDef="let element">
-                <button mat-icon-button >
-                    <mat-icon matTooltip="Editar permisos" (click)="openEditUserRoleDialog(element)">edit</mat-icon>
-                </button>
-
-                <button mat-icon-button>
-                    <mat-icon matToolTip="Eliminar usuario" (click)="openDeleteUserClinicDialog(element)">delete</mat-icon>
-                </button>
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]">
-    </mat-paginator>
-</div>
+                </td>
+            </ng-container>
+            @if(this.userRole?.name === 'CLINIC_ADMIN'){ <!-- Solo los administradores pueden modificar/eliminar los roles -->
+                <ng-container matColumnDef="ACCIONES">
+                    <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
+                    <td mat-cell *matCellDef="let element">
+                        
+                            <button mat-icon-button >
+                                <mat-icon matTooltip="Editar permisos" (click)="openEditUserRoleDialog(element)">edit</mat-icon>
+                            </button>
+                        
+                            <button mat-icon-button>
+                                <mat-icon matToolTip="Eliminar usuario" (click)="openDeleteUserClinicDialog(element)">delete</mat-icon>
+                            </button>
+                        
+                    </td>
+                </ng-container>
+            }
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]">
+        </mat-paginator>
+    </div>
+} @placeholder {
+    <mat-spinner></mat-spinner>
+}
 
   
