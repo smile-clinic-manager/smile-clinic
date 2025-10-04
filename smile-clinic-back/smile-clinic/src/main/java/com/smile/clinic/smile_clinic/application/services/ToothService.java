@@ -19,7 +19,7 @@ public class ToothService implements ToothServicePort {
 
     @Override
     public List<Tooth> findAllTeeth(Long medicalHistoryId) {
-        return this.toothServicePersistancePort.findAllTeeth();
+        return this.toothServicePersistancePort.findAllTeeth(medicalHistoryId);
     }
 
     @Override

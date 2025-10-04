@@ -18,7 +18,7 @@ public class ToothPersistanceAdapter implements ToothServicePersistancePort {
     private final ToothPersistanceMapper toothPersistanceMapper;
 
     @Override
-    public List<Tooth> findAllTeeth() {
+    public List<Tooth> findAllTeeth(Long medicalHistoryId) {
         List<ToothEntity> entities = this.toothEntityRepository.findAll();
         List<Tooth> teeth = this.toothPersistanceMapper.toToothList(entities);
         return teeth;
