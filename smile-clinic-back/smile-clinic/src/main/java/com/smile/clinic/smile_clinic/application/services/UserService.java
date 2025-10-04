@@ -1,15 +1,15 @@
 package com.smile.clinic.smile_clinic.application.services;
 
 import com.smile.clinic.smile_clinic.application.ports.input.UserServicePort;
-import com.smile.clinic.smile_clinic.application.ports.output.PasswordEncoderPort;
-import com.smile.clinic.smile_clinic.application.ports.output.RolePersistancePort;
-import com.smile.clinic.smile_clinic.application.ports.output.TokenProviderPort;
-import com.smile.clinic.smile_clinic.application.ports.output.UserPersistancePort;
+import com.smile.clinic.smile_clinic.application.ports.output.*;
 import com.smile.clinic.smile_clinic.domain.exceptions.InsecurePasswordException;
 import com.smile.clinic.smile_clinic.domain.exceptions.UsernameAlreadyExistsException;
+import com.smile.clinic.smile_clinic.domain.models.Clinic;
 import com.smile.clinic.smile_clinic.domain.models.users.Role;
 import com.smile.clinic.smile_clinic.domain.models.users.User;
+import com.smile.clinic.smile_clinic.domain.models.users.UserClinicRole;
 import com.smile.clinic.smile_clinic.infrastructure.adapters.input.rest.models.usersDTO.RegisteredUserDTO;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +29,9 @@ public class UserService implements UserServicePort {
     private final RolePersistancePort rolePersistancePort;
     private final PasswordEncoderPort passwordEncoderPort;
     private final TokenProviderPort tokenProviderPort;
+
+    private final ClinicPersistancePort clinicPersistancePort;
+    private final UserClinicRolePersistancePort userClincRolePersistancePort;
 
     private static final String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).{12,}$";
     private static final Pattern pattern = Pattern.compile(PASSWORD_REGEX);
@@ -79,8 +82,23 @@ public class UserService implements UserServicePort {
 
             User savedUser = userPersistancePort.save(userToRegister);
 
-            //TODO: ASIGNAR CLINICA Y ROLES POR DEFECTO
-            
+            Clinic defaultClinic = Clinic.builder()
+                    .name("Default clinic")
+                    .email("default@mail.com")
+                    .address("Lorem ipsum")
+                    .phoneNumber("123456789")
+                    .postalCode("12345")
+                    .treatments(new ArrayList<>())
+                    .invitations(new ArrayList<>())
+                    .build();
+
+            Clinic savedClinic = clinicPersistancePort.save(defaultClinic);
+
+            userClincRolePersistancePort.createUserClinicRole(savedUser.getId(), savedClinic.getId(), 1L);
+            UserClinicRoleEntity ucr = userClincRolePersistancePort.findUserClinicRoleByClinicIdUserId(savedClinic.getId(), savedUser.getId());
+
+            savedUser.setUserClinicRoles(new ArrayList<>(List.of(ucr)));
+
             String token = tokenProviderPort.generateToken(savedUser);
             String refreshToken = tokenProviderPort.generateRefreshToken(savedUser);
 
