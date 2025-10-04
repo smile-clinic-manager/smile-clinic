@@ -29,7 +29,6 @@ public class AppointmentEntity {
 
     private double duration;
 
-    @NotBlank
     private String visitPurpose;
 
     @NotNull

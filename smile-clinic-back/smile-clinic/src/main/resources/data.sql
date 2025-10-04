@@ -50,6 +50,7 @@ VALUES
     (5, 'Eve', 'White', NULL, 'eveWhite', '56789012E', 'eve.white@example.com', '$2a$10$Jt91UM/Ef/qq2ejFPuA4huNBc.fCXoVyjCKR1E9zNywn/n57FD6oG'),
     (6, 'Frank', 'Black', 'Scott', 'frankScott', '67890123F', 'frank.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu'),
     (7, 'PRUEBA', 'Black', 'Scott', 'pruebaScott', '67890123P', 'prueba.black@example.com', '$2a$10$83/nvpaXPyYocT/63nWhdOC9C20oSZY7UndfzruhTXDdAc39qDGHu');
+ALTER SEQUENCE user_seq RESTART WITH 8;
 
 -- Create testing clinics
 INSERT INTO clinics (clinic_id, name, address, phone_number, email, image, postal_code)
