@@ -24,7 +24,7 @@ public class MedicalRecordEntryEntity {
         @Id
         @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medical_record_seq")
         @SequenceGenerator(name = "medical_record_seq", sequenceName = "medical_record_seq", allocationSize = 1)
-        private int id;
+        private Long id;
 
         @NotNull
         private LocalDateTime dateTime;
