@@ -1,7 +1,5 @@
-import { ApiEndpointHelperService } from '../../../../services/api-endpoint-helper.service';
 import { Component, OnInit, inject } from "@angular/core";
 import { ClinicDTO } from '../../../models/ClinicDTO';
-import { ApiHttpService } from "../../../../services/api-http.service";
 import { FormsModule } from "@angular/forms";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";

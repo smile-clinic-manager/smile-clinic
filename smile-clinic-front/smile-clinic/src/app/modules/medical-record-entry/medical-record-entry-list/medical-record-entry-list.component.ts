@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MedicalHistoryDTO } from '../../../models/MedicalHistoryDTO';
 import { MedicalRecordEntriesService } from '../../../../services/medical-record-entries.service';
 import { MedicalRecordEntryDTO } from '../../../models/MedicalRecordEntryDTO';
@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 export class MedicalRecordEntryListComponent implements OnInit{
 
   @Input() medicalHistoryDTO: MedicalHistoryDTO | undefined = undefined;
+  @Output() treatmentCreated = new EventEmitter();
   dataSource: MatTableDataSource<MedicalRecordEntryDTO> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   readonly dialog = inject(MatDialog);
@@ -72,6 +73,7 @@ export class MedicalRecordEntryListComponent implements OnInit{
             panelClass: "wide-lateral-dialog"
           });
     dialogRef.afterClosed().subscribe(()=>{
+      this.treatmentCreated.emit(); // Llamamos al componente padre detalle paciente para que recargue el componente odontograma
       this.ngOnInit();
     });
   }

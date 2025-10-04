@@ -13,7 +13,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
   templateUrl: './teeth-detail.component.html',
   styleUrl: './teeth-detail.component.scss'
 })
-export class TeethDetailComponent implements OnInit{
+export class TeethDetailComponent implements OnInit {
   teeth: TeethDTO | undefined = undefined;
   medicalRecords: MedicalRecordEntryDTO[] | undefined = undefined;
   treatments: TreatmentInstanceDTO[] | undefined = undefined;

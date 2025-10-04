@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PatientService } from '../../../../services/patient.service';
 import { PatientDTO } from '../../../models/PatientDTO';
@@ -34,6 +34,7 @@ export class PatientsDetailComponent implements OnInit {
   medicalHistory: MedicalHistoryDTO | undefined = undefined;
   diseases: DiseaseDTO[] = [];
   readonly dialog = inject(MatDialog);
+  @ViewChild(OdontogramComponent) odontogramComponent?: OdontogramComponent;
 
   constructor(private route: ActivatedRoute, private patientService: PatientService, 
     private medicalHistoryService: MedicalHistoryService, private previousDiseasesService: PreviousDiseasesService,
@@ -102,6 +103,10 @@ export class PatientsDetailComponent implements OnInit {
     })
     .catch(error=> this.snackBarService.showErrorSnackBar("Error al eliminar el paciente"))
     .finally(() => this.router.navigate(['patients-list']));
+  }
+
+  reloadOdontogram(): void{
+    this.odontogramComponent?.getOdontogramData();
   }
 
 }

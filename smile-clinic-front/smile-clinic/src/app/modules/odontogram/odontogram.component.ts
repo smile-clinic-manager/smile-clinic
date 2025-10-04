@@ -3,7 +3,7 @@ import { TeethDTO } from '../../models/TeethDTO';
 import { OdontogramService } from '../../../services/odontogram.service';
 import { MedicalHistoryDTO } from '../../models/MedicalHistoryDTO';
 import { SnackbarServiceService } from '../../../services/snackbar-service.service';
-import { MatCard, MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { TeethDetailComponent } from '../../dialogs/teeth-detail/teeth-detail.component';
@@ -29,6 +29,8 @@ export class OdontogramComponent implements OnInit{
   async getOdontogramData(): Promise<void>{
     this.odontogramService.getAllTeeth(this.medicalHistoryDTO!.id)
       .then((teethList)=>{
+        this.teethList = [];
+        this.rows = []
         this.teethList = teethList;
       })
       .finally(() => this.buildOdontogramLayout())
@@ -50,13 +52,11 @@ export class OdontogramComponent implements OnInit{
     }
   }
 
+
   openTeethDetailDialog(teeth: TeethDTO): void{
     const dialogRef = this.dialog.open(TeethDetailComponent, {
       data:{ teeth: teeth},
       panelClass: 'lateral-dialog'
     });
-
-    //dialogRef.afterClosed().subscribe(()=> );
-
   }
 }
