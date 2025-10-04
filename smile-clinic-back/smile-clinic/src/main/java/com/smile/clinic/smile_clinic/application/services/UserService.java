@@ -78,6 +78,9 @@ public class UserService implements UserServicePort {
                     .build();
 
             User savedUser = userPersistancePort.save(userToRegister);
+
+            //TODO: ASIGNAR CLINICA Y ROLES POR DEFECTO
+            
             String token = tokenProviderPort.generateToken(savedUser);
             String refreshToken = tokenProviderPort.generateRefreshToken(savedUser);
 

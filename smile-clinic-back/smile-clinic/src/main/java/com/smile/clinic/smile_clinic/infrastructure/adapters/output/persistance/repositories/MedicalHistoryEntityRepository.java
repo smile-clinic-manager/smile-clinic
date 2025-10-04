@@ -26,7 +26,7 @@ public interface MedicalHistoryEntityRepository extends JpaRepository<MedicalHis
     @Query(value = "SELECT tooth_id FROM medical_record_entry_tooth where medical_record_entry_id = :medicalRecordId ", nativeQuery = true)
     List<Long> findRelatedTeeth(@Param("medicalRecordId")Long medicalRecordId);
 
-    @Query(value = "SELECT DISTINCT medical_record_entries.* FROM medical_record_entries " +
+    @Query(value = "SELECT DISTINCT medical_record_entries.id FROM medical_record_entries " +
             "WHERE medical_record_entries.medical_history_id = :medicalHistoryId ", nativeQuery = true)
-    List<MedicalRecordEntryEntity> findMedicalRecordsByHistoryId(@Param("medicalHistoryId") Long medicalHistoryId);
+    List<Long> findMedicalRecordsIdByHistoryId(@Param("medicalHistoryId") Long medicalHistoryId);
 }

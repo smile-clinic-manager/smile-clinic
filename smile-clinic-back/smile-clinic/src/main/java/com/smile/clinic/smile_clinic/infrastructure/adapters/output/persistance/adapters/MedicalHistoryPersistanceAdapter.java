@@ -77,6 +77,6 @@ public class MedicalHistoryPersistanceAdapter implements MedicalHistoryPersistan
 
     @Override
     public List<MedicalRecordEntryEntity> findMedicalRecordsByHistoryId(Long id) {
-        return this.medicalHistoryEntityRepository.findMedicalRecordsByHistoryId(id);
+        return null;
     }
 }
