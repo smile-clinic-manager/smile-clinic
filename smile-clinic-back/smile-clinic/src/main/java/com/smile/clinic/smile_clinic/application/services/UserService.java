@@ -73,7 +73,7 @@ public class UserService implements UserServicePort {
             User userToRegister = User.builder()
                     .username(user.getUsername())
                     .firstName(user.getFirstName())
-                    .lastName1(user.getLastName2())
+                    .lastName1(user.getLastName1())
                     .lastName2(user.getLastName2())
                     .dni(user.getDni())
                     .email(user.getEmail())
@@ -83,9 +83,9 @@ public class UserService implements UserServicePort {
             User savedUser = userPersistancePort.save(userToRegister);
 
             Clinic defaultClinic = Clinic.builder()
-                    .name("Default clinic")
-                    .email("default@mail.com")
-                    .address("Lorem ipsum")
+                    .name("Mi primera clínica")
+                    .email("ejemplo@clinica.com")
+                    .address("Dirección")
                     .phoneNumber("123456789")
                     .postalCode("12345")
                     .treatments(new ArrayList<>())

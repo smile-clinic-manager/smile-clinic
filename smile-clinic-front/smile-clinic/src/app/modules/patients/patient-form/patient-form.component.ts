@@ -109,7 +109,7 @@ export class PatientFormComponent implements OnInit {
     patient.email = this.patientForm.get('email')?.value ?? '';
     patient.phoneNumber = this.patientForm.get('phoneNumber')?.value ?? '';
     patient.medicalHistory.allergies = this.patientForm.get('allergies')?.value ?? '';
-    patient.medicalHistory.previousDiseases = this.patientForm.get('diseases')?.value!;
+    patient.medicalHistory.previousDiseases = this.patientForm.get('diseases')?.value ?? [];
     patient.clinic = this.clinic!;
 
     this.dialogRef.close(patient);
