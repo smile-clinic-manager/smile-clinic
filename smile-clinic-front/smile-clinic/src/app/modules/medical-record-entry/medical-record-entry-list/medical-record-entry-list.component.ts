@@ -24,7 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 export class MedicalRecordEntryListComponent implements OnInit{
 
   @Input() medicalHistoryDTO: MedicalHistoryDTO | undefined = undefined;
-  @Output() treatmentCreated = new EventEmitter();
+  @Output() treatmentsModified = new EventEmitter();
   dataSource: MatTableDataSource<MedicalRecordEntryDTO> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   readonly dialog = inject(MatDialog);
@@ -73,7 +73,7 @@ export class MedicalRecordEntryListComponent implements OnInit{
             panelClass: "wide-lateral-dialog"
           });
     dialogRef.afterClosed().subscribe(()=>{
-      this.treatmentCreated.emit(); // Llamamos al componente padre detalle paciente para que recargue el componente odontograma
+      this.treatmentsModified.emit(); // Llamamos al componente padre detalle paciente para que recargue el componente odontograma
       this.ngOnInit();
     });
   }
@@ -81,6 +81,7 @@ export class MedicalRecordEntryListComponent implements OnInit{
   deleteMedicalRecordEntry(medicalRecordEntry: MedicalRecordEntryDTO): void {
     this.medicalRecordEntriesService.deleteMedicalRecord(medicalRecordEntry.id)
       .then(() => {
+        this.treatmentsModified.emit();
         this.ngOnInit();
       })
       .catch(()=>this.snackbarService.showErrorSnackBar("Error al eliminar elemento"))

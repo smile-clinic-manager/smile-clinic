@@ -68,7 +68,7 @@
       <mat-icon> list_alt </mat-icon> Tratamientos del paciente
     </ng-template>
     @defer(when medicalHistory !== undefined){
-      <app-medical-record-entry-list [medicalHistoryDTO]="medicalHistory" (treatmentCreated)="reloadOdontogram()"></app-medical-record-entry-list>
+      <app-medical-record-entry-list [medicalHistoryDTO]="medicalHistory" (treatmentsModified)="reloadOdontogram()"></app-medical-record-entry-list>
     }
   </mat-tab>
   <mat-tab>
