@@ -17,8 +17,6 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200")
 public class InvitationController {
 
-    //TODO implement methods
-
     private final InvitationService invitationService;
     private final InvitationRestMapper invitationRestMapper;
 
@@ -42,8 +40,8 @@ public class InvitationController {
         return null;
     }
 
-    @GetMapping("/invitations/{id}")
-    public ResponseEntity<InvitationDTO> detailedInvitation(){
+    @GetMapping
+    public ResponseEntity<InvitationDTO> detailedInvitation(@RequestParam("id") Long id){
         return null;
     }
 

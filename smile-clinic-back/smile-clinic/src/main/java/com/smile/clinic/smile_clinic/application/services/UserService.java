@@ -33,8 +33,8 @@ public class UserService implements UserServicePort {
     private final ClinicPersistancePort clinicPersistancePort;
     private final UserClinicRolePersistancePort userClincRolePersistancePort;
 
-    private static final String PASSWORD_REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).{12,}$";
-    private static final Pattern pattern = Pattern.compile(PASSWORD_REGEX);
+    private static final String REGEX = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_]).{12,}$";
+    private static final Pattern pattern = Pattern.compile(REGEX);
 
     @Override
     public User findById(Long id) {
