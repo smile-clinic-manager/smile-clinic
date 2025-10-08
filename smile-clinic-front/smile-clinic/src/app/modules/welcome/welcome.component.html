@@ -1,0 +1,61 @@
+<mat-toolbar>
+  <h1> Smile Clinic </h1>
+  <span class='spacer'></span> <!-- espacio en medio -->
+  <div class='button-row'>
+    <button mat-flat-button aria-label="login button" (click)="redirectToLoginPage()">Iniciar sesión</button>
+    <button mat-flat-button class="button-secondary" aria-label="sign up button"
+      (click)="redirectToSignUpPage()">Registrarse</button>
+  </div>
+</mat-toolbar>
+
+<section class="hero">
+  <div class="hero-content">
+    <h2>El futuro de la odontología ya está a tu alcance</h2>
+    <p>Gestiona clínicas, controla citas y pacientes, y accede a herramientas potentes de contabilidad y análisis.</p>
+    <button mat-raised-button color="primary" (click)="redirectToSignUpPage()">Empieza gratis</button>
+    <img src="assets/smile_clinic_mascot.png" alt="tooth_mascot" class="mascot-img"/>
+  </div>
+</section>
+
+<section class="features">
+  <h2 class="section-title">¿Qué te ofrece Smile Clinic?</h2>
+  <div class="features-grid">
+    <mat-card class="feature-card">
+      <mat-card-title>Módulo de clínicas</mat-card-title>
+      <mat-card-content>
+        <p>Administra múltiples clínicas desde una interfaz centralizada y amigable.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="feature-card">
+      <mat-card-title>Módulo de citas</mat-card-title>
+      <mat-card-content>
+        <p>Organiza y visualiza todas tus citas en un calendario único y sincronizado.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="feature-card">
+      <mat-card-title>Módulo de historial clínico</mat-card-title>
+      <mat-card-content>
+        <p>Controla el historial médico completo de cada paciente, pieza por pieza, con un odontograma interactivo.</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="feature-card">
+      <mat-card-title>Módulo de contabilidad</mat-card-title>
+      <mat-card-content>
+        <p>Gestiona toda la contabilidad sin salir del entorno clínico.</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="tech-content">
+    <h2>La tecnología más puntera del mercado</h2>
+    <p>Desarrollado con herramientas de última generación, Smile Clinic proporciona una experiencia fluida, segura y eficiente para ti y tus pacientes.</p>
+    <button mat-stroked-button color="primary" (click)="redirectToSignUpPage()">Únete hoy</button>
+  </div>
+</section>
+
+<app-footer></app-footer>

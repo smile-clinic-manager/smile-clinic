@@ -1,0 +1,40 @@
+.clinic-avatar-image{
+    background-image: url('../../../assets/images/generic_clinic.png');
+    background-size: cover;
+    height: 100px;
+    position: relative;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-color: var(--mat-sys-body-large);
+}
+
+.top-left-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px; /* Add some margin if needed to prevent button from touching edges */
+}
+
+// Estilos para el display de los datos de la clínica
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 20px;
+    text-align: center;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; 
+    width: 100%;
+}
+
+.info-item {
+    display: inline-flex;
+    justify-content: left;
+}

@@ -1,12 +1,11 @@
 package com.smile.clinic.smile_clinic.domain.models.users;
 
-import com.smile.clinic.smile_clinic.domain.models.users.roles.Role;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import com.smile.clinic.smile_clinic.domain.models.Clinic;
+import com.smile.clinic.smile_clinic.domain.models.appointments.Appointment;
+import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.entities.UserClinicRoleEntity;
 import lombok.*;
-import org.hibernate.validator.constraints.Length;
+
+import java.util.List;
 
 @Builder
 @Getter
@@ -14,11 +13,19 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    private Long id;
     private String firstName;
     private String lastName1;
     private String lastName2;
     private String username;
     private String dni;
     private String email;
-    private Role role;
+    private String password;
+    // Relationships
+
+    private List<Clinic> clinics;
+    private List<Role> roles;
+
+    private List<UserClinicRoleEntity> userClinicRoles;
+
 }

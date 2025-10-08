@@ -1,0 +1,22 @@
+.top-left-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 8px; /* Add some margin if needed to prevent button from touching edges */
+}
+
+.inline-patient-data{
+    display: inline-flex;
+    align-items: center;
+}
+
+.patient-data-container{
+    display: flex;
+    flex-direction: row;
+}
+
+.patient-data-column{
+    display: flex;
+    flex-direction: column;
+    margin-left: 3%;
+}

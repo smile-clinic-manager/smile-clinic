@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>{{isCreating ? 'Crear registro de tratamiento' : 'Editar registro de tratamiento'}}</h2>
+<div class="container-dialog">
+  <div class="patient-form" [formGroup]="medicalRecordEntryForm">
+    <div class="selector-inputs width-80">
+      <mat-form-field class="selects">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date">
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          @if(medicalRecordEntryForm.get('date')?.invalid && (medicalRecordEntryForm.get('date')?.touched || medicalRecordEntryForm.get('date')?.dirty)){
+            <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+          }
+      </mat-form-field>
+      <mat-form-field class="selects">
+          <mat-label>Hora</mat-label>
+          <input matInput [matTimepicker]="timePicker" formControlName="time">
+          <mat-timepicker-toggle matIconSuffix [for]="timePicker"/>
+          <mat-timepicker #timePicker/>
+          @if(medicalRecordEntryForm.get('time')?.invalid && (medicalRecordEntryForm.get('time')?.touched || medicalRecordEntryForm.get('time')?.dirty)){
+            <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+          }
+      </mat-form-field>
+    </div> 
+
+    <div class="selector-inputs width-80">
+      <mat-form-field appearance="outline" class="selects">
+        <mat-label>Tratamiento</mat-label>
+        <mat-select formControlName="treatment">
+          @for (treatment of treatments; track treatment.id) {
+            <mat-option [value]="treatment.id">{{ treatment.name }}</mat-option>
+          }
+        </mat-select>
+        @if(medicalRecordEntryForm.get('treatment')?.invalid && (medicalRecordEntryForm.get('treatment')?.touched || medicalRecordEntryForm.get('treatment')?.dirty)){
+          <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="selects">
+        <mat-label>Especialista</mat-label>
+        <mat-select formControlName="user">
+          @for (user of users; track user.id) {
+            <mat-option [value]="user.id">{{ getCompleteName(user) }}</mat-option>
+          }
+        </mat-select>
+          @if(medicalRecordEntryForm.get('user')?.invalid && (medicalRecordEntryForm.get('user')?.touched || medicalRecordEntryForm.get('user')?.dirty)){
+            <mat-error> {{requiredFieldErrorMessage()}} </mat-error>
+          }
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="width-80">
+      <mat-label>Observaciones</mat-label>
+      <textarea matInput placeholder="Observaciones" formControlName="observations"></textarea>
+    </mat-form-field>
+
+    </div>
+    <!-- Selector de piezas dentales -->
+    <h4>Piezas afectadas por el tratamiento*</h4>
+    <div>
+    @for(row of rows; track row){
+        <div class="teeth-row">
+            @for(teeth of row; track teeth.id){
+                <div class="teeth-div">
+                    <mat-card class="teeth-card">
+                        <img src="assets/icons/tooth.svg" alt="tooth" />
+                        <mat-card-footer>
+                            {{teeth.code}}
+                        </mat-card-footer>
+                    </mat-card>
+                    <mat-checkbox (change)="toggleSelectTooth($event.checked, teeth)" [checked]="checkSelectedTeeth(teeth)"></mat-checkbox> 
+                </div>
+            }
+        </div>
+    }
+    </div>
+    
+    <mat-dialog-actions>
+    <button mat-button mat-dialog-close>Cancelar</button>
+    <button mat-flat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendMedicalRecordEntryForm()">Aceptar</button>
+    </mat-dialog-actions>
+</div>

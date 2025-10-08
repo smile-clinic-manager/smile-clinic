@@ -1,0 +1,58 @@
+<h2 mat-dialog-title>{{isCreating ? 'Crear paciente' : 'Editar paciente'}}</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="patient-form" [formGroup]="patientForm">
+    <mat-form-field class="patient-form-field">
+      <mat-label>Nombre</mat-label>
+      <input matInput placeholder="Nombre" formControlName="firstName">
+    </mat-form-field>
+    <mat-form-field class="patient-form-field">
+      <mat-label>Primer apellido</mat-label>
+      <input matInput placeholder="Primer apellido" formControlName="lastName1">
+    </mat-form-field>
+    <mat-form-field class="patient-form-field">
+      <mat-label>Segundo apellido</mat-label>
+      <input matInput placeholder="Segundo apellido" formControlName="lastName2">
+    </mat-form-field>
+    <mat-form-field class="patient-form-field">
+      <mat-label>DNI</mat-label>
+      <input matInput placeholder="DNI" formControlName="dni">
+    </mat-form-field>
+    <mat-form-field class="patient-form-field">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field class="patient-form-field">
+      <mat-label>Teléfono</mat-label>
+      <input matInput placeholder="Teléfono" formControlName="phoneNumber">
+    </mat-form-field>
+    <mat-form-field class="patient-form-field">
+      <mat-label>Alergias</mat-label>
+      <input matInput placeholder="Alergias" formControlName="allergies">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="diseases-select">
+      <mat-label>Patologías</mat-label>
+      <mat-select formControlName="diseases" multiple>
+        @for (disease of previousDiseases; track disease.id) {
+          <mat-option [value]="disease">{{ disease.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+    
+    <mat-chip-listbox aria-label="Patologías seleccionadas" style="margin-bottom: 2%">
+      @for (disease of getSelectedDiseases(); track disease.id) {
+        <mat-chip
+          [removable]="true"
+          (removed)="removeDisease(disease)">
+          {{ disease.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      }
+    </mat-chip-listbox>
+    
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-flat-button cdkFocusInitial [disabled]="!isValid()" (click)="sendPatientForm()">Aceptar</button>
+</mat-dialog-actions>

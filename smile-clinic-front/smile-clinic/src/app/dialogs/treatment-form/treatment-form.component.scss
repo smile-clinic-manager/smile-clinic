@@ -1,0 +1,33 @@
+.treatment-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header-form{
+    justify-content: center;
+    display: flex;
+}
+
+
+.right-align {
+    text-align: right;
+}
+
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+display: none;
+}
+
+input.right-align {
+-moz-appearance: textfield;
+}
+
+.form-field-width{
+    width: 50%;
+}
+
+.content-center{
+    justify-content: center;
+    align-items: center;
+}

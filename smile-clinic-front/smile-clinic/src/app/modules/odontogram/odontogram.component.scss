@@ -1,0 +1,42 @@
+.teeth-row {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 3rem;
+  gap: 8px;
+  margin-left: 2%;
+}
+
+.teeth-div{
+    width: 5.4%;
+    height: 4rem;
+}
+
+.teeth-code{
+    display: flex;
+    justify-content: center;
+}
+
+mat-card{
+    transition: background-color 0.2s ease;
+}
+
+mat-card span{
+    background-image: url('../../assets/images/odontogram/diente_generico.png');
+    background-size: cover;
+    height: 90%;
+}
+
+mat-card:hover{
+    background-color: #dce0de;
+    cursor: pointer;
+}
+
+mat-card-footer{
+    display: flex;
+    justify-content: center;
+}
+
+.margin-top{
+    margin-top: 2rem;
+}
+

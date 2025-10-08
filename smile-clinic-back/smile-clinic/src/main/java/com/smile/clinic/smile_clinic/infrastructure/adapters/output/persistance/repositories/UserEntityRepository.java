@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -15,4 +15,13 @@ public interface UserEntityRepository extends JpaRepository<UserEntity, Long> {
 
     @Query("SELECT u FROM UserEntity u WHERE u.dni = :dni")
     Optional<UserEntity> findUserByDNI(@Param("dni") String dni);
+
+    @Query(value = "SELECT DISTINCT users.* FROM users " +
+            "INNER JOIN user_clinic_role ucr ON ucr.user_id = users.id " +
+            "INNER JOIN clinics ON ucr.clinic_id = clinics.clinic_id " +
+            "WHERE clinics.clinic_id = :clinicId", nativeQuery = true)
+    List<UserEntity> findUsersByClinicId(@Param("clinicId") Long clinicId);
+
+    @Query(value = "SELECT * FROM users WHERE users.id = :userId", nativeQuery = true)
+    UserEntity findUserByUserId(@Param("userId") Long userId);
 }

@@ -1,0 +1,38 @@
+.div-signup {
+    justify-content: center;
+    margin: 2rem 2rem 2rem 2rem;
+    display: flex;
+    align-content: center;
+    min-width: 50%;
+}
+
+.signup-card {
+    display: flex;
+    flex-direction: column;      
+    justify-content: center; 
+    align-items: center; 
+    min-width: 50%;
+}
+
+.signup-form-field {
+    width: 80%;
+}
+
+mat-card-header {
+    padding: 5% 0px 5% 0px;
+}
+
+.center-footer {
+    display: flex;
+    flex-direction: column;      
+    justify-content: center;
+    margin-bottom: 2%;
+}
+
+a{
+    color: blue;
+    text-decoration: underline;
+}
+a:hover{
+    cursor: pointer;
+}

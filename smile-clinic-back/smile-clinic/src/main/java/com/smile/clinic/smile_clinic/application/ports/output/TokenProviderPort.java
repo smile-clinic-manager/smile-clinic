@@ -8,6 +8,8 @@ import javax.crypto.SecretKey;
 public interface TokenProviderPort {
     String generateToken(User user);
 
+    String generateRefreshToken(User user);
+
     SecretKey generateKey();
 
     Claims getAllTokenClaims(String token);

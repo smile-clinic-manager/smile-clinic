@@ -1,0 +1,45 @@
+<div class="container-dialog">
+
+    <div class="centered-elements">
+        <app-sys-info-container [message]="MENSAJE_INFO" class="user-info-span"></app-sys-info-container>
+    </div>
+
+    <div [formGroup]="userSearchForm" class="left-margin">
+        <mat-form-field class="long-input">
+            <mat-label>ID Usuario</mat-label>
+            <input matInput formControlName="idUser" />
+        </mat-form-field>
+        <button mat-flat-button (click)="findUser()">
+            Buscar
+        </button>
+    </div>
+    
+    @if(foundUser){ <!-- Mostramos el usuario si lo hemos podido recuperar de la db --> 
+        <div class="left-margin">
+            <mat-card>
+                <mat-card-header>
+                    <div class="header-container">
+                        <div class="header-content">
+                            <div mat-card-avatar class="header-img"></div>
+                            <div style="margin-bottom: 16px;">
+                                <mat-card-title> 
+                                    {{foundUser.firstName}} {{foundUser.lastName1}} {{foundUser.lastName2}} 
+                                </mat-card-title>
+                                <mat-card-subtitle>ID: {{foundUser.id}}</mat-card-subtitle>
+                            </div>
+                        </div>
+                        <mat-checkbox [checked]="userForm.get('user')!.value!==null" 
+                            (change)="selectUser($event.checked)" [disabled]="isUserAlreadyInClinic()">
+                        </mat-checkbox>
+                        @if(isUserAlreadyInClinic()){
+                            <mat-icon class="warning-color warning-separation icon-overflow-display" matTooltip="El usuario ya está asociado a la clínica">warning</mat-icon> 
+                        }
+                    </div>
+                </mat-card-header>                  
+            </mat-card>
+        </div>
+    } @else if (foundUser === null) { <!-- Si no hemos encontrado ninguno -->
+        <div class="centered-elements"> Ningún usuario encontrado con el id proporcionado </div>
+    }
+    
+</div>

@@ -1,0 +1,14 @@
+.welcome-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+img{
+    width: 50%;
+}
+
+h2{
+    color: var(--mat-sys-inverse-surface);
+}

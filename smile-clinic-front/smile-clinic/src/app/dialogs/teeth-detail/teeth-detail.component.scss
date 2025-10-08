@@ -1,0 +1,35 @@
+.img-diente{
+    width: 25%;
+}
+
+.div-diente{
+    display: flex;
+}
+
+.center-content{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2%;
+}
+
+span{
+    margin-bottom: 5%;
+}
+
+.mat-expansion-panel-header{
+    background: var(--mat-toolbar-container-background-color, var(--mat-sys-surface)) !important;
+    color: var(--mat-sys-background) !important;
+}
+
+h4{
+    justify-content: center;
+    display: flex;
+}
+
+.div-visitas-asociadas{
+    margin-top: 3%;
+}
+
+.padding-container{
+    padding: 2%;
+}

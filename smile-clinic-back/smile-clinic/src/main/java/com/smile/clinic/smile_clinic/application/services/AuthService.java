@@ -29,14 +29,17 @@ public class AuthService implements AuthServicePort {
     public AuthenticationResponse login(AuthenticationRequest authRequest) throws Exception {
         //Check if exists
         Optional<User> user = this.userPersistancePort.findUserByUsername(authRequest.getUsername());
-        if(user.isEmpty()) throw new Exception("No user found with username " + authRequest.getUsername());
+        if(user.isEmpty()) throw new Exception("El usuario o la contraseña son incorrectos.");
 
         //Authenticate user
         this.authenticationProviderPort.authenticate(authRequest);
-        AuthenticationResponse authenticationResponse = new AuthenticationResponse(this.tokenProviderPort.generateToken(user.get()));
-        return authenticationResponse;
+        String token = this.tokenProviderPort.generateToken(user.get());
+        String refreshToken = this.tokenProviderPort.generateRefreshToken(user.get());
+
+        return new AuthenticationResponse(token, refreshToken);
     }
 
+    @Override
     public Boolean validateToken(String token){
         try{
             Claims claims = this.tokenProviderPort.getAllTokenClaims(token); //If we can extract the data it is a valid token

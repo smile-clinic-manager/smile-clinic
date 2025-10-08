@@ -5,6 +5,8 @@ import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.
 import com.smile.clinic.smile_clinic.infrastructure.adapters.output.persistance.repositories.UserEntityRepository;
 import com.smile.clinic.smile_clinic.utils.JwtAdapter;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,21 +43,30 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        try {
+            // 2. Obtener el username, validar el token, su formato, la firma y la fecha de expiración.
+            String username = jwtAdapter.getAllTokenClaims(jwt).get("username", String.class);
 
-        // 2. Obtener el username, validar el token, su formato, la firma y la fecha de expiración.
-        String username = jwtAdapter.getAllTokenClaims(jwt).get("username", String.class);
+            // 3. Settear objeto autenticación dentro de security context holder
+            UserEntity user = userEntityRepository.findUserByUsername(username)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found. Username " + username));
 
-        // 3. Settear objeto autenticación dentro de security context holder
-        UserEntity user = userEntityRepository.findUserByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found. Username " + username));
+            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                    username, null, user.getAuthorities()
+            );
+            // Añadimos info del request a la autenticación del context
+            authToken.setDetails(new WebAuthenticationDetails(request));
 
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                username, null, user.getAuthorities()
-        );
-        // Añadimos info del request a la autenticación del context
-        authToken.setDetails(new WebAuthenticationDetails(request));
-
-        SecurityContextHolder.getContext().setAuthentication(authToken);
+            SecurityContextHolder.getContext().setAuthentication(authToken);
+        } catch (ExpiredJwtException e) {
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Token expired. Please log in again.");
+            return;
+        } catch (JwtException e) { // Manejar tokens inválidos (firma incorrecta, formato inválido...)
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid token.");
+            return;
+        }
 
         // 4. Ejecutar el registro de filtros
         filterChain.doFilter(request, response);

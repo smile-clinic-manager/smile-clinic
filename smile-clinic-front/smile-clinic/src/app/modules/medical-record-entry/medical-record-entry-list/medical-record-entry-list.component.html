@@ -1,0 +1,60 @@
+
+<div class="justify-end">
+  <button mat-flat-button class="new-treatment-btn" (click)="openMedicalRecordEntryFormDialog()">
+    <mat-icon>add</mat-icon> Añadir tratamiento
+  </button>
+</div>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="TRATAMIENTOS">
+    <th mat-header-cell *matHeaderCellDef> REGISTRO DE TRATAMIENTOS</th>
+      <td mat-cell *matCellDef="let element"> 
+          <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                {{ getFecha(element.dateTime) }}
+              </mat-expansion-panel-header>
+
+              <ng-template matExpansionPanelContent>
+                <div class="treatment-details-columns">
+                  <div style="width: 90%">
+                    <div>
+                        <p><b>Especialista:</b></p>
+                        <p>{{element.user.firstName}} {{element.user.lastName1}} {{element.user.lastName2}}</p>
+                    </div>
+                    <div>
+                        <p><b>Observaciones de la visita:</b></p>
+                        <p>{{element.observations}}</p>
+                    </div>
+                    <div>
+                        <p><b>Tratamiento aplicado:</b></p>
+                        <p>{{element.treatmentInstance.name}}</p>
+                        <p>{{element.treatmentInstance.price}} €</p>
+                        <p>{{element.treatmentInstance.notes}}</p>
+                    </div>
+                  </div>
+                  <div>
+                    <button mat-icon-button [matMenuTriggerFor]="recordMenu" class="top-left-button" aria-label="clinic menu">
+                      <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #recordMenu="matMenu">
+                      <button mat-menu-item aria-label="edit" (click)="openMedicalRecordEntryFormDialog(element)">
+                        <mat-icon>edit</mat-icon>
+                        Editar
+                      </button>
+                      <mat-divider></mat-divider>
+                      <button mat-menu-item aria-label="delete" (click)="deleteMedicalRecordEntry(element)">
+                        <mat-icon>delete</mat-icon>
+                        Eliminar
+                      </button>
+                    </mat-menu>
+                  </div>
+                </div>
+              </ng-template>
+          </mat-expansion-panel>
+      </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[5, 10, 20]">
+</mat-paginator>
